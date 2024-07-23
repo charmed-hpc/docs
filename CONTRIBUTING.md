@@ -202,9 +202,6 @@ upstream Charmed HPC documentation repository:
 8. [Open a Pull Request](https://help.github.com/articles/about-pull-requests/)
     with a clear title and description against the `main` branch.
 
-> By submitting your changes to Charmed HPC's documentation, you agree to license your
-> contributions under the terms of the [Creative Commons Attribution-Share Alike
-> International license, version 4.0](./LICENSE).
 
 ## Discussions
 
