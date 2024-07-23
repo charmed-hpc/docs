@@ -145,7 +145,7 @@ Charmed HPC's documentation:
    $ git remote add upstream git@github.com:charmed-hpc/docs.git
    ```
 
-2. If you cloned a the documentation a while ago, pull the latest changes from the
+2. If you cloned the documentation a while ago, pull the latest changes from the
 upstream Charmed HPC documentation repository:
 
    ```bash
