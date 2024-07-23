@@ -74,7 +74,7 @@ For a complete look at Charmed HPC's documentation labels, see the
 
 A bug is a *demonstrable problem* that is caused by errors in Charmed HPC's
 documentation. Good bug reports make Charmed HPC's documentation better, so
-thankyou for taking the time to report issues!
+thank you for taking the time to report issues!
 
 Guidelines for reporting bugs with Charmed HPC's documentation:
 
