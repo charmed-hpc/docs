@@ -5,7 +5,7 @@
   {% if meta %}
     {% if 'sequential_nav' in meta %}
       {% set sequential_nav = meta.sequential_nav %}
-    {% endif %}  
+    {% endif %}
   {% endif %}
   {# mod: Conditional wrappers to control page navigation buttons #}
   {% if sequential_nav != "none" -%}
@@ -91,24 +91,15 @@
     {% endif %}
   </div>
   <div class="right-details">
-
-    {# mod: replaced RTD icons with our links #}
-
-    {% if discourse %}
-    <div class="ask-discourse">
-      <a class="muted-link" href="{{ discourse }}">Ask a question on Discourse</a>
-    </div>
-    {% endif %}
-
-    {% if mattermost %}
-    <div class="ask-mattermost">
-      <a class="muted-link" href="{{ mattermost }}">Ask a question on Mattermost</a>
-    </div>
-    {% endif %}
-
     {% if matrix %}
     <div class="ask-matrix">
       <a class="muted-link" href="{{ matrix }}">Ask a question on Matrix</a>
+    </div>
+    {% endif %}
+
+    {% if github_discussions %}
+    <div class="ask-github">
+      <a class="muted-link" href="{{ github_qa }}">Ask a question on GitHub</a>
     </div>
     {% endif %}
 
@@ -116,12 +107,12 @@
 
     {% if github_issues %}
     <div class="issue-github">
-      <a class="muted-link" href="{{ github_url }}/issues/new?title=doc%3A+ADD+A+TITLE&body=DESCRIBE+THE+ISSUE%0A%0A---%0ADocument: {{ pagename }}{{ page_source_suffix }}">Open a GitHub issue for this page</a>
+      <a class="muted-link" href="{{ github_url }}/{{ github_repository }}/issues/new?title=%5BDocumentation%5D%3A%20+ADD+A+TITLE&body=*Please+describe+your+issue*%0A%0A---%0A*Document: {{ pagename }}{{ page_source_suffix }}*">Open a GitHub issue for this page</a>
     </div>
     {% endif %}
 
     <div class="edit-github">
-      <a class="muted-link" href="{{ github_url }}/edit/{{ github_version }}{{ github_folder }}{{ pagename }}{{ page_source_suffix }}">Edit this page on GitHub</a>
+      <a class="muted-link" href="{{ github_url }}/{{ github_repository }}/edit/{{ github_version }}{{ github_folder }}{{ pagename }}{{ page_source_suffix }}">Edit this page on GitHub</a>
     </div>
     {% endif %}
 
