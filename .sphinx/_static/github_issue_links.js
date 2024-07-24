@@ -14,7 +14,7 @@ window.onload = function() {
     link.href = (
         github_qa
         + "&title=%5BQuestion%5D%3A+ADD+YOUR+QUESTION+HERE"
-        + "&body=*Please describe your question or the issue you're facing with Charmed HPC*"
+        + "&body=*Please+describe+your+question+or+issue+with+Charmed+HPC*"
         + "%0A%0A%0A%0A%0A"
         + "---"
         + "%0A"
