@@ -99,7 +99,7 @@
 
     {% if github_discussions %}
     <div class="ask-github">
-      <a class="muted-link" href="{{ github_qa }}">Ask a question on GitHub</a>
+      <a class="muted-link" href="{{ github_qa }}&title=%5BQuestion%5D%3A+ADD+YOUR+QUESTION+HERE&body=*Please+describe+your+question+or+issue+with+Charmed+HPC*%0A%0A%0A%0A%0A---%0A*Redirected+from+document%3A+{{ pagename }}{{ page_source_suffix }}*">Ask a question on GitHub</a>
     </div>
     {% endif %}
 
@@ -107,7 +107,7 @@
 
     {% if github_issues %}
     <div class="issue-github">
-      <a class="muted-link" href="{{ github_url }}/{{ github_repository }}/issues/new?title=%5BDocumentation%5D%3A%20+ADD+A+TITLE&body=*Please+describe+your+issue*%0A%0A---%0A*Document: {{ pagename }}{{ page_source_suffix }}*">Open a GitHub issue for this page</a>
+      <a class="muted-link" href="{{ github_url }}/{{ github_repository }}/issues/new?title=%5BDocumentation%5D%3A%20+ADD+A+TITLE&body=*Please+describe+your+issue+with+the+documentation*%0A%0A---%0A*Document: {{ pagename }}{{ page_source_suffix }}*">Open a GitHub issue for this page</a>
     </div>
     {% endif %}
 
