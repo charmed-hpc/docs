@@ -40,22 +40,30 @@ html_context = {
 slug = ""
 redirects = {}
 linkcheck_ignore = [
-    'http://127.0.0.1:8000'
-    ]
+    "http://127.0.0.1:8000",
+    "https://matrix.to/#/#hpc:ubuntu.com",
+]
 custom_linkcheck_anchors_ignore_for_url = []
 custom_myst_extensions = []
 custom_extensions = [
-    'sphinx_tabs.tabs',
-    'canonical.youtube-links',
-    'canonical.related-links',
-    'canonical.custom-rst-roles',
-    'canonical.terminal-output',
-    'notfound.extension'
-    ]
-custom_required_modules = []
+    "sphinx_remove_toctrees",
+    "sphinx_tabs.tabs",
+    "sphinx.ext.intersphinx",
+    "canonical.youtube-links",
+    "canonical.related-links",
+    "canonical.config-options",
+    "canonical.custom-rst-roles",
+    "canonical.terminal-output",
+    "canonical.filtered-toc",
+    "notfound.extension",
+]
+custom_required_modules = [
+    "sphinx-remove-toctrees",
+]
 custom_excludes = [
-    'doc-cheat-sheet*',
-    ]
+    "CONTRIBUTING.md",
+    "README.md",
+]
 custom_html_css_files = []
 custom_html_js_files = []
 custom_tags = []
