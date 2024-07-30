@@ -32,7 +32,7 @@ html_context = {
     "github_qa": "https://github.com/orgs/charmed-hpc/discussions/new?category=q-a",
 
     # Footer configuration
-    "sequential_nav": "none",
+    "sequential_nav": "both",
     "display_contributors": True,
     "display_contributors_since": ""
 }
