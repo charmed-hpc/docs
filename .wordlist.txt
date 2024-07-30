@@ -17,7 +17,6 @@ Furo
 Git
 GitHub
 Grafana
-HPC
 IAM
 installable
 JSON
