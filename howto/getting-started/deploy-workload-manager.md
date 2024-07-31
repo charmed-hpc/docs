@@ -2,14 +2,14 @@
 relatedlinks: "[Get&#32;started&#32;with&#32;LXD](https://documentation.ubuntu.com/lxd/en/latest/tutorial/first_steps/), [Get&#32;started&#32;with&#32;Juju](https://juju.is/docs/juju/tutorial), [Slurm&#32;website](https://slurm.schedmd.com/overview.html)"
 ---
 
-# Deploy the workload manager
+# Deploy workload manager
 
-An HPC workload manager is the base component of your Charmed HPC cluster.
-All the applications and auxiliary services that can be deployed with Charmed HPC
-are integrated with the workload manager to compose the functionality of your cluster.
+This guide shows you how to deploy the workload manager of your Charmed HPC cluster.
 
-[Slurm](https://slurm.schedmd.com/overview.html) is currently the only
-supported workload manager implementation for Charmed HPC.
+```{note}
+[Slurm](https://slurm.schedmd.com/overview.html) is currently the only supported
+workload manager implementation for Charmed HPC.
+```
 
 ## Prerequisites
 
@@ -20,39 +20,35 @@ will at least need:
 - An initialised [LXD](https://canonical.com/lxd) instance.
 - A [Juju](https://juju.is) client.
 
-## Getting started
+## Initialise the machine cloud
 
-Now, before you can deploy the workload manager of your cluster, you need to:
-
-1. Initialise the machine cloud that will provide the instances that the workload
-   manager's services will run within.
-2. Create the model that will hold the workload manager's services.
-
-### Initialise the machine cloud
-
-To initialise the machine cloud that will provide the instances to your cluster,
+To initialise the machine cloud that will provide the virtual machines for your cluster,
 bootstrap a Juju controller on your LXD instance:
 
 ```shell
 juju bootstrap localhost charmed-hpc-controller
 ```
 
-It will take a few minutes to bootstrap the Juju controller. Once the controller
-has finished bootstrapping, move onto the next step for creating a model for the cluster.
+## Create a model for the cluster
 
-### Create a model for the cluster
-
-To create a Juju model for your cluster, use the following command:
+After initialising the machine cloud, create a model for your cluster:
 
 ```shell
 juju add-model charmed-hpc
 ```
 
-Now you're ready to deploy the workload manager for your Charmed HPC cluster!
+Now deploy the workload manager for your cluster!
 
-## Deploy Slurm
+## Deploy the workload manager
 
-Slurm can be deployed multiple ways using Juju.
+Slurm can be deployed in multiple ways using Juju.
+
+```{important}
+The instructions below pass `virt-type=virtual-machine` as a constraint to the Slurm charms
+to instruct LXD to provide a virtual machine rather than a system container. Slurm does not
+fully work within system containers unless some configuration modifications are applied to
+the default LXD profile.
+```
 
 ```````{tabs}
 
@@ -149,15 +145,3 @@ juju deploy ./bundle.yaml
 ``````
 
 ```````
-
-```{note}
-The instructions above pass `virt-type=virtual-machine` as a constraint to the Slurm charms
-to instruct LXD to provide a virtual machine rather than a system container. Slurm does not
-fully work within system containers unless some configuration modifications are applied to
-the default LXD profile.
-```
-
-Your deployment will become active after a few minutes. The Slurm operators
-will handle exchanging the necessary information such as compute node configuration,
-partition data, and munge keys, so you can sit back and enjoy your coffee while
-the operators handle the hard work ☕
