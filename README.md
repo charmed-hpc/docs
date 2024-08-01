@@ -1,8 +1,9 @@
 # Charmed HPC documentation
 
+[![Documentation Status](https://readthedocs.com/projects/canonical-charmed-hpc/badge/?version=latest)](https://canonical-charmed-hpc.readthedocs-hosted.com/en/latest/?badge=latest)
 [![Matrix](https://img.shields.io/matrix/ubuntu-hpc%3Amatrix.org?logo=matrix&label=ubuntu-hpc)](https://matrix.to/#/#hpc:ubuntu.com)
 
-Charmed HPC's documentation 📑
+Charmed HPC's documentation 📑🔍
 
 For more information on how to access or contribute to Charmed HPC's
 documentation, check out the [Getting Started](#-getting-started) and
@@ -31,11 +32,11 @@ Charmed HPC's documentation is a project of the
 [Ubuntu High-Performance Computing](https://ubuntu.com/community/governance/teams/hpc) community. Interested in contributing new documentation, improving existing pages, or reviewing tutorials and howtos? Great! Here's
 some links to help you get started:
 
+* [Ubuntu Code of Conduct](https://ubuntu.com/community/ethos/code-of-conduct)
 * [Contributing guidelines](./CONTRIBUTING.md)
-* [Diátaxis website](https://diataxis.fr)
-* [Markedly Structured Text (MyST) authoring guide](https://mystmd.org/guide/typography)
 * [Join the conversation on Matrix](https://matrix.to/#/#hpc:ubuntu.com)
-* [Ubuntu HPC Code of Conduct](https://ubuntu.com/community/ethos/code-of-conduct)
+* [Get the latest news on Discourse](https://discourse.ubuntu.com/c/hpc/151)
+* [Ask and answer questions on GitHub](https://github.com/orgs/charmed-hpc/discussions/categories/q-a)
 
 ## 📋 License
 
