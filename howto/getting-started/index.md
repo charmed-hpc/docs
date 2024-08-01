@@ -1,6 +1,6 @@
 # Getting started
 
-See the documentation in this section to get started with Charmed HPC.
+See the how-to guides in this section for how to get started with Charmed HPC.
 
 ## How to deploy Charmed HPC
 

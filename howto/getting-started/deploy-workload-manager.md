@@ -2,6 +2,7 @@
 relatedlinks: "[Get&#32;started&#32;with&#32;LXD](https://documentation.ubuntu.com/lxd/en/latest/tutorial/first_steps/), [Get&#32;started&#32;with&#32;Juju](https://juju.is/docs/juju/tutorial), [Slurm&#32;website](https://slurm.schedmd.com/overview.html)"
 ---
 
+(deploy-workload-manager)=
 # Deploy workload manager
 
 This guide shows you how to deploy the workload manager of your Charmed HPC cluster.
@@ -17,8 +18,8 @@ To successfully deploy the workload manager of your Charmed HPC cluster, you
 will at least need:
 
 - A machine running a [currently supported Ubuntu LTS version](https://ubuntu.com/about/release-cycle).
-- An initialised [LXD](https://canonical.com/lxd) instance.
-- A [Juju](https://juju.is) client.
+- [An initialised LXD instance.](https://documentation.ubuntu.com/lxd/en/latest/howto/initialize/)
+- The [Juju CLI client](https://juju.is/docs/juju/install-and-manage-the-client) installed on your machine.
 
 ## Initialise the machine cloud
 
