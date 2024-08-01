@@ -40,10 +40,16 @@ juju integrate slurmctld:cos-agent grafana-agent:cos-agent
 With the agent connected to the workload manager controller, make COS available
 to the model hosting the cluster's workload manager:
 
+```{important}
+For the instructions below to succeed, you must have deployed the
+[`offers` overlay](https://charmhub.io/topics/canonical-observability-stack/tutorials/install-microk8s#heading--deploy-the-cos-lite-bundle-with-overlays)
+as part of your COS cloud deployment.
+```
+
 ```shell
-juju consume mk8s:admin/cos.prometheus-receive-remote-write
-juju consume mk8s:admin/cos.loki-logging
-juju consume mk8s:admin/cos.grafana-dashboards
+juju consume microk8s:admin/cos.prometheus-receive-remote-write
+juju consume microk8s:admin/cos.loki-logging
+juju consume microk8s:admin/cos.grafana-dashboards
 ```
 
 ## Connect the workload manager to COS
