@@ -1,16 +1,27 @@
 (howtos)=
 # How-to guides
 
-These how-to guides cover key operations and common tasks in Charmed HPC.
+## Getting started
 
-## Get started
+These how-to guides will get you started with Charmed HPC by
+taking you through the deployment of your own Charmed HPC cluster.
 
-To get started with Charmed HPC, you must deploy it on a supported
-machine cloud.
+- {ref}`deploy-workload-manager`
+
+## Observability
+
+These how-to guides cover how to connect your Charmed HPC
+cluster to the [Canonical Observabilivity Stack](https://charmhub.io/topics/canonical-observability-stack)
+&mdash; also known as __COS__ &mdash; to observe cluster logs, metrics,
+and alerts.
+
+- {ref}`connect-workload-manager-to-cos`
 
 ```{toctree}
 :titlesonly:
-:maxdepth: 2
+:maxdepth: 1
+:hidden:
 
 getting-started/index
+observability/index
 ```
