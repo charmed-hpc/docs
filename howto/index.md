@@ -11,7 +11,7 @@ taking you through the deployment of your own Charmed HPC cluster.
 ## Observability
 
 These how-to guides cover how to connect your Charmed HPC
-cluster to the [Canonical Observabilivity Stack](https://charmhub.io/topics/canonical-observability-stack)
+cluster to the [Canonical Observability Stack](https://charmhub.io/topics/canonical-observability-stack)
 &mdash; also known as __COS__ &mdash; to observe cluster logs, metrics,
 and alerts.
 

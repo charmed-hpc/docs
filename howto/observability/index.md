@@ -1,7 +1,7 @@
 # Observability
 
 See the how-to guides in this section for how to connect your Charmed HPC
-cluster to the [Canonical Observabilivity Stack](https://charmhub.io/topics/canonical-observability-stack)
+cluster to the [Canonical Observability Stack](https://charmhub.io/topics/canonical-observability-stack)
 to observe the cluster's logs, metrics, and alerts.
 
 ```{toctree}
