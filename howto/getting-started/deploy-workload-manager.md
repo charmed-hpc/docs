@@ -3,9 +3,9 @@ relatedlinks: "[Get&#32;started&#32;with&#32;LXD](https://documentation.ubuntu.c
 ---
 
 (deploy-workload-manager)=
-# Deploy workload manager
+# How to deploy the workload manager
 
-This guide shows you how to deploy the workload manager of your Charmed HPC cluster.
+This how-to guide shows you how to deploy the workload manager of your Charmed HPC cluster.
 
 ```{note}
 [Slurm](https://slurm.schedmd.com/overview.html) is currently the only supported

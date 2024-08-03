@@ -3,7 +3,7 @@ relatedlinks: "[Get&#32;started&#32;with&#32;COS](https://charmhub.io/topics/can
 ---
 
 (connect-workload-manager-to-cos)=
-# Connect workload manager to COS
+# How to connect your cluster's workload manager to COS
 
 This how-to guide shows you how to connect your cluster's
 workload manager to the Canonical Observability Stack to observe
