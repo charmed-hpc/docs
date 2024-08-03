@@ -3,6 +3,12 @@
 🚀 Charmed HPC is a next generation, open source cloud computing stack for supercomputers and
 high-performance computing clusters ⚛️
 
+```{warning}
+Charmed HPC is currently in _pre-alpha_; some things might not work as expected.
+Interested in being an early adopter? Please report any issues you have with
+Charmed HPC on [Github](https://github.com/orgs/charmed-hpc/discussions/new?category=q-a&title=%5BISSUE%5D%3A+ADD+YOUR+ISSUE+HERE&body=*Please+describe+your+question+or+issue+with+Charmed+HPC*%0A%0A%0A%0A%0A---%0A*Redirected+from+document%3A+index.md*)!
+```
+
 ---
 
 ## In this documentation
@@ -20,7 +26,8 @@ your {ref}`first-steps`
 
 __Step-by-step guides__ covering key operations and common tasks
 
-🚧 Under construction 🚧
+- {ref}`howto-getstarted`
+- {ref}`howto-observability`
 
 ```
 
