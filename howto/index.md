@@ -12,10 +12,10 @@ taking you through the deployment of your own Charmed HPC cluster.
 
 These how-to guides cover how to connect your Charmed HPC
 cluster to the [Canonical Observability Stack](https://charmhub.io/topics/canonical-observability-stack)
-&mdash; also known as __COS__ &mdash; to observe cluster logs, metrics,
-and alerts.
+&mdash; also known as __COS__ &mdash; to monitor and observe your cluster.
 
 - {ref}`connect-workload-manager-to-cos`
+- {ref}`access-grafana`
 
 ```{toctree}
 :titlesonly:
