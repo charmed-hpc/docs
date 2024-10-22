@@ -104,18 +104,27 @@ applications:
   slurmctld:
     charm: slurmctld
     constraints: virt-type=virtual-machine
+    channel: latest/edge
+    num_units: 1
   slurmd:
     charm: slurmd
     constraints: virt-type=virtual-machine
+    channel: latest/edge
+    num_units: 1
   slurmdbd:
     charm: slurmdbd
     constraints: virt-type=virtual-machine
+    channel: latest/edge
+    num_units: 1
   slurmrestd:
     charm: slurmrestd
     constraints: virt-type=virtual-machine
+    channel: latest/edge
+    num_units: 1
   mysql:
     charm: mysql
     channel: 8.0/stable
+    num_units: 1
   slurmdbd-mysql-router:
     charm: mysql-router
     channel: dpe/beta
