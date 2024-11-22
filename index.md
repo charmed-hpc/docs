@@ -1,7 +1,7 @@
 # Charmed HPC
 
-🚀 Charmed HPC is a next generation, open source cloud computing stack for supercomputers and
-high-performance computing clusters ⚛️
+Charmed HPC is a next generation, open source cloud computing stack for supercomputers and
+high-performance computing clusters 
 
 ```{warning}
 Charmed HPC is currently in _pre-alpha_; some things might not work as expected.
