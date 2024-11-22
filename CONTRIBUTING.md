@@ -17,14 +17,16 @@ Matrix chat](https://matrix.to/#/#hpc:ubuntu.com).
 
 ### Table of Contents
 
-* [Using the issue tracker](#using-the-issue-tracker)
-* [Issues and Labels](#issues-and-labels)
-* [Bug Reports](#bug-reports)
-* [Enhancement Proposals](#enhancement-proposals)
-* [Pull Requests](#pull-requests)
-* [Discussions](#discussions)
-* [Documentation Guidelines](#documentation-guidelines)
-* [Licensing](#licensing)
+- [Contributing to Charmed HPC's documentation](#contributing-to-charmed-hpcs-documentation)
+    - [Table of Contents](#table-of-contents)
+  - [Using the issue tracker](#using-the-issue-tracker)
+  - [Issues and Labels](#issues-and-labels)
+  - [Bug Reports](#bug-reports)
+  - [Enhancement Proposals](#enhancement-proposals)
+  - [Pull Requests](#pull-requests)
+  - [Discussions](#discussions)
+  - [Documentation guidelines](#documentation-guidelines)
+  - [Licensing](#licensing)
 
 ## Using the issue tracker
 
@@ -35,7 +37,7 @@ and [submitted pull requests](#pull-requests), but please follow these guideline
 The [Discussions](#discussions) page is a better place to get help for personal support requests.
 
 * Please __do not__ derail or troll issues. Keep the discussion on track and have respect for the other
-users/contributors of the Slurm workload manager snap.
+users/contributors.
 
 * Please __do not__ post comments consisting solely of "+1", ":thumbsup:", or something similar.
 Use [GitHub's "reactions" feature](https://blog.github.com/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/)
@@ -44,7 +46,7 @@ instead.
   that violate this rule.
 
 * Please __do not__ repost or reopen issues that have been closed. Please either
-submit a new issue or browser through previous issues.
+submit a new issue or browse through previous issues.
   * The maintainers of Charmed HPC's documentation reserve the right to delete issues
   that violate this rule.
 
@@ -56,7 +58,7 @@ Charmed HPC's documentation use them:
 
 * `Type: Bug` - Issues within the Charmed HPC documentation that either produce errors, unexpected behavior, or cause users to encounter unintended errors.
 
-* `Status: Confirmed` - Issues marked `Type: Bug` that have be confirmed to be reproducible on a separate system.
+* `Status: Confirmed` - Issues marked `Type: Bug` that have been confirmed to be reproducible on a separate system.
 
 * `Type: Documentation` - Issues for revising or enhancing Charmed HPC's documentation.
 Can also be used for pull requests.
@@ -122,7 +124,7 @@ Good pull requests &mdash; spelling corrections, revisions, new sections &mdash;
 are a huge help. Pull requests should remain focused and not contain commits not
 related to what you are contributing.
 
-__Ask first__ before embarking on any __significant__ pull request such as add new sections,
+__Ask first__ before embarking on any __significant__ pull request such as adding new sections,
 changing the layout, or heavily revising existing sections; otherwise, you risk spending a
 lot of time working on something that Charmed HPC's maintainers may not want to merge into the
 documentation! For trivial changes, or contributions that do not require a large amount of time,
