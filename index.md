@@ -39,7 +39,7 @@ __Step-by-step guides__ covering key operations and common tasks
 
 __Discussion and clarification__ of key topics
 
-🚧 Under construction 🚧
+
 
 ```
 
@@ -48,7 +48,7 @@ __Discussion and clarification__ of key topics
 
 __Technical information__
 
-🚧 Under construction 🚧
+
 
 ```
 
