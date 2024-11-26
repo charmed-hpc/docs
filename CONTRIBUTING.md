@@ -17,16 +17,14 @@ Matrix chat](https://matrix.to/#/#hpc:ubuntu.com).
 
 ### Table of Contents
 
-- [Contributing to Charmed HPC's documentation](#contributing-to-charmed-hpcs-documentation)
-    - [Table of Contents](#table-of-contents)
-  - [Using the issue tracker](#using-the-issue-tracker)
-  - [Issues and Labels](#issues-and-labels)
-  - [Bug Reports](#bug-reports)
-  - [Enhancement Proposals](#enhancement-proposals)
-  - [Pull Requests](#pull-requests)
-  - [Discussions](#discussions)
-  - [Documentation guidelines](#documentation-guidelines)
-  - [Licensing](#licensing)
+- [Using the issue tracker](#using-the-issue-tracker)
+- [Issues and Labels](#issues-and-labels)
+- [Bug Reports](#bug-reports)
+- [Enhancement Proposals](#enhancement-proposals)
+- [Pull Requests](#pull-requests)
+- [Discussions](#discussions)
+- [Documentation guidelines](#documentation-guidelines)
+- [Licensing](#licensing)
 
 ## Using the issue tracker
 
