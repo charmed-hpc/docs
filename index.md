@@ -1,14 +1,18 @@
 # Charmed HPC
 
-Charmed HPC is a next generation, open source cloud computing stack for supercomputers and
-high-performance computing clusters 
+Charmed HPC is a versatile high-performance computing platform that enables users to run modern workloads in environments that have been automatically optimised for the best performance.
 
+Through orchestration and automation, Charmed HPC enables system administrators to automatically enable the necessary optimizations for hardware accelerators. Charmed HPC can also spin up ready-to-go, turnkey clusters in a wide variety of platforms to support write-one, run-anywhere user workloads.
+
+Charmed HPC enables organizational leaders to focus on obtaining key insights and making data-driven decisions by providing a platform that solves the complexity of deploying and operating a high-performance compute cluster. It provides the cluster life-cycle automation that enables operations teams to easily take full advantage of their HPC hardware, highly available storage, and high bandwidth networking while minimizing cluster downtime for routine maintenance.
+
+<!---
 ```{warning}
 Charmed HPC is currently in _pre-alpha_; some things might not work as expected.
 Interested in being an early adopter? Please report any issues you have with
 Charmed HPC on [GitHub](https://github.com/orgs/charmed-hpc/discussions/new?category=q-a&title=%5BISSUE%5D%3A+ADD+YOUR+ISSUE+HERE&body=*Please+describe+your+question+or+issue+with+Charmed+HPC*%0A%0A%0A%0A%0A---%0A*Redirected+from+document%3A+index.md*)!
 ```
-
+-->
 ---
 
 ## In this documentation
