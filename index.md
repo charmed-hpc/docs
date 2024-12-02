@@ -1,10 +1,18 @@
 # Charmed HPC
 
+Charmed HPC is a versatile high-performance computing platform that enables users to run modern HPC workloads in environments that have been optomized for the best performance.
+
+Through orchestration and automation, Charmed HPC can spin up ready-to-go, turnkey clusters. []
+
+Charmed HPC enables organizational leaders to focus on obtaining key insights and making data-driven decisions by providing a platform that solves the complexity of deploying [and operating] a high-performance compute cluster. It allows operations teams to take full advantage of their HPC hardware, available storage configurations, and high bandwidth networking while minimizing cluster downtime for routine maintenance.
+
+<!---
 Charmed HPC is a versatile high-performance computing platform that enables users to run modern workloads in environments that have been automatically optimised for the best performance.
 
 Through orchestration and automation, Charmed HPC enables system administrators to automatically enable the necessary optimizations for hardware accelerators. Charmed HPC can also spin up ready-to-go, turnkey clusters in a wide variety of platforms to support write-one, run-anywhere user workloads.
 
 Charmed HPC enables organizational leaders to focus on obtaining key insights and making data-driven decisions by providing a platform that solves the complexity of deploying and operating a high-performance compute cluster. It provides the cluster life-cycle automation that enables operations teams to easily take full advantage of their HPC hardware, highly available storage, and high bandwidth networking while minimizing cluster downtime for routine maintenance.
+-->
 
 <!---
 ```{warning}
@@ -65,7 +73,7 @@ __Technical information__
 Charmed HPC is a project of the [Ubuntu High-Performance Computing
 community](https://ubuntu.com/community/governance/teams/hpc).
 Interested in contributing bug fixes, patches, documentation, or feedback?
-Want to join the Ubuntu HPC community? You've come to the right place 🤩
+Want to join the Ubuntu HPC community? You've come to the right place!
 
 Here's some links to help you get started with joining the community:
 
