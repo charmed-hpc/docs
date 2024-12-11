@@ -2,7 +2,7 @@
 # How to access the Grafana dashboard
 
 This how-to guide shows you how to access the Grafana dashboard
-to explore and analyse metrics collected from your Charmed HPC cluster.
+to explore and analyze metrics collected from your Charmed HPC cluster.
 
 ## Prerequisites
 
