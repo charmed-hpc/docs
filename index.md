@@ -6,13 +6,6 @@ Charmed HPC spins up turnkey clusters on a variety of cloud platforms to support
 
 The platform enables organizations to focus on obtaining key insights and making data-driven decisions by providing an HPC platform that solves the complexity of deploying and operating an HPC cluster at scale. It is directly beneficial to operations teams and system administrators looking to take full advantage of their HPC hardware, available storage configurations, and high bandwidth networking while minimizing cluster downtime for routine maintenance.
 
-<!---
-```{warning}
-Charmed HPC is currently in _pre-alpha_; some things might not work as expected.
-Interested in being an early adopter? Please report any issues you have with
-Charmed HPC on [GitHub](https://github.com/orgs/charmed-hpc/discussions/new?category=q-a&title=%5BISSUE%5D%3A+ADD+YOUR+ISSUE+HERE&body=*Please+describe+your+question+or+issue+with+Charmed+HPC*%0A%0A%0A%0A%0A---%0A*Redirected+from+document%3A+index.md*)!
-```
--->
 ---
 
 ## In this documentation
