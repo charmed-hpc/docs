@@ -1,18 +1,10 @@
 # Charmed HPC
 
-Charmed HPC is a versatile high-performance computing platform that enables users to run modern HPC workloads in environments that have been optomized for the best performance.
+Charmed HPC is a versatile high-performance computing platform that facilitates the set up and maintenance of HPC clusters. This is done by autonomizing the deployment, integration, and lifecycle management of essential cluster software that enables users to run modern workloads at scale.
 
-Through orchestration and automation, Charmed HPC can spin up ready-to-go, turnkey clusters. []
+Charmed HPC spins up turnkey clusters on a variety of cloud platforms to support write-once, run-anywhere user workloads. It also provides the necessary integrations for GPUs, high bandwidth networking, and shared storage.  
 
-Charmed HPC enables organizational leaders to focus on obtaining key insights and making data-driven decisions by providing a platform that solves the complexity of deploying [and operating] a high-performance compute cluster. It allows operations teams to take full advantage of their HPC hardware, available storage configurations, and high bandwidth networking while minimizing cluster downtime for routine maintenance.
-
-<!---
-Charmed HPC is a versatile high-performance computing platform that enables users to run modern workloads in environments that have been automatically optimised for the best performance.
-
-Through orchestration and automation, Charmed HPC enables system administrators to automatically enable the necessary optimizations for hardware accelerators. Charmed HPC can also spin up ready-to-go, turnkey clusters in a wide variety of platforms to support write-one, run-anywhere user workloads.
-
-Charmed HPC enables organizational leaders to focus on obtaining key insights and making data-driven decisions by providing a platform that solves the complexity of deploying and operating a high-performance compute cluster. It provides the cluster life-cycle automation that enables operations teams to easily take full advantage of their HPC hardware, highly available storage, and high bandwidth networking while minimizing cluster downtime for routine maintenance.
--->
+The platform enables organizations to focus on obtaining key insights and making data-driven decisions by providing an HPC platform that solves the complexity of deploying and operating an HPC cluster at scale. It is directly beneficial to operations teams and system administrators looking to take full advantage of their HPC hardware, available storage configurations, and high bandwidth networking while minimizing cluster downtime for routine maintenance.
 
 <!---
 ```{warning}
