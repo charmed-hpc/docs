@@ -1,6 +1,6 @@
 # Charmed HPC
 
-Charmed HPC is a versatile high-performance computing platform that facilitates the set up and maintenance of HPC clusters. This is done by autonomizing the deployment, integration, and lifecycle management of essential cluster software that enables users to run modern workloads at scale.
+Charmed HPC is a versatile high-performance computing platform that facilitates the set up and maintenance of HPC clusters. This is done by autonomizing the deployment, integration, and life-cycle management of essential cluster software that enables users to run modern workloads at scale.
 
 Charmed HPC spins up turnkey clusters on a variety of cloud platforms to support write-once, run-anywhere user workloads. It also provides the necessary integrations for GPUs, high bandwidth networking, and shared storage.  
 
