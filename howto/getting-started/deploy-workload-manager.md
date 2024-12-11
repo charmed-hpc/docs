@@ -18,12 +18,12 @@ To successfully deploy the workload manager of your Charmed HPC cluster, you
 will at least need:
 
 - A machine running a [currently supported Ubuntu LTS version](https://ubuntu.com/about/release-cycle).
-- [An initialised LXD instance.](https://documentation.ubuntu.com/lxd/en/latest/howto/initialize/)
+- [An initialized LXD instance.](https://documentation.ubuntu.com/lxd/en/latest/howto/initialize/)
 - The [Juju CLI client](https://juju.is/docs/juju/install-and-manage-the-client) installed on your machine.
 
-## Initialise the machine cloud
+## Initialize the machine cloud
 
-To initialise the machine cloud that will provide the virtual machines for your cluster,
+To initialize the machine cloud that will provide the virtual machines for your cluster,
 bootstrap a Juju controller on your LXD instance:
 
 ```shell
@@ -32,7 +32,7 @@ juju bootstrap localhost charmed-hpc-controller
 
 ## Create a model for the cluster
 
-After initialising the machine cloud, create a model for your cluster:
+After initializing the machine cloud, create a model for your cluster:
 
 ```shell
 juju add-model charmed-hpc
@@ -94,7 +94,7 @@ juju deploy slurm
 ````{group-tab} bundle.yaml
 
 To deploy Slurm via a Juju bundle file, first open a file named _bundle.yaml_ in
-your favourite text editor, and enter the following YAML content:
+your favorite text editor, and enter the following YAML content:
 
 ```yaml
 description: Deploy a ready-to-go Slurm cluster.
