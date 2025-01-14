@@ -77,3 +77,5 @@ rst_prolog = """
 .. role:: center
    :class: align-center
 """
+
+linkcheck_anchors_ignore = ['heading--subordinate', 'heading--proxy']
