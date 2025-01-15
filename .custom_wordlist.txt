@@ -20,3 +20,8 @@ autonomizing
 Terraform
 terraform
 Traefik
+GRES
+PCIe
+Nvidia
+RESource
+
