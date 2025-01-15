@@ -2,8 +2,7 @@
 # Explanation
 
 - {ref}`cryptography`
-
-🚧 Under construction 🚧
+- {ref}`GPUs`
 
 ```{toctree}
 :titlesonly:
@@ -11,4 +10,5 @@
 :hidden:
 
 cryptography/index
+gpus/index
 ```
