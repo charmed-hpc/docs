@@ -4,12 +4,12 @@ See the how-to guides in this section for how to get started with Charmed HPC.
 
 ## How to deploy Charmed HPC
 
-- {ref}`deploy-workload-manager`
+- {ref}`deploy-slurm`
 
-```{toctree}
+:::{toctree}
 :titlesonly:
 :maxdepth: 1
 :hidden:
 
-Deploy workload manager <deploy-workload-manager>
-```
+Deploy Slurm <deploy-slurm>
+:::
