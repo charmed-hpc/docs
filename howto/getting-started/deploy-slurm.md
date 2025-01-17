@@ -50,7 +50,7 @@ juju add-model slurm
 :::
 
 Now, with `slurm` model created, run the following set of commands to deploy the Slurm
-daemons with MySQL as the storage backend for `slurmdbd`:
+daemons with MySQL as the storage back-end for `slurmdbd`:
 
 :::{code-block} shell
 juju deploy sackd --base "ubuntu@24.04" --channel "edge"
@@ -140,7 +140,7 @@ resource "juju_model" "slurm" {
 
 With the `slurm` `juju_model` resource defined, declare the following set of modules
 in your Terraform plan. These modules will direct Juju to deploy the Slurm daemons with
-MySQL as the storage backend for `slurmdbd`:
+MySQL as the storage back-end for `slurmdbd`:
 
 :::{code-block} terraform
 :caption: `main.tf`
