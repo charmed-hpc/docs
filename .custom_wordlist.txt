@@ -1,7 +1,10 @@
 HPC
+hostname
 Slurm
+sackd
 munge
 LXD
+juju
 yaml
 JWT
 RSA
@@ -14,3 +17,5 @@ PyPI
 GPUs
 integrations
 autonomizing
+Terraform
+terraform
