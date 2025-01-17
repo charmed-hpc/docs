@@ -42,7 +42,10 @@ linkcheck_ignore = [
     "https://charmhub.io/topics/canonical-observability-stack/tutorials/install-microk8s#heading--deploy-the-cos-lite-bundle-with-overlays",
 ]
 custom_linkcheck_anchors_ignore_for_url = []
-custom_myst_extensions = []
+custom_myst_extensions = [
+    "attrs_inline",
+    "colon_fence",
+]
 custom_extensions = [
     "sphinx_remove_toctrees",
     "sphinx_tabs.tabs",
