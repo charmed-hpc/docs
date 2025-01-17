@@ -31,7 +31,7 @@ If you want to use Terraform to deploy Slurm, see the
 how-to in the Juju documentation for additional requirements.
 
 If you are deploying Slurm on [LXD](https://ubuntu.com/lxd), see
-[Deploying Slurm on LXD](#deploying-slurm-on-lxd) for more information on additional constraints
+[Deploying Slurm on LXD](#deploy-slurm-lxd) for more information on additional constraints
 that must be passed to Juju.
 
 :::::{tabs}
@@ -430,6 +430,7 @@ Machine  State    Address       Inst id        Base          AZ  Message
 :::::
 
 
+(deploy-slurm-lxd)=
 ### Deploying Slurm on LXD
 
 The Slurm charms can deploy, manage, and operate Slurm on any
