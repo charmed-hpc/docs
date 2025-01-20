@@ -1,7 +1,7 @@
 (slurmconf)=
 # Slurm enlistment
 
-To allow cluster users to submit jobs requesting GPUs, detected GPUs are automatically added to the [Generic RESource (GRES) Slurm configuration](https://slurm.schedmd.com/gres.html). This is a feature in Slurm which enables scheduling of arbitrary generic resources, including GPUs.
+To allow cluster users to submit jobs requesting GPUs, detected GPUs are automatically added to the [Generic RESource (GRES) Slurm configuration](https://slurm.schedmd.com/gres.html). GRES is a feature in Slurm which enables scheduling of arbitrary generic resources, including GPUs.
 
 ## Device details
 
@@ -9,9 +9,16 @@ GPU details are gathered by [`pynvml`](https://pypi.org/project/nvidia-ml-py/), 
 
 ## Slurm configuration
 
-Each GPU-equipped node is added to the `gres.conf` configuration file as its own `NodeName` entry, following the format defined in the [Slurm `gres.conf` documentation](https://slurm.schedmd.com/gres.conf.html). Individual `NodeName` entries are used over an entry per GRES resource to provide greater support for heterogeneous environments, such as a cluster where the same model of GPU is not consistently the same device file across compute nodes.
+Each GPU-equipped node is added to the `gres.conf` configuration file following the format defined in the [Slurm `gres.conf` documentation](https://slurm.schedmd.com/gres.conf.html). A single `gres.conf` is shared by all compute nodes in the cluster, using the optional `NodeName` specification to define GPU resources per node. Each line in `gres.conf` consists of the following parameters:
 
-In `slurm.conf`, the configuration for GPU-equipped nodes has a comma-separated list in its `Gres=` element, giving the name, type and count for each GPU on the node.
+| Parameter  | Value                                                      |
+| ---------- | ---------------------------------------------------------- |
+| `NodeName` | Node the `gres.conf` line applies to.                      |
+| `Name`     | Name of the generic resource. Always `gpu` here.           |
+| `Type`     | GPU model name.                                            |
+| `File`     | Path of the device file(s) associated with this GPU model. |
+
+In `slurm.conf`, the configuration for GPU-equipped nodes has a comma-separated list in its `Gres=` element, giving the name, type, and count for each GPU on the node.
 
 For example, a Microsoft Azure `Standard_NC24ads_A100_v4` node, equipped with a NVIDIA A100 PCIe GPU, is given a node configuration in `slurm.conf` of:
 
