@@ -12,13 +12,17 @@ Canonical Observability Stack (COS) to monitor and observe a deployed Slurm clus
 
 To successfully connect Slurm to COS, you must have:
 
-- [A deployed COS cloud.](https://charmhub.io/topics/canonical-observability-stack/tutorials/install-microk8s)
+- [A deployed COS cloud](https://charmhub.io/topics/canonical-observability-stack/tutorials)
+  with [ingress enabled](https://charmhub.io/topics/canonical-observability-stack/explanation/ingress).
 - {ref}`A deployed Slurm cluster. <deploy-slurm>`
 - The [Juju CLI client](https://juju.is/docs/juju/install-and-manage-the-client) installed on your machine.
 
-## Deploy the Grafana Agent
+Once you have verified that you have met the prerequisites above, proceed to the instructions below.
 
-First, in the model holding your Slurm deployment, deploy a Grafana Agent:
+## Deploy Grafana Agent
+
+First, in the model holding your Slurm deployment, use `juju deploy`{l=shell} to
+deploy Grafana Agent:
 
 :::{code-block} shell
 juju deploy grafana-agent
@@ -26,22 +30,18 @@ juju deploy grafana-agent
 
 ## Connect Slurm to Grafana Agent
 
-After deploying the Grafana Agent, connect the agent to the Slurm controller:
+After deploying Grafana Agent to the same model as your Slurm deployment,
+connect the agent to the Slurm controller, use `juju integrate`{l=shell} to integrate
+the Slurm controller and Grafana Agent together:
 
 :::{code-block} shell
 juju integrate slurmctld:cos-agent grafana-agent:cos-agent
 :::
 
-## Make COS available to Slurm via a cross-model offer
+## Connect Grafana Agent to COS
 
-With Grafana Agent deployed to the same machine as the Slurm controller,
-make COS available to the model holding your Slurm deployment:
-
-:::{important}
-For the instructions below to succeed, you must have deployed the
-[`offers` overlay](https://charmhub.io/topics/canonical-observability-stack/tutorials/install-microk8s#heading--deploy-the-cos-lite-bundle-with-overlays)
-as part of your COS cloud deployment.
-:::
+With Grafana Agent deployed to the same machine as the Slurm controller, use `juju consume`{l=shell}
+to consume the cross-model offers provided by COS in the model holding your Slurm deployment:
 
 :::{code-block} shell
 juju consume microk8s:admin/cos.prometheus-receive-remote-write
@@ -49,10 +49,17 @@ juju consume microk8s:admin/cos.loki-logging
 juju consume microk8s:admin/cos.grafana-dashboards
 :::
 
-## Connect the workload manager to COS
+:::{important}
+Ensure that your COS cloud has ingress enabled before integrating Grafana Agent with the
+`grafana-dashboards`, `loki-logging`, and `prometheus-receive-remote-write` endpoints . If your
+COS cloud does not have ingress enabled, Grafana Agent will be unable to forward
+collected logs and metrics from Slurm.
 
-Now connect the Grafana Agent connected to the workload manager controller to
-COS:
+See [Charmed ingress on k8s with Traefik and Traefik-Route](https://charmhub.io/topics/canonical-observability-stack/explanation/ingress)
+for additional details.
+:::
+
+Now use `juju integrate`{l=shell} to integrate Grafana Agent to COS:
 
 :::{code-block} shell
 juju integrate grafana-agent prometheus-receive-remote-write
