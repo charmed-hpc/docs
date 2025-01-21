@@ -1,3 +1,7 @@
+---
+relatedlinks: "[Slurm&#32;Workload&#32;Manager&#32;-&#32;gres.conf](https://slurm.schedmd.com/gres.conf.html)"
+---
+
 (slurmconf)=
 # Slurm enlistment
 
