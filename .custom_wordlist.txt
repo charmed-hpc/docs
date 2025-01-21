@@ -19,3 +19,4 @@ integrations
 autonomizing
 Terraform
 terraform
+Traefik
