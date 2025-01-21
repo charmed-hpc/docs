@@ -23,8 +23,8 @@ Once you have verified that you have met the prerequisites above, proceed to the
 
 You have two options for deploying Slurm:
 
-1. Using the [Juju CLI](https://juju.is/docs/juju/juju-client) client.
-2. Using the [Juju Terraform provider](https://juju.is/docs/juju/terraform-juju-client).
+1. Using the [Juju CLI client](https://juju.is/docs/juju/juju-client).
+2. Using the [Juju Terraform client](https://juju.is/docs/juju/terraform-juju-client).
 
 If you want to use Terraform to deploy Slurm, see the
 [Install and manage the client (terraform juju)](https://juju.is/docs/juju/install-and-manage-the-client)
