@@ -39,7 +39,7 @@ redirects = {}
 linkcheck_ignore = [
     "http://127.0.0.1:8000",
     "https://matrix.to/#/#hpc:ubuntu.com",
-    "https://charmhub.io/topics/canonical-observability-stack/tutorials/install-microk8s#heading--deploy-the-cos-lite-bundle-with-overlays",
+    "https://jwt.io"
 ]
 custom_linkcheck_anchors_ignore_for_url = []
 custom_myst_extensions = [
