@@ -61,7 +61,7 @@ juju deploy slurmrestd --base "ubuntu@24.04" --channel "edge"
 juju deploy mysql --channel "8.0/stable"
 :::
 
-`juju deploy` only deploys the Slurm charms. `juju integrate` integrates
+`juju deploy`{l=shell} only deploys the Slurm charms. `juju integrate`{l=shell} integrates
 the charms together which will trigger the necessary events for the
 Slurm daemons to reach active status. Run the following set of commands
 to integrate the Slurm daemons together:
@@ -75,7 +75,7 @@ juju integrate slurmdbd mysql:database
 :::
 
 After a few minutes, your Slurm deployment will become active. The output of the
-`juju status` command should be similar to the following:
+`juju status`{l=shell} command should be similar to the following:
 
 :::{terminal}
 :input: juju status
@@ -393,7 +393,7 @@ actually execute plan.
 
 
 After a few minutes, your Slurm deployment will become active. The output of the
-`juju status` command should be similar to the following:
+`juju status`{l=shell} command should be similar to the following:
 
 :::{terminal}
 :input: juju status
@@ -506,7 +506,7 @@ module "mysql" {
 
 Compute nodes are initially enlisted with their state set to `DOWN` after your Slurm deployment
 becomes active. To set the compute nodes' state to `IDLE` so that they can start having jobs
-scheduled on them, use the `resume` action on the leading controller unit using the following command:
+scheduled on them, use `juju run`{l=shell} to run the `resume` action on the leading controller:
 
 :::{code-block} shell
 juju run slurmctld/leader resume nodename="<machine-instance-id/hostname>"
@@ -531,14 +531,14 @@ juju run slurmctld/leader resume nodename="<machine-instance-id/hostname>[range]
 
 ## Verify compute nodes are `IDLE`
 
-The sackd charm installs the Slurm client commands. To use `sinfo` to verify that a compute
+The sackd charm installs the Slurm client commands. To use `sinfo`{l=shell} to verify that a compute
 node's state is `IDLE`, run the following command with `juju exec`{l=shell} in your sackd unit:
 
 :::{code-block} shell
 juju exec -u sackd/0 -- sinfo --nodes $(juju exec -u slurmd/0 -- hostname)
 :::
 
-To verify that the entire partition is `IDLE`, run `sinfo` without the
+To verify that the entire partition is `IDLE`, run `sinfo`{l=shell} without the
 `--nodes`{l=shell} flag:
 
 :::{code-block} shell
