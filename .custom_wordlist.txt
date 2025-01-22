@@ -1,6 +1,7 @@
 HPC
 hostname
 Slurm
+slurm
 sackd
 munge
 LXD
@@ -21,7 +22,8 @@ Terraform
 terraform
 Traefik
 GRES
+gres
 PCIe
 Nvidia
 RESource
-
+conf
