@@ -11,6 +11,6 @@ A Graphics Processing Unit (GPU) is a specialized hardware resource that was ori
 :maxdepth: 1
 :hidden:
 
-Driver auto-install <driver>
+Drivers <driver>
 Slurm enlistment <slurmconf>
 ```
