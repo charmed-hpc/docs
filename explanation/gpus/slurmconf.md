@@ -9,7 +9,7 @@ To allow cluster users to submit jobs requesting GPUs, detected GPUs are automat
 
 ## Device details
 
-GPU details are gathered by [`pynvml`](https://pypi.org/project/nvidia-ml-py/), the official Python bindings for the Nvidia management library, which enables GPU counts, associated device files and model names to be queried from the drivers. For compatibility with Slurm configuration files, retrieved model names are converted to lowercase and white space is replaced with underscores. “Tesla T4” becomes `tesla_t4`, for example.
+GPU details are gathered by [`pynvml`](https://pypi.org/project/nvidia-ml-py/), the official Python bindings for the NVIDIA management library, which enables GPU counts, associated device files and model names to be queried from the drivers. For compatibility with Slurm configuration files, retrieved model names are converted to lowercase and white space is replaced with underscores. “Tesla T4” becomes `tesla_t4`, for example.
 
 ## Slurm configuration
 

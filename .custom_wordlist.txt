@@ -24,6 +24,5 @@ Traefik
 GRES
 gres
 PCIe
-Nvidia
 RESource
 conf
