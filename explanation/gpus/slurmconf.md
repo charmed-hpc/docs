@@ -13,7 +13,7 @@ GPU details are gathered by [`pynvml`](https://pypi.org/project/nvidia-ml-py/), 
 
 ## Slurm configuration
 
-Each GPU-equipped node is added to the _gres.conf_ configuration file following the format defined in the [Slurm _gres.conf_ documentation](https://slurm.schedmd.com/gres.conf.html). A single _gres.conf_ is shared by all compute nodes in the cluster, using the optional `NodeName` specification to define GPU resources per node. Each line in _gres.conf_ consists of the following parameters:
+Each GPU-equipped node is added to the _gres.conf_ configuration file following the format defined in the [Slurm _gres.conf_ documentation](https://slurm.schedmd.com/gres.conf.html). A single _gres.conf_ is shared by all compute nodes in the cluster, using the optional `NodeName` specification to define GPU resources per node. Each line in _gres.conf_ uses the following parameters to define a GPU resource:
 
 | Parameter  | Value                                                      |
 | ---------- | ---------------------------------------------------------- |
@@ -22,7 +22,7 @@ Each GPU-equipped node is added to the _gres.conf_ configuration file following 
 | `Type`     | GPU model name.                                            |
 | `File`     | Path of the device file(s) associated with this GPU model. |
 
-In _slurm.conf_, the configuration for GPU-equipped nodes has a comma-separated list in its `Gres=` element, giving the name, type, and count for each GPU on the node.
+In _slurm.conf_, if a node is GPU-equipped, its configuration line includes an additional `Gres=`, element, containing a comma-separated list of GPU configurations. If a node is not GPU-equipped, its configuration line does not contain `Gres=`. The format for each configuration is: `<name>:<type>:<count>`, as seen in the example below.
 
 For example, a Microsoft Azure `Standard_NC24ads_A100_v4` node, equipped with a NVIDIA A100 PCIe GPU, is given a node configuration in _slurm.conf_ of:
 
