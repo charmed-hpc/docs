@@ -11,13 +11,9 @@ The platform enables organizations to focus on obtaining key insights and making
 ## In this documentation
 
 
-````{grid} 1 1 2 2
+````{grid} 1 2 3 3
 
-```{grid-item-card} [Tutorial](tutorial/first-steps)
 
-__Start here__: a hands-on introduction to Charmed HPC for new users, guiding you through
-your {ref}`first-steps`
-```
 
 ```{grid-item-card} [How-to guides](howto/index)
 
@@ -28,9 +24,6 @@ __Step-by-step guides__ covering key operations and common tasks
 
 ```
 
-````
-
-````{grid} 1 1 2 2
 
 ```{grid-item-card} [Explanation](explanation/index)
 
@@ -75,7 +68,6 @@ Here's some links to help you get started with joining the community:
 :titlesonly:
 
 self
-Tutorial <tutorial/first-steps>
 howto/index
 explanation/index
 reference/index
