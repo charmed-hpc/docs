@@ -1,6 +1,8 @@
 (explanation)=
 # Explanation
 
+Discussion and clarification for various topics related to Charmed HPC.
+
 - {ref}`cryptography`
 - {ref}`GPUs`
 
