@@ -1,6 +1,8 @@
 (howtos)=
 # How-to guides
 
+The guides in this section provide detailed steps for key operations and common tasks for Charmed HPC.
+
 (howto-getstarted)=
 ## Getting started
 
@@ -8,6 +10,7 @@ These how-to guides will get you started with Charmed HPC by
 taking you through the deployment of your own Charmed HPC cluster.
 
 - {ref}`deploy-slurm`
+- {ref}`deploy-shared-filesystem`
 
 (howto-observability)=
 ## Monitoring and observing Charmed HPC
