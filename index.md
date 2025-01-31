@@ -28,7 +28,9 @@ __Step-by-step guides__ covering key operations and common tasks
 ```{grid-item-card} [Explanation](explanation/index)
 
 __Discussion and clarification__ of key topics
-
+ 
+ - {ref}`cryptography`
+ - {ref}`gpus`
 
 
 ```
@@ -38,7 +40,7 @@ __Discussion and clarification__ of key topics
 
 __Technical information__
 
-
+ - {ref}`gres`
 
 ```
 
