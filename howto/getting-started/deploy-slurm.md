@@ -34,9 +34,10 @@ If you are deploying Slurm on [LXD](https://ubuntu.com/lxd), see
 [Deploying Slurm on LXD](#deploy-slurm-lxd) for more information on additional constraints
 that must be passed to Juju.
 
-:::::{tabs}
+:::::{tab-set}
 
-::::{group-tab} CLI
+::::{tab-item} CLI
+:sync: cli
 
 To deploy Slurm using the Juju CLI client, first create the `slurm` model that will hold the
 deployment. The `slurm` model is the abstraction that will hold the resources &mdash;
@@ -109,7 +110,8 @@ Machine  State    Address       Inst id        Base          AZ  Message
 
 ::::
 
-::::{group-tab} Terraform
+::::{tab-item} Terraform
+:sync: terraform
 
 To deploy Slurm using the Juju Terraform client, first configure Terraform
 to use the Juju provider in your deployment plan.
@@ -442,9 +444,10 @@ and additional modifications must be made to the default LXD profile.
 To deploy the Slurm charms to virtual machines rather than system containers, pass the constraint
 `"virt-type=virtual-machine"`{l=shell} to Juju when deploying the charms:
 
-:::::{tabs}
+:::::{tab-set}
 
-::::{group-tab} CLI
+::::{tab-item} CLI
+:sync: cli
 
 :::{code-block} shell
 juju deploy sackd --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
@@ -457,7 +460,8 @@ juju deploy mysql --channel "8.0/stable" --constraints="virt-type=virtual-machin
 
 ::::
 
-::::{group-tab} Terraform
+::::{tab-item} Terraform
+:sync: terraform
 
 :::{code-block} terraform
 :caption: `main.tf`
