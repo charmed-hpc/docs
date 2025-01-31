@@ -48,7 +48,6 @@ custom_myst_extensions = [
 ]
 custom_extensions = [
     "sphinx_remove_toctrees",
-    "sphinx_tabs.tabs",
     "sphinx.ext.intersphinx",
     "canonical.youtube-links",
     "canonical.related-links",
