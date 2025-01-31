@@ -2,6 +2,7 @@
 # Reference
 
 - {ref}`gres`
+- {ref}`filesystem-charms`
 
 ```{toctree}
 :titlesonly:
@@ -9,4 +10,5 @@
 :hidden:
 
 gres/index
+filesystem-charms/index
 ```
