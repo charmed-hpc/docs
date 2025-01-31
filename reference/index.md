@@ -1,12 +1,19 @@
 (reference)=
 # Reference
 
-- {ref}`gres`
+The reference material in this section provides technical descriptions of how
+Charmed HPC operates.
+
+## General information
+
+* {ref}`reference-underlying-projects-and-dependencies`
+* {ref}`gres`
 
 ```{toctree}
 :titlesonly:
 :maxdepth: 1
 :hidden:
 
+Underlying projects and dependencies <underlying-projects-and-dependencies>
 gres/index
 ```
