@@ -5,7 +5,7 @@ the right place then! __Here is how you can get involved.__
 
 Please take a moment to review this document so that the contribution
 process will be easy and effective for everyone. Also, please familiarise
-yourself with MyST and Diátaxis as it will help you better understand how
+yourself with [MyST](https://mystmd.org/) and [Diátaxis](https://diataxis.fr/), as it will help you better understand how
 Charmed HPC's documentation is put together.
 
 Following these guidelines helps you communicate that you respect the maintainers
