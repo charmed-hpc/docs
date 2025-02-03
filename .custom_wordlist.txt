@@ -46,8 +46,11 @@ hostname
 hostnames
 
 # Clouds
+aks
 aws
+maas
 microsoft
+OpenStack
 
 # Developer jargon/acronyms
 conf
@@ -66,6 +69,7 @@ URIs
 userspace
 VMs
 yaml
+TLS
 
 # Filesystem jargon
 Ceph
@@ -89,3 +93,5 @@ lifecycle
 Performant
 performant
 runnable
+## From `per se`
+se
