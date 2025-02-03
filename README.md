@@ -11,7 +11,7 @@ documentation, check out the [Getting Started](#-getting-started) and
 
 ## ✨ Getting started
 
-Periodically, issues within the docs repository will be labeled as `good first issue`. These issues are ideally the first place to get started helping with Charmed HPC's documentation. If there are currently no issues labeled `good first issue`, or none of the issues fit your interest, feel free to reach out on [Matrix](https://matrix.to/#/#hpc:ubuntu.com) and ask if the team has any suggestions. Otherwise, small PRs for grammar and formatting are always a good place to start.
+Periodically, issues within the docs repository will be labeled as `good first issue`. These issues are ideally the first place to get started helping with Charmed HPC's documentation. If there are currently no issues labeled `good first issue`, or none of the issues fit your interest, feel free to reach out on [Matrix](https://matrix.to/#/#hpc:ubuntu.com) and ask if the team has any suggestions. Otherwise, small pull requests for grammar and formatting are always a good place to start.
 
 ## 🛠️ Development
 
