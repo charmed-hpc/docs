@@ -9,7 +9,8 @@ The guides in this section provide detailed steps for key operations and common 
 These how-to guides will get you started with Charmed HPC by
 taking you through the deployment of your own Charmed HPC cluster.
 
-- {ref}`deploy-slurm`
+- {ref}`howto-getting-started-initialize-cloud-environment`
+- {ref}`howto-getting-started-deploy-slurm`
 - {ref}`deploy-shared-filesystem`
 
 (howto-observability)=
