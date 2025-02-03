@@ -14,7 +14,7 @@ To successfully connect Slurm to COS, you must have:
 
 - [A deployed COS cloud](https://charmhub.io/topics/canonical-observability-stack/tutorials)
   with [ingress enabled](https://charmhub.io/topics/canonical-observability-stack/explanation/ingress).
-- {ref}`A deployed Slurm cluster. <deploy-slurm>`
+- A [deployed Slurm cluster](#howto-getting-started-deploy-slurm).
 - The [Juju CLI client](https://juju.is/docs/juju/install-and-manage-the-client) installed on your machine.
 
 Once you have verified that you have met the prerequisites above, proceed to the instructions below.

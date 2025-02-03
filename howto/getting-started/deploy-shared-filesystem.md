@@ -7,7 +7,7 @@ deploy `filesystem-client` to integrate with externally managed shared filesyste
 
 ## Prerequisites
 
-- {ref}`deploy-slurm`.
+- A [deployed Slurm cluster](#howto-getting-started-deploy-slurm).
 
 ## Deploy an external filesystem server
 
@@ -25,7 +25,7 @@ To integrate with an external NFS server, you will require:
 - The exported path.
 - (optional) the port.
 
-Each public cloud has its own procedure to deploy a public NFS server. Provided here are links to  
+Each public cloud has its own procedure to deploy a public NFS server. Provided here are links to
 the set up procedures on a few well-known public clouds.
 
 ::::{grid} 1 1 2 2
@@ -88,7 +88,7 @@ exit
 
 
 After gathering all the required information, you can deploy the `nfs-server-proxy` charm in order to
-expose the externally managed server inside a Juju model. 
+expose the externally managed server inside a Juju model.
 
 :::{code-block} shell
 juju deploy nfs-server-proxy --config \
@@ -109,7 +109,7 @@ To integrate with an external CephFS share, you will require:
  - The username with permissions to access the filesystem.
  - The cephx key for the username.
 
-Here, a Ceph cluster will be set up using [MicroCeph][ceph]. 
+Here, a Ceph cluster will be set up using [MicroCeph][ceph].
 
 [ceph]: https://canonical-microceph.readthedocs-hosted.com/en/squid-stable
 
@@ -182,7 +182,7 @@ exit
 :::
 
 Having collected all the required information, you can deploy the `cephfs-server-proxy` charm to
-expose the externally managed Ceph filesystem inside a Juju model. 
+expose the externally managed Ceph filesystem inside a Juju model.
 
 :::{code-block} shell
 juju deploy cephfs-server-proxy --config \
@@ -199,7 +199,7 @@ juju deploy cephfs-server-proxy --config \
 
 ## Deploy the filesystem-client
 
-To add the `filesystem-client` charm, which mounts a shared filesystem to the cluster nodes: 
+To add the `filesystem-client` charm, which mounts a shared filesystem to the cluster nodes:
 
 :::{code-block} shell
 juju deploy filesystem-client --channel latest/edge \
