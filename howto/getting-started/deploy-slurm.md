@@ -1,8 +1,8 @@
 ---
-relatedlinks: "[Get&#32;started&#32;with&#32;Juju](https://juju.is/docs/juju/tutorial), [Slurm&#32;website](https://slurm.schedmd.com/overview.html), [Slurm&#32;charms&#32;repository](https://github.com/charmed-hpc/slurm-charms)"
+relatedlinks: "[Slurm&#32;website](https://slurm.schedmd.com/overview.html), [Slurm&#32;charms&#32;repository](https://github.com/charmed-hpc/slurm-charms)"
 ---
 
-(deploy-slurm)=
+(howto-getting-started-deploy-slurm)=
 # How to deploy Slurm
 
 This how-to guide shows you how to deploy the Slurm workload manager as the
@@ -13,8 +13,7 @@ The deployment, management, and operations of Slurm are controlled by the Slurm 
 
 To successfully deploy Slurm in your Charmed HPC cluster, you will at least need:
 
-- A machine running a [currently supported Ubuntu LTS version](https://ubuntu.com/about/release-cycle).
-- [A bootstrapped Juju controller on a supported machine cloud](https://juju.is/docs/juju/juju-supported-clouds).
+- An [initialized cloud environment](#howto-getting-started-initialize-cloud-environment).
 - The [Juju CLI client](https://juju.is/docs/juju/install-and-manage-the-client) installed on your machine.
 
 Once you have verified that you have met the prerequisites above, proceed to the instructions below.
@@ -44,10 +43,10 @@ deployment. The `slurm` model is the abstraction that will hold the resources &m
 machines, integrations, network spaces, storage, etc. &mdash; that are provisioned as
 part of your Slurm deployment.
 
-Run the following command to create the `slurm` model:
+Run the following command to create the `slurm` model in your `charmed-hpc` machine cloud:
 
 :::{code-block} shell
-juju add-model slurm
+juju add-model slurm charmed-hpc
 :::
 
 Now, with `slurm` model created, run the following set of commands to deploy the Slurm
@@ -122,7 +121,7 @@ terraform {
   required_providers {
     juju = {
       source  = "juju/juju"
-      version = ">= 0.15.0"
+      version = ">= 0.16.0"
     }
   }
 }
@@ -137,6 +136,10 @@ resource will direct Juju to create the model `slurm`:
 :caption: `main.tf`
 resource "juju_model" "slurm" {
   name = "slurm"
+
+  cloud {
+    name = "charmed-hpc"
+  }
 }
 :::
 
@@ -267,13 +270,17 @@ terraform {
   required_providers {
     juju = {
       source  = "juju/juju"
-      version = ">= 0.15.0"
+      version = ">= 0.16.0"
     }
   }
 }
 
 resource "juju_model" "slurm" {
   name = "slurm"
+
+  cloud {
+    name = "charmed-hpc"
+  }
 }
 
 module "sackd" {
