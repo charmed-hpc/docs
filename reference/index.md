@@ -6,8 +6,9 @@ Charmed HPC operates.
 
 ## General information
 
-* {ref}`reference-underlying-projects-and-dependencies`
-* {ref}`gres`
+- {ref}`reference-underlying-projects-and-dependencies`
+- {ref}`gres`
+- {ref}`reference-interconnects`
 
 ```{toctree}
 :titlesonly:
@@ -16,4 +17,5 @@ Charmed HPC operates.
 
 Underlying projects and dependencies <underlying-projects-and-dependencies>
 gres/index
+interconnects/index
 ```

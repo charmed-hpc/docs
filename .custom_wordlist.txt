@@ -1,9 +1,17 @@
 # Charmed HPC-specific jargon
+ConnectX
+EFA
 GRES
 gres
 HPC
 hpc
+InfiniBand
+MPI
+OpenMPI
+PKEY
+RDMA
 RESource
+UCX
 
 # Charm/application/service names
 alertmanager
@@ -52,8 +60,11 @@ PCIe
 proxying
 PyPI
 RSA
+subnet
 Uid
 URIs
+userspace
+VMs
 yaml
 
 # Filesystem jargon
@@ -75,4 +86,6 @@ filesystem
 filesystems
 integrations
 lifecycle
+Performant
+performant
 runnable
