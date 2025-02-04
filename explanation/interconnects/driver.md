@@ -1,0 +1,31 @@
+(explanation-rdma-driver)=
+# Interconnect driver installation and management
+
+## Auto-install
+
+Charmed HPC installs [`rdma-core`](https://github.com/linux-rdma/rdma-core) from the operating system repositories when the `slurmd` charm is deployed on a compute node. The `rdma-core` package automatically detects available interconnect hardware and sets up the appropriate userspace libraries and services to enable RDMA. Drivers for supported NVIDIA ConnectX InfiniBand adapters are provided automatically by the operating system kernel. The [`openmpi-bin`](https://www.open-mpi.org/) package is installed from repositories on compute nodes to allow for the running of MPI applications.
+
+### OpenMPI UCX override
+
+The `openmpi-bin` package from Debian and Ubuntu repositories ships with [Unified Communication X UCX](https://openucx.org/) disabled in configuration file `/etc/openmpi/openmpi-mca-params.conf`. UCX is a framework designed for high-performance computing communication and is the default preferred communication method for InfiniBand networks in OpenMPI. With UCX disabled, OpenMPI falls back to other communication methods, which can be less performant. In order to improve performance on InfiniBand Charmed HPC clusters, UCX is re-enabled by the `slurmd` charm on install. The parameters in `/etc/openmpi/openmpi-mca-params.conf` are overridden to remove all instances of `ucx` and `uct` from the lists of disabled OpenMPI components. For example:
+
+```
+mtl = ^ofi
+btl = ^uct,openib,ofi
+pml = ^ucx
+osc = ^ucx,pt2pt
+```
+
+becomes:
+
+```
+mtl = ^ofi
+btl = ^openib,ofi
+osc = ^pt2pt
+```
+
+## Interconnect management
+
+High-speed interconnects typically require management software to orchestrate the communication between nodes. This software can be referred to as a subnet manager or fabric manager. Implementation is cloud-specific, with public clouds often providing a managed solution without access to the management software. For implementation details on supported clouds, refer to:
+
+- {ref}`reference-interconnects`

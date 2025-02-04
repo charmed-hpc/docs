@@ -5,6 +5,7 @@ Discussion and clarification for various topics related to Charmed HPC.
 
 - {ref}`cryptography`
 - {ref}`GPUs`
+- {ref}`explanation-interconnects`
 
 ```{toctree}
 :titlesonly:
@@ -13,4 +14,5 @@ Discussion and clarification for various topics related to Charmed HPC.
 
 cryptography/index
 gpus/index
+interconnects/index
 ```
