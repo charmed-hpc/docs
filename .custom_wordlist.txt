@@ -80,5 +80,3 @@ filesystems
 integrations
 lifecycle
 runnable
-## From `per se`
-se
