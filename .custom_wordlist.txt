@@ -93,5 +93,3 @@ lifecycle
 Performant
 performant
 runnable
-## From `per se`
-se
