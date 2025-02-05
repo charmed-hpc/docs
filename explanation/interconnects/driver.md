@@ -7,7 +7,7 @@ Charmed HPC installs [`rdma-core`](https://github.com/linux-rdma/rdma-core) from
 
 ### OpenMPI UCX override
 
-The `openmpi-bin` package from Debian and Ubuntu repositories ships with [Unified Communication X UCX](https://openucx.org/) disabled in configuration file `/etc/openmpi/openmpi-mca-params.conf`. UCX is a framework designed for high-performance computing communication and is the default preferred communication method for InfiniBand networks in OpenMPI. With UCX disabled, OpenMPI falls back to other communication methods, which can be less performant. In order to improve performance on InfiniBand Charmed HPC clusters, UCX is re-enabled by the `slurmd` charm on install. The parameters in `/etc/openmpi/openmpi-mca-params.conf` are overridden to remove all instances of `ucx` and `uct` from the lists of disabled OpenMPI components. For example:
+Debian and Ubuntu repositories ship the `openmpi-bin` package with [Unified Communication X UCX](https://openucx.org/) disabled in configuration file `/etc/openmpi/openmpi-mca-params.conf`. UCX is a framework designed for high-performance computing communication and is the default preferred communication method for InfiniBand networks in OpenMPI. With UCX disabled, OpenMPI falls back to other communication methods, which can be less performant. In order to improve performance on InfiniBand Charmed HPC clusters, UCX is re-enabled by the `slurmd` charm on install. The parameters in `/etc/openmpi/openmpi-mca-params.conf` are overridden to remove all instances of `ucx` and `uct` from the lists of disabled OpenMPI components. For example:
 
 ```
 mtl = ^ofi
