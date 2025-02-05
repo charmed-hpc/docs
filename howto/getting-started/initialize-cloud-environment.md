@@ -168,7 +168,7 @@ for a high-level introduction to Canonical Kubernetes.
 ### Add Canonical Kubernetes cloud to deployed controller
 
 To make your Canonical Kubernetes cloud known to Juju and use the same controller as your
-machine cloud, pipe the output of `k8s config view`{l=shell} to `juju add-k8s`{l=shell} by running the
+machine cloud, pipe the output of `k8s config`{l=shell} to `juju add-k8s`{l=shell} by running the
 following command:
 
 :::{code-block} shell
@@ -197,4 +197,4 @@ charmed-hpc-k8s  1        default  k8s
 
 Now that both the `charmed-hpc` machine cloud and `charmed-hpc-k8s` Kubernetes cloud are initialized,
 you can start deploying applications with Juju. Go to the {ref}`howto-getting-started-deploy-slurm` guide
-for how to deploy Slurm as the first application of your Charmed HPC cluster.
+for how to deploy Slurm as the workload manager of your Charmed HPC cluster.
