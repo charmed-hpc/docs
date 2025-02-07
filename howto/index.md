@@ -16,7 +16,7 @@ taking you through the deployment of your own Charmed HPC cluster.
 (howto-manage)=
 ## Manage
 
-The how-to guides in this show you how to perform common management tasks after you have
+The how-to guides in this section show you how to perform common management tasks after you have
 deployed Charmed HPC. These guides are for system administrators and HPC engineers that are
 responsible for managing Charmed HPC deployments.
 
