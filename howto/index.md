@@ -13,15 +13,14 @@ taking you through the deployment of your own Charmed HPC cluster.
 - {ref}`howto-getting-started-deploy-slurm`
 - {ref}`deploy-shared-filesystem`
 
-(howto-observability)=
-## Monitoring and observing Charmed HPC
+(howto-manage)=
+## Manage
 
-These how-to guides cover how to connect your Charmed HPC
-cluster to the [Canonical Observability Stack](https://charmhub.io/topics/canonical-observability-stack)
-&mdash; also known as __COS__ &mdash; to monitor and observe your cluster.
+The how-to guides in this show you how to perform common management tasks after you have
+deployed Charmed HPC. These guides are for system administrators and HPC engineers that are
+responsible for managing Charmed HPC deployments.
 
-- {ref}`connect-slurm-to-cos`
-- {ref}`access-grafana`
+- {ref}`howto-manage-integrate-with-cos`
 
 :::{toctree}
 :titlesonly:
@@ -29,5 +28,5 @@ cluster to the [Canonical Observability Stack](https://charmhub.io/topics/canoni
 :hidden:
 
 getting-started/index
-observability/index
+manage/index
 :::
