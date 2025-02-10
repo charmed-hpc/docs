@@ -130,4 +130,5 @@ slurmctld, [Charm library](https://github.com/charmed-hpc/slurm-charms/blob/main
 [cos_agent](https://charmhub.io/integrations/cos_agent), [Charm library](https://charmhub.io/grafana-agent/libraries/cos_agent)
 [ldap](https://charmhub.io/integrations/ldap/), [Charm library](https://charmhub.io/glauth-k8s/libraries/ldap)
 [mysql_client](https://charmhub.io/integrations/mysql_client), [Charm library](https://charmhub.io/data-platform-libs/libraries/data_interfaces)
+[filesystem_info](https://charmhub.io/integrations/filesystem_info), [Charm library](https://charmhub.io/filesystem-client/libraries/filesystem_info)
 :::
