@@ -3,15 +3,16 @@
 
 The guides in this section provide detailed steps for key operations and common tasks for Charmed HPC.
 
-(howto-getstarted)=
-## Getting started
+- {ref}`howto-initialize-cloud-environment`
+
+(howto-setup)=
+## Setup
 
 These how-to guides will get you started with Charmed HPC by
-taking you through the deployment of your own Charmed HPC cluster.
+taking you through the setup of your own Charmed HPC cluster.
 
-- {ref}`howto-getting-started-initialize-cloud-environment`
-- {ref}`howto-getting-started-deploy-slurm`
-- {ref}`deploy-shared-filesystem`
+- {ref}`howto-setup-deploy-slurm`
+- {ref}`howto-setup-deploy-shared-filesystem`
 
 (howto-manage)=
 ## Manage
@@ -27,6 +28,7 @@ responsible for managing Charmed HPC deployments.
 :maxdepth: 1
 :hidden:
 
-getting-started/index
+Initialize Cloud Environment <initialize-cloud-environment>
+setup/index
 manage/index
 :::

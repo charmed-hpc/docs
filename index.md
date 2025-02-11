@@ -19,8 +19,9 @@ The platform enables organizations to focus on obtaining key insights and making
 
 __Step-by-step guides__ covering key operations and common tasks
 
-- {ref}`howto-getstarted`
-- {ref}`Manage Charmed HPC <howto-manage>`
+- {ref}`howto-initialize-cloud-environment`
+- {ref}`howto-setup`
+- {ref}`howto-manage`
 
 ```
 
@@ -28,7 +29,7 @@ __Step-by-step guides__ covering key operations and common tasks
 ```{grid-item-card} [Explanation](explanation/index)
 
 __Discussion and clarification__ of key topics
-
+ 
  - {ref}`cryptography`
  - {ref}`gpus`
 
@@ -71,6 +72,7 @@ Here's some links to help you get started with joining the community:
 
 self
 howto/index
+Initialize Cloud Environment <howto-initialize-cloud-environment>
 explanation/index
 reference/index
 ```
