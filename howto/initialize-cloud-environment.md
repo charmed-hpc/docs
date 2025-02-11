@@ -155,7 +155,7 @@ After initializing the `charmed-hpc` machine cloud, follow the instructions belo
 To use Canonical Kubernetes as the Kubernetes cloud for your Charmed HPC cluster,
 you will need to have:
 
-* [Initialized a machine cloud](#howto-getting-started-initialize-machine-cloud)
+* [Initialized a machine cloud](#howto-initialize-machine-cloud)
 * [Installed and bootstrapped Canonical Kubernetes](https://documentation.ubuntu.com/canonical-kubernetes/latest/snap/howto/install/snap/)
 * [Enabled the default load balancer](https://documentation.ubuntu.com/canonical-kubernetes/latest/snap/howto/networking/default-loadbalancer/)
 

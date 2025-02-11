@@ -13,7 +13,7 @@ The deployment, management, and operations of Slurm are controlled by the Slurm 
 
 To successfully deploy Slurm in your Charmed HPC cluster, you will at least need:
 
-- An [initialized cloud environment](#howto-getting-started-initialize-cloud-environment).
+- An [initialized cloud environment](#howto-initialize-cloud-environment).
 - The [Juju CLI client](https://juju.is/docs/juju/install-and-manage-the-client) installed on your machine.
 
 Once you have verified that you have met the prerequisites above, proceed to the instructions below.
