@@ -1,4 +1,4 @@
-(deploy-shared-filesystem)=
+(howto-setup-deploy-shared-filesystem)=
 # How to deploy a shared filesystem
 
 Charmed-HPC allows automatic integration with shared filesystems using the

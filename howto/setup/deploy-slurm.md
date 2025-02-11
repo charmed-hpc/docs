@@ -2,7 +2,7 @@
 relatedlinks: "[Slurm&#32;website](https://slurm.schedmd.com/overview.html), [Slurm&#32;charms&#32;repository](https://github.com/charmed-hpc/slurm-charms)"
 ---
 
-(howto-getting-started-deploy-slurm)=
+(howto-setup-deploy-slurm)=
 # How to deploy Slurm
 
 This how-to guide shows you how to deploy the Slurm workload manager as the
