@@ -74,7 +74,6 @@ Here's some links to help you get started with joining the community:
 
 self
 howto/index
-Initialize Cloud Environment <howto/initialize-cloud-environment>
 explanation/index
 reference/index
 ```
