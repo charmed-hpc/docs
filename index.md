@@ -32,7 +32,7 @@ __Discussion and clarification__ of key topics
  
  - {ref}`cryptography`
  - {ref}`gpus`
-
+ - {ref}`explanation-interconnects`
 
 ```
 
@@ -41,7 +41,9 @@ __Discussion and clarification__ of key topics
 
 __Technical information__
 
- - {ref}`gres`
+- {ref}`reference-underlying-projects-and-dependencies`
+- {ref}`gres`
+- {ref}`reference-interconnects`
 
 ```
 
