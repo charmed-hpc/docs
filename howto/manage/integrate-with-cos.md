@@ -5,9 +5,10 @@ relatedlinks: "[Get&#32;started&#32;with&#32;COS](https://charmhub.io/topics/can
 (howto-manage-integrate-with-cos)=
 # Integrate with Canonical Observability Stack
 
-This how-to guide shows you how to connect Charmed HPC to the Canonical
-Observability Stack (COS). This integration enables you to monitor your
-deployed Charmed HPC cluster.
+This how-to guide provides instructions for connecting Charmed HPC to the
+Canonical Observability Stack (COS). This integration enables you to monitor your
+deployed Charmed HPC cluster by forwarding collected logs and metrics from
+your cluster's services to COS for interactive analysis.
 
 :::{hint}
 If you're unfamiliar with operating COS, see the [COS tutorials](https://charmhub.io/topics/canonical-observability-stack/tutorials)
@@ -31,7 +32,7 @@ will be unreachable over the network.
 
 :::{note}
 The instructions below assume that Charmed HPC and COS have their own, individual controllers,
-and that they must be connected together with cross-model integration endpoints.
+and that they are connected together with cross-model integration endpoints.
 
 The instructions below also assume that the name of the COS controller is `cos-controller`, and
 that the model holding your COS deployment is named `cos`. If the name of your COS controller is
@@ -39,7 +40,7 @@ not `cos-controller`, or the name of your model is not `cos`, substitute `cos-co
 and `cos` with the names of your COS controller and model in the commands below.
 :::
 
-## Integrate with COS
+## Connect to COS
 
 Follow the instructions below for how to integrate COS with Charmed HPC.
 
@@ -67,7 +68,7 @@ install itself on each unit of the application to collect logs and metrics.
 (howto-manage-integrate-with-cos-get-cos-urls)=
 ### Get COS URLs
 
-Now before you connect Grafana Agent to COS, you'll want to ensure that your `charmed-hpc` cloud
+Before you connect Grafana Agent to COS, you'll want to ensure that your `charmed-hpc` cloud
 can successfully contact your COS deployment over the network. To perform this connectivity check,
 first grab the URLs of the COS services from [`Catalogue`](https://charmhub.io/catalogue-k8s) by running the following command:
 
@@ -149,8 +150,8 @@ juju integrate grafana-agent grafana-dashboards
 
 With Grafana Agent connected to COS, you can now use the URLs from the
 {ref}`howto-manage-integrate-with-cos-get-cos-urls` section to access monitoring resources
-such as metrics, logs, and alerts collected from your Charmed HPC cluster. Go to the
-{ref}`howto-manage-integrate-with-cos-access-monitoring-resources` section for how to
+such as metrics, logs, and alerts collected from your Charmed HPC cluster. See the
+{ref}`howto-manage-integrate-with-cos-access-monitoring-resources` section below for how to
 access these monitoring resources through your browser.
 
 (howto-manage-integrate-with-cos-access-monitoring-resources)=
@@ -161,11 +162,7 @@ your Charmed HPC cluster after you have integrated your cluster with COS.
 
 ### Access Grafana dashboards
 
-First, open your browser and navigate to Grafana dashboard URL you received after running
-the piped `juju show-unit`{l=shell} command in the
-{ref}`howto-manage-integrate-with-cos-get-cos-urls` section.
-
-Now, in your terminal, retrieve the admin password with the `get-admin-password` action:
+First, in your terminal, retrieve the Grafana admin password with the `get-admin-password` action:
 
 :::{code-block} shell
 juju run grafana/leader --model cos-controller:cos \
@@ -180,6 +177,10 @@ initial admin password has been changed by the COS administrator. If this is the
 case, you will need to get either a Grafana account or the admin password from
 your COS administrator.
 :::
+
+Next, open your browser and navigate to the Grafana dashboard URL you received after running
+the piped `juju show-unit`{l=shell} command in the
+{ref}`howto-manage-integrate-with-cos-get-cos-urls` section.
 
 Log in as the user `admin` using the password returned by the `get-admin-password` action.
 You can see the available dashboards by opening the sidebar menu and clicking on `Dashboards`.
