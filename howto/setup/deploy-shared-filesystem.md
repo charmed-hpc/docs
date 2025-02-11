@@ -7,7 +7,7 @@ deploy `filesystem-client` to integrate with externally managed shared filesyste
 
 ## Prerequisites
 
-- A [deployed Slurm cluster](#howto-getting-started-deploy-slurm).
+- A [deployed Slurm cluster](#howto-setup-deploy-slurm).
 
 ## Deploy an external filesystem server
 

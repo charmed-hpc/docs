@@ -33,7 +33,7 @@ you will need:
 * Access to a [supported Kubernetes cloud](https://juju.is/docs/juju/juju-supported-clouds)
 * The [Juju CLI client](https://juju.is/docs/juju/install-and-manage-the-client) installed on your machine
 
-(howto-getting-started-initialize-machine-cloud)=
+(howto-initialize-machine-cloud)=
 ## Initialize machine cloud
 
 Follow the instructions below to initialize the `charmed-hpc` machine cloud.
@@ -196,5 +196,5 @@ charmed-hpc-k8s  1        default  k8s
 ## Next Steps
 
 Now that both the `charmed-hpc` machine cloud and `charmed-hpc-k8s` Kubernetes cloud are initialized,
-you can start deploying applications with Juju. Go to the {ref}`howto-getting-started-deploy-slurm` guide
+you can start deploying applications with Juju. Go to the {ref}`howto-setup-deploy-slurm` guide
 for how to deploy Slurm as the workload manager of your Charmed HPC cluster.
