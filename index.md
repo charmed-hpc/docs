@@ -19,7 +19,7 @@ The platform enables organizations to focus on obtaining key insights and making
 
 __Step-by-step guides__ covering key operations and common tasks
 
-- {ref}`Initialize Cloud Environment <howto-initialize-cloud-environment>`
+- {ref}`Initialize cloud environment <howto-initialize-cloud-environment>`
 - {ref}`howto-setup`
 - {ref}`howto-manage`
 
