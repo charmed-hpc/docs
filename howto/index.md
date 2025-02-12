@@ -18,6 +18,7 @@ taking you through the setup of your own Charmed HPC cluster.
 
 - {ref}`howto-setup-deploy-slurm`
 - {ref}`howto-setup-deploy-shared-filesystem`
+- {ref}`howto-enable-job-profiling-with-influxdb`
 
 (howto-manage)=
 ## Manage
