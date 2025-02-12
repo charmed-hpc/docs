@@ -33,7 +33,7 @@ responsible for managing Charmed HPC after deployment.
 :maxdepth: 1
 :hidden:
 
-Initialize Cloud Environment <initialize-cloud-environment>
+Initialize cloud environment <initialize-cloud-environment>
 setup/index
 manage/index
 :::

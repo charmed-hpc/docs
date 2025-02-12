@@ -8,16 +8,12 @@ See the how-to guides in this section for the steps to set up and deploy various
 
 
 
-
-
-
-
 :::{toctree}
 :titlesonly:
 :maxdepth: 1
 :hidden:
 
 Deploy Slurm <deploy-slurm>
-Deploy a Shared Filesystem <deploy-shared-filesystem>
+Deploy a shared filesystem <deploy-shared-filesystem>
 
 :::
