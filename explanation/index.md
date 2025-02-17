@@ -6,6 +6,7 @@ Discussion and clarification for various topics related to Charmed HPC.
 - {ref}`cryptography`
 - {ref}`GPUs`
 - {ref}`explanation-interconnects`
+- {ref}`explanation-rebooting`
 
 ```{toctree}
 :titlesonly:
@@ -15,4 +16,5 @@ Discussion and clarification for various topics related to Charmed HPC.
 cryptography/index
 gpus/index
 interconnects/index
+Instance auto-reboots <reboot-timing/index>
 ```
