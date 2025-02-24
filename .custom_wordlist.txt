@@ -12,7 +12,6 @@ PKEY
 RDMA
 RESource
 UCX
-InfluxDB
 
 # Charm/application/service names
 alertmanager
@@ -41,6 +40,8 @@ Terraform
 terraform
 Traefik
 traefik
+InfluxDB
+influxdb
 
 # CLI commands
 hostname
