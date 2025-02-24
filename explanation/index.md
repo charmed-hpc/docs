@@ -16,5 +16,5 @@ Discussion and clarification for various topics related to Charmed HPC.
 cryptography/index
 gpus/index
 interconnects/index
-Instance auto-reboots <reboot-timing/index>
+Instance auto-reboots <reboot-timing.md>
 ```
