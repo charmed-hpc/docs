@@ -40,6 +40,8 @@ Terraform
 terraform
 Traefik
 traefik
+InfluxDB
+influxdb
 
 # CLI commands
 hostname
