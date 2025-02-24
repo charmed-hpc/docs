@@ -12,6 +12,7 @@ PKEY
 RDMA
 RESource
 UCX
+InfluxDB
 
 # Charm/application/service names
 alertmanager
