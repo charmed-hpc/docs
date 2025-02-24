@@ -217,7 +217,7 @@ linkcheck_retries = 3
 #       substitution, deflist, linkify
 
 myst_enable_extensions = ["attrs_inline",
-    "colon_fence"]
+    "colon_fence",]
 
 
 # Custom Sphinx extensions; see
@@ -244,10 +244,7 @@ extensions = [
     "sphinx_last_updated_by_git",
     "sphinx_remove_toctrees",
     "sphinx.ext.intersphinx",
-
-    "canonical.related-links",
     "canonical.config-options",
-    "canonical.custom-rst-roles",
     "canonical.filtered-toc",
 ]
 
