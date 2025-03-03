@@ -183,7 +183,7 @@ In a web browser, open the [authentication page](https://microsoft.com/devicelog
 
 You will be asked to authenticate twice, to allow creation of two different resources in Azure.
 
-Once the credentials have been added successfully, the follow message will be displayed:
+Once the credentials have been added successfully, the following message will be displayed:
 
 :::{code-block} shell
 Credential <CREDENTIAL_NAME> added locally for cloud "azure".
