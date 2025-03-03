@@ -138,6 +138,185 @@ Machine  State    Address        Inst id        Base          AZ  Message
 
 ::::
 
+::::{tab-item} Azure
+:sync: azure
+
+To use Microsoft Azure as the machine cloud for your Charmed HPC cluster, you will need to have:
+
+* [A valid Azure subscription ID](https://learn.microsoft.com/en-us/azure/azure-portal/get-subscription-tenant-id)
+* [Installed the Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux)
+* [Signed into the Azure CLI](https://learn.microsoft.com/en-us/cli/azure/authenticate-azure-cli-interactively)
+* [Adjusted quotas for suitable virtual machine (VM) families](https://learn.microsoft.com/en-us/azure/quotas/per-vm-quota-requests)
+
+:::{hint}
+To decide on suitable VMs, it may be useful to refer to [Sizes for virtual machines in Azure](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview). A typical Charmed HPC deployment will use a mix of high-performance and GPU-accelerated compute VMs for cluster compute nodes, and general purpose VMs for other node types.
+:::
+
+### Add Azure cloud to Juju
+
+:::{note}
+Azure supports a variety of authentication workflows with Juju. These instructions provide only a single example of creating a Service Principal to enable Juju to automatically create a Managed Identity. Refer to [the Juju documentation](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/cloud/list-of-supported-clouds/the-microsoft-azure-cloud-and-juju/) for full details on authentication with Azure and **ensure you choose a method which meets requirements for security in your environment**.
+:::
+
+To make your Azure credentials known to Juju, run:
+
+:::{code-block} shell
+juju add-credential azure
+:::
+
+This will start a script where you will be asked:
+
+* `credential-name` — your choice of name that will help you identify the credential set, referred to as `<CREDENTIAL_NAME>` hereafter.
+* `region` — a default region that is most convenient to deploy your controller and applications. Note that credentials are not region-specific.
+* `auth type` — authentication type. Select `interactive`, the recommended way to authenticate to Azure using Juju.
+* `subscription_id` — your Azure subscription ID, typical format `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`, referred to as `<SUBSCRIPTION_ID>` hereafter.
+* `application_name` (optional) — any unique string to avoid collision with other users or applications. Leave blank to let the script decide.
+* `role-definition-name` (optional) — any unique string to avoid collision with other users or applications, referred to as <AZURE_ROLE> hereafter. Leave blank to let the script decide.
+
+You will be asked to authenticate the requests via your web browser with the following message:
+
+:::{code-block} shell
+To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code <AUTHCODE> to authenticate.
+:::
+
+In a web browser, open the [authentication page](https://microsoft.com/devicelogin), sign in as required, and enter `<AUTHCODE>` from the terminal output.
+
+You will be asked to authenticate twice, to allow creation of two different resources in Azure.
+
+Once the credentials have been added successfully, the follow message will be displayed:
+
+:::{code-block} shell
+Credential <CREDENTIAL_NAME> added locally for cloud "azure".
+:::
+
+### Widen scope for credentials
+
+To allow Juju to automatically create resources in Azure, further privileges should be granted to the credentials created above. Run:
+
+:::{terminal}
+:input: juju show-credentials azure <CREDENTIAL_NAME>
+
+client-credentials:
+  azure:
+    <CREDENTIAL_NAME>:
+      content:
+        auth-type: service-principal-secret
+        application-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+        application-object-id: yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy
+        subscription-id: <SUBSCRIPTION_ID>
+:::
+
+substituting `<CREDENTIAL_NAME>` with your credential name. Copy the value of `application-object-id:` and run:
+
+:::{code-block} shell
+az role assignment create --assignee <APPLICATION_OBJECT_ID> --role Owner --scope /subscriptions/<SUBSCRIPTION_ID>
+:::
+
+substituting `<APPLICATION_OBJECT_ID>` with the value of `application-object-id:` and `<SUBSCRIPTION_ID>` with your Azure subscription ID.
+
+:::{note}
+This will grant the credential "full access to manage all resources". Refer to [Azure built-in roles](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles) for further details on the Owner role and other available roles.
+:::
+
+### Bootstrap Azure cloud controller
+
+First, set the default region for deploying Azure instances, including the controller itself. Refer to [What are Azure regions?](https://learn.microsoft.com/en-us/azure/reliability/regions-overview) for an overview of available regions. To set the default region to East US:
+
+:::{code-block} shell
+juju default-region azure eastus
+:::
+
+Then bootstrap with:
+
+:::{code-block} shell
+juju bootstrap azure --constraints "instance-role=auto"
+:::
+
+After a few minutes, your Azure cloud controller will become active. The output of juju status command should be similar to the following:
+
+:::{terminal}
+:input: juju status -m controller
+
+Model       Controller    Cloud/Region  Version  SLA          Timestamp
+controller  azure-eastus  azure/eastus  3.6.3    unsupported  14:38:21Z
+
+App         Version  Status  Scale  Charm            Channel     Rev  Exposed  Message
+controller           active      1  juju-controller  3.6/stable  116  no
+
+Unit           Workload  Agent  Machine  Public address  Ports  Message
+controller/0*  active    idle   0        x.x.x.x
+
+Machine  State    Address      Inst id        Base          AZ  Message
+0        started  x.x.x.x      juju-e63b38-0  ubuntu@24.04
+:::
+
+### Clean up
+
+:::{note}
+Always clean Azure resources that are no longer necessary! Abandoned resources are tricky to detect and they can become expensive over time.
+:::
+
+To list all controllers that have been registered to your local client, use the `juju controllers` command.
+
+To destroy the Juju controller and remove the Azure instance (Warning: all your data will be permanently removed):
+
+:::{code-block} shell
+juju destroy-controller <CONTROLLER_NAME> --destroy-all-models --destroy-storage --force
+:::
+
+Should the destroying process take a long time or be seemingly stuck, proceed to delete VM resources also manually via the Azure portal. See [Azure documentation](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-portal) for more information on how to remove active resources no longer needed.
+
+Next, check and manually delete all unnecessary Azure VM instances, to show the list of all your Azure VMs run the following command (make sure to use the correct region):
+
+:::{code-block} shell
+az resource list
+:::
+
+List your Juju credentials with:
+
+:::{terminal}
+:input: juju credentials
+
+Client Credentials:
+Cloud        Credentials
+azure        <CREDENTIAL_NAME>
+:::
+
+Remove Azure CLI credentials from Juju:
+
+:::{code-block} shell
+juju remove-credential azure <CREDENTIAL_NAME>
+:::
+
+After deleting the credentials, the interactive process may still leave the role resource and its assignment hanging around. It is recommend to check if these are still present by running:
+
+:::{code-block} shell
+az role definition list --name <AZURE_ROLE>
+:::
+
+To get the full list of all roles, run the command without specifying the `--name` parameter.
+
+It is possible to check whether a role assignment is still bound to `<AZURE_ROLE>` by:
+
+:::{code-block} shell
+az role assignment list --role <AZURE_ROLE>
+:::
+
+If there is an unwanted role left, the role assignment should be removed first and then the role itself with the following commands:
+
+:::{code-block} shell
+az role assignment delete --role <AZURE_ROLE>
+az role definition delete --name <AZURE_ROLE>
+:::
+
+Finally, log out from Azure CLI:
+
+:::{code-block} shell
+az logout
+:::
+
+::::
+
 :::::
 
 (howto-initialize-kubernetes-cloud)=
