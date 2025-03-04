@@ -144,7 +144,7 @@ Machine  State    Address        Inst id        Base          AZ  Message
 To use Microsoft Azure as the machine cloud for your Charmed HPC cluster, you will need to have:
 
 * [A valid Azure subscription ID](https://learn.microsoft.com/en-us/azure/azure-portal/get-subscription-tenant-id)
-* [Installed the Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux)
+* [Installed the Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
 * [Signed into the Azure CLI](https://learn.microsoft.com/en-us/cli/azure/authenticate-azure-cli-interactively)
 * [Adjusted quotas for suitable virtual machine (VM) families](https://learn.microsoft.com/en-us/azure/quotas/per-vm-quota-requests)
 
@@ -166,27 +166,27 @@ juju add-credential azure
 
 This will start a script where you will be asked:
 
-* `credential-name` — your choice of name that will help you identify the credential set, referred to as `<CREDENTIAL_NAME>` hereafter.
+* `credential-name` — your choice of name that will help you identify the credential set, referred to as `<your credential name>` hereafter.
 * `region` — a default region that is most convenient to deploy your controller and applications. Note that credentials are not region-specific.
 * `auth type` — authentication type. Select `interactive`, the recommended way to authenticate to Azure using Juju.
-* `subscription_id` — your Azure subscription ID, typical format `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`, referred to as `<SUBSCRIPTION_ID>` hereafter.
+* `subscription_id` — your Azure subscription ID, typical format `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`, referred to as `<Azure subscription ID>` hereafter.
 * `application_name` (optional) — any unique string to avoid collision with other users or applications. Leave blank to let the script decide.
-* `role-definition-name` (optional) — any unique string to avoid collision with other users or applications, referred to as <AZURE_ROLE> hereafter. Leave blank to let the script decide.
+* `role-definition-name` (optional) — any unique string to avoid collision with other users or applications, referred to as `<Azure role definition name>` hereafter. Leave blank to let the script decide.
 
 You will be asked to authenticate the requests via your web browser with the following message:
 
 :::{code-block} shell
-To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code <AUTHCODE> to authenticate.
+To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code <auth code> to authenticate.
 :::
 
-In a web browser, open the [authentication page](https://microsoft.com/devicelogin), sign in as required, and enter `<AUTHCODE>` from the terminal output.
+In a web browser, open the [authentication page](https://microsoft.com/devicelogin), sign in as required, and enter `<auth code>` from the terminal output.
 
 You will be asked to authenticate twice, to allow creation of two different resources in Azure.
 
 Once the credentials have been added successfully, the following message will be displayed:
 
 :::{code-block} shell
-Credential <CREDENTIAL_NAME> added locally for cloud "azure".
+Credential <your credential name> added locally for cloud "azure".
 :::
 
 ### Widen scope for credentials
@@ -194,25 +194,23 @@ Credential <CREDENTIAL_NAME> added locally for cloud "azure".
 To allow Juju to automatically create resources in Azure, further privileges should be granted to the credentials created above. Run:
 
 :::{terminal}
-:input: juju show-credentials azure <CREDENTIAL_NAME>
+:input: juju show-credentials azure <your credential name>
 
 client-credentials:
   azure:
-    <CREDENTIAL_NAME>:
+    <your credential name>:
       content:
         auth-type: service-principal-secret
         application-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-        application-object-id: yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy
-        subscription-id: <SUBSCRIPTION_ID>
+        application-object-id: <application object ID>
+        subscription-id: <Azure subscription ID>
 :::
 
-substituting `<CREDENTIAL_NAME>` with your credential name. Copy the value of `application-object-id:` and run:
+Copy the value of `application-object-id:` and run:
 
 :::{code-block} shell
-az role assignment create --assignee <APPLICATION_OBJECT_ID> --role Owner --scope /subscriptions/<SUBSCRIPTION_ID>
+az role assignment create --assignee <application object ID> --role Owner --scope /subscriptions/<Azure subscription ID>
 :::
-
-substituting `<APPLICATION_OBJECT_ID>` with the value of `application-object-id:` and `<SUBSCRIPTION_ID>` with your Azure subscription ID.
 
 :::{note}
 This will grant the credential "full access to manage all resources". Refer to [Azure built-in roles](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles) for further details on the Owner role and other available roles.
@@ -261,7 +259,7 @@ To list all controllers that have been registered to your local client, use the 
 To destroy the Juju controller and remove the Azure instance (Warning: all your data will be permanently removed):
 
 :::{code-block} shell
-juju destroy-controller <CONTROLLER_NAME> --destroy-all-models --destroy-storage --force
+juju destroy-controller <controller name> --destroy-all-models --destroy-storage --force
 :::
 
 Should the destroying process take a long time or be seemingly stuck, proceed to delete VM resources also manually via the Azure portal. See [Azure documentation](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-portal) for more information on how to remove active resources no longer needed.
@@ -279,37 +277,43 @@ List your Juju credentials with:
 
 Client Credentials:
 Cloud        Credentials
-azure        <CREDENTIAL_NAME>
+azure        <your credential name>
 :::
 
 Remove Azure CLI credentials from Juju:
 
 :::{code-block} shell
-juju remove-credential azure <CREDENTIAL_NAME>
+juju remove-credential azure <your credential name>
 :::
 
-After deleting the credentials, the interactive process may still leave the role resource and its assignment hanging around. It is recommend to check if these are still present by running:
+After deleting the credential, the interactive process may not clean up its Azure role resource and assignment. It is recommend to check if these are still present by running:
 
 :::{code-block} shell
-az role definition list --name <AZURE_ROLE>
+az role definition list --name <Azure role definition name>
 :::
 
-To get the full list of all roles, run the command without specifying the `--name` parameter.
-
-It is possible to check whether a role assignment is still bound to `<AZURE_ROLE>` by:
+For a list of all roles, run the command without specifying the `--name` parameter:
 
 :::{code-block} shell
-az role assignment list --role <AZURE_ROLE>
+az role definition list
 :::
 
-If there is an unwanted role left, the role assignment should be removed first and then the role itself with the following commands:
+Look for role definitions with `"roleType": "CustomRole"`. If a custom `<Azure role definition name>` was not specified when adding the credential, the `"roleName"` will be similar to `"Juju Role Definition"` or `"juju-controller-role"`, followed by an ID. These definitions should be removed if Juju is no longer in use.
+
+To remove a role definition, first its assignments must be removed. To check whether a role assignment is bound to `<Azure role definition name>` run:
 
 :::{code-block} shell
-az role assignment delete --role <AZURE_ROLE>
-az role definition delete --name <AZURE_ROLE>
+az role assignment list --role <Azure role definition name>
 :::
 
-Finally, log out from Azure CLI:
+The assignment and then the definition itself can be removed with:
+
+:::{code-block} shell
+az role assignment delete --role <Azure role definition name>
+az role definition delete --name <Azure role definition name>
+:::
+
+To finish cleaning up, log out from Azure CLI:
 
 :::{code-block} shell
 az logout
