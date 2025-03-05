@@ -4,27 +4,29 @@ Do you want to contribute to Charmed HPC's documentation? You've come to
 the right place then! __Here is how you can get involved.__
 
 Please take a moment to review this document so that the contribution
-process will be easy and effective for everyone. Also, please familiarise
-yourself with [MyST](https://mystmd.org/) and [Diátaxis](https://diataxis.fr/), as it will help you better understand how
-Charmed HPC's documentation is put together.
-
-Following these guidelines helps you communicate that you respect the maintainers
+process will be easy and effective for everyone. Following these guidelines helps you communicate that you respect the maintainers
 managing Charmed HPC's documentation. In return, they will reciprocate that respect
-while addressing your issue or assessing your submitted changes and/or features.
+while addressing your issue or assessing your submitted changes and/or features. 
 
 Have any questions? Feel free to ask them in the [Ubuntu High-Performance Computing
 Matrix chat](https://matrix.to/#/#hpc:ubuntu.com).
 
 ### Table of Contents
 
+* [Documentation guidelines](#documentation-guidelines)
 * [Using the issue tracker](#using-the-issue-tracker)
 * [Issues and Labels](#issues-and-labels)
 * [Bug Reports](#bug-reports)
-* [Enhancement Proposals](#enhancement-proposals)
-* [Pull Requests](#pull-requests)
+* [Feature Proposals](#feature-proposals)
+* [Pull Requests and Contributing Process](#pull-requests-and-contributing-process)
 * [Discussions](#discussions)
-* [Documentation guidelines](#documentation-guidelines)
 * [Licensing](#licensing)
+
+
+## Documentation guidelines
+
+Please familiarize yourself with [Markedly Structured Text (MyST)](https://mystmd.org/), [Diátaxis](https://diataxis.fr/), and the [Canonical Documentation Style Guide](https://docs.ubuntu.com/styleguide/en/index) as they will help you better understand how
+Charmed HPC's documentation is put together.
 
 ## Using the issue tracker
 
@@ -54,18 +56,14 @@ The Charmed HPC documentation issue tracker uses a variety of labels to help org
 and identify issues. Here is a list of some of these labels, and how the maintainers of
 Charmed HPC's documentation use them:
 
-* `Type: Bug` - Issues within the Charmed HPC documentation that either produce errors, unexpected behavior, or cause users to encounter unintended errors.
-
-* `Status: Confirmed` - Issues marked `Type: Bug` that have been confirmed to be reproducible on a separate system.
-
-* `Type: Documentation` - Issues for revising or enhancing Charmed HPC's documentation.
+* `docs` - Issues for revising or enhancing Charmed HPC's documentation.
 Can also be used for pull requests.
 
-* `Type: Refactor` - Issues that pertain to improving Charmed HPC's documentation.
+* `fix` - Issues were a fix to current documentation is needed.
 
-* `Type: Enhancement` - Issues marked as an agreed upon enhancement to Charmed HPC's documentation. Can also be used for pull requests.
+* `help wanted` - Issues where we need help from the Ubuntu HPC community to solve.
 
-* `Status: Help Wanted` - Issues where we need help from the Ubuntu HPC community to solve.
+* `good first issue` - Issues that the Charmed HPC documentation maintainers have determine are a suitable level for first time documentation contributors. 
 
 For a complete look at Charmed HPC's documentation labels, see the
 [project labels page](https://github.com/charmed-hpc/docs/labels).
@@ -101,9 +99,9 @@ Some common questions you should answer in your report include:
 Please try to be as detailed as possible in your report. All these details will help the
 maintainers quickly fix issues with Charmed HPC's documentation.
 
-## Enhancement Proposals
+## Feature Proposals
 
-Enhancement proposals can be posted to the Charmed HPC documentation issue tracker.
+Feature proposals can be posted to the Charmed HPC documentation issue tracker, using the `feature` label.
 
 The Charmed HPC team may already know what they want to included in the documentation,
 but they are always open to new ideas and potential improvements. GitHub Discussions is
@@ -116,7 +114,7 @@ know that spamming the maintainers to incorporate something you want into the do
 will not improve the likelihood of being implemented; it may result in you receiving a
 temporary ban from the repository.
 
-## Pull Requests
+## Pull Requests and Contributing Process
 
 Good pull requests &mdash; spelling corrections, revisions, new sections &mdash;
 are a huge help. Pull requests should remain focused and not contain commits not
@@ -210,13 +208,9 @@ discuss potential enhancements, ask questions, and resolve issues. Charmed HPC u
 should remain respectful of each other. Discussion moderators reserve the right to
 suspend discussions and/or delete posts that do not follow this rule.
 
-## Documentation guidelines
 
-We use [Markedly Structured Text (MyST)](https://mystmd.org/guide/typography) to
-write our documentation, and we follow [Diátaxis](https://diataxis.fr) for
-developing and guiding our documentation practice.
 
-Interested in learning how to contribute to open source documentation?
+Interested in learning more about how to contribute to open source documentation?
 Check out [Canonical's Open Documentation Academy](https://canonical.com/documentation/open-documentation-academy)
 and how they can help you level up your contributions!
 
