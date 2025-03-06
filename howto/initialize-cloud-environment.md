@@ -227,7 +227,7 @@ juju default-region azure eastus
 Then bootstrap with:
 
 :::{code-block} shell
-juju bootstrap azure --constraints "instance-role=auto"
+juju bootstrap azure charmed-hpc-controller --constraints "instance-role=auto"
 :::
 
 After a few minutes, your Azure cloud controller will become active. The output of juju status command should be similar to the following:
@@ -235,8 +235,8 @@ After a few minutes, your Azure cloud controller will become active. The output 
 :::{terminal}
 :input: juju status -m controller
 
-Model       Controller    Cloud/Region  Version  SLA          Timestamp
-controller  azure-eastus  azure/eastus  3.6.3    unsupported  14:38:21Z
+Model       Controller              Cloud/Region  Version  SLA          Timestamp
+controller  charmed-hpc-controller  azure/eastus  3.6.3    unsupported  10:39:56Z
 
 App         Version  Status  Scale  Charm            Channel     Rev  Exposed  Message
 controller           active      1  juju-controller  3.6/stable  116  no
@@ -371,6 +371,59 @@ Clouds available on the controller:
 Cloud            Regions  Default  Type
 charmed-hpc      1        default  lxd
 charmed-hpc-k8s  1        default  k8s
+:::
+
+::::
+
+::::{tab-item} Azure Kubernetes Service (AKS)
+:sync: azure
+
+### Prerequisites for Azure Kubernetes Service (AKS)
+
+To use AKS as the Kubernetes cloud for your Charmed HPC cluster, you will need to have:
+
+* [Initialized a machine cloud](#howto-initialize-machine-cloud)
+* [Signed into the Azure CLI](https://learn.microsoft.com/en-us/cli/azure/authenticate-azure-cli-interactively)
+
+### Create a new AKS cluster
+
+Create a new [Azure Resource Group](https://learn.microsoft.com/en-us/cli/azure/manage-azure-groups-azure-cli) in the same region as the machine cloud. For the East US region:
+
+:::{code-block} shell
+az group create --name aks --location eastus
+:::
+
+Bootstrap AKS in the new Azure Resource Group, adjusting node count and VM size as required:
+
+:::{code-block} shell
+export JUJU_NAME=aks-$USER-$RANDOM
+az aks create -g aks -n ${JUJU_NAME} --enable-managed-identity --node-count 1 --node-vm-size=Standard_D4s_v4 --generate-ssh-keys
+:::
+
+### Add AKS cloud to deployed controller
+
+To make your AKS cloud known to Juju and use the same controller as your machine cloud, first retrieve your AKS credentials:
+
+:::{code-block} shell
+az aks get-credentials --resource-group aks --name ${JUJU_NAME} --context aks
+:::
+
+This will add your AKS credentials to the file `~/.kube/config`. Now, add the AKS cloud to the controller:
+
+:::{code-block} shell
+juju add-k8s --controller charmed-hpc-controller charmed-hpc-k8s --cluster-name=aks
+:::
+
+With the AKS cloud added, the output of `juju clouds`{l=shell} for the controller should be similar to the following:
+
+:::{terminal}
+:input: juju clouds --controller charmed-hpc-controller
+
+
+Clouds available on the controller:
+Cloud            Regions  Default  Type
+azure            44       eastus   azure
+charmed-hpc-k8s  1        eastus   k8s
 :::
 
 ::::
