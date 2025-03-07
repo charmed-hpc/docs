@@ -22,6 +22,7 @@ __Step-by-step guides__ covering key operations and common tasks
 - {ref}`Initialize cloud environment <howto-initialize-cloud-environment>`
 - {ref}`howto-setup`
 - {ref}`howto-manage`
+- {ref}`Clean up cloud resources <howto-cleanup-cloud-resources>`
 
 ```
 
@@ -29,7 +30,7 @@ __Step-by-step guides__ covering key operations and common tasks
 ```{grid-item-card} [Explanation](explanation/index)
 
 __Discussion and clarification__ of key topics
- 
+
  - {ref}`cryptography`
  - {ref}`gpus`
  - {ref}`explanation-interconnects`

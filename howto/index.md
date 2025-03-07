@@ -28,6 +28,12 @@ responsible for managing Charmed HPC after deployment.
 
 - {ref}`howto-manage-integrate-with-cos`
 
+## Clean-up
+
+It is important to clean up resources that are no longer necessary, especially in the case of public clouds as abandoned resources can incur significant costs. This guide demonstrates how to clean up and delete unneeded Charmed HPC resources.
+
+- {ref}`howto-cleanup-cloud-resources`
+
 :::{toctree}
 :titlesonly:
 :maxdepth: 1
@@ -36,4 +42,5 @@ responsible for managing Charmed HPC after deployment.
 Initialize cloud environment <initialize-cloud-environment>
 setup/index
 manage/index
+Clean up cloud resources <cleanup-cloud-resources>
 :::
