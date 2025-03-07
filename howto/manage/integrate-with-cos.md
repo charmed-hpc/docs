@@ -50,7 +50,7 @@ First, within your `charmed-hpc` cloud, use `juju deploy`{l=shell} to deploy Gra
 on your cluster:
 
 :::{code-block} shell
-juju deploy --model charmed-hpc-controller:slurm grafana-agent
+juju deploy --model charmed-hpc-controller:slurm grafana-agent --base "ubuntu@24.04"
 :::
 
 ### Connect Charmed HPC to Grafana Agent
