@@ -251,73 +251,10 @@ Machine  State    Address      Inst id        Base          AZ  Message
 ### Clean up
 
 :::{note}
-Always clean Azure resources that are no longer necessary! Abandoned resources are tricky to detect and they can become expensive over time.
+Always clean Azure resources that are no longer necessary! Abandoned resources are tricky to detect and can become expensive over time.
 :::
 
-To list all controllers that have been registered to your local client, use the `juju controllers` command.
-
-To destroy the Juju controller and remove the Azure instance (Warning: all your data will be permanently removed):
-
-:::{code-block} shell
-juju destroy-controller <controller name> --destroy-all-models --destroy-storage --force
-:::
-
-Should the destroying process take a long time or be seemingly stuck, proceed to delete VM resources also manually via the Azure portal. See [Azure documentation](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-portal) for more information on how to remove active resources no longer needed.
-
-Next, check and manually delete all unnecessary Azure VM instances, to show the list of all your Azure VMs run the following command (make sure to use the correct region):
-
-:::{code-block} shell
-az resource list
-:::
-
-List your Juju credentials with:
-
-:::{terminal}
-:input: juju credentials
-
-Client Credentials:
-Cloud        Credentials
-azure        <your credential name>
-:::
-
-Remove Azure CLI credentials from Juju:
-
-:::{code-block} shell
-juju remove-credential azure <your credential name>
-:::
-
-After deleting the credential, the interactive process may not clean up its Azure role resource and assignment. It is recommend to check if these are still present by running:
-
-:::{code-block} shell
-az role definition list --name <Azure role definition name>
-:::
-
-For a list of all roles, run the command without specifying the `--name` parameter:
-
-:::{code-block} shell
-az role definition list
-:::
-
-Look for role definitions with `"roleType": "CustomRole"`. If a custom `<Azure role definition name>` was not specified when adding the credential, the `"roleName"` will be similar to `"Juju Role Definition"` or `"juju-controller-role"`, followed by an ID. These definitions should be removed if Juju is no longer in use.
-
-To remove a role definition, first its assignments must be removed. To check whether a role assignment is bound to `<Azure role definition name>` run:
-
-:::{code-block} shell
-az role assignment list --role <Azure role definition name>
-:::
-
-The assignment and then the definition itself can be removed with:
-
-:::{code-block} shell
-az role assignment delete --role <Azure role definition name>
-az role definition delete --name <Azure role definition name>
-:::
-
-To finish cleaning up, log out from Azure CLI:
-
-:::{code-block} shell
-az logout
-:::
+Refer to {ref}`howto-cleanup-cloud-resources` for guidance on cleaning up an Azure cloud.
 
 ::::
 
@@ -425,6 +362,14 @@ Cloud            Regions  Default  Type
 azure            44       eastus   azure
 charmed-hpc-k8s  1        eastus   k8s
 :::
+
+### Clean up
+
+:::{note}
+Always clean Azure resources that are no longer necessary! Abandoned resources are tricky to detect and can become expensive over time.
+:::
+
+Refer to {ref}`howto-cleanup-cloud-resources` for guidance on cleaning up an Azure cloud.
 
 ::::
 
