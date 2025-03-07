@@ -134,7 +134,7 @@ html_context = {
     #
     # NOTE: If set, links for viewing the documentation source files
     #       and creating GitHub issues are added at the bottom of each page.
-    "github_url": "https://github.com/charmed-hpc",
+    "github_url": "https://github.com/charmed-hpc/docs",
     # Docs branch in the repo; used in links for viewing the source files
     #
     # TODO: To customise the branch, uncomment and update as needed.
