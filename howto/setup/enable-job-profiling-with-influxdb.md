@@ -21,4 +21,4 @@ Now [integrate](https://canonical-juju.readthedocs-hosted.com/en/latest/user/ref
 $ juju integrate influxdb slurmctld
 :::
 
-Once the InfluxDB charm deployment and integration are complete slurm will be configured to send job profiling metrics to influxdb, enabling the use of the [`sstat`](https://slurm.schedmd.com/sstat.html) command.
+Once the InfluxDB charm deployment and integration are complete, Slurm is configured to send job profiling metrics to influxdb, enabling the use of the [`sstat`](https://slurm.schedmd.com/sstat.html) command.
