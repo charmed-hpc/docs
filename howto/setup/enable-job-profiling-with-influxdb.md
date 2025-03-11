@@ -1,7 +1,7 @@
 (howto-enable-job-profiling-with-influxdb)=
 # How to enable job profiling with InfluxDB
 
-Charmed-HPC integrates with the [InfluxDB Charm](https://charmhub.io/influxdb) to enable job profiling in slurm.
+Charmed HPC can integrate with the [InfluxDB Charm](https://charmhub.io/influxdb) to enable job profiling in Slurm.
 
 This how-to guide explains how enable job profiling by deploying and integrating `influxdb` with charmed-hpc.
 
