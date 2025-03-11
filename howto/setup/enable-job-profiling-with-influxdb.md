@@ -11,7 +11,7 @@ This guide explains how to enable job profiling by deploying and integrating `in
 
 ## Deploy and Integrate InfluxDB
 
-InfluxDB can be deployed using Juju in a single command.
+InfluxDB can be deployed using Juju in a single command:
 :::{code-block} shell
 $ juju deploy influxdb
 :::
