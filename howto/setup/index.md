@@ -15,6 +15,6 @@ See the how-to guides in this section for the steps to set up and deploy various
 
 Deploy Slurm <deploy-slurm>
 Deploy a shared filesystem <deploy-shared-filesystem>
-Enable job profiling with InfluxDB <enable-job-profiling-with-influxdb>
+Enable job profiling <enable-job-profiling-with-influxdb>
 
 :::
