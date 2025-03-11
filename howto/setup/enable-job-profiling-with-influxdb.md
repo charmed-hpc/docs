@@ -16,7 +16,7 @@ InfluxDB can be deployed using Juju in a single command:
 $ juju deploy influxdb
 :::
 
-Now [integrate](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/juju-cli/list-of-juju-cli-commands/integrate/) the newly deployed influxdb charm with slurmctld.
+Now [integrate](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/juju-cli/list-of-juju-cli-commands/integrate/) the newly deployed influxdb charm with slurmctld:
 :::{code-block} shell
 $ juju integrate influxdb slurmctld
 :::
