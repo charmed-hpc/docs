@@ -8,7 +8,7 @@ furo
 linkify-it-py
 myst-parser
 pyspelling
-sphinx
+
 sphinx-copybutton
 sphinx-design
 sphinx-notfound-page
