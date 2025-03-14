@@ -167,6 +167,11 @@ html_context = {
 html_static_path = [".sphinx/_static"]
 templates_path = [".sphinx/_templates"]
 
+# To enable the edit button (pencil icon next to the feedback button)
+#
+# html_theme_options = {
+# 'source_edit_link': 'https://github.com/canonical/sphinx-docs-starter-pack',
+# }
 
 #############
 # Redirects #

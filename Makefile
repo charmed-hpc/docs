@@ -40,7 +40,7 @@ help:
 
 .PHONY: full-help woke-install spellcheck-install pa11y-install install run html \
         epub serve clean clean-doc spelling spellcheck linkcheck woke \
-        allmetrics pa11y pdf-prep-force pdf-prep pdf Makefile.sp vale bash
+        allmetrics pa11y pdf-prep-force pdf-prep pdf vale bash
 
 full-help: $(VENVDIR)
 	@. $(VENV); $(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
