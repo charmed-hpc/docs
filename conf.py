@@ -148,6 +148,9 @@ html_context = {
      "sequential_nav": "both",
     # TODO: To enable listing contributors on individual pages, set to True
     "display_contributors": False,
+
+    # Required for feedback button    
+    'github_issues': 'enabled',
 }
 
 
@@ -282,7 +285,7 @@ rst_epilog = """
 #
 # TODO: To disable the button, uncomment this.
 
-# disable_feedback_button = True
+#  disable_feedback_button = False
 
 
 # Your manpage URL
