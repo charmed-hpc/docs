@@ -119,7 +119,7 @@ html_context = {
     #
     # NOTE: If set, adding ':discourse: 123' to an .rst file
     #       will add a link to Discourse topic 123 at the bottom of the page.
-    #"discourse": ,
+    "discourse": "https://discourse.ubuntu.com/c/project/hpc/151",
     # Your Mattermost channel URL
     #
     # TODO: Change to your Mattermost channel URL or leave empty.
