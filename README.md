@@ -13,15 +13,18 @@ documentation, check out the [Getting Started](#-getting-started) and
 
 Periodically, issues within the docs repository will be labeled as `good first issue`. These issues are ideally the first place to get started helping with Charmed HPC's documentation. If there are currently no issues labeled `good first issue`, or none of the issues fit your interest, feel free to reach out on [Matrix](https://matrix.to/#/#hpc:ubuntu.com) and ask if the team has any suggestions. Otherwise, small pull requests for grammar and formatting are always a good place to start.
 
+To provide bug reports or enhancement requests regarding _the documentation_, please see the corresponding sections in the [CONTRIBUTING](./CONTRIBUTING.md) file.
+
 ## 🛠️ Development
 
-To start the development server and render a local preview run:
+To start the development server locally and render a preview, follow step one from the [Pull Request] section(./CONTRIBUTING.md#Pull-Requests) of the [CONTRIBUTING](./CONTRIBUTING.md) file. Then, locally, run:
 
 ```shell
 $ make run
 ```
+and open a web page to `http://127.0.0.1:8000/` to view the rendered preview.
 
-Once you have the development server running on your machine, see the
+Once you have the development server running on your machine, see the other sections of the 
 [CONTRIBUTING](./CONTRIBUTING.md) file for how to contribute your changes
 to Charmed HPC's documentation.
 
