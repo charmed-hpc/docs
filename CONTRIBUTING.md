@@ -206,8 +206,7 @@ upstream Charmed HPC documentation repository:
    git push origin <topic-branch-name>
    ```
 
-9. [Open a Pull Request](https://help.github.com/articles/about-pull-requests/)
-    with a clear title and description against the `main` branch.
+9. [Open a Pull Request](https://help.github.com/articles/about-pull-requests/) against the `main` branch by follow the guidelines and prompts within the Pull Request template that will generate when a pull request is started.
 
 
 ## Discussions
