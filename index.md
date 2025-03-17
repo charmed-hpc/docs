@@ -43,6 +43,7 @@ __Discussion and clarification__ of key topics
 __Technical information__
 
 - {ref}`reference-underlying-projects-and-dependencies`
+- {ref}`reference-compatibility-matrix`
 - {ref}`gres`
 - {ref}`reference-interconnects`
 - {ref}`reference-performance`
