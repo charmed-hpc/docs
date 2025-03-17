@@ -18,7 +18,6 @@ taking you through the setup of your own Charmed HPC cluster.
 
 - {ref}`howto-setup-deploy-slurm`
 - {ref}`howto-setup-deploy-shared-filesystem`
-- {ref}`howto-enable-job-profiling-with-influxdb`
 
 (howto-manage)=
 ## Manage
@@ -28,6 +27,7 @@ deployed Charmed HPC. These guides are for system administrators and HPC enginee
 responsible for managing Charmed HPC after deployment.
 
 - {ref}`howto-manage-integrate-with-cos`
+- {ref}`howto-manage-integrate-with-influxdb`
 
 :::{toctree}
 :titlesonly:
