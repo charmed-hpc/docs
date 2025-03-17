@@ -184,7 +184,7 @@ upstream Charmed HPC documentation repository:
 >  4. Select the relevant branch from the drop-down menu
 >  5. Select `Run workflow` within the drop-down
 >
-> For more information on setting up the tests, see [Automatic checks](https://canonical-starter-pack.readthedocs-hosted.com/latest/content/automatic_checks/) within the Canonical Starter Pack documentation.
+> For more information on setting up the tests locally, see [Automatic checks](https://canonical-starter-pack.readthedocs-hosted.com/latest/content/automatic_checks/) within the Canonical Starter Pack documentation.
 
 6. Commit your changes in logical chunks to your topic branch.
 
