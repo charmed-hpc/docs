@@ -147,7 +147,7 @@ html_context = {
     # Valid options: none, prev, next, both
      "sequential_nav": "both",
     # TODO: To enable listing contributors on individual pages, set to True
-    "display_contributors": False,
+    "display_contributors": True,
 
     # Required for feedback button    
     'github_issues': 'enabled',
