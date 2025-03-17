@@ -17,7 +17,7 @@ Matrix chat](https://matrix.to/#/#hpc:ubuntu.com).
 * [Using the issue tracker](#using-the-issue-tracker)
 * [Issues and Labels](#issues-and-labels)
 * [Bug Reports](#bug-reports)
-* [Feature Proposals](#feature-proposals)
+* [Enhancement Proposals](#enhancement-proposals)
 * [Pull Requests and Contributing Process](#pull-requests-and-contributing-process)
 * [Discussions](#discussions)
 * [Licensing](#licensing)
@@ -30,8 +30,7 @@ Charmed HPC's documentation is put together.
 
 ## Using the issue tracker
 
-The issue tracker is the preferred way for tracking [bug reports](#bug-reports), [feature requests](#feature-requests),
-and [submitted pull requests](#pull-requests), but please follow these guidelines for the issue tracker:
+The issue tracker is the preferred way for tracking [bug reports](#bug-reports) and [enhancement proposals](#enhancement-proposals), but please follow these guidelines for the issue tracker:
 
 * Please __do not__ use the issue tracker for personal issues and/or support requests.
 The [Discussions](#discussions) page is a better place to get help for personal support requests.
@@ -53,15 +52,13 @@ submit a new issue or browse through previous issues.
 ## Issues and Labels
 
 The Charmed HPC documentation issue tracker uses a variety of labels to help organize
-and identify issues. Here is a list of some of these labels, and how the maintainers of
+and identify issues. Here are a few of these labels, and how the maintainers of
 Charmed HPC's documentation use them:
 
-* `docs` - Issues for revising or enhancing Charmed HPC's documentation.
+* `docs` - Issues for general revision and enhancement of Charmed HPC's documentation.
 Can also be used for pull requests.
 
-* `fix` - Issues were a fix to current documentation is needed.
-
-* `help wanted` - Issues where we need help from the Ubuntu HPC community to solve.
+* `help wanted` - Issues where we need help from the HPC community to solve.
 
 * `good first issue` - Issues that the Charmed HPC documentation maintainers have determine are a suitable level for first time documentation contributors. 
 
@@ -73,6 +70,8 @@ For a complete look at Charmed HPC's documentation labels, see the
 A bug is a *demonstrable problem* that is caused by errors in Charmed HPC's
 documentation. Good bug reports make Charmed HPC's documentation better, so
 thank you for taking the time to report issues!
+
+> **_NOTE:_** For bug reports pertaining to code functionality, please post the bug report in the corresponding code repository rather than here. Bug reports here should focus on bugs within the documentation, such as a how-to command being displayed incorrectly, or the documentation setup itself not functioning as expected. 
 
 Guidelines for reporting bugs with Charmed HPC's documentation:
 
@@ -99,9 +98,11 @@ Some common questions you should answer in your report include:
 Please try to be as detailed as possible in your report. All these details will help the
 maintainers quickly fix issues with Charmed HPC's documentation.
 
-## Feature Proposals
+Please make sure to select `bug` as the issue type and include any relevant labels, such as the affected component.
 
-Feature proposals can be posted to the Charmed HPC documentation issue tracker, using the `feature` label.
+## Enhancement Proposals
+
+Enhancement proposals can be posted to the Charmed HPC documentation issue tracker, using the `enhancement` issue type.
 
 The Charmed HPC team may already know what they want to included in the documentation,
 but they are always open to new ideas and potential improvements. GitHub Discussions is
@@ -123,7 +124,7 @@ related to what you are contributing.
 __Ask first__ before embarking on any __significant__ pull request such as adding new sections,
 changing the layout, or heavily revising existing sections; otherwise, you risk spending a
 lot of time working on something that Charmed HPC's maintainers may not want to merge into the
-documentation! For trivial changes, or contributions that do not require a large amount of time,
+documentation! For small changes, or contributions that do not require a large amount of time,
 you can go ahead and make a pull request.
 
 Adhering to the following process is the best way to get your contribution accepted into
@@ -176,8 +177,16 @@ upstream Charmed HPC documentation repository:
     # Ensure style guide compliance
     $ make vale
     ```
+> **_NOTE:_** The current MAKEFILE setup assumes that you are using an Ubuntu OS. If not, or if running the tests locally is not ideal, you may run them within GitHub. To do so, make sure any local changes have been pushed to your personal fork+branch and are visible from the web interface, then, from the web interface for GitHub:
+>  1. Go to the `Actions` tab near the top of the screen
+>  2. Select `Automatic docs checks` on the far left
+>  3. Select the `Run workflow` button on the right
+>  4. Select the relevant branch from the drop-down menu
+>  5. Select `Run workflow` within the drop-down
+>
+> For more information on setting up the tests, see [Automatic checks](https://canonical-starter-pack.readthedocs-hosted.com/latest/content/automatic_checks/) within the Canonical Starter Pack documentation.
 
-5. Commit your changes in logical chunks to your topic branch.
+6. Commit your changes in logical chunks to your topic branch.
 
    Our project follows the
    [Conventional Commits specification, version 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/).
@@ -185,19 +194,19 @@ upstream Charmed HPC documentation repository:
    [interactive rebase](https://help.github.com/articles/about-git-rebase/) feature to
    tidy up your commits before pushing them to your origin branch.
 
-6. Locally merge or rebase the upstream development branch into your topic branch:
+7. Locally merge or rebase the upstream development branch into your topic branch:
 
    ```shell
    git pull [--rebase] upstream main
    ```
 
-7. Push your topic branch up to your fork:
+8. Push your topic branch up to your fork:
 
    ```shell
    git push origin <topic-branch-name>
    ```
 
-8. [Open a Pull Request](https://help.github.com/articles/about-pull-requests/)
+9. [Open a Pull Request](https://help.github.com/articles/about-pull-requests/)
     with a clear title and description against the `main` branch.
 
 
