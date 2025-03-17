@@ -61,6 +61,7 @@ prometheus-k8s, [Source](https://github.com/canonical/prometheus-k8s-operator), 
 alertmanager-k8s, [Source](https://github.com/canonical/alertmanager-k8s-operator), [Issue tracker](https://github.com/canonical/alertmanager-k8s-operator/issues)
 loki-k8s, [Source](https://github.com/canonical/loki-k8s-operator), [Issue tracker](https://github.com/canonical/loki-k8s-operator/issues)
 catalogue-k8s, [Source](https://github.com/canonical/catalogue-k8s-operator), [Issue tracker](https://github.com/canonical/catalogue-k8s-operator/issues)
+influxdb, [Source](https://code.launchpad.net/influxdb-charm), [Issue tracker](https://bugs.launchpad.net/influxdb-charm)
 :::
 
 ## Charms
@@ -94,6 +95,7 @@ A charm does not have any modifiable configuration options or runnable actions i
 [grafana-agent](https://charmhub.io/grafana-agent), [Options](https://charmhub.io/grafana-agent/configurations)
 [mysql](https://charmhub.io/mysql), [Options](https://charmhub.io/mysql/configurations), [Actions](https://charmhub.io/mysql/actions)
 [mysql-router](https://charmhub.io/mysql-router), [Options](https://charmhub.io/mysql-router/configurations), [Actions](https://charmhub.io/mysql-router/actions)
+[influxdb](https://charmhub.io/influxdb), [Options](https://charmhub.io/influxdb/configurations), [Actions](https://charmhub.io/influxdb/actions)
 :::
 
 ### Kubernetes charms
