@@ -71,7 +71,7 @@ A bug is a *demonstrable problem* that is caused by errors in Charmed HPC's
 documentation. Good bug reports make Charmed HPC's documentation better, so
 thank you for taking the time to report issues!
 
-> **_NOTE:_** For bug reports pertaining to code functionality, please post the bug report in the corresponding code repository rather than here. Bug reports here should focus on bugs within the documentation, such as a how-to command being displayed incorrectly, or the documentation setup itself not functioning as expected. 
+For bug reports pertaining to code functionality, please post the bug report in the corresponding code repository rather than here. Bug reports here should focus on bugs within the documentation, such as a how-to command being displayed incorrectly, or the documentation setup itself not functioning as expected. 
 
 Guidelines for reporting bugs with Charmed HPC's documentation:
 
