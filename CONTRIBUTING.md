@@ -60,7 +60,7 @@ Can also be used for pull requests.
 
 * `help wanted` - Issues where we need help from the HPC community to solve.
 
-* `good first issue` - Issues that the Charmed HPC documentation maintainers have determine are a suitable level for first time documentation contributors. 
+* `good first issue` - Issues that the Charmed HPC documentation maintainers have determined to be suitable for first time contributors. 
 
 For a complete look at Charmed HPC's documentation labels, see the
 [project labels page](https://github.com/charmed-hpc/docs/labels).
