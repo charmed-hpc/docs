@@ -1,6 +1,6 @@
 # Pre-submission checklist
 
- * [ ] I read and followed the CONTRIBUTING guidelines.
+ * [ ] I read and followed the [CONTRIBUTING guidelines](../CONTRIBUTING.md).
  * [ ] I have insured that the documentation tests complete successfully.
 
 ## Summary of Changes
