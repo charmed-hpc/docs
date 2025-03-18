@@ -177,7 +177,7 @@ upstream Charmed HPC documentation repository:
     # Ensure style guide compliance
     $ make vale
     ```
-> **_NOTE:_** The current MAKEFILE setup assumes that you are using an Ubuntu OS. If not, or if running the tests locally is not ideal, you may run them within GitHub. To do so, make sure any local changes have been pushed to your personal fork+branch and are visible from the web interface, then, from the web interface for GitHub:
+> The current MAKEFILE setup assumes that you are using an Ubuntu OS. If not, or if running the tests locally is not ideal, you may run them within GitHub. To do so, make sure any local changes have been pushed to your personal fork+branch and are visible from the web interface, then, from the web interface for GitHub:
 >  1. Go to the `Actions` tab near the top of the screen
 >  2. Select `Automatic docs checks` on the far left
 >  3. Select the `Run workflow` button on the right
