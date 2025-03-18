@@ -266,8 +266,7 @@ exclude_patterns = [
     "doc-cheat-sheet*",
     "CONTRIBUTING.md",
     "README.md",
-    ".github/pull_request_template.md",
-    ".github/",
+    ".github/*",
 ]
 
 # Adds custom CSS files, located under 'html_static_path'
