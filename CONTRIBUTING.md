@@ -6,7 +6,7 @@ the right place then! __Here is how you can get involved.__
 Please take a moment to review this document so that the contribution
 process will be easy and effective for everyone. Following these guidelines helps you communicate that you respect the maintainers
 managing Charmed HPC's documentation. In return, they will reciprocate that respect
-while addressing your issue or assessing your submitted changes and/or features. 
+while addressing your issue or assessing your submitted changes and/or features.
 
 Have any questions? Feel free to ask them in the [Ubuntu High-Performance Computing
 Matrix chat](https://matrix.to/#/#hpc:ubuntu.com).
