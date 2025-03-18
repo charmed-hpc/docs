@@ -98,7 +98,7 @@ Some common questions you should answer in your report include:
 Please try to be as detailed as possible in your report. All these details will help the
 maintainers quickly fix issues with Charmed HPC's documentation.
 
-Please make sure to select `bug` as the issue type and include any relevant labels, such as the affected component.
+Please make sure to select `bug` as the issue type.
 
 ## Enhancement Proposals
 
