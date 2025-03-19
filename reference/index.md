@@ -7,6 +7,7 @@ Charmed HPC operates.
 ## General information
 
 - {ref}`reference-underlying-projects-and-dependencies`
+- {ref}`reference-compatibility-matrix`
 - {ref}`gres`
 - {ref}`reference-interconnects`
 
@@ -16,6 +17,7 @@ Charmed HPC operates.
 :hidden:
 
 Underlying projects and dependencies <underlying-projects-and-dependencies>
+compatibility-matrix
 gres/index
 interconnects/index
 ```
