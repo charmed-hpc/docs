@@ -2,7 +2,9 @@
 # See LICENSE file for licensing details.
 
 import datetime
-import ast
+from pathlib import Path
+
+import yaml
 
 # Configuration for the Sphinx documentation builder.
 # All configuration specific to your project should be done in this file.
@@ -149,7 +151,7 @@ html_context = {
     # TODO: To enable listing contributors on individual pages, set to True
     "display_contributors": True,
 
-    # Required for feedback button    
+    # Required for feedback button
     'github_issues': 'enabled',
 }
 
@@ -224,8 +226,10 @@ linkcheck_retries = 3
 # NOTE: By default, the following MyST extensions are enabled:
 #       substitution, deflist, linkify
 
-myst_enable_extensions = {"attrs_inline",
-    "colon_fence"}
+myst_enable_extensions = {
+    "attrs_inline",
+    "colon_fence",
+}
 
 
 # Custom Sphinx extensions; see
@@ -324,3 +328,6 @@ rst_prolog = """
 
 if "discourse_prefix" not in html_context and "discourse" in html_context:
     html_context["discourse_prefix"] = html_context["discourse"] + "/t/"
+
+if (substitutions := Path("reuse/substitutions.yaml")).exists():
+    myst_substitutions = yaml.safe_load(substitutions.read_text())
