@@ -29,9 +29,9 @@ as a cloud.
 To initialize the cloud environment where you will deploy your Charmed HPC cluster,
 you will need:
 
-* Access to a [supported machine cloud](https://juju.is/docs/juju/juju-supported-clouds)
-* Access to a [supported Kubernetes cloud](https://juju.is/docs/juju/juju-supported-clouds)
-* The [Juju CLI client](https://juju.is/docs/juju/install-and-manage-the-client) installed on your machine
+* Access to a [supported machine cloud](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/cloud/list-of-supported-clouds/)
+* Access to a [supported Kubernetes cloud](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/cloud/list-of-supported-clouds/)
+* The [Juju CLI client](https://canonical-juju.readthedocs-hosted.com/en/latest/user/howto/manage-juju/) installed on your machine
 
 (howto-initialize-machine-cloud)=
 ## Initialize machine cloud
