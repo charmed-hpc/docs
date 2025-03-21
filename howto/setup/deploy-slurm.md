@@ -14,7 +14,7 @@ The deployment, management, and operations of Slurm are controlled by the Slurm 
 To successfully deploy Slurm in your Charmed HPC cluster, you will at least need:
 
 - An [initialized cloud environment](#howto-initialize-cloud-environment).
-- The [Juju CLI client](https://juju.is/docs/juju/install-and-manage-the-client) installed on your machine.
+- The [Juju CLI client](https://canonical-juju.readthedocs-hosted.com/en/latest/user/howto/manage-juju/) installed on your machine.
 
 Once you have verified that you have met the prerequisites above, proceed to the instructions below.
 
@@ -22,14 +22,14 @@ Once you have verified that you have met the prerequisites above, proceed to the
 
 You have two options for deploying Slurm:
 
-1. Using the [Juju CLI client](https://juju.is/docs/juju/juju-client).
-2. Using the [Juju Terraform client](https://juju.is/docs/juju/terraform-juju-client).
+1. Using the [Juju CLI client](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/juju-cli/).
+2. Using the [Juju Terraform client](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/).
 
 If you want to use Terraform to deploy Slurm, see the
-[Install and manage the client (terraform juju)](https://juju.is/docs/juju/install-and-manage-the-client)
-how-to in the Juju documentation for additional requirements.
+[Manage `terraform-provider-juju`](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/howto/manage-terraform-provider-juju/) how-to guide for additional
+requirements.
 
-If you are deploying Slurm on [LXD](https://ubuntu.com/lxd), see
+If you are deploying Slurm on [LXD](https://canonical.com/lxd), see
 [Deploying Slurm on LXD](#deploy-slurm-lxd) for more information on additional constraints
 that must be passed to Juju.
 
