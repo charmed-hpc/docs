@@ -41,6 +41,7 @@ slurmutils
 sssd
 Terraform
 terraform
+tf
 Traefik
 traefik
 InfluxDB
