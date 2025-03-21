@@ -1,5 +1,10 @@
 ---
 relatedlinks: "[GLAuth&#32;website](https://glauth.github.io), [GLAuth&#32;(Charmhub)](https://charmhub.io/glauth-k8s), [GLAuth&#32;charm&#32;repository](https://github.com/canonical/glauth-k8s), [SSSD&#32;website](https://sssd.io), [SSSD&#32;(Charmhub)](https://charmhub.io/sssd), [SSSD&#32;charm&#32;repository](https://github.com/canonical/sssd-operator)"
+myst:
+  substitutions:
+    glauth_plan_name: "glauth/main.tf"
+    sssd_plan_name: "sssd/main.tf"
+    connect_plan_name: "connect-sssd-to-glauth/main.tf"
 ---
 
 (howto-setup-deploy-glauth)=
@@ -21,19 +26,20 @@ such as GLAuth.
 
 ## Prerequisites
 
-- An active [Slurm deployment](#howto-setup-deploy-slurm) in your [`charmed-hpc` machine cloud](#howto-initialize-machine-cloud)
-- The [Juju CLI client](https://juju.is/docs/juju/install-and-manage-the-client) installed on your machine
+- An active [Slurm deployment](#howto-setup-deploy-slurm) in your [`charmed-hpc` machine cloud](#howto-initialize-machine-cloud).
+- An initialized [`charmed-hpc-k8s` Kubernetes cloud](#howto-initialize-kubernetes-cloud).
+- The [Juju CLI client](https://canonical-juju.readthedocs-hosted.com/en/latest/user/howto/manage-juju/) installed on your machine.
 
 ## Deploy GLAuth and SSSD
 
 You have two options for deploying GLAuth and SSSD:
 
-1. Using the [Juju CLI client](https://juju.is/docs/juju/juju-client).
-2. Using the [Juju Terraform client](https://juju.is/docs/juju/terraform-juju-client).
+1. Using the [Juju CLI client](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/juju-cli/).
+2. Using the [Juju Terraform client](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/).
 
 If you want to use Terraform to deploy GLAuth and SSSD, see the
-[Install and manage the client (terraform juju)](https://juju.is/docs/juju/install-and-manage-the-client)
-how-to in the Juju documentation for additional requirements.
+[Manage `terraform-provider-juju`](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/howto/manage-terraform-provider-juju/) how-to guide for additional
+requirements.
 
 ### Deploy GLAuth
 
@@ -65,7 +71,7 @@ juju deploy traefik-k8s --trust
 :::
 
 Now run the following set of commands to integrate GLAuth and the other
-applications together with `juju integrate`{l=shell}:
+deployed applications together with `juju integrate`{l=shell}:
 
 :::{code-block} shell
 juju integrate glauth-k8s postgresql-k8s
@@ -81,11 +87,19 @@ juju integrate glauth-k8s:ingress traefik-k8s
 ::::{tab-item} Terraform
 :sync: terraform
 
-First, configure Terraform to use the Juju provider in your _`glauth.tf`_
-deployment plan:
+First, create the Terraform deployment plan file _{{ glauth_plan_name }}_
+using the following set of commands:
+
+:::{code-block} shell
+mkdir glauth
+touch glauth/main.tf
+:::
+
+Now, editing _{{ glauth_plan_name }}_, configure your plan to use the Juju
+Terraform provider:
 
 :::{literalinclude} /reuse/terraform/glauth.tf
-:caption: `glauth.tf`
+:caption: {{ glauth_plan_name }}
 :language: terraform
 :lines: 1-8
 :::
@@ -94,7 +108,7 @@ Now, using the `juju_model` resource, direct Juju to create the `iam` model
 on your `charmed-hpc-k8s` Kubernetes cloud:
 
 :::{literalinclude} /reuse/terraform/glauth.tf
-:caption: `glauth.tf`
+:caption: {{ glauth_plan_name }}
 :language: terraform
 :lines: 10-16
 :::
@@ -104,7 +118,7 @@ to load in GLAuth. These Terraform modules will direct Juju to deploy GLAuth
 with Postgres as GLAuth's database back-end:
 
 :::{literalinclude} /reuse/terraform/glauth.tf
-:caption: `glauth.tf`
+:caption: {{ glauth_plan_name }}
 :language: terraform
 :lines: 18-43
 :::
@@ -116,18 +130,18 @@ Now, using the `juju_integration` resource, direct Juju to integrate GLAuth
 and the other deployed applications together:
 
 :::{literalinclude} /reuse/terraform/glauth.tf
-:caption: `glauth.tf`
+:caption: {{ glauth_plan_name }}
 :language: terraform
 :lines: 45-81
 :::
 
 With all the `juju_model` and `juju_integration` resources declared, and all
-the charm modules loaded, you are now ready to deploy GLAuth using your _`glauth.tf`_
+the charm modules loaded, you are now ready to deploy GLAuth using your _{{ glauth_plan_name }}_
 deployment plan. You can expand the dropdown below to see the full plan:
 
-:::{dropdown} Full GLAuth deployment plan
+:::{dropdown} Full _{{ glauth_plan_name }}_ deployment plan
 :::{literalinclude} /reuse/terraform/glauth.tf
-:caption: `glauth.tf`
+:caption: {{ glauth_plan_name }}
 :language: terraform
 :linenos:
 :::
@@ -136,8 +150,8 @@ deployment plan. You can expand the dropdown below to see the full plan:
 To deploy GLAuth using your deployment plan, run the following `terraform` commands:
 
 :::{code-block} shell
-terraform init
-terraform apply -auto-approve
+terraform -chdir=glauth init
+terraform -chdir=glauth apply -auto-approve
 :::
 
 :::{include} /reuse/terminal/iam-status.md
@@ -155,7 +169,7 @@ terraform apply -auto-approve
 :sync: cli
 
 First, use `juju switch`{l=shell} to switch from the `iam` model in your
-`charmed-hpc-k8s` Kubernetes cloud to the `slurm` in your `charmed-hpc`
+`charmed-hpc-k8s` Kubernetes cloud to the `slurm` model in your `charmed-hpc`
 machine cloud:
 
 :::{code-block} shell
@@ -184,21 +198,29 @@ juju integrate sssd slurmd
 ::::{tab-item} Terraform
 :sync: terraform
 
-First, configure Terraform to use the Juju provider in your _`sssd.tf`_
-deployment plan:
+First, create the Terraform deployment plan file _{{ sssd_plan_name }}_
+using the following set of commands:
+
+:::{code-block} shell
+mkdir sssd
+touch sssd/main.tf
+:::
+
+Now, editing _{{ sssd_plan_name }}_, configure your plan to use the Juju
+Terraform provider:
 
 :::{literalinclude} /reuse/terraform/sssd.tf
-:caption: `sssd.tf`
+:caption: {{ sssd_plan_name }}
 :language: terraform
 :lines: 1-8
 :::
 
 Now declare the following external data sources in your deployment plan. These
 data sources make Terraform aware of your pre-existing `slurm` model,
-and the `sackd` and `slurmd` applications:
+as well as the `sackd` and `slurmd` applications:
 
 :::{literalinclude} /reuse/terraform/sssd.tf
-:caption: `sssd.tf`
+:caption: {{ sssd_plan_name }}
 :language: terraform
 :lines: 10-22
 :::
@@ -207,7 +229,7 @@ Now declare the following module in your deployment plan to load in SSSD.
 This Terraform module will direct Juju to deploy SSSD in your `slurm` module:
 
 :::{literalinclude} /reuse/terraform/sssd.tf
-:caption: `sssd.tf`
+:caption: {{ sssd_plan_name }}
 :language: terraform
 :lines: 24-27
 :::
@@ -216,18 +238,18 @@ Now, using the `juju_integration` resource, direct Juju to integrate SSSD
 with the `sackd` and `slurmd` applications:
 
 :::{literalinclude} /reuse/terraform/sssd.tf
-:caption: `sssd.tf`
+:caption: {{ sssd_plan_name }}
 :language: terraform
 :lines: 29-51
 :::
 
 With the `juju_integration` resources declared, and modules and external data
-sources loaded, you are now ready to deploy SSSD using your _`sssd.tf`_
+sources loaded, you are now ready to deploy SSSD using your _{{ sssd_plan_name }}_
 deployment plan. You can expand the dropdown below to see the full plan:
 
-:::{dropdown} Full SSSD deployment plan
+:::{dropdown} Full _{{ sssd_plan_name }}_ deployment plan
 :::{literalinclude} /reuse/terraform/sssd.tf
-:caption: `sssd.tf`
+:caption: {{ sssd_plan_name }}
 :language: terraform
 :linenos:
 :::
@@ -236,8 +258,8 @@ deployment plan. You can expand the dropdown below to see the full plan:
 To deploy SSSD using your deployment plan, run the following `terraform` commands:
 
 :::{code-block} shell
-terraform init
-terraform apply -auto-approve
+terraform -chdir=sssd init
+terraform -chdir=sssd apply -auto-approve
 :::
 
 :::{include} /reuse/terminal/slurm-status-sssd-no-glauth.md
@@ -282,21 +304,29 @@ juju integrate ldap-certs sssd
 ::::{tab-item} Terraform
 :sync: terraform
 
-First, configure Terraform to use the Juju provider in your
-_`connect-sssd-to-glauth.tf`_ plan:
+First, create the Terraform deployment plan file _{{ connect_plan_name }}_
+using the following set of commands:
+
+:::{code-block} shell
+mkdir connect-sssd-to-glauth
+touch connect-sssd-to-glauth/main.tf
+:::
+
+Now, editing _{{ connect_plan_name }}_, configure your plan to use the Juju
+Terraform provider:
 
 :::{literalinclude} /reuse/terraform/connect-sssd-to-glauth.tf
-:caption: `connect-sssd-to-glauth.tf`
+:caption: {{ connect_plan_name }}
 :language: terraform
 :lines: 1-8
 :::
 
-Now declare the following external data sources in your deployment plan. These
+Now declare the following external data sources in your plan. These
 data sources make Terraform aware of your pre-existing `iam` and `slurm` models,
-and the `glauth-k8s` and `sssd` applications:
+as well as the `glauth-k8s` and `sssd` applications:
 
 :::{literalinclude} /reuse/terraform/connect-sssd-to-glauth.tf
-:caption: `connect-sssd-to-glauth.tf`
+:caption: {{ connect_plan_name }}
 :language: terraform
 :lines: 10-26
 :::
@@ -305,7 +335,7 @@ Now, using the `juju_offer` resource, direct Juju to create offers
 for GLAuth in the `iam` model:
 
 :::{literalinclude} /reuse/terraform/connect-sssd-to-glauth.tf
-:caption: `connect-sssd-to-glauth.tf`
+:caption: {{ connect_plan_name }}
 :language: terraform
 :lines: 28-40
 :::
@@ -314,19 +344,19 @@ After declaring the offers, use the `juju_integration` resource to direct
 Juju to consume and integrate SSSD with the GLAuth offers in the `slurm` model:
 
 :::{literalinclude} /reuse/terraform/connect-sssd-to-glauth.tf
-:caption: `connect-sssd-to-glauth.tf`
+:caption: {{ connect_plan_name }}
 :language: terraform
 :lines: 42-64
 :::
 
 With the `juju_offer` and `juju_integration` resources declared, and external
 data sources loaded, you are now ready to connect SSSD to GLAuth using
-your `connect-sssd-to-glauth-.tf` plan: You can expand the dropdown below to
+your _{{ connect_plan_name }}_ plan. You can expand the dropdown below to
 see the full plan:
 
-:::{dropdown} Full Connect SSSD to GLAuth plan
+:::{dropdown} Full _{{ connect_plan_name }}_ plan
 :::{literalinclude} /reuse/terraform/connect-sssd-to-glauth.tf
-:caption: `connect-sssd-to-glauth.tf`
+:caption: {{ connect_plan_name }}
 :language: terraform
 :linenos:
 :::
@@ -335,8 +365,8 @@ see the full plan:
 To use your plan to connect SSSD to GLAuth, run the following `terraform` commands:
 
 :::{code-block} shell
-terraform init
-terraform apply -auto-approve
+terraform -chdir=connect-sssd-to-glauth init
+terraform -chdir=connect-sssd-to-glauth apply -auto-approve
 :::
 
 :::{include} /reuse/terminal/slurm-status-sssd-with-glauth.md
@@ -353,5 +383,3 @@ and groups on your Charmed HPC cluster. See the [Access Postgres](https://charmh
 tutorial for how to access your deployed Postgres database, and
 [GLAuth's documentation](https://glauth.github.io/docs/databases.html) for how to manage users and groups on your
 cluster using SQL queries.
-
-
