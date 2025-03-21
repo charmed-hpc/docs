@@ -17,6 +17,8 @@ UCX
 alertmanager
 catalogue
 glauth
+GLAuth
+GLAuth's
 grafana
 juju
 ldap
@@ -27,6 +29,7 @@ postgresql
 prometheus
 munge
 mungectl
+Postgres
 Slurm
 sackd
 slurm
@@ -38,6 +41,7 @@ slurmutils
 sssd
 Terraform
 terraform
+tf
 Traefik
 traefik
 InfluxDB
@@ -64,6 +68,7 @@ libs
 PCIe
 proxying
 PyPI
+RootDSE
 RSA
 subnet
 Uid

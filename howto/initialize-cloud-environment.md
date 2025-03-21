@@ -140,6 +140,7 @@ Machine  State    Address        Inst id        Base          AZ  Message
 
 :::::
 
+(howto-initialize-kubernetes-cloud)=
 ## Initialize Kubernetes cloud
 
 After initializing the `charmed-hpc` machine cloud, follow the instructions below to initialize the
