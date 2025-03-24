@@ -148,19 +148,15 @@ To use Microsoft Azure as the machine cloud for your Charmed HPC cluster, you wi
 * [Signed into the Azure CLI](https://learn.microsoft.com/en-us/cli/azure/authenticate-azure-cli-interactively)
 * [Adjusted quotas for suitable virtual machine (VM) families](https://learn.microsoft.com/en-us/azure/quotas/per-vm-quota-requests)
 
+To decide on suitable VMs, it may be useful to refer to [Sizes for virtual machines in Azure](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview). A typical Charmed HPC deployment will use a mix of high-performance and GPU-accelerated compute VMs for cluster compute nodes, and general purpose VMs for other node types.
+
 :::{note}
 If the Azure Portal page for adjusting VM quota appears blank or contains the message "The selected provider is not registered for some of the selected subscriptions", confirm that [the *Microsoft.Compute* resource provider is registered](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types) for your subscription.
 :::
 
-:::{hint}
-To decide on suitable VMs, it may be useful to refer to [Sizes for virtual machines in Azure](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview). A typical Charmed HPC deployment will use a mix of high-performance and GPU-accelerated compute VMs for cluster compute nodes, and general purpose VMs for other node types.
-:::
+### Add Azure cloud credentials to Juju
 
-### Add Azure cloud to Juju
-
-:::{note}
 Azure supports a variety of authentication workflows with Juju. These instructions provide only a single example of creating a Service Principal to enable Juju to automatically create a Managed Identity. Refer to the [Juju documentation](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/cloud/list-of-supported-clouds/the-microsoft-azure-cloud-and-juju/) for full details on authentication with Azure and **ensure you choose a method which meets requirements for security in your environment**.
-:::
 
 To make your Azure credentials known to Juju, run:
 
@@ -173,19 +169,18 @@ This will start a script where you will be asked:
 * `credential-name` — your choice of name that will help you identify the credential set, referred to as `<your credential name>` hereafter.
 * `region` — a default region that is most convenient to deploy your controller and applications. Note that credentials are not region-specific.
 * `auth type` — authentication type. Select `interactive`, the recommended way to authenticate to Azure using Juju.
-* `subscription_id` — your Azure subscription ID, typical format `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`, referred to as `<Azure subscription ID>` hereafter.
+* `subscription-id` — your Azure subscription ID, typical format `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`, referred to as `<Azure subscription ID>` hereafter.
 * `application_name` (optional) — any unique string to avoid collision with other users or applications. Leave blank to let the script decide.
 * `role-definition-name` (optional) — any unique string to avoid collision with other users or applications, referred to as `<Azure role definition name>` hereafter. Leave blank to let the script decide.
 
 You will be asked to authenticate the requests via your web browser with the following message:
 
 :::{code-block} shell
-To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code <auth code> to authenticate.
+To sign in, use a web browser to open the page https://microsoft.com/devicelogin
+and enter the code <auth code> to authenticate.
 :::
 
-In a web browser, open the [authentication page](https://microsoft.com/devicelogin), sign in as required, and enter the `<auth code>` from the end of the authentication request shown in the terminal window.
-
-You will be asked to authenticate twice, to allow creation of two different resources in Azure.
+In a web browser, open the [authentication page](https://microsoft.com/devicelogin), sign in as required, and enter the `<auth code>` from the end of the authentication request shown in the terminal window. You will be asked to authenticate twice, to allow creation of two different resources in Azure.
 
 Once the credentials have been added successfully, the following message will be displayed:
 
@@ -220,25 +215,25 @@ Copy the value of `<application object ID>` and run:
 az role assignment create --assignee <application object ID> --role Owner --scope /subscriptions/<Azure subscription ID>
 :::
 
-:::{note}
 This will grant the credential "full access to manage all resources". Refer to [Azure built-in roles](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles) for further details on the Owner role and other available roles.
-:::
 
 ### Bootstrap Azure cloud controller
 
-First, set the default region for deploying Azure instances, including the controller itself. Refer to [What are Azure regions?](https://learn.microsoft.com/en-us/azure/reliability/regions-overview) for an overview of available regions. To set the default region to East US:
+With your credentials added, the Juju cloud environment can now be initialized with the `juju bootstrap`{l=shell} command. Bootstrapping sets up a `controller` model and provisions a machine to act as the controller. Further details are available in the [`juju bootstrap`{l=shell} documentation](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/juju-cli/list-of-juju-cli-commands/bootstrap/).
+
+To bootstrap, first set the default region for deploying Azure instances, including the controller itself. Refer to [What are Azure regions?](https://learn.microsoft.com/en-us/azure/reliability/regions-overview) for an overview of available regions. To set the default region to East US:
 
 :::{code-block} shell
 juju default-region azure eastus
 :::
 
-Then bootstrap with:
+Then bootstrap with the following command, optionally providing your choice of memorable name for the controller (here `charmed-hpc-controller`):
 
 :::{code-block} shell
 juju bootstrap azure charmed-hpc-controller --constraints "instance-role=auto"
 :::
 
-After a few minutes, your Azure cloud controller will become active. The output of juju status command should be similar to the following:
+After a few minutes, your Azure cloud controller will become active. The output of the `juju status`{l=shell} command should be similar to the following:
 
 :::{terminal}
 :input: juju status -m controller
@@ -258,7 +253,7 @@ Machine  State    Address      Inst id        Base          AZ  Message
 
 ### Clean up
 
-:::{note}
+:::{warning}
 Always clean Azure resources that are no longer necessary! Abandoned resources are tricky to detect and can become expensive over time.
 :::
 
@@ -332,17 +327,16 @@ To use AKS as the Kubernetes cloud for your Charmed HPC cluster, you will need t
 
 ### Create a new AKS cluster
 
-Create a new [Azure Resource Group](https://learn.microsoft.com/en-us/cli/azure/manage-azure-groups-azure-cli) in the same region as the machine cloud. For the East US region:
+Create a new [Azure Resource Group](https://learn.microsoft.com/en-us/cli/azure/manage-azure-groups-azure-cli) with your choice of name (here `aks`) in the same region as the machine cloud. For the East US region:
 
 :::{code-block} shell
 az group create --name aks --location eastus
 :::
 
-Bootstrap AKS in the new Azure Resource Group, adjusting node count and VM size as required:
+Bootstrap AKS in the new Azure Resource Group, using your choice of memorable name for the cluster instance (here `charmed-aks-cluster`) and adjusting node count and VM size as required:
 
 :::{code-block} shell
-export JUJU_NAME=aks-$USER-$RANDOM
-az aks create -g aks -n ${JUJU_NAME} --enable-managed-identity --node-count 1 --node-vm-size=Standard_D4s_v4 --generate-ssh-keys
+az aks create -g aks -n charmed-aks-cluster --enable-managed-identity --node-count 1 --node-vm-size=Standard_D4s_v4 --generate-ssh-keys
 :::
 
 ### Add AKS cloud to deployed controller
@@ -350,13 +344,13 @@ az aks create -g aks -n ${JUJU_NAME} --enable-managed-identity --node-count 1 --
 To make your AKS cloud known to Juju and use the same controller as your machine cloud, first retrieve your AKS credentials:
 
 :::{code-block} shell
-az aks get-credentials --resource-group aks --name ${JUJU_NAME} --context aks
+az aks get-credentials --resource-group aks --name charmed-aks-cluster
 :::
 
-This will add your AKS credentials to the file `~/.kube/config`. Now, add the AKS cloud to the controller:
+This will add your AKS credentials to the file `~/.kube/config`. Now, add the AKS cloud to the controller, providing the name of the existing controller (here `charmed-hpc-controller`), your choice of memorable name for the AKS cloud (here `charmed-hpc-k8s`), and the name of the AKS cluster (here `charmed-aks-cluster`):
 
 :::{code-block} shell
-juju add-k8s --controller charmed-hpc-controller charmed-hpc-k8s --cluster-name=aks
+juju add-k8s --controller charmed-hpc-controller charmed-hpc-k8s --cluster-name=charmed-aks-cluster
 :::
 
 With the AKS cloud added, the output of `juju clouds`{l=shell} for the controller should be similar to the following:
@@ -373,7 +367,7 @@ charmed-hpc-k8s  1        eastus   k8s
 
 ### Clean up
 
-:::{note}
+:::{warning}
 Always clean Azure resources that are no longer necessary! Abandoned resources are tricky to detect and can become expensive over time.
 :::
 
