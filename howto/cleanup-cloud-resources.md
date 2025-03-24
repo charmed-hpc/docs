@@ -2,15 +2,13 @@
 # How to clean up cloud resources
 
 This guide demonstrates how to clean up {ref}`a previously initialized cloud environment <howto-initialize-cloud-environment>`
-and a deployed Charmed HPC cluster. This includes clean-up of both the machine cloud, hosting compute plane applications, and
-the Kubernetes (K8s) cloud, hosting control plane applications.
-
-:::{note}
-Always clean up public cloud resources that are no longer necessary! Abandoned resources are tricky to detect and can become expensive over time.
-:::
+and a deployed Charmed HPC cluster. This includes clean-up of both the machine cloud and the Kubernetes (K8s) cloud. All compute plane and
+control plane applications hosted on these clouds will be destroyed.
 
 :::{warning}
 Clean-up may result in **permanent data loss**. Ensure all data you wish to preserve has been migrated to a safe location before proceeding.
+
+Always clean up public cloud resources that are no longer necessary! Abandoned resources are tricky to detect and can become expensive over time.
 :::
 
 :::::{tab-set}
@@ -44,18 +42,36 @@ List current AKS instances with:
 az aks list
 :::
 
-Look for the values of `"name"` and `"resourceGroup"` then delete both the instance and its resource group with:
+This will give JSON-formatted output representing the current AKS instances. Look for the values of `"name"` and `"resourceGroup"` in the output:
 
 :::{code-block} shell
-az aks delete -n <name> -g <resourceGroup>
-az group delete -n <resourceGroup>
+[
+  {
+    "aadProfile": null,
+    [...]
+    "name": "charmed-aks-cluster",
+    [...]
+    "resourceGroup": "aks",
+    [...]
+    },
+  }
+]
 :::
 
-Should destroying the controller or AKS instance take a long time or be seemingly stuck, proceed to delete resources manually [via the Azure web portal](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-portal) or [via the `az` CLI](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-cli). To list any remaining Azure resources, use:
+Here `charmed-aks-cluster` and `aks`. Now delete both the instance and its resource group with the following commands (substituting in your AKS instance name for `charmed-aks-cluster` and your resource group for `aks`):
+
+:::{code-block} shell
+az aks delete -n charmed-aks-cluster -g aks
+az group delete -n aks
+:::
+
+Destroying the controller or AKS instance may take a long time depending on the complexity of the deployment. Should the destroy process exceed 15 minutes or otherwise be seemingly stuck, you can proceed to delete resources manually [via the Azure web portal](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-portal) or [via the `az` CLI](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-cli). To list any remaining Azure resources, use:
 
 :::{code-block} shell
 az resource list
 :::
+
+This command will return `[]` if no Azure resources remain. If there are `charmed-hpc` resources showing, repeat the above steps. If not, proceed to the steps for cleaning up your credentials below.
 
 ### Clean up credentials
 
