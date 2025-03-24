@@ -9,6 +9,8 @@ The tables below provide an overview of cloud instance types that have been test
 
 ## Microsoft Azure
 
+To decide on suitable VMs, it may be useful to refer to [Sizes for virtual machines in Azure](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview). A typical Charmed HPC deployment will use a mix of high-performance and GPU-accelerated compute VMs for cluster compute nodes, and general purpose VMs for other node types.
+
 ### Charm: `sackd`
 
 **Revision:** 13
