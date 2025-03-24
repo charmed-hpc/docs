@@ -183,7 +183,7 @@ You will be asked to authenticate the requests via your web browser with the fol
 To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code <auth code> to authenticate.
 :::
 
-In a web browser, open the [authentication page](https://microsoft.com/devicelogin), sign in as required, and enter `<auth code>` from the terminal output.
+In a web browser, open the [authentication page](https://microsoft.com/devicelogin), sign in as required, and enter the `<auth code>` from the end of the authentication request shown in the terminal window.
 
 You will be asked to authenticate twice, to allow creation of two different resources in Azure.
 
