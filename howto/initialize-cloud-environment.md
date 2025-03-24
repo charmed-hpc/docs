@@ -199,7 +199,11 @@ To allow Juju to automatically create resources in Azure, further privileges sho
 
 :::{terminal}
 :input: juju show-credentials azure <your credential name>
+:::
 
+which will show:
+
+:::{terminal}
 client-credentials:
   azure:
     <your credential name>:
