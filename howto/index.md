@@ -32,7 +32,7 @@ responsible for managing Charmed HPC after deployment.
 
 ## Clean-up
 
-It is important to clean up resources that are no longer necessary, especially in the case of public clouds as abandoned resources can incur significant costs. This guide demonstrates how to clean up and delete unneeded Charmed HPC resources.
+It is important to clean up resources that are no longer necessary, especially in the case of public clouds where abandoned resources can incur significant costs. This guide demonstrates how to clean up and delete unneeded Charmed HPC resources.
 
 - {ref}`howto-cleanup-cloud-resources`
 
