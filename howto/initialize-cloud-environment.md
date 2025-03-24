@@ -214,7 +214,7 @@ client-credentials:
         subscription-id: <Azure subscription ID>
 :::
 
-Copy the value of `application-object-id:` and run:
+Copy the value of `<application object ID>` and run:
 
 :::{code-block} shell
 az role assignment create --assignee <application object ID> --role Owner --scope /subscriptions/<Azure subscription ID>
