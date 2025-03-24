@@ -65,7 +65,9 @@ az aks delete -n charmed-aks-cluster -g aks
 az group delete -n aks
 :::
 
-Destroying the controller or AKS instance may take a long time depending on the complexity of the deployment. Should the destroy process exceed 15 minutes or otherwise be seemingly stuck, you can proceed to delete resources manually [via the Azure web portal](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-portal) or [via the `az` CLI](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-cli). To list any remaining Azure resources, use:
+Destroying the controller or AKS instance may take a long time depending on the complexity of the deployment. Should the destroy process exceed 15 minutes or otherwise be seemingly stuck, you can proceed to delete resources manually [via the Azure web portal](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-portal) or [via the `az` CLI](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-cli).
+
+To list any remaining Azure resources, use:
 
 :::{code-block} shell
 az resource list
