@@ -29,9 +29,9 @@ as a cloud.
 To initialize the cloud environment where you will deploy your Charmed HPC cluster,
 you will need:
 
-* Access to a [supported machine cloud](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/cloud/list-of-supported-clouds/)
-* Access to a [supported Kubernetes cloud](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/cloud/list-of-supported-clouds/)
-* The [Juju CLI client](https://canonical-juju.readthedocs-hosted.com/en/latest/user/howto/manage-juju/) installed on your machine
+* Access to a [supported machine cloud](https://documentation.ubuntu.com/juju/latest/user/reference/cloud/list-of-supported-clouds/)
+* Access to a [supported Kubernetes cloud](https://documentation.ubuntu.com/juju/latest/user/reference/cloud/list-of-supported-clouds/)
+* The [Juju CLI client](https://documentation.ubuntu.com/juju/latest/user/howto/manage-juju/) installed on your machine
 
 (howto-initialize-machine-cloud)=
 ## Initialize machine cloud
@@ -156,7 +156,7 @@ If the Azure Portal page for adjusting VM quota appears blank or contains the me
 
 ### Add Azure cloud credentials to Juju
 
-Azure supports a variety of authentication workflows with Juju. These instructions provide only a single example of creating a Service Principal to enable Juju to automatically create a Managed Identity. Refer to the [Juju documentation](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/cloud/list-of-supported-clouds/the-microsoft-azure-cloud-and-juju/) for full details on authentication with Azure and **ensure you choose a method which meets requirements for security in your environment**.
+Azure supports a variety of authentication workflows with Juju. These instructions provide only a single example of creating a Service Principal to enable Juju to automatically create a Managed Identity. Refer to the [Juju documentation](https://documentation.ubuntu.com/juju/latest/user/reference/cloud/list-of-supported-clouds/the-microsoft-azure-cloud-and-juju/) for full details on authentication with Azure and **ensure you choose a method which meets requirements for security in your environment**.
 
 To make your Azure credentials known to Juju, run:
 
@@ -225,7 +225,7 @@ With your credentials added, the Juju cloud environment can now be initialized o
 juju default-region azure eastus
 :::
 
-Then deploy the cloud controller with the [`juju bootstrap`{l=shell}](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/juju-cli/list-of-juju-cli-commands/bootstrap/) command, optionally providing your choice of memorable name for the controller (here `charmed-hpc-controller`):
+Then deploy the cloud controller with the [`juju bootstrap`{l=shell}](https://documentation.ubuntu.com/juju/latest/user/reference/juju-cli/list-of-juju-cli-commands/bootstrap/) command, optionally providing your choice of memorable name for the controller (here `charmed-hpc-controller`):
 
 :::{code-block} shell
 juju bootstrap azure charmed-hpc-controller --constraints "instance-role=auto"

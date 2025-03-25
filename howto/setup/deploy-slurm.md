@@ -14,7 +14,7 @@ The deployment, management, and operations of Slurm are controlled by the Slurm 
 To successfully deploy Slurm in your Charmed HPC cluster, you will at least need:
 
 - An [initialized cloud environment](#howto-initialize-cloud-environment).
-- The [Juju CLI client](https://canonical-juju.readthedocs-hosted.com/en/latest/user/howto/manage-juju/) installed on your machine.
+- The [Juju CLI client](https://documentation.ubuntu.com/juju/latest/user/howto/manage-juju/) installed on your machine.
 
 Once you have verified that you have met the prerequisites above, proceed to the instructions below.
 
@@ -22,7 +22,7 @@ Once you have verified that you have met the prerequisites above, proceed to the
 
 You have two options for deploying Slurm:
 
-1. Using the [Juju CLI client](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/juju-cli/).
+1. Using the [Juju CLI client](https://documentation.ubuntu.com/juju/latest/user/reference/juju-cli/).
 2. Using the [Juju Terraform client](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/).
 
 If you want to use Terraform to deploy Slurm, see the
@@ -443,7 +443,7 @@ Machine  State    Address       Inst id        Base          AZ  Message
 ### Deploying Slurm on LXD
 
 The Slurm charms can deploy, manage, and operate Slurm on any
-[supported machine cloud](https://juju.is/docs/juju/juju-supported-clouds), however, each
+[supported machine cloud](https://documentation.ubuntu.com/juju/latest/user/reference/cloud/list-of-supported-clouds/), however, each
 cloud has their own permutations. On LXD, if you deploy the charms to system containers rather
 than virtual machines, Slurm cannot use the recommended process tracking plugin `proctrack/cgroup`,
 and additional modifications must be made to the default LXD profile.
