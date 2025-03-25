@@ -1,3 +1,6 @@
+---
+orphan: true
+---
 (reference-glossary)=
 # Glossary
 
