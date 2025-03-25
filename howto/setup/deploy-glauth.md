@@ -28,13 +28,13 @@ such as GLAuth.
 
 - An active [Slurm deployment](#howto-setup-deploy-slurm) in your [`charmed-hpc` machine cloud](#howto-initialize-machine-cloud).
 - An initialized [`charmed-hpc-k8s` Kubernetes cloud](#howto-initialize-kubernetes-cloud).
-- The [Juju CLI client](https://canonical-juju.readthedocs-hosted.com/en/latest/user/howto/manage-juju/) installed on your machine.
+- The [Juju CLI client](https://documentation.ubuntu.com/juju/latest/user/howto/manage-juju/) installed on your machine.
 
 ## Deploy GLAuth and SSSD
 
 You have two options for deploying GLAuth and SSSD:
 
-1. Using the [Juju CLI client](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/juju-cli/).
+1. Using the [Juju CLI client](https://documentation.ubuntu.com/juju/latest/user/reference/juju-cli/).
 2. Using the [Juju Terraform client](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/).
 
 If you want to use Terraform to deploy GLAuth and SSSD, see the
