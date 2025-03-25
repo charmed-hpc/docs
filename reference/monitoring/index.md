@@ -10,7 +10,7 @@ Integrating COS with Charmed HPC enabiles monitoring of resources. This integrat
 
 
 
-:::{toctree}
+:::{filtered-toctree}
 :titlesonly:
 :maxdepth: 1
 :hidden:
