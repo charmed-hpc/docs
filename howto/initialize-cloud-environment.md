@@ -166,34 +166,34 @@ juju add-credential azure
 
 This will start a script where you will be asked:
 
-* `credential-name` — your choice of name that will help you identify the credential set, referred to as `<your credential name>` hereafter.
-* `region` — a default region that is most convenient to deploy your controller and applications. Note that credentials are not region-specific.
+* `credential-name` — your choice of name that will help you identify the credential set, e.g. `my-az-credential`.
+* `region` — a default region that is most convenient to deploy your controller and applications, e.g. `eastus`. Note that credentials are not region-specific.
 * `auth type` — authentication type. Select `interactive`, the recommended way to authenticate to Azure using Juju.
-* `subscription-id` — your Azure subscription ID, typical format `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`, referred to as `<Azure subscription ID>` hereafter.
+* `subscription-id` — your Azure subscription ID, typical format `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`.
 * `application_name` (optional) — any unique string to avoid collision with other users or applications. Leave blank to let the script decide.
-* `role-definition-name` (optional) — any unique string to avoid collision with other users or applications, referred to as `<Azure role definition name>` hereafter. Leave blank to let the script decide.
+* `role-definition-name` (optional) — any unique string to avoid collision with other users or applications. Leave blank to let the script decide.
 
 You will be asked to authenticate the requests via your web browser with the following message:
 
 :::{code-block} shell
 To sign in, use a web browser to open the page https://microsoft.com/devicelogin
-and enter the code <auth code> to authenticate.
+and enter the code <auth-code> to authenticate.
 :::
 
-In a web browser, open the [authentication page](https://microsoft.com/devicelogin), sign in as required, and enter the `<auth code>` from the end of the authentication request shown in the terminal window. You will be asked to authenticate twice, to allow creation of two different resources in Azure.
+In a web browser, open the [authentication page](https://microsoft.com/devicelogin), sign in as required, and enter the `<auth-code>` from the end of the authentication request shown in the terminal window. You will be asked to authenticate twice, to allow creation of two different resources in Azure.
 
-Once the credentials have been added successfully, the following message will be displayed:
+Once the credentials have been added successfully, a message similar to the following will be displayed:
 
 :::{code-block} shell
-Credential <your credential name> added locally for cloud "azure".
+Credential "my-az-credential" added locally for cloud "azure".
 :::
 
 ### Widen scope for credentials
 
-To allow Juju to automatically create resources in Azure, further privileges should be granted to the credentials created above. Run:
+To allow Juju to automatically create resources in Azure, further privileges should be granted to the credentials created above. Run, substituting `my-az-credential` with the name of your credential:
 
 :::{terminal}
-:input: juju show-credentials azure <your credential name>
+:input: juju show-credentials azure my-az-credential
 :::
 
 which will show:
@@ -201,18 +201,18 @@ which will show:
 :::{terminal}
 client-credentials:
   azure:
-    <your credential name>:
+    my-az-credential:
       content:
         auth-type: service-principal-secret
         application-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-        application-object-id: <application object ID>
-        subscription-id: <Azure subscription ID>
+        application-object-id: <application-object-id>
+        subscription-id: <subscription-id>
 :::
 
-Copy the value of `<application object ID>` and run:
+Copy the value of `<application-object-id>` and run:
 
 :::{code-block} shell
-az role assignment create --assignee <application object ID> --role Owner --scope /subscriptions/<Azure subscription ID>
+az role assignment create --assignee <application-object-id> --role Owner --scope /subscriptions/<subscription-id>
 :::
 
 This will grant the credential "full access to manage all resources". Refer to [Azure built-in roles](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles) for further details on the Owner role and other available roles.
@@ -347,7 +347,7 @@ To make your AKS cloud known to Juju and use the same controller as your machine
 az aks get-credentials --resource-group aks --name charmed-aks-cluster
 :::
 
-This will add your AKS credentials to the file `~/.kube/config`. Now, add the AKS cloud to the controller, providing the name of the existing controller (here `charmed-hpc-controller`), your choice of memorable name for the AKS cloud (here `charmed-hpc-k8s`), and the name of the AKS cluster (here `charmed-aks-cluster`):
+This will add your AKS credentials to the file `~/.kube/config`. Now, add the AKS cloud to the controller with the `juju add-k8s`{l=shell} command, providing the name of the existing controller, your choice of memorable name for the AKS cloud, and the name of the AKS cluster just added to the `~/.kube/config` file (here `charmed-hpc-controller`, `charmed-hpc-k8s`, and `charmed-aks-cluster` respectively):
 
 :::{code-block} shell
 juju add-k8s --controller charmed-hpc-controller charmed-hpc-k8s --cluster-name=charmed-aks-cluster
