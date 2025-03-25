@@ -18,4 +18,5 @@ Charmed HPC operates.
 Underlying projects and dependencies <underlying-projects-and-dependencies>
 gres/index
 interconnects/index
+:draft:Benchmarks<reference-benchmark>
 ```
