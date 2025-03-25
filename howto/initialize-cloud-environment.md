@@ -324,6 +324,9 @@ To use AKS as the Kubernetes cloud for your Charmed HPC cluster, you will need t
 
 * [Initialized a machine cloud](#howto-initialize-machine-cloud)
 * [Signed into the Azure CLI](https://learn.microsoft.com/en-us/cli/azure/authenticate-azure-cli-interactively)
+* [Adjusted quotas for suitable virtual machine (VM) families](https://learn.microsoft.com/en-us/azure/quotas/per-vm-quota-requests)
+
+To decide on suitable VMs, it may be useful to refer to [Sizes for virtual machines in Azure](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview). VM sizes should be chosen to accommodate control plane applications like identity management and observability services.
 
 ### Create a new AKS cluster
 
@@ -333,11 +336,13 @@ Create a new [Azure Resource Group](https://learn.microsoft.com/en-us/cli/azure/
 az group create --name aks --location eastus
 :::
 
-Bootstrap AKS in the new Azure Resource Group, using your choice of memorable name for the cluster instance (here `charmed-aks-cluster`) and adjusting node count and VM size as required:
+Bootstrap AKS in the new Azure Resource Group, using your choice of memorable name for the cluster instance (here `charmed-aks-cluster`) and adjusting node count and VM size to accommodate control plane applications and your requirements for availability:
 
 :::{code-block} shell
 az aks create -g aks -n charmed-aks-cluster --enable-managed-identity --node-count 1 --node-vm-size=Standard_D4s_v4 --generate-ssh-keys
 :::
+
+For further information on creating and sizing an AKS cluster, see the Azure guide: [Quickstart: Deploy an Azure Kubernetes Service (AKS) cluster using Azure CLI](https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli).
 
 ### Add AKS cloud to deployed controller
 
