@@ -1,5 +1,5 @@
 ---
-relatedlinks: "[Get&#032;started&#032;with&#032;Juju](https://juju.is/docs/juju/tutorial), [Juju&#032;(Application)](https://juju.is/docs/juju/application), [Juju&#032;(Charm)](https://juju.is/docs/juju/charmed-operator), [Juju&#032;(Cloud)](https://juju.is/docs/juju/cloud), [Juju&#032;(Controller)](https://juju.is/docs/juju/controller)"
+relatedlinks: "[Get&#032;started&#032;with&#032;Juju](https://documentation.ubuntu.com/juju/latest/user/tutorial/), [Juju&#032;(Application)](https://documentation.ubuntu.com/juju/latest/user/reference/application/), [Juju&#032;(Charm)](https://documentation.ubuntu.com/juju/latest/user/reference/charm/), [Juju&#032;(Cloud)](https://documentation.ubuntu.com/juju/latest/user/reference/cloud/), [Juju&#032;(Controller)](https://documentation.ubuntu.com/juju/latest/user/reference/controller/)"
 ---
 
 (howto-initialize-cloud-environment)=
