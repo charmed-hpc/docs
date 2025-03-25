@@ -15,8 +15,8 @@ Integrating COS with Charmed HPC enabiles monitoring of resources. This integrat
 :maxdepth: 1
 :hidden:
 
-:draft:Prometheus
-:draft:Loki
-:draft:Grafana
+:draft:Prometheus<reference-monitoring-prometheus>
+:draft:Loki<reference-monitoring-loki>
+:draft:Grafana<reference-monitoring-grafana>
 
 :::
