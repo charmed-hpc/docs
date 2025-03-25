@@ -219,15 +219,13 @@ This will grant the credential "full access to manage all resources". Refer to [
 
 ### Bootstrap Azure cloud controller
 
-With your credentials added, the Juju cloud environment can now be initialized with the `juju bootstrap`{l=shell} command. Bootstrapping sets up a `controller` model and provisions a machine to act as the controller. Further details are available in the [`juju bootstrap`{l=shell} documentation](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/juju-cli/list-of-juju-cli-commands/bootstrap/).
-
-To bootstrap, first set the default region for deploying Azure instances, including the controller itself. Refer to [What are Azure regions?](https://learn.microsoft.com/en-us/azure/reliability/regions-overview) for an overview of available regions. To set the default region to East US:
+With your credentials added, the Juju cloud environment can now be initialized or "bootstrapped". To bootstrap, first set the default region for deploying Azure instances, including the controller itself. Refer to [What are Azure regions?](https://learn.microsoft.com/en-us/azure/reliability/regions-overview) for an overview of available regions. To set the default region to East US:
 
 :::{code-block} shell
 juju default-region azure eastus
 :::
 
-Then bootstrap with the following command, optionally providing your choice of memorable name for the controller (here `charmed-hpc-controller`):
+Then deploy the cloud controller with the [`juju bootstrap`{l=shell}](https://canonical-juju.readthedocs-hosted.com/en/latest/user/reference/juju-cli/list-of-juju-cli-commands/bootstrap/) command, optionally providing your choice of memorable name for the controller (here `charmed-hpc-controller`):
 
 :::{code-block} shell
 juju bootstrap azure charmed-hpc-controller --constraints "instance-role=auto"
