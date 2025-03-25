@@ -73,7 +73,6 @@ Here's some links to help you get started with joining the community:
 
 ```{filtered-toctree}
 :hidden:
-
 :titlesonly:
 
 self
