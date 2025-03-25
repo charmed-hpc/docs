@@ -273,6 +273,13 @@ exclude_patterns = [
     ".github/*",
 ]
 
+
+
+# Exclude filters
+
+toc_filter_exclude = ['draft']
+
+
 # Adds custom CSS files, located under 'html_static_path'
 
 html_css_files = [
