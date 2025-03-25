@@ -12,6 +12,6 @@ Graphics Processing Unit (GPU)
 Juju
     A charmed operator framework that helps you deploy, integrate and manage applications across multiple environments. 
 
-    See the [juju documentation](https://documentation.ubuntu.com/juju/latest/) for more information.
+    See the [juju documentation](https://documentation.ubuntu.com/juju/latest/) for more
 ```
 
