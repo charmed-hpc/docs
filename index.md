@@ -46,7 +46,7 @@ __Technical information__
 - {ref}`gres`
 - {ref}`reference-interconnects`
 <!-- - {ref}`reference-glossary` -->
-<!-- - {ref}`reference-benchmarks` -->
+- {ref}`reference-benchmarks`
 <!-- - {ref}`reference-monitoring` -->
 
 ```
