@@ -20,6 +20,7 @@ glauth
 GLAuth
 GLAuth's
 grafana
+IMB
 juju
 ldap
 loki
@@ -29,7 +30,9 @@ postgresql
 prometheus
 munge
 mungectl
+OSU
 Postgres
+ReFrame
 Slurm
 sackd
 slurm
@@ -61,11 +64,18 @@ OpenStack
 
 # Developer jargon/acronyms
 conf
+CUDA
+Gb
+gcc
 Gid
+Gflops
 GPUs
+gpu
+HDR
 ip
 JWT
 libs
+MiB
 PCIe
 proxying
 PyPI
@@ -95,6 +105,7 @@ userinfo
 
 # Words that are oddly not valid to the spelling checker
 autonomizing
+benchmarking
 cryptographically
 cryptographic
 filesystem
