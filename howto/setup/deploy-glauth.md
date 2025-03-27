@@ -179,7 +179,7 @@ juju switch slurm
 Now use `juju deploy`{l=shell} to deploy SSSD:
 
 :::{code-block} shell
-juju deploy sssd --channel "edge"
+juju deploy sssd --base "ubuntu@24.04" --channel "edge"
 :::
 
 Now use `juju integrate`{l=shell} to integrate SSSD with the Slurm services
