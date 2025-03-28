@@ -34,7 +34,7 @@ This will start a script where you will be asked for the parameters in the left 
 | `credential-name`      | `my-az-credential`             |
 | `region`               | `eastus`                       |
 | `auth type`            | `interactive`                  |
-| `subscription-id`      | `<your-azure-subscription-ID>` |
+| `subscription-id`      | `<my-azure-subscription-ID>` |
 | `application_name`     | ` `                            |
 | `role-definition-name` | ` `                            |
 
@@ -53,6 +53,68 @@ Once the credentials have been added successfully, the following message will be
 :::{code-block} shell
 Credential "my-az-credential" added locally for cloud "azure".
 :::
+
+### Widen scope for credentials
+
+To allow Juju to automatically create resources in Azure, further privileges should be granted to the credentials created above. Run:
+
+:::{terminal}
+:input: juju show-credentials azure my-az-credential
+:::
+
+which will show:
+
+:::{terminal}
+client-credentials:
+  azure:
+    my-az-credential:
+      content:
+        auth-type: service-principal-secret
+        application-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+        application-object-id: <application-object-id>
+        subscription-id: my-azure-subscription-id
+:::
+
+Copy the value of `<application-object-id>` and run:
+
+:::{code-block} shell
+az role assignment create --assignee <application-object-id> --role Owner --scope /subscriptions/my-azure-subscription-id
+:::
+
+This will grant the credential "full access to manage all resources". 
+
+### Bootstrap Azure cloud controller
+
+To bootstrap the Azure cloud controller, first set the default region to East US:
+
+:::{code-block} shell
+juju default-region azure eastus
+:::
+
+Then deploy the cloud controller with:
+
+:::{code-block} shell
+juju bootstrap azure charmed-hpc-controller --constraints "instance-role=auto"
+:::
+
+After a few minutes, your Azure cloud controller will become active. The output of the `juju status`{l=shell} command should show the following:
+
+:::{terminal}
+:input: juju status -m controller
+
+Model       Controller              Cloud/Region  Version  SLA          Timestamp
+controller  charmed-hpc-controller  azure/eastus  3.6.3    unsupported  10:39:56Z
+
+App         Version  Status  Scale  Charm            Channel     Rev  Exposed  Message
+controller           active      1  juju-controller  3.6/stable  116  no
+
+Unit           Workload  Agent  Machine  Public address  Ports  Message
+controller/0*  active    idle   0        x.x.x.x
+
+Machine  State    Address      Inst id        Base          AZ  Message
+0        started  x.x.x.x      juju-e63b38-0  ubuntu@24.04
+:::
+
 
 ## Deploy Slurm
 
