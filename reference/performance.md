@@ -1,7 +1,7 @@
-(reference-benchmarks)=
-# Benchmark metrics and results
+(reference-performance)=
+# Performance
 
-Reference values for the [Charmed HPC Benchmarks](https://github.com/charmed-hpc/charmed-hpc-benchmarks/) running on Microsoft Azure are provided on this page.
+Reference values for the [Charmed HPC Benchmarks](https://github.com/charmed-hpc/charmed-hpc-benchmarks/) running on Microsoft Azure are provided on this page. Steps for reproducing these results are available in the [benchmarking suite documentation](https://github.com/charmed-hpc/charmed-hpc-benchmarks/blob/main/README.md).
 
 ## Method
 
@@ -35,7 +35,7 @@ GPU single and double precision floating point performance is measured by the [g
 
 ### InfiniBand interconnect
 
-InfiniBand latency and bandwidth are measured by the [OSU Micro-Benchmarks](https://mvapich.cse.ohio-state.edu/benchmarks/) for MPI and the [Intel MPI Benchmarks (IMB)](https://github.com/intel/mpi-benchmarks). All benchmark runs are performed on two cluster compute nodes, one MPI process per node.
+InfiniBand RDMA latency and bandwidth are measured by the [OSU Micro-Benchmarks](https://mvapich.cse.ohio-state.edu/benchmarks/) for MPI and the [Intel MPI Benchmarks (IMB)](https://github.com/intel/mpi-benchmarks). All benchmark runs are performed on two cluster compute nodes, one MPI process per node.
 
 Point-to-point performance is measured with the OSU `osu_bw` and `osu_latency` benchmarks, as well as the IMB MPI-1 `PingPong` benchmark.
 
@@ -43,7 +43,7 @@ Collective performance is measured with the OSU `osu_alltoall` and `osu_allreduc
 
 ## Results
 
-Results are the best performance achieved by the benchmarking suite across all tests.
+The results presented are the best achieved by the benchmarking suite across all tests. This provides a high-water mark for performance to help guide tuning and identification of bottlenecks. Real-world performance may fluctuate depending on factors such as varying cluster workloads and resource contention.
 
 :::{csv-table}
 :header: >
@@ -54,3 +54,5 @@ Tesla T4 double precision, 1x `Standard_NC4as_T4_v3`, 252, Gflops/s,
 InfiniBand latency, 2x `Standard_HB120rs_v3`, 1.59, us, 1 byte transfer size
 InfiniBand bandwidth, 2x `Standard_HB120rs_v3`, 196.06, Gb/s, 4 MiB transfer size
 :::
+
+For comparison, Microsoft-published performance data for the `HBv3-series` is available [on the Azure website](https://learn.microsoft.com/en-us/azure/virtual-machines/hbv3-performance). For the `NCas_T4_v3` series, a discussion of benchmarking approaches is available in an [Azure blog post](https://techcommunity.microsoft.com/blog/azurecompute/benchmarking-the-nc-a100-v4-ncsv3-and-ncas-t4-v3-series-with-nvidia-deep-learnin/3568823).
