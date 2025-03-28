@@ -10,7 +10,7 @@ Charmed HPC operates.
 - {ref}`gres`
 - {ref}`reference-interconnects`
 <!-- - {ref}`reference-glossary` -->
-<!-- - {ref}`reference-benchmarks` -->
+- {ref}`reference-performance`
 <!-- - {ref}`reference-monitoring` -->
 
 
@@ -23,7 +23,7 @@ Underlying projects and dependencies <underlying-projects-and-dependencies>
 gres/index
 interconnects/index
 :draft:Glossary <glossary>
-:draft:Benchmarks <benchmark>
+Performance <performance>
 :draft:monitoring/index
 
 ```
