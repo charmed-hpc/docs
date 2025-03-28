@@ -408,6 +408,8 @@ terraform apply -auto-approve
 After a few minutes, your Slurm deployment will become active. The output of the
 `juju status`{l=shell} command should be similar to the following:
 
+<!-- Why is Cloud/Region localhost? -->
+
 :::{terminal}
 :input: juju status
 Model  Controller   Cloud/Region         Version  SLA          Timestamp
@@ -438,7 +440,40 @@ Machine  State    Address       Inst id        Base          AZ  Message
 5        started  10.32.18.127  juju-d566c2-5  ubuntu@22.04      Running
 :::
 
+## Get compute nodes ready for jobs
 
+The compute nodes must be set to the `IDLE` state so that they can start having jobs ran on them.
+
+### Set compute nodes to `IDLE`
+
+First, get the hostnames for the compute nodes:
+
+:::{code-block} shell
+juju exec --application slurmd -- hostname -s
+:::
+
+Then use `juju run`{l=shell} to run the `resume` action on the leading controller:
+<!-- leading controller? Leading node? -->
+
+<!-- Is the machine instance ID something we can set or is it assigned by azure or juju? -->
+
+:::{code-block} shell
+juju run slurmctld/leader resume nodename="<machine-instance-id/hostname>"
+:::
+
+### Verify compute nodes are `IDLE`
+
+TO verify the lead node's state is `IDLE`, run the following command:
+
+:::{code-block} shell
+juju exec -u sackd/0 -- sinfo --nodes $(juju exec -u slurmd/0 -- hostname)
+:::
+
+and to verify the rest of the nodes on the cluster are `IDLE`, run:
+
+:::{code-block} shell
+juju exec -u sackd/0 -- sinfo
+:::
 
 ## Deploy an NFS filesystem 
 
