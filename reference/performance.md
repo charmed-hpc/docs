@@ -43,7 +43,7 @@ Collective performance is measured with the OSU `osu_alltoall` and `osu_allreduc
 
 ## Results
 
-The results presented are the best achieved by the benchmarking suite across all tests. This provides a high-water mark for performance to help guide tuning and identification of bottlenecks. Real-world performance may fluctuate depending on factors such as varying cluster workloads and resource contention.
+The results presented are the best performance achieved by the corresponding metric across all tests. 
 
 :::{csv-table}
 :header: >
