@@ -35,7 +35,7 @@ GPU single and double precision floating point performance is measured by the [g
 
 ### InfiniBand interconnect
 
-InfiniBand RDMA latency and bandwidth are measured by the [OSU Micro-Benchmarks](https://mvapich.cse.ohio-state.edu/benchmarks/) for MPI and the [Intel MPI Benchmarks (IMB)](https://github.com/intel/mpi-benchmarks). All benchmark runs are performed on two cluster compute nodes, one MPI process per node.
+InfiniBand RDMA latency and bandwidth are measured by the [OSU Micro-Benchmarks](https://mvapich.cse.ohio-state.edu/benchmarks/) for MPI and the [Intel MPI Benchmarks (IMB)](https://github.com/intel/mpi-benchmarks). All runs are performed on two cluster compute nodes, one MPI process per node.
 
 Point-to-point performance is measured with the OSU `osu_bw` and `osu_latency` benchmarks, as well as the IMB MPI-1 `PingPong` benchmark.
 
