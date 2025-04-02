@@ -82,4 +82,4 @@ InfiniBand latency, 2x `Standard_HB120rs_v3`, 1.59, us, 1 byte transfer size
 InfiniBand bandwidth, 2x `Standard_HB120rs_v3`, 196.06, Gb/s, 4 MiB transfer size
 :::
 
-For comparison, Microsoft-published performance data for the `HBv3-series` is available [on the Azure website](https://learn.microsoft.com/en-us/azure/virtual-machines/hbv3-performance). For the `NCas_T4_v3` series, a discussion of benchmarking approaches is available in an [Azure blog post](https://techcommunity.microsoft.com/blog/azurecompute/benchmarking-the-nc-a100-v4-ncsv3-and-ncas-t4-v3-series-with-nvidia-deep-learnin/3568823).
+For comparison of InfiniBand results, Microsoft-published performance data for the `HBv3-series` is available [on the Azure website](https://learn.microsoft.com/en-us/azure/virtual-machines/hbv3-performance).
