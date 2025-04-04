@@ -9,7 +9,7 @@ GPU performance and InfiniBand interconnect performance are measured on suitably
 
 GPU performance is measured for both single precision workloads, where speed and larger scale is preferred over numerical accuracy, and double precision workloads, where additional accuracy is required.
 
-Latency and bandwidth are measured for InfiniBand to determine how quickly a message can traverse the network and the network throughput. These metrics govern the ability of the cluster to run MPI, and other distributed memory, applications across nodes.
+Latency and bandwidth are measured for InfiniBand to determine how quickly a message can traverse the network,  as well as the network throughput. These metrics govern the ability of the cluster to run MPI, and other distributed memory dependent applications across nodes.
 
 ### GPU flops
 
