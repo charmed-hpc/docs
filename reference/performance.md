@@ -5,7 +5,7 @@ Performance values for the [Charmed HPC Benchmarks](https://github.com/charmed-h
 
 ## Metrics
 
-GPU performance and InfiniBand interconnect performance are measured on suitably equipped VMs to illustrate the ability of Charmed HPC to exploit the HPC capabilities of the cloud.
+GPU performance and InfiniBand interconnect performance are measured on suitably equipped VMs to illustrate the ability of Charmed HPC to leverage the HPC capabilities of the cloud.
 
 GPU performance is measured for both single precision workloads, where speed and larger scale is preferred over numerical accuracy, and double precision workloads, where additional accuracy is required.
 
