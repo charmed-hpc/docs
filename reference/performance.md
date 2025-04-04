@@ -56,7 +56,7 @@ GPU tests are built with the following Ubuntu software package:
 
 * `nvidia-cuda-toolkit_12.0.140~12.0.1-4build4`
 
-Runs are performed on a single [`Standard_NC4as_T4_v3`](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/ncast4v3-series) instance, equipped with an NVIDIA Tesla T4 and deployed and deployed as Juju application `nc4as-t4-v3` as described in the [table above](#performance-cluster).
+Runs are performed on a single [`Standard_NC4as_T4_v3`](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/ncast4v3-series) instance, equipped with an NVIDIA Tesla T4 and deployed as Juju application `nc4as-t4-v3` as described in the [table above](#performance-cluster).
 
 ### HDR InfiniBand - `Standard_HB120rs_v3` instances
 
