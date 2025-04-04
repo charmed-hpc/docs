@@ -31,7 +31,7 @@ All performance tests run under the following base software:
 * Ubuntu 24.04
 * ReFrame 4.7.4
 
-on a Charmed HPC cluster deployed on Microsoft Azure.
+on a Charmed HPC cluster deployed on Microsoft Azure, with the following specifications:
 
 :::{csv-table}
 :name: performance-cluster
