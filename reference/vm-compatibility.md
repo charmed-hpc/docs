@@ -1,12 +1,12 @@
-(reference-compatibility-matrix)=
-# Compatibility Matrix
+(reference-vm-compatibility)=
+# Virtual Machine Compatibility
 
-The tables below provide an overview of cloud instance types that have been tested for compatibility with Charmed HPC revisions. Inclusion in a table indicates that the corresponding VM type has been tested; however, exclusion from the table simply indicates that the instance has not been tested thoroughly and may be compatible or incompatible with Charmed HPC. 
+The tables below provide an overview of cloud instance types that have been tested for compatibility with Charmed HPC revisions. Inclusion in a table indicates that the corresponding VM type has been tested; however, exclusion from the table simply indicates that the instance has not been tested thoroughly and may be compatible or incompatible with Charmed HPC.
 
 The compatibility key:
 
 * <span style="color:green">&#x2714; Compatible</span>: Fully compatible with all Charmed HPC features. No known issues.
-* <span style="color:orange">&#x25B3; Partial</span>: May be compatible with a subset of Charmed HPC features or may have issues that require work-arounds.
+* <span style="color:orange">&#x25B3; Partial</span>: May be compatible with a subset of Charmed HPC features or may have issues that require workarounds.
 * <span style="color:red">&#x2718; Incompatible</span>: Has issues that prevent all use-cases.
 
 ## Microsoft Azure

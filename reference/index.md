@@ -7,11 +7,11 @@ Charmed HPC operates.
 ## General information
 
 - {ref}`reference-underlying-projects-and-dependencies`
-- {ref}`reference-compatibility-matrix`
 - {ref}`gres`
 - {ref}`reference-interconnects`
 - {ref}`reference-monitoring`
 - {ref}`reference-performance`
+- {ref}`reference-vm-compatibility`
 <!-- - {ref}`reference-glossary` -->
 
 ```{filtered-toctree}
@@ -20,11 +20,11 @@ Charmed HPC operates.
 :hidden:
 
 Underlying projects and dependencies <underlying-projects-and-dependencies>
-compatibility-matrix
 gres/index
 interconnects/index
 monitoring/index
 Performance <performance>
+vm-compatibility
 :draft:Glossary <glossary>
 
 ```
