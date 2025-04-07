@@ -1,5 +1,5 @@
 (reference-vm-compatibility)=
-# Virtual Machine Compatibility
+# Virtual machine compatibility
 
 The tables below provide an overview of cloud instance types that have been tested for compatibility with Charmed HPC revisions. Inclusion in a table indicates that the corresponding VM type has been tested; however, exclusion from the table simply indicates that the instance has not been tested thoroughly and may be compatible or incompatible with Charmed HPC.
 
