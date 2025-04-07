@@ -6,7 +6,7 @@ The tables below provide an overview of cloud instance types that have been test
 The compatibility key:
 
 * <span style="color:green">&#x2714; Compatible</span>: Fully compatible with all Charmed HPC features. No known issues.
-* <span style="color:orange">&#x25B3; Partial</span>: May be compatible with a subset of Charmed HPC features or have issues that can be worked around to allow for basic use.
+* <span style="color:orange">&#x25B3; Partial</span>: May be compatible with a subset of Charmed HPC features or may have issues that require work-arounds.
 * <span style="color:red">&#x2718; Incompatible</span>: Has issues that prevent even basic use.
 
 ## Microsoft Azure
