@@ -23,7 +23,7 @@ taking you through the setup of your own Charmed HPC cluster.
 (howto-manage)=
 ## Manage
 
-The how-to guides in this section show you how to integrate with various optional services and perform common management tasks after you have
+The how-to guides in this section show you how to integrate with optional services and perform common management tasks after you have
 deployed Charmed HPC.
 
 - {ref}`howto-manage-integrate-with-cos`
