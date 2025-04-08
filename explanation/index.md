@@ -3,10 +3,13 @@
 
 Discussion and clarification for various topics related to Charmed HPC.
 
-- {ref}`cryptography`
-- {ref}`GPUs`
-- {ref}`explanation-interconnects`
-- {ref}`explanation-rebooting`
+- Security
+    - {ref}`cryptography`
+
+- Hardware
+    - {ref}`GPUs`
+    - {ref}`explanation-interconnects`
+    - {ref}`explanation-rebooting`
 
 ```{toctree}
 :titlesonly:

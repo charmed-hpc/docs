@@ -45,10 +45,9 @@ __Technical information__
 - {ref}`reference-underlying-projects-and-dependencies`
 - {ref}`gres`
 - {ref}`reference-interconnects`
-<!-- - {ref}`reference-glossary` -->
 - {ref}`reference-performance`
-<!-- - {ref}`reference-monitoring` -->
-
+- {ref}`reference-monitoring`
+<!-- - {ref}`reference-glossary` -->
 ```
 
 ````
