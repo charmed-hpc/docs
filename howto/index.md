@@ -23,9 +23,8 @@ taking you through the setup of your own Charmed HPC cluster.
 (howto-manage)=
 ## Manage
 
-The how-to guides in this section show you how to perform common management tasks after you have
-deployed Charmed HPC. These guides are for system administrators and HPC engineers that are
-responsible for managing Charmed HPC after deployment.
+The how-to guides in this section show you how to integrate with various optional services and perform common management tasks after you have
+deployed Charmed HPC.
 
 - {ref}`howto-manage-integrate-with-cos`
 - {ref}`howto-manage-integrate-with-influxdb`
