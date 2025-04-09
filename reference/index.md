@@ -11,6 +11,7 @@ Charmed HPC operates.
 - {ref}`reference-interconnects`
 - {ref}`reference-monitoring`
 - {ref}`reference-performance`
+- {ref}`reference-vm-compatibility`
 <!-- - {ref}`reference-glossary` -->
 
 ```{filtered-toctree}
@@ -23,6 +24,7 @@ gres/index
 interconnects/index
 monitoring/index
 Performance <performance>
+vm-compatibility
 :draft:Glossary <glossary>
 
 ```
