@@ -5,7 +5,7 @@ Integrating COS with Charmed HPC enables monitoring of resources. This integrati
 
 - {ref}`reference-monitoring-prometheus`
 - {ref}`reference-monitoring-grafana`
-<!-- - {ref}`reference-monitoring-loki` -->
+- {ref}`reference-monitoring-loki`
 
 ```{filtered-toctree}
 :titlesonly:
@@ -14,6 +14,6 @@ Integrating COS with Charmed HPC enables monitoring of resources. This integrati
 
 Prometheus <prometheus>
 Grafana <grafana>
-:draft:Loki <loki>
+Loki <loki>
 
 ```
