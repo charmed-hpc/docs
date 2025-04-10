@@ -3,11 +3,11 @@
 
 <!-- A tutorial is a practical activity, in which the student learns by doing something meaningful, towards some achievable goal. What the student does is not necessarily what they will learn. -->
 
-In this tutorial we will build  a Charmed HPC cluster on Azure, Microsoft's cloud platform, and deploy a job on to the new batch queue. By the end of this tutorial, we will have deployed the various components on Azure VMs using Juju, Charms, and Terraform, and submitted our first job to the batch queue. 
+In this tutorial we will build  a Charmed HPC cluster on Azure, Microsoft's cloud platform, and deploy a job to the new batch queue. By the end of this tutorial, we will have worked with Azure virtual machines, Juju, Charms, and Terraform, and submitted our first job to the batch queue. 
 
 This tutorial expects that you have some passing familiarity with classic high-performance computing concepts and programs, but does not expect any prior experience with Juju, Kubernetes, or Azure clouds.
 
-## Prerequisits and dependencies
+## Prerequisites and dependencies
 
 To successfully follow along with this tutorial, you will need:
 
