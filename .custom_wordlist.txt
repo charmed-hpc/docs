@@ -34,6 +34,7 @@ OSU
 Postgres
 ReFrame
 Slurm
+Slurm's
 sackd
 slurm
 slurmctld
@@ -91,6 +92,7 @@ TLS
 RPC
 Uptime
 proxied
+Auth
 
 # Filesystem jargon
 Ceph

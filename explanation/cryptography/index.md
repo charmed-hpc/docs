@@ -3,7 +3,7 @@
 
 This section describes the cryptographic algorithms and secrets used by the Charmed HPC project.
 
-- {ref}`munge`
+- {ref}`sack`
 - {ref}`jwt`
 
 ```{toctree}
@@ -11,6 +11,6 @@ This section describes the cryptographic algorithms and secrets used by the Char
 :maxdepth: 1
 :hidden:
 
-MUNGE <munge>
+SACK <sack>
 JSON Web Tokens <jwt>
 ```
