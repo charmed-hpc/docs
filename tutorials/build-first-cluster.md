@@ -1,5 +1,7 @@
-(tutorials-set-up-cluster-on-Azure)=
-# Set up a Charmed HPC cluster on Azure
+(tutorials-build-cluster)=
+# Build your first Charmed HPC cluster
+
+<!-- A tutorial is a practical activity, in which the student learns by doing something meaningful, towards some achievable goal. What the student does is not necessarily what they will learn. -->
 
 In this tutorial we will walk through the various steps to set up a Charmed HPC cluster on Azure, Microsoft's cloud platform. By the end of this tutorial, we will have deployed the various components of a Charmed HPC cluster on Azure VMs and submitted a basic script to the batch queue. 
 
@@ -476,6 +478,9 @@ juju exec -u sackd/0 -- sinfo
 :::
 
 ## Deploy an NFS filesystem 
+
+
+
 
 
 ## Deploy the identity stack
