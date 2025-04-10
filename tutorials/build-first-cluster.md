@@ -1,4 +1,4 @@
-(tutorials-build-cluster)=
+(build-first-cluster)=
 # Build your first Charmed HPC cluster
 
 <!-- A tutorial is a practical activity, in which the student learns by doing something meaningful, towards some achievable goal. What the student does is not necessarily what they will learn. -->
@@ -9,7 +9,7 @@ This tutorial expects that you have some passing familiarity with classic high-p
 
 ## Prerequisites and dependencies
 
-To successfully follow along with this tutorial, you will need:
+To successfully complete this tutorial, we will need:
 
 
 <!-- The set up is likely assuming an Ubuntu local system - should we make that explicit? -->
@@ -28,13 +28,13 @@ To successfully follow along with this tutorial, you will need:
 
 ### Add Azure cloud credentials to Juju
 
-First, add your Azure credentials to Juju by running:
+First, we add our Azure credentials to Juju by running:
 
 :::{code-block} shell
 juju add-credential azure
 :::
 
-This will start a script where you will be asked for the parameters in the left column, and will provide the value in the right:
+This will start a script where we will be asked for the parameters in the left column, and will provide the value in the right:
 
 | Parameter              | Value                          |
 |------------------------|--------------------------------|
@@ -45,15 +45,14 @@ This will start a script where you will be asked for the parameters in the left 
 | `application_name`     | ` `                            |
 | `role-definition-name` | ` `                            |
 
-
-You will then be asked to authenticate the requests via your web browser with the following message:
+We will then be asked to authenticate the requests via web browser with the following message:
 
 :::{code-block} shell
 To sign in, use a web browser to open the page https://microsoft.com/devicelogin
 and enter the code <auth-code> to authenticate.
 :::
 
-In a web browser, open the [authentication page](https://microsoft.com/devicelogin), sign in as required, and enter the `<auth-code>` from the end of the authentication request shown in the terminal window. You will be asked to authenticate twice, to allow creation of two different resources in Azure.
+In a web browser, open the [authentication page](https://microsoft.com/devicelogin), sign in as required, and enter the `<auth-code>` from the end of the authentication request shown in the terminal window. We will be asked to authenticate twice, to allow creation of two different resources in Azure.
 
 Once the credentials have been added successfully, the following message will be displayed:
 
@@ -104,7 +103,7 @@ Then deploy the cloud controller with:
 juju bootstrap azure charmed-hpc-controller --constraints "instance-role=auto"
 :::
 
-After a few minutes, your Azure cloud controller will become active. The output of the `juju status`{l=shell} command should show the following:
+After a few minutes, the Azure cloud controller will become active. The output of the `juju status`{l=shell} command should show the following:
 
 :::{terminal}
 :input: juju status -m controller
@@ -122,6 +121,7 @@ Machine  State    Address      Inst id        Base          AZ  Message
 0        started  x.x.x.x      juju-e63b38-0  ubuntu@24.04
 :::
 
+<!-- Add summary of what the last few steps accomplished -->
 
 ## Deploy Slurm
 
@@ -134,7 +134,7 @@ requirements - what additional requirements would be needed here?  -->
 
 <!-- Initial steps of creating empty terraform plan and/or getting a copy of the plan we provide? -->
 
-Configure Terraform to use the Juju provider in your deployment plan:
+First, we will configure Terraform to use the Juju provider in the deployment plan:
 
 :::{code-block} terraform
 :caption: `main.tf`
@@ -150,7 +150,7 @@ terraform {
 
 Now create the `slurm` model that will hold the deployment:
 
-<!-- Does this cloud name need to match the conotroller name from the prior steps? ie charmed-hpc-controller -->
+<!-- Does this cloud name need to match the conotroller name from the prior steps? ie charmed-hpc-controller (Answer from Jason - No, different pieces)-->
 
 :::{code-block} terraform
 :caption: `main.tf`
@@ -163,8 +163,7 @@ resource "juju_model" "slurm" {
 }
 :::
 
-With the `slurm` `juju_model` resource defined, declare the following set of modules
-in your Terraform plan:
+With the `slurm` `juju_model` resource defined, declare the following set of modules in the Terraform plan:
 
 :::{code-block} terraform
 :caption: `main.tf`
@@ -199,7 +198,7 @@ module "mysql" {
 }
 :::
 
-Now declare the following set of resources in your deployment plan, to integrate the Slurm daemons together:
+Now declare the following set of resources in the same deployment plan, to integrate the Slurm daemons together:
 
 :::{code-block} terraform
 :caption: `main.tf`
@@ -399,7 +398,7 @@ resource "juju_integration" "slurmdbd-to-mysql" {
 :::
 :::
 
-After verifying that your plan is correct, run the following set of commands to deploy Slurm
+After verifying that the plan is correct, we will run the following set of commands to deploy Slurm
 using Terraform and the Juju provider:
 
 :::{code-block} shell
@@ -407,8 +406,12 @@ terraform init
 terraform apply -auto-approve
 :::
 
-After a few minutes, your Slurm deployment will become active. The output of the
+<!-- What will the terminal look like after the prior command? -->
+
+After a few minutes, the Slurm deployment will become active. The output of the
 `juju status`{l=shell} command should be similar to the following:
+
+<!-- specificly these exact models, controllers, etc? What will be exactly the same vs what will differ. -->
 
 <!-- Why is Cloud/Region localhost? -->
 
@@ -442,9 +445,11 @@ Machine  State    Address       Inst id        Base          AZ  Message
 5        started  10.32.18.127  juju-d566c2-5  ubuntu@22.04      Running
 :::
 
+<!-- Add summary of what the last few steps accomplished -->
+
 ## Get compute nodes ready for jobs
 
-The compute nodes must be set to the `IDLE` state so that they can start having jobs ran on them.
+Next, the compute nodes must be set to the `IDLE` state so that they can start having jobs ran on them.
 
 ### Set compute nodes to `IDLE`
 
@@ -453,6 +458,8 @@ First, get the hostnames for the compute nodes:
 :::{code-block} shell
 juju exec --application slurmd -- hostname -s
 :::
+
+<!-- What does the output look like here? -->
 
 Then use `juju run`{l=shell} to run the `resume` action on the leading controller:
 <!-- leading controller? Leading node? -->
@@ -465,7 +472,7 @@ juju run slurmctld/leader resume nodename="<machine-instance-id/hostname>"
 
 ### Verify compute nodes are `IDLE`
 
-TO verify the lead node's state is `IDLE`, run the following command:
+To verify the lead node's state is `IDLE`, run the following command:
 
 :::{code-block} shell
 juju exec -u sackd/0 -- sinfo --nodes $(juju exec -u slurmd/0 -- hostname)
@@ -477,6 +484,7 @@ and to verify the rest of the nodes on the cluster are `IDLE`, run:
 juju exec -u sackd/0 -- sinfo
 :::
 
+<!-- Add summary of what the last few steps accomplished -->
 ## Deploy an NFS filesystem 
 
 
