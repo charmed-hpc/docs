@@ -76,6 +76,7 @@ Here's some links to help you get started with joining the community:
 :titlesonly:
 
 self
+tutorials/index
 howto/index
 explanation/index
 reference/index
