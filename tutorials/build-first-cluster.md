@@ -3,9 +3,9 @@
 
 <!-- A tutorial is a practical activity, in which the student learns by doing something meaningful, towards some achievable goal. What the student does is not necessarily what they will learn. -->
 
-<!-- Goal: Get a new potential user familiar with the various tools used for Charmed HPC, and build a basic cluster that feels recognizable by the end. -->
+<!-- Goal: Get a new potential user familiar with the various tools used for Charmed HPC, and build a basic cluster that feels recognizable by the end. Show how Charmed HPC provides a turn-key cluster smoothly and why its worth using. -->
 
-In this tutorial we will build  a Charmed HPC cluster on Azure, Microsoft's cloud platform, and deploy a job to the new batch queue. By the end of this tutorial, we will have worked with Azure virtual machines, Juju, Charms, and Terraform, and submitted our first job to the batch queue. 
+In this tutorial we will build a Charmed HPC cluster on Azure, Microsoft's cloud platform, and deploy a job to the new batch queue. By the end of this tutorial, we will have worked with Azure virtual machines, Juju, Charms, and Terraform, and submitted our first job to the batch queue. 
 
 This tutorial expects that you have some passing familiarity with classic high-performance computing concepts and programs, but does not expect any prior experience with Juju, Kubernetes, or Azure clouds.
 
