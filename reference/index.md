@@ -7,7 +7,7 @@ Charmed HPC operates.
 ## General information
 
 - {ref}`reference-underlying-projects-and-dependencies`
-- {ref}`gres`
+- {ref}`GPU resource scheduling in Slurm <gres>`
 - {ref}`reference-interconnects`
 - {ref}`reference-monitoring`
 - {ref}`reference-performance`
