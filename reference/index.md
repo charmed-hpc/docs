@@ -19,7 +19,7 @@ Charmed HPC operates.
 :hidden:
 
 Underlying projects and dependencies <underlying-projects-and-dependencies>
-gres/index
+gpus
 interconnects/index
 monitoring/index
 Performance <performance>
