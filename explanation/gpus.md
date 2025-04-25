@@ -2,6 +2,24 @@
 relatedlinks: "[Slurm&#32;Workload&#32;Manager&#32;-&#32;gres.conf](https://slurm.schedmd.com/gres.conf.html)"
 ---
 
+(explanation-gpus)=
+# GPUs
+
+A Graphics Processing Unit (GPU) is a specialized hardware resource that was originally designed to accelerate computer graphics calculations but has expanded use in general purpose computing across a number of fields. GPU-enabled workloads are supported on a Charmed HPC cluster with the necessary driver and workload manager configuration automatically handled by the charms.
+
+
+(driver)=
+## GPU driver installation and management
+
+### Auto-install
+
+Charmed HPC installs GPU drivers when the `slurmd` charm is deployed on a compute node equipped with a supported NVIDIA GPU. Driver detection is performed via the API for [`ubuntu-drivers-common`](https://documentation.ubuntu.com/server/how-to/graphics/install-nvidia-drivers/#the-recommended-way-ubuntu-drivers-tool), a package which examines node hardware, determines appropriate third-party drivers and recommends a set of driver packages that are installed from the Ubuntu repositories.
+
+### Libraries used
+
+- [`ubuntu-drivers-common`](https://github.com/canonical/ubuntu-drivers-common), from GitHub.
+
+
 (slurmconf)=
 # Slurm enlistment
 

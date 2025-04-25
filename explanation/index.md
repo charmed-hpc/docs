@@ -4,10 +4,11 @@
 Discussion and clarification for various topics related to Charmed HPC.
 
 - Security
-    - {ref}`cryptography`
+    - {ref}`sack`
+    - {ref}`jwt`
 
 - Hardware
-    - {ref}`GPUs`
+    - {ref}`explanation-gpus`
     - {ref}`explanation-interconnects`
     - {ref}`explanation-rebooting`
 
@@ -16,8 +17,8 @@ Discussion and clarification for various topics related to Charmed HPC.
 :maxdepth: 1
 :hidden:
 
-cryptography/index
-gpus/index
+Cryptograhy and Authentication <cryptography>
+GPUs <gpus>
 interconnects/index
 Instance auto-reboots <reboot-timing.md>
 ```
