@@ -6,7 +6,7 @@ Reference material for various Charmed HPC components that directly relate to GP
 (gres)=
 ## Generic Resource (GRES) Scheduling
 
-Slurm supports Generic Resource (GRES) scheduling for gpus. Each line in _gres.conf_ uses the following parameters to define a GPU resource:
+Slurm supports Generic Resource (GRES) scheduling for GPUs. Each line in _gres.conf_ uses the following parameters to define a GPU resource:
 
 | Parameter  | Value                                                      |
 | ---------- | ---------------------------------------------------------- |
