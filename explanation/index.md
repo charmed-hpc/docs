@@ -3,21 +3,21 @@
 
 Discussion and clarification for various topics related to Charmed HPC.
 
-- Security
-    - {ref}`sack`
-    - {ref}`jwt`
+## Cryptography, Authentication, and Security
+- {ref}`sack`
+- {ref}`jwt`
 
-- Hardware
-    - {ref}`explanation-gpus`
-    - {ref}`explanation-interconnects`
-    - {ref}`explanation-rebooting`
+## Hardware
+- {ref}`explanation-gpus`
+- {ref}`explanation-interconnects`
+- {ref}`explanation-rebooting`
 
 ```{toctree}
 :titlesonly:
 :maxdepth: 1
 :hidden:
 
-Cryptograhy and Authentication <cryptography>
+Cryptography and Authentication <cryptography>
 GPUs <gpus>
 Interconnects <interconnects>
 Instance auto-reboots <reboot-timing.md>

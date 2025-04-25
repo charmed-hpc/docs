@@ -31,8 +31,7 @@ __Step-by-step guides__ covering key operations and common tasks
 
 __Discussion and clarification__ of key topics
 
- - {ref}`sack`
- - {ref}`jwt`
+ - {ref}`cryptography`
  - {ref}`explanation-gpus`
  - {ref}`explanation-interconnects`
 

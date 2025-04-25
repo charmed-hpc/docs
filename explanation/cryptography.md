@@ -1,7 +1,7 @@
 (cryptography)=
 # Cryptography and Authentication
 
-Charmed HPC uses and provides options for a couple different cryptography and authentication methods, namely SACK (Slurm Auth and Cred Kiosk), which is Slurms internal authentication system, and JWT (Json Web Tokens).
+Charmed HPC uses and provides options for a couple different cryptography and authentication methods, namely SACK (Slurm Auth and Cred Kiosk), which is Slurm's internal authentication system, and JWT (JSON Web Tokens).
 
 (sack)=
 ## Slurm credentials and SACK
