@@ -13,6 +13,7 @@ Charmed HPC operates.
 - {ref}`reference-performance`
 <!-- - {ref}`reference-glossary` -->
 
+
 ```{filtered-toctree}
 :titlesonly:
 :maxdepth: 1
@@ -20,7 +21,7 @@ Charmed HPC operates.
 
 Underlying projects and dependencies <underlying-projects-and-dependencies>
 gpus
-interconnects/index
+interconnects
 monitoring/index
 Performance <performance>
 :draft:Glossary <glossary>
