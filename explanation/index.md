@@ -3,7 +3,7 @@
 
 Discussion and clarification for various topics related to Charmed HPC.
 
-## Cryptography, Authentication, and Security
+## Cryptography, authentication, and security
 - {ref}`sack`
 - {ref}`jwt`
 

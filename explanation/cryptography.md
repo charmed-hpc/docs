@@ -1,5 +1,5 @@
 (cryptography)=
-# Cryptography and Authentication
+# Cryptography and authentication
 
 Charmed HPC uses and provides options for a couple different cryptography and authentication methods, namely SACK (Slurm Auth and Cred Kiosk), which is Slurm's internal authentication system, and JWT (JSON Web Tokens).
 

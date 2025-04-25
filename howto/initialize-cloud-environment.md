@@ -380,7 +380,7 @@ Refer to {ref}`howto-cleanup-cloud-resources` for guidance on cleaning up an Azu
 
 :::::
 
-## Next Steps
+## Next steps
 
 Now that both the `charmed-hpc` machine cloud and `charmed-hpc-k8s` Kubernetes cloud are initialized,
 you can start deploying applications with Juju. Go to the {ref}`howto-setup-deploy-slurm` guide

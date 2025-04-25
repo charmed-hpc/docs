@@ -36,7 +36,7 @@ The dashboard from the `mysql` charm displays metrics for the storage database o
 - Thread resource usage.
 - Network traffic statistics.
 
-![Mysql dashboard](../../imgs/mysql_grafana.png)
+![MySQL dashboard](../../imgs/mysql_grafana.png)
 
 ## Traefik K8s
 

@@ -13,7 +13,7 @@ This guide explains how to enable job profiling by deploying and integrating Inf
 
 - A [deployed Slurm cluster](#howto-setup-deploy-slurm).
 
-## Deploy and Integrate InfluxDB
+## Deploy and integrate InfluxDB
 
 First, in the same model holding your Slurm deployment, deploy InfluxDB with `juju deploy`{l=shell}:
 

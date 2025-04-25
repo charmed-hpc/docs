@@ -185,7 +185,7 @@ the piped `juju show-unit`{l=shell} command in the
 Log in as the user `admin` using the password returned by the `get-admin-password` action.
 You can see the available dashboards by opening the sidebar menu and clicking on `Dashboards`.
 
-## Next Steps
+## Next steps
 
 You can now use COS to monitor your Charmed HPC cluster. Explore the Grafana web interface
 to see what dashboards you can create using the metrics collected from your
