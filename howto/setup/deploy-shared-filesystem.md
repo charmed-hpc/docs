@@ -151,13 +151,13 @@ We will create two new disk pools, then
 assign the two pools to a new filesystem with the name `cephfs`.
 
 :::{code-block} shell
-# Create a new data pool for our filesystem...
+# Create a new data pool for our filesystem
 microceph.ceph osd pool create cephfs_data
 
-# ... and a metadata pool for the same filesystem.
+# and a metadata pool for the same filesystem
 microceph.ceph osd pool create cephfs_metadata
 
-# Create a new filesystem that uses the two created data pools.
+# Create a new filesystem that uses the two created data pools
 microceph.ceph fs new cephfs cephfs_metadata cephfs_data
 :::
 

@@ -4,7 +4,7 @@
 The guides in this section provide detailed steps for key operations and common tasks for Charmed HPC.
 
 
-## First Steps
+## First steps
 
 It is **strongly recommended** that you go through the {ref}`Initialize cloud environment <howto-initialize-cloud-environment>` guide first before going through the {ref}`Setup <howto-setup>` section. This guide will show you how to set up access to the compute, storage, and networking resources your Charmed HPC cluster will need.
 
