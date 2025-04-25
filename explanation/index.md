@@ -19,6 +19,6 @@ Discussion and clarification for various topics related to Charmed HPC.
 
 Cryptograhy and Authentication <cryptography>
 GPUs <gpus>
-interconnects/index
+Interconnects <interconnects>
 Instance auto-reboots <reboot-timing.md>
 ```
