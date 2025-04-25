@@ -43,7 +43,7 @@ __Discussion and clarification__ of key topics
 __Technical information__
 
 - {ref}`reference-underlying-projects-and-dependencies`
-- {ref}`gres`
+- {ref}`GPU resource scheduling <gres>`
 - {ref}`reference-interconnects`
 - {ref}`reference-performance`
 - {ref}`reference-monitoring`
