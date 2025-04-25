@@ -4,12 +4,12 @@
 Charmed HPC uses and provides options for a couple different cryptography and authentication methods, namely SACK (Slurm Auth and Cred Kiosk), which is Slurms internal authentication system, and JWT (Json Web Tokens).
 
 (sack)=
-# Slurm credentials and SACK
+## Slurm credentials and SACK
 
 [SACK (Slurm Auth and Cred Kiosk)](https://slurm.schedmd.com/authentication.html#sack) is Slurm's internal authentication
 subsystem that manages creating and validating credentials.
 
-This subsystem is used by all the Charmed HPC Slurm charms, including:
+This subsystem is used by the following Charmed HPC Slurm charms:
 
 - [`slurmctld`](https://charmhub.io/slurmctld)
 - [`slurmd`](https://charmhub.io/slurmd)
@@ -34,10 +34,6 @@ This service is used by the Slurm charms:
 - [`slurmctld`](https://charmhub.io/slurmctld)
 - [`slurmrestd`](https://charmhub.io/slurmrestd)
 
-A shared private encryption key is required to verify the signature of client tokens. The current method uses RSA with a length of 2048 bits, which is generated using the [`cryptography`](https://pypi.org/project/cryptography/) package for Python.
+A shared private encryption key is required to verify the signature of client tokens. The current method uses RSA with a length of 2048 bits, which is generated using the [`cryptography`](https://pypi.org/project/cryptography/) package for Python, from PyPi.
 
 The [Slurm documentation](https://slurm.schedmd.com/jwt.html) contains more information about the topic.
-
-### Libraries used
-
-- [`cryptography`](https://pypi.org/project/cryptography/), from PyPI.
