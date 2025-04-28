@@ -21,15 +21,15 @@ Charmed HPC installs GPU drivers when the `slurmd` charm is deployed on a comput
 
 
 (slurmconf)=
-# Slurm enlistment
+## Slurm enlistment
 
 To allow cluster users to submit jobs requesting GPUs, detected GPUs are automatically added to the [Generic RESource (GRES) Slurm configuration](https://slurm.schedmd.com/gres.html). GRES is a feature in Slurm which enables scheduling of arbitrary generic resources, including GPUs.
 
-## Device details
+### Device details
 
 GPU details are gathered by [`pynvml`](https://pypi.org/project/nvidia-ml-py/), the official Python bindings for the NVIDIA management library, which enables GPU counts, associated device files and model names to be queried from the drivers. For compatibility with Slurm configuration files, retrieved model names are converted to lowercase and white space is replaced with underscores. “Tesla T4” becomes `tesla_t4`, for example.
 
-## Slurm configuration
+### Slurm configuration
 
 Each GPU-equipped node is added to the _gres.conf_ configuration file following the format defined in the [Slurm _gres.conf_ documentation](https://slurm.schedmd.com/gres.conf.html). A single _gres.conf_ is shared by all compute nodes in the cluster, using the optional `NodeName` specification to define GPU resources per node. Each line in _gres.conf_ uses the following parameters to define a GPU resource:
 
@@ -54,7 +54,7 @@ and corresponding _gres.conf_ line:
 NodeName=juju-e33208-1 Name=gpu Type=nvidia_a100_80gb_pcie File=/dev/nvidia0
 ```
 
-## Libraries used
+### Libraries used
 
 - [`pynvml / nvidia-ml-py`](https://pypi.org/project/nvidia-ml-py/), from PyPI.
 
