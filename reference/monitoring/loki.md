@@ -11,7 +11,9 @@ tutorial from the Grafana documentation for instructions on where and how to que
 : charm, query
 
 <!-- TODO: track https://github.com/canonical/grafana-agent-operator/issues/46 to use juju labels instead of filenames -->
-slurmctld, `{juju_charm="grafana-agent"} | filename =~ ".*/var/log/slurm/.*"`{l=shell}
+slurmctld, `{juju_charm="grafana-agent"} | filename =~ ".*/var/log/slurm/slurmctld.*"`{l=shell}
+slurmd, `{juju_charm="grafana-agent"} | filename =~ ".*/var/log/slurm/slurmd.*"`{l=shell}
+slurmdbd, `{juju_charm="grafana-agent"} | filename =~ ".*/var/log/slurm/slurmdbd.*"`{l=shell}
 mysql, `{juju_charm="grafana-agent"} | filename =~ ".*/var/log/mysql/.*"`{l=shell}
 postgresql-k8s, `{juju_charm="postgresql-k8s"}`{l=shell}
 
@@ -24,7 +26,7 @@ glauth-k8s, `{charm="glauth-k8s"}`{l=shell}
 
 ## Ignoring log files
 
-By default, every instance of the `grafana-agent` charm will log all the files in the `var/log` directory.
+By default, every instance of the `grafana-agent` charm will log all the files in the `/var/log` directory.
 This is sometimes not ideal, since it increases the amount of logs stored by Loki which are unrelated
 to the running application. A solution for this is to set the `path_exclude` configuration for
 `grafana-agent`, which will allow it to ignore such log files:
