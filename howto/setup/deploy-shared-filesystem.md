@@ -100,10 +100,11 @@ After gathering all the required information, you can deploy the `nfs-server-pro
 expose the externally managed server inside a Juju model.
 
 :::{code-block} shell
-juju deploy nfs-server-proxy --config \
-    hostname=<server hostname> \
-    path=<exported path> \
-    port=<server port>
+juju deploy nfs-server-proxy \
+  --channel latest/edge \
+  --config hostname=<server hostname> \
+  --config path=<exported path> \
+  --config port=<server port>
 :::
 
 ::::::
@@ -194,11 +195,12 @@ Having collected all the required information, you can deploy the `cephfs-server
 expose the externally managed Ceph filesystem inside a Juju model.
 
 :::{code-block} shell
-juju deploy cephfs-server-proxy --config \
-    --config fsid=<value of $FSID> \
-    --config sharepoint=cephfs:/ \
-    --config monitor-hosts="<value of $HOST>" \
-    --config auth-info=fs-client:<value of $CLIENT_KEY>
+juju deploy cephfs-server-proxy \
+  --channel latest/edge \
+  --config fsid=<value of $FSID> \
+  --config sharepoint=cephfs:/ \
+  --config monitor-hosts="<value of $HOST>" \
+  --config auth-info=fs-client:<value of $CLIENT_KEY>
 :::
 
 ::::::
@@ -211,9 +213,10 @@ juju deploy cephfs-server-proxy --config \
 To add the `filesystem-client` charm, which mounts a shared filesystem to the cluster nodes:
 
 :::{code-block} shell
-juju deploy filesystem-client --channel latest/edge \
-    --config mountpoint='/scratch' \
-    --config noexec=true
+juju deploy filesystem-client \
+  --channel latest/edge \
+  --config mountpoint='/scratch' \
+  --config noexec=true
 :::
 
 The `mountpoint` configuration represents the path that the filesystem will be mounted onto.
