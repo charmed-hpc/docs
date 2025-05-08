@@ -5,21 +5,24 @@
 
 <!-- Goal: Get a new potential user familiar with the various tools used for Charmed HPC, and build a basic cluster that feels recognizable by the end. Show how Charmed HPC provides a turn-key cluster smoothly and why its worth using. -->
 
-In this tutorial we will build a Charmed HPC cluster on Azure, Microsoft's cloud platform, and deploy a job to the new batch queue. By the end of this tutorial, we will have worked with Azure virtual machines, Juju, Charms, and Terraform, and submitted our first job to the batch queue. 
+In this tutorial we will build a small Charmed HPC cluster on Azure, Microsoft's cloud platform, and deploy a job to the new batch queue. By the end of this tutorial, we will have worked with Azure virtual machines, Juju and Charms, Terraform, and Slurm.
 
-This tutorial expects that you have some passing familiarity with classic high-performance computing concepts and programs, but does not expect any prior experience with Juju, Kubernetes, or Azure clouds.
+This tutorial expects that you have some familiarity with classic high-performance computing concepts and programs, but does not expect any prior experience with Juju, Kubernetes, or Azure clouds.
+
+<!-- How long should this tutorial take to complete? -->
+<!-- Add a note that this cluster is not expected to be a main deployment, simply a learning tool? -->
 
 ## Prerequisites and dependencies
 
-To successfully complete this tutorial, we will need:
+To successfully complete this tutorial, you will need:
 
 
 <!-- The set up is likely assuming an Ubuntu local system - should we make that explicit? -->
 
-* The [Juju CLI client](https://documentation.ubuntu.com/juju/latest/user/howto/manage-juju/) installed on your machine.
-* [A valid Azure subscription ID](https://learn.microsoft.com/en-us/azure/azure-portal/get-subscription-tenant-id)
-* [Installed the Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
-* [Signed into the Azure CLI](https://learn.microsoft.com/en-us/cli/azure/authenticate-azure-cli-interactively)
+* The [Juju CLI client](https://documentation.ubuntu.com/juju/latest/user/howto/manage-juju/) installed on your machine
+* A valid [Azure subscription ID](https://learn.microsoft.com/en-us/azure/azure-portal/get-subscription-tenant-id)
+* The [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) installed on your machine
+* To [sign into the Azure CLI](https://learn.microsoft.com/en-us/cli/azure/authenticate-azure-cli-interactively)
 
 <!-- * [Adjusted quotas for suitable virtual machine (VM) families](https://learn.microsoft.com/en-us/azure/quotas/per-vm-quota-requests) - which specific VMs are we using here?-->
 
@@ -27,16 +30,20 @@ To successfully complete this tutorial, we will need:
 
 ## Cloud Environment Initialization
 
+The first step in creating a Charmed HPC cluster on Azure is to initialize the cloud environment that we will be using.
+<!-- "We will be using Juju here because.." - Add some brief context on what Juju is. -->
+
+The following steps are all completed from a terminal on your local machine, unless explicitly stated otherwise.
 
 ### Add Azure cloud credentials to Juju
 
-First, we add our Azure credentials to Juju by running:
+First, add your Azure credentials to Juju by running:
 
 :::{code-block} shell
 juju add-credential azure
 :::
 
-This will start a script where we will be asked for the parameters in the left column, and will provide the value in the right:
+This will start a script where you will be asked for a set of parameters. Use the table provided here, with the parameters listed in the left column, to provide the values in the right column. Note that the values for the first three parameters are explicitly those listed, whereas for the `subscription-id` you must substitute for your personal ID, and the last two parameters are left blank.
 
 | Parameter              | Value                          |
 |------------------------|--------------------------------|
@@ -47,14 +54,16 @@ This will start a script where we will be asked for the parameters in the left c
 | `application_name`     | ` `                            |
 | `role-definition-name` | ` `                            |
 
-We will then be asked to authenticate the requests via web browser with the following message:
+You will then be asked to authenticate the requests via web browser with the following message:
+
+<!-- Why is 'in' highlight here? -->
 
 :::{code-block} shell
 To sign in, use a web browser to open the page https://microsoft.com/devicelogin
 and enter the code <auth-code> to authenticate.
 :::
 
-In a web browser, open the [authentication page](https://microsoft.com/devicelogin), sign in as required, and enter the `<auth-code>` from the end of the authentication request shown in the terminal window. We will be asked to authenticate twice, to allow creation of two different resources in Azure.
+In a web browser, open the [authentication page](https://microsoft.com/devicelogin), sign in as required, and enter the `<auth-code>` from the end of the authentication request shown in your terminal window. You will be asked to authenticate twice, to allow creation of two different resources in Azure.
 
 Once the credentials have been added successfully, the following message will be displayed:
 
@@ -64,7 +73,7 @@ Credential "my-az-credential" added locally for cloud "azure".
 
 ### Widen scope for credentials
 
-To allow Juju to automatically create resources in Azure, further privileges should be granted to the credentials created above. Run:
+To allow Juju to automatically create resources in Azure, further privileges must be granted to the credentials created above. Run:
 
 :::{terminal}
 :input: juju show-credentials azure my-az-credential
@@ -89,7 +98,7 @@ Copy the value of `<application-object-id>` and run:
 az role assignment create --assignee <application-object-id> --role Owner --scope /subscriptions/my-azure-subscription-id
 :::
 
-This will grant the credential "full access to manage all resources". 
+This will grant the credential "full access to manage all resources".
 
 ### Bootstrap Azure cloud controller
 
@@ -99,7 +108,7 @@ To bootstrap the Azure cloud controller, first set the default region to East US
 juju default-region azure eastus
 :::
 
-Then deploy the cloud controller with:
+Then deploy the cloud controller:
 
 :::{code-block} shell
 juju bootstrap azure charmed-hpc-controller --constraints "instance-role=auto"
@@ -127,8 +136,8 @@ Machine  State    Address      Inst id        Base          AZ  Message
 
 ## Deploy Slurm
 
-Next, we will deploy Slurm as the resource management and job scheduling service. Here we will use the [Juju Terraform client](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/).  
-
+Next, we will deploy Slurm as the resource management and job scheduling service. Here we will use the [Juju Terraform client](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/).
+<!-- Add brief explanation of what Terraform does and why it's useful here -->
 
 <!--see the
 [Manage `terraform-provider-juju`](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/howto/manage-terraform-provider-juju/) how-to guide for additional
@@ -150,9 +159,7 @@ terraform {
 }
 :::
 
-Now create the `slurm` model that will hold the deployment:
-
-<!-- Does this cloud name need to match the conotroller name from the prior steps? ie charmed-hpc-controller (Answer from Jason - No, different pieces)-->
+Now, in the same file, create the `slurm` model that will hold the deployment:
 
 :::{code-block} terraform
 :caption: `main.tf`
@@ -400,15 +407,17 @@ resource "juju_integration" "slurmdbd-to-mysql" {
 :::
 :::
 
-After verifying that the plan is correct, we will run the following set of commands to deploy Slurm
+After verifying that the plan is correct, run the following set of commands to deploy Slurm
 using Terraform and the Juju provider:
+
+<!-- Within a specific directory? Any other precautions or notes necessary here for someone who has never used Terraform? -->
 
 :::{code-block} shell
 terraform init
 terraform apply -auto-approve
 :::
 
-<!-- What will the terminal look like after the prior command? -->
+<!-- What will the terminal look like after the prior command? Will there be any on-screen logging happening? -->
 
 After a few minutes, the Slurm deployment will become active. The output of the
 `juju status`{l=shell} command should be similar to the following:
@@ -451,7 +460,7 @@ Machine  State    Address       Inst id        Base          AZ  Message
 
 ## Get compute nodes ready for jobs
 
-Next, the compute nodes must be set to the `IDLE` state so that they can start having jobs ran on them.
+Now that Slurm has been successfully deployed, the next step is to set up the compute nodes themselves. The compute nodes must be set to the `IDLE` state so that they can start having jobs ran on them.
 
 ### Set compute nodes to `IDLE`
 
@@ -487,7 +496,7 @@ juju exec -u sackd/0 -- sinfo
 :::
 
 <!-- Add summary of what the last few steps accomplished -->
-## Deploy an NFS filesystem 
+## Deploy an NFS filesystem
 
 
 
