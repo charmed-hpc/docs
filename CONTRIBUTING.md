@@ -1,6 +1,6 @@
 # Contributing to Charmed HPC's documentation
 
-Do you want to contribute to Charmed HPC's documentation? You've come to
+Do you want to contribute to [Charmed HPC's documentation](https://canonical-charmed-hpc.readthedocs-hosted.com/latest/)? You've come to
 the right place then! __Here is how you can get involved.__
 
 Please take a moment to review this document so that the contribution
