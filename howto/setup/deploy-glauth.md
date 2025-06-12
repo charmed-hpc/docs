@@ -379,7 +379,7 @@ terraform -chdir=connect-sssd-to-glauth apply -auto-approve
 ## Next steps
 
 You can now use GLAuth and SSSD as the {{ iam }} stack to manage users
-and groups on your Charmed HPC cluster. See the [Access Postgres](https://charmhub.io/postgresql-k8s/docs/t-access)
+and groups on your Charmed HPC cluster. See the [Access Postgres](https://canonical-charmed-postgresql-k8s.readthedocs-hosted.com/14/tutorial/#access-the-related-database)
 tutorial for how to access your deployed Postgres database, and
 [GLAuth's documentation](https://glauth.github.io/docs/databases.html) for how to manage users and groups on your
 cluster using SQL queries.

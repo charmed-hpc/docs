@@ -249,13 +249,126 @@ Machine  State    Address      Inst id        Base          AZ  Message
 0        started  x.x.x.x      juju-e63b38-0  ubuntu@24.04
 :::
 
-### Clean up
+::::
 
-:::{warning}
-Always clean Azure resources that are no longer necessary! Abandoned resources are tricky to detect and can become expensive over time.
+::::{tab-item} Amazon Web Services (AWS)
+:sync: aws
+
+To use AWS as the machine cloud for your Charmed HPC cluster, you will need to have:
+
+* [Installed the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+* [Authenticated into the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-authentication.html)
+* [Adjusted quotas for suitable EC2 instance types](https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-instance-quotas.html)
+
+To decide on suitable instance types, it may be useful to refer to [Amazon EC2 Instance types](https://aws.amazon.com/ec2/instance-types/).
+A typical Charmed HPC deployment will likely use a mix of HPC Optimized and Accelerated Computing instances for cluster compute
+nodes, and general purpose instances for other node types.
+
+### Create an AWS User
+
+Juju requires an access key and a secret access key to authenticate against AWS, which allows it to create and manage
+the controller instance.
+
+First, create a new AWS user named `Juju`, and a new AWS group called `JujuGroup` for that user:
+
+:::{code-block} shell
+aws iam create-user --user-name Juju
+aws iam create-group --group-name JujuGroup
+aws iam add-user-to-group --user-name Juju --group-name JujuGroup
 :::
 
-Refer to {ref}`howto-cleanup-cloud-resources` for guidance on cleaning up an Azure cloud.
+Then, attach the required resource permissions to `JujuGroup`:
+
+:::{code-block} shell
+aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonEC2FullAccess --group-name JujuGroup
+aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/IAMFullAccess --group-name JujuGroup
+:::
+
+:::{note}
+For simplicity's sake, these instructions configure the `Juju` user with full administrator access
+to the EC2 and IAM resources. If you want to further restrict the permissions of the `Juju` user,
+refer to [Define custom IAM permissions with customer managed policies][define-iam-policy].
+Furthermore, [Refine permissions in AWS using last accessed information][perms] gives more information about how to
+determine the correct subset of permissions for a managed policy.
+:::
+
+After creating the required user, generate the access key for the `Juju` user using the following command:
+
+:::{code-block} shell
+aws iam create-access-key --user-name Juju
+:::
+
+Take note of the secret access key and the access key ID, since those are the values required to authenticate
+Juju.
+
+[define-iam-policy]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html
+[perms]: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_last-accessed.html
+
+### Add AWS cloud credentials to Juju
+
+To make your AWS credentials known to Juju, run:
+
+:::{code-block} shell
+juju add-credential aws
+:::
+
+This will start a set of prompts where you will be asked:
+
+* `credential-name` — Your choice of name that will help you identify the credential set, e.g. `my-aws-credential`.
+* `region` — The region the credential is tied to e.g. `us-east-1`.
+  Since AWS users are not tied to a specific AWS region, this can be left blank.
+* `access-key` — The access key ID generated in the previous section, typically a 20-character alphanumeric string.
+* `secret-key` — The secret access key generated in the previous section, typically an alphanumeric string with format `xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxx`.
+
+:::{warning}
+For security reasons, characters will NOT be displayed when entering the `secret-key` field. However, any input
+(like the paste action) will still be captured by the script, even if it doesn't look like it.
+:::
+
+Once the credentials have been added successfully, a message similar to the following will be displayed:
+
+:::{code-block} shell
+Credential "my-aws-credential" added locally for cloud "aws".
+:::
+
+### Bootstrap AWS cloud controller
+
+With your credentials added, the Juju cloud environment can now be initialized or "bootstrapped". To bootstrap, first set
+the default region for deploying AWS instances, including the controller itself. Refer to [Regions, Availability Zones, and Local Zones][regions]
+for an overview of available regions. To set the default region to US East (N. Virginia):
+
+:::{code-block} shell
+juju default-region aws us-east-1
+:::
+
+Then deploy the cloud controller with the [`juju bootstrap`{l=shell}][juju-bootstrap] command, optionally providing your
+choice of memorable name for the controller (here `charmed-hpc-controller`):
+
+:::{code-block} shell
+juju bootstrap aws charmed-hpc-controller --bootstrap-constraints "instance-role=auto"
+:::
+
+After a few minutes, your AWS cloud controller will become active. The output of the `juju status`{l=shell} command should
+be similar to the following:
+
+:::{terminal}
+:input: juju status -m controller
+
+Model       Controller              Cloud/Region   Version  SLA          Timestamp
+controller  charmed-hpc-controller  aws/us-east-1  3.6.7    unsupported  17:33:14-06:00
+
+App         Version  Status  Scale  Charm            Channel     Rev  Exposed  Message
+controller           active      1  juju-controller  3.6/stable  116  yes
+
+Unit           Workload  Agent  Machine  Public address  Ports      Message
+controller/0*  active    idle   0        x.x.x.x         17022/tcp
+
+Machine  State    Address      Inst id              Base          AZ          Message
+0        started  x.x.x.x      i-1234e54321f987654  ubuntu@24.04  us-east-1a  running
+:::
+
+[regions]: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html
+[juju-bootstrap]: https://documentation.ubuntu.com/juju/latest/user/reference/juju-cli/list-of-juju-cli-commands/bootstrap/
 
 ::::
 

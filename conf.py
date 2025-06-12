@@ -204,6 +204,8 @@ linkcheck_ignore = [
     "https://charmhub.io/topics/canonical-observability-stack/reference/best-practices#deploy-in-isolation",
     "https://jwt.io",
     "https://matrix.to/#/#hpc:ubuntu.com",
+    # TODO: remove when the integrations page goes back up
+    "https://charmhub.io/integrations/*"
 ]
 
 
