@@ -6,13 +6,13 @@ Charmed-HPC allows automatic integration with shared filesystems using the
 deploy `filesystem-client` to integrate with externally managed shared filesystems.
 
 :::{note}
-If you plan on using Terraform to handle your deployment, we also provide Terraform modules to setup an
-NFS server managed by Azure on the [`charmed-hpc-terraform`][hpc-tf] repository, with an
-[example][nfs-tf-example] on how to deploy the module.
+If you plan on using Terraform to handle your deployment, we also provide Terraform modules to setup a
+cloud managed NFS server on the [`charmed-hpc-terraform`][hpc-tf] repository, with
+[examples][nfs-tf-examples] on how to deploy the modules.
 :::
 
 [hpc-tf]: https://github.com/charmed-hpc/charmed-hpc-terraform
-[nfs-tf-example]: https://github.com/charmed-hpc/charmed-hpc-terraform/blob/main/examples/azure-managed-nfs/main.tf
+[nfs-tf-examples]: https://github.com/charmed-hpc/charmed-hpc-terraform/blob/main/examples
 
 ## Prerequisites
 
