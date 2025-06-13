@@ -51,6 +51,7 @@ Traefik
 traefik
 InfluxDB
 influxdb
+eksctl
 
 # CLI commands
 hostname
@@ -93,6 +94,7 @@ RPC
 Uptime
 proxied
 Auth
+SSO
 
 # Filesystem jargon
 Ceph

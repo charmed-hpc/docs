@@ -121,7 +121,7 @@ To integrate with an external CephFS share, you will require:
 
 Here, a Ceph cluster will be set up using [MicroCeph][ceph].
 
-[ceph]: https://canonical-microceph.readthedocs-hosted.com/en/squid-stable
+[ceph]: https://canonical-microceph.readthedocs-hosted.com/en/v19.2.0-squid
 
 First, launch a virtual machine using [LXD](https://ubuntu.com/lxd):
 
