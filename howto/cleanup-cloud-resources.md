@@ -121,3 +121,110 @@ az logout
 :::
 
 ::::
+
+::::{tab-item} Amazon Web Services & EKS
+:sync: aws
+
+To clean up Amazon Web Services and Amazon Elastic Kubernetes Service (EKS) resources, it is assumed you have:
+
+* Bootstrapped a Juju controller on AWS
+* Added EKS to the controller
+* [Authenticated into the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-authentication.html)
+* [Installed the `eksctl` CLI](https://eksctl.io/installation/)
+
+### Clean up AWS resources
+
+List all controllers that have been registered to the local client with:
+
+:::{code-block} shell
+juju controllers
+:::
+
+To destroy the Juju controller and remove the AWS instance:
+
+:::{code-block} shell
+juju destroy-controller <controller name> --destroy-all-models --destroy-storage --force
+:::
+
+List current EKS clusters with:
+
+:::{code-block} shell
+aws eks list-clusters
+:::
+
+This will give JSON-formatted output representing the currently active EKS clusters. Identify the cluster used by Juju in
+the output:
+
+:::{code-block} shell
+{
+    "clusters": [
+        "charmed-eks-cluster"
+    ]
+}
+:::
+
+Here `charmed-aks-cluster`. Now delete the cluster using the following command (substituting in your EKS cluster name for `charmed-eks-cluster`):
+
+:::{code-block} shell
+eksctl delete cluster charmed-eks-cluster
+:::
+
+Destroying the controller or EKS cluster may take a long time depending on the complexity of the deployment. Should the destroy
+process exceed 15 minutes or otherwise be seemingly stuck, you can proceed to delete resources manually
+[via the AWS Management Console][aws-console] or [via the `aws` CLI][aws-cli].
+
+[aws-console]: https://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/what-is.html
+[aws-cli]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-using.html
+
+### Clean up credentials
+
+List your Juju credentials with:
+
+:::{terminal}
+:input: juju credentials
+
+Client Credentials:
+Cloud        Credentials
+aws        <your credential name>
+:::
+
+Remove AWS credentials from Juju:
+
+:::{code-block} shell
+juju remove-credential aws <your credential name>
+:::
+
+After deleting the credential, the interactive process may not clean up its AWS user and group. Check the full list of users with:
+
+:::{code-block} shell
+aws iam list-users
+:::
+
+Then, refer to [Deleting an IAM user (AWS CLI)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_remove.html#id_users_deleting_cli)
+for instructions on how to delete a user.
+
+Next, list all the groups in the account with:
+
+:::{code-block} shell
+aws iam list-groups
+:::
+
+Then, refer to [Delete an IAM group](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups_manage_delete.html) for instructions
+on how to delete a group.
+
+If you created a managed policy to restrict the Juju user permissions, list all custom policies with:
+
+:::{code-block} shell
+aws iam list-policies --scope Local
+:::
+
+Then, refer to [Delete IAM policies (AWS CLI)](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-delete-cli.html) for
+instructions on how to delete a custom policy.
+
+Finally, if you are using SSO to authenticate the AWS CLI, you can log out from the AWS CLI using:
+
+:::{code-block} shell
+aws sso logout
+:::
+
+::::
