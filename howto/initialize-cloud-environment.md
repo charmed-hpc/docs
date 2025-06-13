@@ -417,7 +417,6 @@ cloud. The output of `juju clouds`{l=shell} should be similar to the following:
 :::{terminal}
 :input: juju clouds --controller charmed-hpc-controller
 
-
 Clouds available on the controller:
 Cloud            Regions  Default  Type
 charmed-hpc      1        default  lxd
@@ -474,20 +473,96 @@ With the AKS cloud added, the output of `juju clouds`{l=shell} for the controlle
 :::{terminal}
 :input: juju clouds --controller charmed-hpc-controller
 
-
 Clouds available on the controller:
 Cloud            Regions  Default  Type
 azure            44       eastus   azure
 charmed-hpc-k8s  1        eastus   k8s
 :::
 
-### Clean up
+::::
 
-:::{warning}
-Always clean Azure resources that are no longer necessary! Abandoned resources are tricky to detect and can become expensive over time.
+::::{tab-item} Amazon Elastic Kubernetes Service (EKS)
+:sync: aws
+
+### Prerequisites for Amazon Elastic Kubernetes Service (EKS)
+
+To use EKS as the Kubernetes cloud for your Charmed HPC cluster, you will need to have:
+
+* [Initialized a machine cloud](#howto-initialize-machine-cloud)
+* [Authenticated into the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-authentication.html)
+* [Installed the `eksctl` CLI](https://eksctl.io/installation/)
+
+### Create a new EKS cluster
+
+Bootstrap EKS using the `eksctl` command with your choice of memorable name for the cluster (here `charmed-eks-cluster`):
+
+:::{code-block} shell
+eksctl create cluster --name charmed-eks-cluster --ssh-access
 :::
 
-Refer to {ref}`howto-cleanup-cloud-resources` for guidance on cleaning up an Azure cloud.
+The previous command will use `~/.ssh/id_rsa.pub` as the default key path for SSH access to the nodes. You can also provide
+the path to a local key or [create an AWS-managed key][aws-ssh-key], then provide it using the `--ssh-public-key` flag.
+
+For further information on creating and sizing an EKS cluster, see [Get started with Amazon EKS – eksctl][eks-guide]
+and [Creating and managing clusters][eksctl].
+
+:::{note}
+If you are getting the error `Error: failed to find SSO session section, Session name` when trying to create the
+cluster, it could be caused by a small incompatibility between `eksctl` and the AWS CLI v2; if the SSO session name
+contains spaces, the AWS CLI will surround the name with apostrophes (') in the `sso-session` header, which the
+`eksctl` CLI will fail to parse correctly. To fix this, you can either run `aws configure sso` and choose an SSO session
+name that does not contain spaces, or manually edit the SSO session name in the `~/.aws/config` file.
+:::
+
+Running the `create cluster` command will write credentials for managing the EKS cluster in the `~/.kube/config` file.
+However, it will write a longer cluster name than the one specified in the command to differentiate clusters created in
+different AWS regions. To obtain the correct name of the cluster, you can run:
+
+:::{code-block} shell
+cat ~/.kube/config | grep 'name: charmed-eks-cluster'
+:::
+
+This should display something similar to:
+:::{terminal}
+:input: cat ~/.kube/config | grep 'name: charmed-eks-cluster'
+  name: charmed-eks-cluster.us-east-1.eksctl.io
+:::
+
+In this case, `charmed-eks-cluster.us-east-1.eksctl.io` is the name of the EKS cluster.
+
+[aws-ssh-key]: https://docs.aws.amazon.com/cli/latest/userguide/cli-services-ec2-keypairs.html#creating-a-key-pair
+[eksctl]: https://eksctl.io/usage/creating-and-managing-clusters/
+[eks-guide]: https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html
+
+### Add EKS cloud to deployed controller
+
+You can add the EKS cloud to the controller using the `/snap/juju/current/bin/juju add-k8s`{l=shell} command, providing
+the name of the existing controller, your choice of memorable name for the EKS cloud, and the full name of the EKS cluster
+just added to the `~/.kube/config` file (here `charmed-hpc-controller`, `charmed-hpc-k8s`, and
+`charmed-eks-cluster.us-east-1.eksctl.io` respectively):
+
+:::{code-block} shell
+/snap/juju/current/bin/juju add-k8s charmed-hpc-k8s \
+  --controller charmed-hpc-controller \
+  --cluster-name=charmed-eks-cluster.us-east-1.eksctl.io
+:::
+
+:::{warning}
+As mentioned in [Add a Kubernetes cloud](https://documentation.ubuntu.com/juju/3.6/howto/manage-clouds/#add-a-kubernetes-cloud),
+for this step it is required that you use the 'raw' Juju client located in the snap directory (`/snap/juju/current/bin/juju`)
+instead of the default client (`/snap/bin/juju`).
+:::
+
+With the EKS cloud added, the output of `juju clouds`{l=shell} for the controller should be similar to the following:
+
+:::{terminal}
+:input: juju clouds --controller charmed-hpc-controller
+
+Clouds available on the controller:
+Cloud            Regions  Default    Type
+aws              30       us-east-1  ec2
+charmed-hpc-k8s  1        us-east-1  k8s
+:::
 
 ::::
 
@@ -498,3 +573,11 @@ Refer to {ref}`howto-cleanup-cloud-resources` for guidance on cleaning up an Azu
 Now that both the `charmed-hpc` machine cloud and `charmed-hpc-k8s` Kubernetes cloud are initialized,
 you can start deploying applications with Juju. Go to the {ref}`howto-setup-deploy-slurm` guide
 for how to deploy Slurm as the workload manager of your Charmed HPC cluster.
+
+## Clean up
+
+:::{warning}
+Always clean cloud resources that are no longer necessary! Abandoned resources are tricky to detect and can become expensive over time.
+:::
+
+Refer to {ref}`howto-cleanup-cloud-resources` for guidance on cleaning up resources in public clouds.
