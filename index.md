@@ -56,7 +56,7 @@ __Technical information__
 
 ## Project and community
 
-Charmed HPC is an open-source project of the [Ubuntu High-Performance Computing
+Charmed HPC is an open source project of the [Ubuntu High-Performance Computing
 community](https://ubuntu.com/community/governance/teams/hpc).
 Interested in contributing bug fixes, patches, documentation, or feedback?
 Want to join the Ubuntu HPC community? You've come to the right place!
