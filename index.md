@@ -66,8 +66,8 @@ Here's some links to help you get started with joining the community:
 * [Read and follow the Ubuntu Code of Conduct](https://ubuntu.com/community/ethos/code-of-conduct)
 * [Join the Ubuntu HPC community on Matrix](https://matrix.to/#/#hpc:ubuntu.com)
 * [Get the latest news on Discourse](https://discourse.ubuntu.com/c/hpc/151)
-* [See our Contributing guide](https://github.com/charmed-hpc/.github/blob/main/CONTRIBUTING.md)
-* [Visit the Charmed HPC GitHub Organization for more information or to ask for support](https://github.com/charmed-hpc)
+* [Visit the Charmed HPC GitHub Organization](https://github.com/charmed-hpc)
+* [Ask for support](https://github.com/orgs/charmed-hpc/discussions/categories/support)
 
 ```{filtered-toctree}
 :hidden:
