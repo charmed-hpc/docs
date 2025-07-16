@@ -77,4 +77,5 @@ self
 howto/index
 explanation/index
 reference/index
+contributing/index
 ```
