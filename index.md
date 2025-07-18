@@ -33,6 +33,7 @@ __Discussion and clarification__ of key topics
 
  - {ref}`cryptography`
  - {ref}`explanation-gpus`
+ - {ref}`explanation-high-availability`
  - {ref}`explanation-interconnects`
 
 ```
