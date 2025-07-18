@@ -3,6 +3,9 @@
 
 Discussion and clarification for various topics related to Charmed HPC.
 
+## Cluster architecture
+- {ref}`explanation-high-availability`
+
 ## Cryptography, authentication, and security
 - {ref}`sack`
 - {ref}`jwt`
@@ -19,6 +22,7 @@ Discussion and clarification for various topics related to Charmed HPC.
 
 Cryptography and Authentication <cryptography>
 GPUs <gpus>
+High Availability <high-availability>
 Interconnects <interconnects>
 Instance auto-reboots <reboot-timing.md>
 ```
