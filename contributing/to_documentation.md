@@ -10,21 +10,19 @@ There are a couple prerequisites to contributing to Charmed HPC's documentation:
 
 * **Code of Conduct** You will need to read and follow the Ubuntu [Code of Conduct](https://ubuntu.com/community/ethos/code-of-conduct). By participating, you implicitly agree to abide by the Code of Conduct.
 
-## How to contribute
-
-### Report an issue
+## Report an issue
 
 To report an error in spelling, grammar, content, or documentation code functionality, [file an issue](https://github.com/charmed-hpc/docs/issues) in Charmed HPC's bug tracker on GitHub.
 
-### Quick update or new to git
+## Simple update
 
 The easiest way to make a quick update, especially for those new to git and GitHub, is to use GitHub's [file editor](https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files#editing-files-in-another-users-repository) via a web browser. 
 
-### Large contribution
+## Large contribution
 
 For larger, more involved contributions, and those familiar with git and the command line, follow the [fork-and-branch](https://blog.scottlowe.org/2015/01/27/using-fork-branch-git-workflow/ process. 
 
-### Test your contribution
+## Test your contribution
 
 To ensure that your contributions meet expectations and pass CI rules, check that they pass the repository's tests.
 
@@ -36,9 +34,7 @@ npm install -D @commitlint/cli @commitlint/config-conventional
 ```
 
 :::{warning}
-
-Make sure to run these commands outside of the repository directory. The commitlint installation process installs a `node_modules` folder that should *not* become part of the docs repository.
-
+Make sure to run these commands outside of the `docs` directory. The commitlint installation process installs a `node_modules` folder that should *not* become part of the `docs` repository.
 :::
 
 To test:
