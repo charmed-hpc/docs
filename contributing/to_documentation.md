@@ -39,31 +39,19 @@ Make sure to run these commands outside of the `docs` directory. The commitlint 
 
 To test:
 
-```shell
-# Check links
-$ make linkcheck
-
-# Check spelling
-$ make spelling
-
-# Check inclusive language
-$ make woke
-
-# Check accessibility
-$ make pa11y
-
-# Ensure style guide compliance
-$ make vale
-
-# Ensure commitlint compliance
-$ npx commitlint --from <git-commit-from-ID> --to <git-commit-to-ID> --verbose
-```
+| command  | use |
+|---------|-----|
+| `make spelling` | Check for spelling errors; this command checks the HTML files in the `_build` directory. Fix any errors in the corresponding Markdown file |
+| `make linkcheck` | Check for broken links |
+| `make woke` | Check for non-inclusive language |
+| `make pa11y` | Check for accessibility issues |
+| `npx commitlint --from <start-ID> --to <end-ID> --verbose` | Check for commitlint compliance from git commit ID `<start-ID>` to commit ID `<end-ID>`|
 
 For more information on setting up the tests locally, see [Automatic checks](https://canonical-starter-pack.readthedocs-hosted.com/latest/reference/automatic_checks/) within the Canonical Starter Pack documentation.
 
 :::{note}
 
-The current MAKEFILE setup assumes that you are using an Ubuntu OS. If not, or if running the tests locally is not ideal, you may run them within GitHub. To do so, make sure any local changes have been pushed to your personal fork+branch and are visible from the web interface, then, from the web interface for GitHub:
+The current MAKEFILE setup assumes that you are using an Ubuntu OS. If not, or if running the tests locally is not ideal, you may run them within GitHub. To do so, make sure any local changes have been pushed to your personal fork+branch and are visible from the web interface. Then, from the web interface for GitHub:
 1. Go to the `Actions` tab 
 2. Select the test of interest: `Automatic docs checks` or `docs test`
 3. Select `Run workflow`{l=shell} within the workflows panel
@@ -72,12 +60,8 @@ The current MAKEFILE setup assumes that you are using an Ubuntu OS. If not, or i
 
 :::
 
-## Documentation structure
+### Documentation structure
 
-### Formatting
-
-#### Diataxis
-
-#### Style guides
+The documentation is written in the [MyST](https://mystmd.org/) flavor of the Markdown mark-up language. The sections are organized using the [Diátaxis](https://diataxis.fr/) framework. See Canonical's [MyST Style Guide](https://canonical-starter-pack.readthedocs-hosted.com/latest/reference/style-guide-myst/#myst-style-guide) for formatting and preferred usage guidance. 
 
 
