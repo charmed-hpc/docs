@@ -26,18 +26,22 @@ For larger, more involved contributions, and those familiar with git and the com
 
 To ensure that your contributions meet expectations and pass CI rules, check that they pass the repository's tests.
 
-To install:
+Install `npm` using the appropriate method for your operating system through on of the follow processes:
+ * Through your preferred package manager
+ * By following the [installation process](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm)
+ * For Debian and Ubuntu Linux flavors: `sudo apt install npm`
+
+Then install commitlint:
 
 ```shell
-sudo apt install npm snapd
 npm install -D @commitlint/cli @commitlint/config-conventional
 ```
 
 :::{warning}
-Make sure to run these commands outside of the `docs` directory. The commitlint installation process installs a `node_modules` folder that should *not* become part of the `docs` repository.
+Make sure to run the commitlint installation command outside of the `docs` directory. The commitlint installation process installs a `node_modules` folder that should *not* become part of the `docs` repository.
 :::
 
-To test:
+To run the tests:
 
 | command  | use |
 |---------|-----|
@@ -45,13 +49,14 @@ To test:
 | `make linkcheck` | Check for broken links |
 | `make woke` | Check for non-inclusive language |
 | `make pa11y` | Check for accessibility issues |
+| `make vale` | Check for style guide compliance | 
 | `npx commitlint --from <start-ID> --to <end-ID> --verbose` | Check for commitlint compliance from git commit ID `<start-ID>` to commit ID `<end-ID>`|
 
 For more information on setting up the tests locally, see [Automatic checks](https://canonical-starter-pack.readthedocs-hosted.com/latest/reference/automatic_checks/) within the Canonical Starter Pack documentation.
 
 :::{note}
 
-The current MAKEFILE setup assumes that you are using an Ubuntu OS. If not, or if running the tests locally is not ideal, you may run them within GitHub. To do so, make sure any local changes have been pushed to your personal fork+branch and are visible from the web interface. Then, from the web interface for GitHub:
+If running the tests locally is not ideal, you may run them within GitHub. To do so, make sure any local changes have been pushed to your personal fork+branch and are visible from the web interface. Then, from the web interface for GitHub:
 1. Go to the `Actions` tab 
 2. Select the test of interest: `Automatic docs checks` or `docs test`
 3. Select `Run workflow`{l=shell} within the workflows panel
