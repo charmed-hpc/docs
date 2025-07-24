@@ -21,7 +21,7 @@ The easiest way to make a quick update, especially for those new to git and GitH
 
 ## Large contribution
 
-For larger, more involved contributions, and those familiar with git and the command line, follow the [fork-and-branch](https://blog.scottlowe.org/2015/01/27/using-fork-branch-git-workflow/) process. Be sure to familiarize yourself with the [Documenation structure](doc-structure) prior to any significant work. 
+For larger, more involved contributions, and those familiar with git and the command line, follow the [fork-and-branch](https://blog.scottlowe.org/2015/01/27/using-fork-branch-git-workflow/) process. Be sure to familiarize yourself with the [Documentation structure](doc-structure) prior to any significant work. 
 
 ## Test your contribution
 

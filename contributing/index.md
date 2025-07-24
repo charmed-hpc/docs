@@ -4,7 +4,7 @@ Charmed HPC is an open source community effort. Both the software itself and the
 
 ## Documentation 
 
-For information on the prerequisits, submission processes, and contribution expections for Charmed HPC's documentation:
+For information on the prerequisites, submission processes, and contribution expectations for Charmed HPC's documentation:
 
 * {ref}`Contributing to documentation <contributing-to-docs>`
 

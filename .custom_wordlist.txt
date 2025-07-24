@@ -5,6 +5,7 @@ GRES
 gres
 HPC
 hpc
+HPC's
 InfiniBand
 MPI
 OpenMPI
@@ -52,6 +53,8 @@ traefik
 InfluxDB
 influxdb
 eksctl
+commitlint
+OpenTofu
 
 # CLI commands
 hostname
@@ -95,6 +98,7 @@ Uptime
 proxied
 Auth
 SSO
+rebase
 
 # Filesystem jargon
 Ceph

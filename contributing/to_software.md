@@ -90,7 +90,7 @@ Adhering to the following process is the best way to have your contribution acce
 
 ## Further resources
 
-See the below resources for further guidence and useful references:
+See the below resources for further guidance and useful references:
 
 * [Charmed HPC's main GitHub CONTRIBUTING guidelines](https://github.com/charmed-hpc/.github/blob/main/CONTRIBUTING.md)
 * [Charmed HPC's documentation CONTRIBUTING guidelines](https://github.com/charmed-hpc/docs/blob/main/CONTRIBUTING.md)
