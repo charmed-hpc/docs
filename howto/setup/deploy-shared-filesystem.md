@@ -37,7 +37,7 @@ To integrate with an external NFS server, you will require:
 Each public cloud has its own procedure to deploy a public NFS server. Provided here are links to
 the set up procedures on a few well-known public clouds.
 
-::::{grid} 1 1 2 2
+::::{grid} 1 1 2 3
 
 :::{grid-item-card} Amazon Web Services
 :link: https://docs.aws.amazon.com/filegateway/latest/files3/nfs-fileshare-quickstart-settings.html
@@ -51,6 +51,11 @@ Set up information.
 Set up information.
 :::
 
+:::{grid-item-card} Google Cloud Platform
+:link: https://cloud.google.com/filestore/docs/create-instance-gcloud
+:link-alt: cloud.google.com
+Set up information.
+:::
 ::::
 
 However, if only a minimal server for testing is necessary, a small NFS server can be set up with LXD.
