@@ -56,6 +56,10 @@ eksctl
 commitlint
 OpenTofu
 Charmcraft
+GCP
+GCP's
+GKE
+gcloud
 
 # CLI commands
 hostname
@@ -126,3 +130,6 @@ performant
 runnable
 tos
 md
+
+# Places
+Moncks
