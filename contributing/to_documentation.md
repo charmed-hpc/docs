@@ -1,8 +1,7 @@
 (contributing-to-docs)=
 # Contributing to documentation
 
-The documentation for Charmed HPC is open source and welcomes community contributions. Please read through the following guidelines to best prepare yourself for contributing.If you have questions, feel free to ask them in the [Ubuntu High-Performance COmputing Matrix chat](https://matrix.to/#/#hpc:ubuntu.com) or in [Charmed HPC's GitHub Discussions](https://github.com/orgs/charmed-hpc/discussions). 
-
+The documentation for Charmed HPC is open source and welcomes community contributions. Please read through the following guidelines to best prepare yourself for contributing. If you have questions, feel free to ask them in the [Ubuntu High-Performance Computing Matrix chat](https://matrix.to/#/#hpc:ubuntu.com) or in [Charmed HPC's GitHub Discussions](https://github.com/orgs/charmed-hpc/discussions). 
 
 ## General prerequisites
 
@@ -28,10 +27,10 @@ For larger, more involved contributions, and those familiar with git and the com
 
 To ensure that your contributions meet expectations and pass CI rules, check that they pass the repository's tests.
 
-Install `npm` using the appropriate method for your operating system through on of the follow processes:
+Install `npm` using the appropriate method for your operating system through one of the follow processes:
  * Through your preferred package manager
- * By following the [installation process](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm)
- * For Debian and Ubuntu Linux flavors: `sudo apt install npm`
+ * By following the [node version manager installation process](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm)
+ * For Debian and Ubuntu Linux distributions: `sudo apt install npm`
 
 Then install commitlint:
 

@@ -1,12 +1,12 @@
 (contributing-to-software)=
 # Contributing to software
 
-Charmed HPC is a open source project and welcomes community contributions. Please read through the following guidelines to best prepare yourself for making contributions. If you have questions, feel free to ask them in the [Ubuntu High-Performance COmputing Matrix chat](https://matrix.to/#/#hpc:ubuntu.com) or in [Charmed HPC's GitHub Discussions](https://github.com/orgs/charmed-hpc/discussions). 
+Charmed HPC is a open source project and welcomes community contributions. Please read through the following guidelines to best prepare yourself for making contributions. If you have questions, feel free to ask them in the [Ubuntu High-Performance Computing Matrix chat](https://matrix.to/#/#hpc:ubuntu.com) or in [Charmed HPC's GitHub Discussions](https://github.com/orgs/charmed-hpc/discussions). 
 
 
 ## Report an issue
 
-To report an issue or bug, file an issue in the appropriate repository's issue tracker. If you are unsure which repository the issue should belong to, share the issue in [Charmed HPC's GitHub Discussions](https://github.com/orgs/charmed-hpc/discussions).
+To report an issue or bug, file an issue in the appropriate [Charmed HPC GitHub Organization](https://github.com/charmed-hpc) repository's issue tracker. If you are unsure which repository the issue should belong to, share the issue in [Charmed HPC's GitHub Discussions](https://github.com/orgs/charmed-hpc/discussions).
 
 When reporting a bug, please:
 
