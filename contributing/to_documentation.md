@@ -1,6 +1,8 @@
 (contributing-to-docs)=
 # Contributing to documentation
 
+The documentation for Charmed HPC is open source and welcomes community contributions. Please read through the following guidelines to best prepare yourself for contributing.If you have questions, feel free to ask them in the [Ubuntu High-Performance COmputing Matrix chat](https://matrix.to/#/#hpc:ubuntu.com) or in [Charmed HPC's GitHub Discussions](https://github.com/orgs/charmed-hpc/discussions). 
+
 
 ## General prerequisites
 
@@ -20,7 +22,7 @@ The easiest way to make a quick update, especially for those new to git and GitH
 
 ## Large contribution
 
-For larger, more involved contributions, and those familiar with git and the command line, follow the [fork-and-branch](https://blog.scottlowe.org/2015/01/27/using-fork-branch-git-workflow/ process. 
+For larger, more involved contributions, and those familiar with git and the command line, follow the [fork-and-branch](https://blog.scottlowe.org/2015/01/27/using-fork-branch-git-workflow/) process. Be sure to familiarize yourself with the [Documenation structure](doc-structure) prior to any significant work. 
 
 ## Test your contribution
 
@@ -64,8 +66,8 @@ If running the tests locally is not ideal, you may run them within GitHub. To do
 5. Select `Run workflow`{l=shell} within the drop-down
 
 :::
-
-### Documentation structure
+(doc-structure)=
+## Documentation structure
 
 The documentation is written in the [MyST](https://mystmd.org/) flavor of the Markdown mark-up language. The sections are organized using the [Diátaxis](https://diataxis.fr/) framework. See Canonical's [MyST Style Guide](https://canonical-starter-pack.readthedocs-hosted.com/latest/reference/style-guide-myst/#myst-style-guide) for formatting and preferred usage guidance. 
 
