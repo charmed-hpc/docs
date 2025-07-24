@@ -368,9 +368,134 @@ Machine  State    Address      Inst id              Base          AZ          Me
 :::
 
 [regions]: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html
-[juju-bootstrap]: https://documentation.ubuntu.com/juju/latest/user/reference/juju-cli/list-of-juju-cli-commands/bootstrap/
 
 ::::
+
+::::{tab-item} Google Cloud Platform (GCP)
+:sync: gcp
+
+:::{warning}
+Currently, Juju does not support any kind of isolation between Juju models and other resources created within
+the same GCP project. This may make some processes more complex if you have special security requirements.
+:::
+
+To use GCP as the machine cloud for your Charmed HPC cluster, you will need to have:
+
+* [Installed the gcloud CLI](https://cloud.google.com/sdk/docs/install)
+* [Authenticated into the gcloud CLI](https://cloud.google.com/docs/authentication/gcloud#local)
+* [Adjusted quotas for suitable Compute Engine machine families](https://cloud.google.com/compute/resource-usage#cpu_quota)
+
+To decide on suitable instance types, it may be useful to refer to GCP's [Machine families resource and comparison guide][machines].
+A typical Charmed HPC deployment will likely use a mix of Compute-optimized and Accelerator-optimized VMs
+for cluster compute nodes, and General-purpose VMs for other node types.
+
+[machines]: https://cloud.google.com/compute/docs/machine-resource
+
+### Create a GCP Service Account
+
+Juju requires a JSON file containing the Service Account key to authenticate Juju, which allows
+it to create, remove, and manage machines.
+
+First, create a new Service Account named `JujuService` in your GCP project, here `my-project`:
+
+:::{code-block} shell
+gcloud iam service-accounts create JujuService \
+  --project="my-project" \
+  --display-name="Juju Service Account"
+:::
+
+Then, attach the required IAM permissions to `JujuService`:
+
+:::{code-block} shell
+gcloud projects add-iam-policy-binding my-project \
+  --member="serviceAccount:JujuService@my-project.iam.gserviceaccount.com" \
+  --role="roles/compute.instanceAdmin.v1" \
+  --role="roles/compute.securityAdmin"
+:::
+
+After creating the required Service Account, generate the Service Account key file for the `JujuService`
+user using the following command:
+
+:::{code-block} shell
+gcloud iam service-accounts keys create ~/.local/share/juju/juju-sa-creds.json
+:::
+
+:::{note}
+It is very important that the key file is located in the directory path `~/.local/share/juju` for the
+user that will manage the Juju CLI, since the tool does not have permissions to read files in other
+directories.
+:::
+
+### Add GCP cloud credentials to Juju
+
+To make your GCP credentials known to Juju, run:
+
+:::{code-block} shell
+juju add-credential google
+:::
+
+This will start a set of prompts where you will be asked:
+
+* `credential-name` — Your choice of name that will help you identify the credential set. For example, `my-gcp-credential`.
+* `region` — The region the credential is tied to. For example, `us-east-1`.
+  Since GCP users are not tied to a specific GCP region, this can be left blank.
+* `auth type` -- The method of authentication. You must input `jsonfile` here if you are following this how-to.
+* `Path` -- The full path to the Service Account key file.
+
+Once the credentials have been added successfully, a message similar to the following will be displayed:
+
+:::{code-block} shell
+Credential "my-gcp-credential" added locally for cloud "google".
+:::
+
+### Bootstrap GCP cloud controller
+
+With your credentials added, the Juju cloud environment can now be initialized or "bootstrapped". To bootstrap, first set
+the default region for deploying GCP instances, including the controller itself. Refer to
+[Available regions and zones][gcp-regions] for an overview of available regions. To set the default region
+to US East 1 (Moncks Corner, South Carolina):
+
+:::{code-block} shell
+juju default-region google us-east1
+:::
+
+:::{note}
+Do not confuse Zones with Regions; Juju only requires a region and will pick a zone from that
+region to deploy the machines on. Trying to provide a specific zone as the default region will
+result in an error.
+:::
+
+Then deploy the cloud controller with the [`juju bootstrap`{l=shell}][juju-bootstrap] command, optionally providing your
+choice of memorable name for the controller (here `charmed-hpc-controller`):
+
+:::{code-block} shell
+juju bootstrap google charmed-hpc-controller
+:::
+
+After a few minutes, your GCP cloud controller will become active. The output of the `juju status`{l=shell} command should
+be similar to the following:
+
+:::{terminal}
+:input: juju status -m controller
+
+Model       Controller              Cloud/Region     Version  SLA          Timestamp
+controller  charmed-hpc-controller  google/us-east1  3.6.8    unsupported  09:48:03-06:00
+
+App         Version  Status  Scale  Charm            Channel     Rev  Exposed  Message
+controller           active      1  juju-controller  3.6/stable  116  yes
+
+Unit           Workload  Agent  Machine  Public address  Ports      Message
+controller/0*  active    idle   0        x.x.x.x         17022/tcp
+
+Machine  State    Address  Inst id        Base          AZ          Message
+0        started  x.x.x.x  juju-806bc0-0  ubuntu@24.04  us-east1-b  RUNNING
+:::
+
+[gcp-regions]: https://cloud.google.com/compute/docs/regions-zones#available
+
+::::
+
+[juju-bootstrap]: https://documentation.ubuntu.com/juju/latest/user/reference/juju-cli/list-of-juju-cli-commands/bootstrap/
 
 :::::
 
@@ -561,6 +686,113 @@ With the EKS cloud added, the output of `juju clouds`{l=shell} for the controlle
 Clouds available on the controller:
 Cloud            Regions  Default    Type
 aws              30       us-east-1  ec2
+charmed-hpc-k8s  1        us-east-1  k8s
+:::
+
+::::
+
+::::{tab-item} Google Kubernetes Engine (GKE)
+:sync: gcp
+
+### Prerequisites for Google Kubernetes Engine (GKE)
+
+To use GKE as the Kubernetes cloud for your Charmed HPC cluster, you will need to have:
+
+* [Initialized a machine cloud](#howto-initialize-machine-cloud)
+* [Installed the `google-cloud-cli-gke-gcloud-auth-plugin` component](https://cloud.google.com/sdk/docs/components#additional_components)
+* [Authenticated into the gcloud CLI](https://cloud.google.com/docs/authentication/gcloud#local)
+
+### Set up default Service Account
+
+:::{note}
+For simplicity's sake, these instructions use the default Service Account to deploy and
+manage the GKE cluster, but it is recommended that you
+[use a least privileged account](https://cloud.google.com/kubernetes-engine/docs/how-to/hardening-your-cluster#use_least_privilege_sa)
+when deploying a cluster in a production environment.
+:::
+
+By default, GKE will use the default Service Account to deploy the cluster. To ensure you can run
+system tasks like logging and monitoring on the Kubernetes cluster, you first need to ensure the
+default Service Account has the `roles/container.defaultNodeServiceAccount` role. Assuming your
+project ID is `my-project`, first get your project number:
+
+:::{terminal}
+:input: gcloud projects describe my-project --format="value(projectNumber)"
+12345678901
+:::
+
+Take note of the output (here `12345678901`) which should correspond to your project number,
+and use that to grant the required role to the default Service Account:
+
+:::{code-block} shell
+gcloud projects add-iam-policy-binding my-project \
+  --member="serviceAccount:12345678901-compute@developer.gserviceaccount.com" \
+  --role="roles/container.defaultNodeServiceAccount"
+:::
+
+### Create a new GKE cluster
+
+Bootstrap GKE using the `gcloud container clusters` command with your choice of memorable name for the
+cluster (here `charmed-gke-cluster`):
+
+:::{code-block} shell
+gcloud container clusters create-auto charmed-gke-cluster \
+  --project="my-project" \
+  --location="us-east1"
+:::
+
+Then, get the credentials to access the cluster:
+
+:::{code-block} shell
+gcloud container clusters get-credentials CLUSTER_NAME \
+    --project="my-project" \
+    --location="us-east1"
+:::
+
+Running the `container clusters get-credentials` command will write the credentials into the `~/.kube/config` file.
+However, it will write a longer cluster name than the one specified in the command to differentiate clusters
+created in different GCP projects. To obtain the correct name of the cluster, you can run:
+
+:::{code-block} shell
+cat ~/.kube/config | grep 'name: .*charmed-gke-cluster'
+:::
+
+This should display something similar to:
+
+:::{terminal}
+:input: cat ~/.kube/config | grep 'name: .*charmed-gke-cluster'
+  name: gke_my-project_us-east1_charmed-gke-cluster
+:::
+
+In this case, `gke_my-project_us-east1_charmed-gke-cluster` is the name of the GKE cluster.
+
+### Add GKE cloud to deployed controller
+
+You can add the GKE cloud to the controller using the `/snap/juju/current/bin/juju add-k8s`{l=shell} command, providing
+the name of the existing controller, your choice of memorable name for the GKE cloud, and the full name of the GKE cluster
+just added to the `~/.kube/config` file (here `charmed-hpc-controller`, `charmed-hpc-k8s`, and
+`gke_my-project_us-east1_charmed-gke-cluster` respectively):
+
+:::{code-block} shell
+/snap/juju/current/bin/juju add-k8s charmed-hpc-k8s \
+  --controller charmed-hpc-controller \
+  --cluster-name=gke_my-project_us-east1_charmed-gke-cluster
+:::
+
+:::{warning}
+As mentioned in [Add a Kubernetes cloud](https://documentation.ubuntu.com/juju/3.6/howto/manage-clouds/#add-a-kubernetes-cloud),
+for this step it is required that you use the 'raw' Juju client located in the snap directory (`/snap/juju/current/bin/juju`)
+instead of the default client (`/snap/bin/juju`).
+:::
+
+With the GKE cloud added, the output of `juju clouds`{l=shell} for the controller should be similar to the following:
+
+:::{terminal}
+:input: juju clouds --controller charmed-hpc-controller
+
+Clouds available on the controller:
+Cloud            Regions  Default    Type
+google           30       us-east-1  gce
 charmed-hpc-k8s  1        us-east-1  k8s
 :::
 
