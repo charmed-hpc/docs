@@ -439,6 +439,84 @@ Machine  State    Address       Inst id        Base          AZ  Message
 :::::
 
 
+(deploy-slurmctld-high-availability)=
+### `slurmctld` high availability
+
+The `slurmcltd` charm supports [high availability (HA)](explanation-high-availability) through the native functionality provided by Slurm: an active-passive setup where additional units are backups to a single primary. This functionality requires a low-latency [shared filesystem to be deployed](howto-setup-deploy-shared-filesystem) and a `filesystem-client` charm to be integrated with `slurmctld` on the `mount` endpoint to allow sharing of data across all `slurmctld` units. It is recommended that this filesystem be separate from the one used for cluster compute nodes to avoid I/O-intensive user jobs from impacting `slurmctld` responsiveness.
+
+:::{warning}
+The Slurm developers [do not recommended NFS](https://slurm.schedmd.com/quickstart_admin.html#Config) for the shared filesystem due to inadequate performance. A slow shared filesystem will impact cluster throughput and responsiveness. Careful consideration should be given to the choice of filesystem.
+:::
+
+Once a chosen shared filesystem has been deployed and made available via a proxy charm, run the following, substituting `filesystem-provider` with the name of the proxy charm, for a `slurmctld` HA setup with two units (a primary and single backup):
+
+:::::{tab-set}
+
+::::{tab-item} CLI
+:sync: cli
+
+:::{code-block} shell
+juju deploy filesystem-client --channel latest/edge
+juju integrate filesystem-client:filesystem filesystem-provider:filesystem
+
+juju deploy slurmctld --base "ubuntu@24.04" --channel "edge" --num-units 2
+juju integrate slurmctld:mount filesystem-client:mount
+:::
+
+::::
+
+::::{tab-item} Terraform
+:sync: terraform
+
+:::{code-block} terraform
+:caption: `main.tf`
+module "filesystem-client" {
+  source     = "git::https://github.com/charmed-hpc/filesystem-charms//charms/filesystem-client/terraform"
+  model_name  = juju_model.slurm.name
+}
+
+resource "juju_integration" "provider-to-filesystem" {
+  model = juju_model.slurm.name
+
+  application {
+    name     = module.filesystem-provider.app_name
+    endpoint = module.filesystem-provider.provides.filesystem
+  }
+
+  application {
+    name     = module.filesystem-client.app_name
+    endpoint = module.filesystem-client.requires.filesystem
+  }
+}
+
+module "slurmctld" {
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/sackd/terraform"
+  model_name  = juju_model.slurm.name
+  constraints = "arch=amd64 virt-type=virtual-machine"
+  units       = 2
+}
+
+resource "juju_integration" "filesystem-to-slurmctld" {
+  model = juju_model.slurm.name
+
+  application {
+    name     = module.slurmctld.app_name
+    endpoint = module.slurmctld.provides.mount
+  }
+
+  application {
+    name     = module.filesystem-client.app_name
+    endpoint = module.filesystem-client.requires.mount
+  }
+}
+:::
+
+::::
+
+:::::
+
+A previously deployed single `slurmctld` unit can be migrated to an HA setup by integrating a `filesystem-client` and scaling up the application, for example using [`juju add-unit`](https://documentation.ubuntu.com/juju/latest/reference/juju-cli/list-of-juju-cli-commands/add-unit/). Note that **this migration requires cluster downtime** as the `slurmctld` service is stopped during the transfer of Slurm data from the single unit local storage to shared storage. Downtime varies depending on the scale of data and transfer rate to the shared storage. The duration can be estimated by examining the scale of the local directory containing Slurm data on the single unit: `/var/lib/slurm/checkpoint`.
+
 (deploy-slurm-lxd)=
 ### Deploying Slurm on LXD
 
