@@ -52,6 +52,10 @@ traefik
 InfluxDB
 influxdb
 eksctl
+GCP
+GCP's
+GKE
+gcloud
 
 # CLI commands
 hostname
@@ -119,3 +123,6 @@ lifecycle
 Performant
 performant
 runnable
+
+# Places
+Moncks

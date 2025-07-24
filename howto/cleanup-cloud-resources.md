@@ -163,7 +163,7 @@ the output:
 }
 :::
 
-Here `charmed-aks-cluster`. Now delete the cluster using the following command (substituting in your EKS cluster name for `charmed-eks-cluster`):
+Here `charmed-eks-cluster`. Now delete the cluster using the following command (substituting in your EKS cluster name for `charmed-eks-cluster`):
 
 :::{code-block} shell
 eksctl delete cluster charmed-eks-cluster
@@ -228,3 +228,99 @@ aws sso logout
 :::
 
 ::::
+
+::::{tab-item} Google Cloud Platform & GKE
+:sync: gcp
+
+To clean up Google Cloud Platform and Google Kubernetes Engine (GKE) resources, it is assumed you have:
+
+
+* [Authenticated into the gcloud CLI](https://cloud.google.com/docs/authentication/gcloud#local)
+* Bootstrapped a Juju controller on GCP
+* Added a GKE cluster to the controller
+
+### Clean up GCP resources
+
+List all controllers that have been registered to the local client with:
+
+:::{code-block} shell
+juju controllers
+:::
+
+To destroy the Juju controller and remove the GCP instance:
+
+:::{code-block} shell
+juju destroy-controller <controller name> --destroy-all-models --destroy-storage --force
+:::
+
+List current GKE clusters with:
+
+:::{code-block} shell
+gcloud container clusters list --project="my-project"
+:::
+
+This will give a list of currently active GKE clusters in the project `my-project`. Identify the cluster
+used by Juju in the output:
+
+:::{code-block} shell
+NAME                 LOCATION  MASTER_VERSION      MASTER_IP    MACHINE_TYPE  NODE_VERSION        NUM_NODES  STATUS
+charmed-gke-cluster  us-east1  1.33.2-gke.1111000  x.x.x.x      e2-small      1.33.2-gke.1111000             RUNNING
+:::
+
+Here `charmed-gke-cluster`. Now delete the cluster using the following command (substituting in your GKE cluster name for `charmed-gke-cluster`):
+
+:::{code-block} shell
+gcloud container clusters delete charmed-gke-cluster \
+  --project="my-project" \
+  --region="us-east1"
+:::
+
+Destroying the controller or EKS cluster may take a long time depending on the complexity of the deployment. Should the destroy
+process exceed 15 minutes or otherwise be seemingly stuck, you can proceed to delete resources manually
+[via the Google Cloud Console][gcloud-console] or [via the `gcloud` CLI][gcloud-cli].
+
+[gcloud-console]: https://console.cloud.google.com
+[gcloud-cli]: https://cloud.google.com/sdk/gcloud
+
+### Clean up credentials
+
+List your Juju credentials with:
+
+:::{terminal}
+:input: juju credentials
+
+Client Credentials:
+Cloud        Credentials
+google       <your credential name>
+:::
+
+Remove AWS credentials from Juju:
+
+:::{code-block} shell
+juju remove-credential google <your credential name>
+:::
+
+After deleting the credential, the interactive process may not clean up its Service Account. Check the full list of accounts with:
+
+:::{terminal}
+:input: gcloud iam service-accounts list --project="my-project"
+Compute Engine default service account  12345678901-compute@developer.gserviceaccount.com  False
+Juju Service Account                    JujuService@my-project.iam.gserviceaccount.com     False
+:::
+
+Then, delete the corresponding Service Account used by Juju (here, `Juju Service Account`) by its email:
+
+:::{code-block} shell
+gcloud iam service-accounts delete JujuService@my-project.iam.gserviceaccount.com \
+  --project="my-project"
+:::
+
+Finally, if you want to log out of the gcloud CLI:
+
+:::{code-block} shell
+gcloud auth revoke my-user@my-email.com
+:::
+
+::::
+
+:::::
