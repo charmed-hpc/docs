@@ -1,5 +1,5 @@
 (contributing-to-code)=
-# Contributing to code
+# Contributing to Charmed HPC's code
 
 Charmed HPC is a open source project and welcomes community contributions. Please read through the following guidelines to best prepare yourself for making contributions. If you have questions, feel free to ask them in the [Ubuntu High-Performance Computing Matrix chat](https://matrix.to/#/#hpc:ubuntu.com) or in [Charmed HPC's GitHub Discussions](https://github.com/orgs/charmed-hpc/discussions). 
 
