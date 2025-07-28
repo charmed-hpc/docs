@@ -1,18 +1,20 @@
 # Contribute to Charmed HPC
 
-Charmed HPC is an open source community effort. Both the software itself and the documentation welcome community contributions, whether they be small bug or grammatical fixes, or larger how-to sections or features. For large work, we advise you to reach out to the maintainers on [Matrix](https://matrix.to/#/#hpc:ubuntu.com) or [GitHub Discussions](https://github.com/orgs/charmed-hpc/discussions/) to align with current work plans prior to submission. 
+Charmed HPC is a project of the [Ubuntu High-Performance Computing community](https://ubuntu.com/community/governance/teams/hpc). The project is open to contributions, whether they be small bug or grammatical fixes, or larger how-tos or explanations. Please ask first before embarking on any significant pull request such as writing new how-tos, major feature changes, or incorporating new libraries; otherwise you risk spending a lot of time working on something that Charmed HPC's maintainers may not be able to merge. For trivial changes, or contributions that do not require a lot of time, you may go ahead and open a pull request.
 
-## Documentation 
+Have any questions about making a contribution to Charmed HPC? You can reach out to the maintainers on [Matrix](https://matrix.to/#/#hpc:ubuntu.com) or [GitHub Discussions](https://github.com/orgs/charmed-hpc/discussions/).
+
+## Contributing to Charmed HPC's documentation 
 
 For information on the prerequisites, submission processes, and contribution expectations for Charmed HPC's documentation:
 
 * {ref}`Contributing to documentation <contributing-to-docs>`
 
-## Software
+## Contributing to Charmed HPC's code
 
-For information on the contribution process, expectations, and various resources for Charmed HPC's software:
+For information on the contribution process, expectations, and various resources for Charmed HPC's code:
 
-* {ref}`Contributing to software <contributing-to-software>`
+* {ref}`Contributing to code <contributing-to-code>`
 
 
 
@@ -20,7 +22,7 @@ For information on the contribution process, expectations, and various resources
 :hidden:
 :titlesonly:
 
-to_documentation
-to_software
+documentation
+code
 
 ```
