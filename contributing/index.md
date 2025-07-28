@@ -18,11 +18,12 @@ For information on the contribution process, expectations, and various resources
 
 
 
-```{filtered-toctree}
+:::{toctree}
 :hidden:
 :titlesonly:
+:maxdepth: 1
 
-documentation
-code
+Contributing to documentation <documentation>
+Contributing to code <code>
 
 ```
