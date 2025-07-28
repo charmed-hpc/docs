@@ -55,6 +55,7 @@ influxdb
 eksctl
 commitlint
 OpenTofu
+Charmcraft
 
 # CLI commands
 hostname

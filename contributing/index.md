@@ -26,4 +26,4 @@ For information on the contribution process, expectations, and various resources
 Contributing to documentation <documentation>
 Contributing to code <code>
 
-```
+:::

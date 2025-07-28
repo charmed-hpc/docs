@@ -70,4 +70,4 @@ If running the tests locally is not ideal, you may run them within GitHub. To do
 (doc-structure)=
 ## Documentation structure
 
-The documentation is written in the [MyST](https://mystmd.org/) flavor of the Markdown mark-up language. The sections are organized using the [Diátaxis](https://diataxis.fr/) framework. See Canonical's [MyST Style Guide](https://canonical-starter-pack.readthedocs-hosted.com/latest/reference/style-guide-myst/#myst-style-guide) for formatting and preferred usage guidance. 
+The documentation is written in the [MyST](https://mystmd.org/) flavor of the Markdown mark-up language. The sections are organized using the [Diátaxis](https://diataxis.fr/) framework. See Canonical's [MyST syntax Guide](https://canonical-starter-pack.readthedocs-hosted.com/latest/reference/myst-syntax-reference/) for formatting and preferred usage guidance. 
