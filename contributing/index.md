@@ -1,6 +1,6 @@
 # Contribute to Charmed HPC
 
-Charmed HPC is a project of the [Ubuntu High-Performance Computing community](https://ubuntu.com/community/governance/teams/hpc). The project is open to contributions, whether they be small bug or grammatical fixes, or larger how-tos or explanations. Please ask first before embarking on any significant pull request such as writing new how-tos, major feature changes, or incorporating new libraries; otherwise you risk spending a lot of time working on something that Charmed HPC's maintainers may not be able to merge. For trivial changes, or contributions that do not require a lot of time, you may go ahead and open a pull request.
+Charmed HPC is a project of the [Ubuntu High-Performance Computing community](https://ubuntu.com/community/governance/teams/hpc). The project is open to contributions, whether they be small bug or grammatical fixes, or larger how-tos or explanations. Please ask first before embarking on any significant pull request such as writing new how-tos, major feature changes, or incorporating new libraries; otherwise you risk spending a lot of time working on something that Charmed HPC's maintainers may not be able to merge. For simple changes, or contributions that do not require a lot of time, you may go ahead and open a pull request.
 
 Have any questions about making a contribution to Charmed HPC? You can reach out to the maintainers on [Matrix](https://matrix.to/#/#hpc:ubuntu.com) or [GitHub Discussions](https://github.com/orgs/charmed-hpc/discussions/).
 
