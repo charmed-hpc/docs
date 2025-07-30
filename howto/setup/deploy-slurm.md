@@ -23,10 +23,10 @@ Once you have verified that you have met the prerequisites above, proceed to the
 You have two options for deploying Slurm:
 
 1. Using the [Juju CLI client](https://documentation.ubuntu.com/juju/latest/user/reference/juju-cli/).
-2. Using the [Juju Terraform client](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/).
+2. Using the [Juju Terraform client](https://canonical-terraform-provider-juju.readthedocs-hosted.com/latest/).
 
 If you want to use Terraform to deploy Slurm, see the
-[Manage `terraform-provider-juju`](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/howto/manage-terraform-provider-juju/) how-to guide for additional
+[Manage `terraform-provider-juju`](https://canonical-terraform-provider-juju.readthedocs-hosted.com/latest/howto/manage-terraform-provider-juju/) how-to guide for additional
 requirements.
 
 If you are deploying Slurm on [LXD](https://canonical.com/lxd), see

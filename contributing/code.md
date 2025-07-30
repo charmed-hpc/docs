@@ -97,6 +97,6 @@ See the below resources for further guidance and useful references:
 * [Juju documentation](https://documentation.ubuntu.com/juju)
 * [Charmcraft documentation](https://canonical-charmcraft.readthedocs-hosted.com/stable/)
 * [Ops framework documentation](https://ops.readthedocs.io/en/latest/) for Juju
-* [Terraform/OpenTofu Provider for Juju documentation](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/)
+* [Terraform/OpenTofu Provider for Juju documentation](https://documentation.ubuntu.com/terraform-provider-juju/latest/)
 * [OpenTofu documentation](https://opentofu.org/docs/)
 * [Slurm workload manager documentation](https://slurm.schedmd.com/documentation.html)
