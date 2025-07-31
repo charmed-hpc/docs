@@ -35,10 +35,10 @@ such as GLAuth.
 You have two options for deploying GLAuth and SSSD:
 
 1. Using the [Juju CLI client](https://documentation.ubuntu.com/juju/latest/user/reference/juju-cli/).
-2. Using the [Juju Terraform client](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/).
+2. Using the [Juju Terraform client](https://canonical-terraform-provider-juju.readthedocs-hosted.com/latest/).
 
 If you want to use Terraform to deploy GLAuth and SSSD, see the
-[Manage `terraform-provider-juju`](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/howto/manage-terraform-provider-juju/) how-to guide for additional
+[Manage `terraform-provider-juju`](https://canonical-terraform-provider-juju.readthedocs-hosted.com/latest/howto/manage-the-terraform-provider-for-juju/) how-to guide for additional
 requirements.
 
 ### Deploy GLAuth
