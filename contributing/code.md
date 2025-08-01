@@ -68,24 +68,27 @@ Adhering to the following process is the best way to have your contribution acce
     for details on the appropriate tests. 
 
 
-7. Commit your changes in logical chunks to your topic branch, using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+5. Sign and commit and your changes in logical chunks to your topic branch, using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
-8. Locally merge (or rebase) the upstream development branch into your topic branch:
+   To set up GPG or SSH key signing with git, see 
+   [GitHub's commit signature verification documentation](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification)
+   
+6. Locally rebase the upstream development branch into your topic branch:
 
    ```bash
-   git pull [--rebase] upstream main
+   git pull --rebase upstream main
    ```
 
-9. Push your topic branch up to your fork:
+7. Push your topic branch up to your fork:
 
    ```bash
    git push origin <topic-branch-name>
    ```
 
-10. [Open a Pull Request](https://help.github.com/articles/about-pull-requests/)
-    with a clear title and description against the `main` branch. Your pull request should also be focused and not contain commits that are not related to what you are contributing.
+8. [Open a Pull Request](https://help.github.com/articles/about-pull-requests/)
+   with a clear title and description against the `main` branch. Your pull request should also be focused and not contain commits that are not related to what you are contributing.
 
-11. Conditionally, open a corresponding Pull Request on the [`docs`](https://github.com/charmed-hpc/docs) repository, following the [charmed-hpc/docs CONTRIBUTING.md guidelines](https://github.com/charmed-hpc/docs/blob/main/CONTRIBUTING.md#pull-requests-and-contributing-process), if you are making user-facing changes.
+9. Conditionally, open a corresponding Pull Request on the [`docs`](https://github.com/charmed-hpc/docs) repository, following the [charmed-hpc/docs CONTRIBUTING.md guidelines](https://github.com/charmed-hpc/docs/blob/main/CONTRIBUTING.md#pull-requests-and-contributing-process), if you are making user-facing changes.
 
 ## Further resources
 
