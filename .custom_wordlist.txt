@@ -99,6 +99,7 @@ Uptime
 proxied
 Auth
 SSO
+GPG
 rebase
 
 # Filesystem jargon
