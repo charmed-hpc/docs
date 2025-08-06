@@ -5,9 +5,9 @@ relatedlinks: "[Slurm&#32Workload&#32Manager&#32-&#32Quick&#32Start&#32Administr
 (explanation-high-availability)=
 # High Availability
 
-High availability (HA) refers to the ability of a system to continue functioning despite component failures. A motivation for HA being to eliminate single points of failure and minimize system downtime. HA can be provided through component redundancy, such as a computer cluster with multiple nodes that continues to function even when a node has failed.
+High availability (HA) refers to the ability of a system to continue functioning despite component failures. A motivation for HA being to eliminate single points of failure and minimize system downtime. HA can be provided through component redundancy, such as a computer cluster with multiple controllers that continues to function even if a controller has failed.
 
-When an HA cluster shares requests across nodes, it is referred to as an active-active setup. In contrast, an active-passive setup has a single primary node serving requests while the remaining nodes remain in standby, ready for one to take over should the primary fail.
+When an HA cluster distributes incoming requests across multiple controllers simultaneously, it is referred to as an active-active setup. In contrast, an active-passive setup designates one controller as the primary, which handles all requests while the others remain on standby, ready for one to take over should the primary fail.
 
 (explanation-slurmctld-high-availability)=
 ## Slurmctld high availability
@@ -19,15 +19,21 @@ Charmed HPC uses this functionality to allow scaling of a deployed `slurmctld` c
 (explanation-slurmctld-high-availability-state-save-location)=
 ### Shared `StateSaveLocation` using `filesystem-client` charm
 
-For `slurmctld` HA to function, all `slurmctld` controllers require mounting on the same shared file system to provide a common `StateSaveLocation` directory containing controller state data. This directory governs the responsiveness and throughput of the cluster, so it should be hosted on a file system with low latency. It is therefore recommended that the file system not be the same as the file system that is used on the cluster compute nodes to avoid I/O-intensive user jobs from impacting `slurmctld` responsiveness.
+For `slurmctld` HA to function, all `slurmctld` controllers require mounting of the same shared file system to provide a common [`StateSaveLocation`](https://slurm.schedmd.com/slurm.conf.html#OPT_StateSaveLocation) directory for holding controller state data. This directory governs the responsiveness and throughput of the cluster, so should be hosted on a file system with low latency. It is therefore recommended that the file system not be the same as the file system used on the cluster compute nodes to avoid I/O-intensive user jobs from impacting `slurmctld` responsiveness.
 
-To allow for flexibility in the `StateSaveLocation` shared file system, Charmed HPC implements support for the [`filesystem-client` charm](https://github.com/charmed-hpc/filesystem-charms). This enables users to integrate with the file system of their choice, such as their own CephFS deployment, a cloud-specific managed file system, or another that meets latency requirements. The `slurmctld` charm configures mount parameters automatically over the `filesystem-client:mount` endpoint. To avoid errors, the `filesystem-client` must therefore be deployed without a user-configured `mountpoint`.
+To allow for flexibility in the `StateSaveLocation` shared file system, Charmed HPC implements support for the [`filesystem-client` charm](https://github.com/charmed-hpc/filesystem-charms) in the `slurmctld` charm. This enables users to integrate with the file system of their choice, such as their own CephFS deployment, a cloud-specific managed file system, or another that meets latency requirements.
 
-Using the local disk of the `slurmctld` host for `StateSaveLocation` data, without the `filesystem-client`, is supported but limits the HPC cluster to a single `slurmctld` instance. To scale from a single instance to an HA setup, `filesystem-client:mount` must be integrated with `slurmctld:mount`. This performs a one-time migration of `StateSaveLocation` data from the local disk to the shared file system. Once done, `juju add-unit` can be used to add backup units. Note that this migration requires cluster downtime: the `slurmctld` service is stopped for the duration of the migration. To minimize downtime, `StateSaveLocation` data is first copied to the shared file system while the `slurmctld` service is live, then the service is stopped and the difference in `StateSaveLocation` data is synchronized.
+The `slurmctld` charm configures mount parameters automatically over the `filesystem-client:mount` endpoint, including the mount point for the `StateSaveLocation` shared file system: `/mnt/slurmctld-statefs`. `StateSaveLocation` data is stored in the `checkpoint` sub-directory: `/mnt/slurmctld-statefs/checkpoint`. To avoid errors, the `filesystem-client` must therefore be deployed without a user-configured `mountpoint`.
 
-In a non-HA setup with a single `slurmctld`, `StateSaveLocation` data is stored on the local disk at `/var/lib/slurm/checkpoint`. When migrated to the shared file system, it is stored at `/mnt/slurmctld-statefs/checkpoint`. The `/mnt/slurmctld-statefs` path is a constant defined in the `slurmctld` charm and passed to the `filesystem-client` charm on integration. To avoid data loss, the files and directories in the local  `/var/lib/slurm/checkpoint` are left untouched following migration.
+### Single `slurmctld` migration to high availability
 
-Attempting to scale up `slurmctld` without a `filesystem-client` will cause new units to enter `BlockedStatus` until the `filesystem-client` is integrated.
+In a non-HA setup (a single `slurmctld`), `StateSaveLocation` data is stored on the unit local disk at `/var/lib/slurm/checkpoint`. Before `slurmctld` backup units can be added to enable high availability, the `slurmctld` charm must be integrated with a `filesystem-client` on the `mount` endpoint to provide the necessary shared storage. On integration, the `StateSaveLocation` data is automatically copied from the local disk to the shared file system provided by the `filesystem-client`.
+
+Once complete, `juju add-unit` can be used to add backup units. It is **not possible to remove the `filesystem-client` integration** and return to a non-HA setup once the migration has completed. To avoid data loss, the files and directories in the local  `/var/lib/slurm/checkpoint` are left untouched following migration.
+
+Note that **this migration requires cluster downtime**: the `slurmctld` service is stopped by the charm for the transfer duration and restarted when the `StateSaveLocation` data is in place on the shared file system. To minimize downtime, `StateSaveLocation` data is first copied to the shared file system while the `slurmctld` service is live, then the service is stopped and the difference in `StateSaveLocation` data is synchronized.
+
+Be aware that attempting to scale up `slurmctld` without a `filesystem-client` will cause new units to enter `BlockedStatus` until the `filesystem-client` is integrated.
 
 (explanation-slurmctld-high-availability-etc-slurm)=
 ### Shared `/etc/slurm` configuration data
