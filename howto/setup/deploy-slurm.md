@@ -528,7 +528,7 @@ The `slurmctld` service is stopped during the copy of Slurm data from the unit l
 This is a one-time cluster downtime. Once the data migration is complete, no further downtime is necessary when adding or removing `slurmctld` units.
 :::
 
-To migrate a previously deployed single `slurmctld` unit to an HA setup, integrate a `filesystem-client`, substituting `[filesystem-provider]` with your choice of shared file system provider (file system provider choice is detailed in the [`slurmctld` high availability deployment instructions](deploy-slurmctld-high-availability)). Then scale up the application:
+To migrate a previously deployed single `slurmctld` unit to an HA setup, integrate a `filesystem-client` following the file system deployment process described in the [`slurmctld` high availability section](deploy-slurmctld-high-availability), substituting `[filesystem-provider]` with your choice of shared file system provider. Then scale up the application:
 
 :::::{tab-set}
 
