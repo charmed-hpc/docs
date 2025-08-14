@@ -631,3 +631,9 @@ To verify that the entire partition is `IDLE`, run `sinfo`{l=shell} without the
 :::{code-block} shell
 juju exec -u sackd/0 -- sinfo
 :::
+
+## Related how-to guides
+
+Now that Slurm is deployed, you might want to view:
+
+- {ref}`howto-setup-deploy-shared-filesystem`
