@@ -446,6 +446,8 @@ The `slurmcltd` charm optionally supports [high availability (HA)](explanation-h
 
 This functionality requires a low-latency [shared file system to be deployed](howto-setup-deploy-shared-filesystem) and a `filesystem-client` charm, without a user-configured mount point, to be integrated with `slurmctld` on the `mount` endpoint to allow sharing of data across all `slurmctld` units. For guidance on choosing a file system, see the [Shared `StateSaveLocation` using `filesystem-client` charm](explanation-slurmctld-high-availability-state-save-location) section.
 
+It is recommended that the HA file system **not be the same as the file system used for the cluster compute nodes** to avoid I/O-intensive user jobs from impacting `slurmctld` responsiveness. The suggested approach is to deploy a dedicated HA file system then subsequently provision a separate file system for the compute nodes.
+
 Once a chosen shared file system has been deployed and made available via a proxy charm, run the following, substituting `[filesystem-provider]` with the name of the proxy charm, for a `slurmctld` HA setup with two units (a primary and single backup):
 
 :::::{tab-set}

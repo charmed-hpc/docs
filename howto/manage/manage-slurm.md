@@ -12,8 +12,6 @@ To migrate a previously deployed single `slurmctld` unit to a [high availability
 
 Once a chosen shared file system has been deployed and made available via a proxy charm, run the following, substituting `[filesystem-provider]` with the name of the proxy charm, then scale up the application:
 
-[`slurmctld` high availability section](deploy-slurmctld-high-availability), substituting `[filesystem-provider]` with your choice of shared file system provider.
-
 :::{warning}
 **This migration requires cluster downtime**.
 
