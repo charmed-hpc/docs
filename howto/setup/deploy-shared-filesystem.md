@@ -16,7 +16,7 @@ cloud managed NFS server on the [`charmed-hpc-terraform`][hpc-tf] repository, wi
 
 ## Prerequisites
 
-- A [deployed Slurm cluster](#howto-setup-deploy-slurm).
+- A [Slurm cluster](#howto-setup-deploy-slurm).
 
 ## Deploy an external filesystem server
 

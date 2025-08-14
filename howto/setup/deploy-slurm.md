@@ -85,7 +85,7 @@ slurm  charmed-hpc  localhost/localhost  3.6.0    unsupported  17:16:37Z
 App         Version          Status  Scale  Charm       Channel      Rev  Exposed  Message
 mysql       8.0.39-0ubun...  active      1  mysql       8.0/stable   313  no
 sackd       23.11.4-1.2u...  active      1  sackd       latest/edge    4  no
-slurmctld   23.11.4-1.2u...  active      1  slurmctld   latest/edge   86  no
+slurmctld   23.11.4-1.2u...  active      1  slurmctld   latest/edge   86  no       primary - UP
 slurmd      23.11.4-1.2u...  active      1  slurmd      latest/edge  107  no
 slurmdbd    23.11.4-1.2u...  active      1  slurmdbd    latest/edge   78  no
 slurmrestd  23.11.4-1.2u...  active      1  slurmrestd  latest/edge   80  no
@@ -93,7 +93,7 @@ slurmrestd  23.11.4-1.2u...  active      1  slurmrestd  latest/edge   80  no
 Unit           Workload  Agent      Machine  Public address  Ports           Message
 mysql/0*       active    idle       5        10.32.18.127    3306,33060/tcp  Primary
 sackd/0*       active    idle       4        10.32.18.203
-slurmctld/0*   active    idle       0        10.32.18.15
+slurmctld/0*   active    idle       0        10.32.18.15                     primary - UP
 slurmd/0*      active    idle       1        10.32.18.207
 slurmdbd/0*    active    idle       2        10.32.18.102
 slurmrestd/0*  active    idle       3        10.32.18.9
@@ -412,7 +412,7 @@ slurm  charmed-hpc  localhost/localhost  3.6.0    unsupported  17:16:37Z
 App         Version          Status  Scale  Charm       Channel      Rev  Exposed  Message
 mysql       8.0.39-0ubun...  active      1  mysql       8.0/stable   313  no
 sackd       23.11.4-1.2u...  active      1  sackd       latest/edge    4  no
-slurmctld   23.11.4-1.2u...  active      1  slurmctld   latest/edge   86  no
+slurmctld   23.11.4-1.2u...  active      1  slurmctld   latest/edge   86  no       primary - UP
 slurmd      23.11.4-1.2u...  active      1  slurmd      latest/edge  107  no
 slurmdbd    23.11.4-1.2u...  active      1  slurmdbd    latest/edge   78  no
 slurmrestd  23.11.4-1.2u...  active      1  slurmrestd  latest/edge   80  no
@@ -420,7 +420,7 @@ slurmrestd  23.11.4-1.2u...  active      1  slurmrestd  latest/edge   80  no
 Unit           Workload  Agent      Machine  Public address  Ports           Message
 mysql/0*       active    idle       5        10.32.18.127    3306,33060/tcp  Primary
 sackd/0*       active    idle       4        10.32.18.203
-slurmctld/0*   active    idle       0        10.32.18.15
+slurmctld/0*   active    idle       0        10.32.18.15                     primary - UP
 slurmd/0*      active    idle       1        10.32.18.207
 slurmdbd/0*    active    idle       2        10.32.18.102
 slurmrestd/0*  active    idle       3        10.32.18.9
@@ -438,6 +438,82 @@ Machine  State    Address       Inst id        Base          AZ  Message
 
 :::::
 
+
+(deploy-slurmctld-high-availability)=
+### Deploying `slurmctld` in high availability
+
+The `slurmcltd` charm optionally supports [high availability (HA)](explanation-high-availability) through the native functionality provided by Slurm: an active-passive setup where additional units are backups to a single primary.
+
+This functionality requires a low-latency [shared file system to be deployed](howto-setup-deploy-shared-filesystem) and a `filesystem-client` charm, without a user-configured mount point, to be integrated with `slurmctld` on the `mount` endpoint to allow sharing of data across all `slurmctld` units. For guidance on choosing a file system, see the [Shared `StateSaveLocation` using `filesystem-client` charm](explanation-slurmctld-high-availability-state-save-location) section.
+
+It is recommended that the HA file system **not be the same as the file system used for the cluster compute nodes** to avoid I/O-intensive user jobs from impacting `slurmctld` responsiveness. The suggested approach is to deploy a dedicated HA file system then subsequently provision a separate file system for the compute nodes.
+
+Once a chosen shared file system has been deployed and made available via a proxy charm, run the following, substituting `[filesystem-provider]` with the name of the proxy charm, for a `slurmctld` HA setup with two units (a primary and single backup):
+
+:::::{tab-set}
+
+::::{tab-item} CLI
+:sync: cli
+
+:::{code-block} shell
+juju deploy filesystem-client --channel latest/edge
+juju integrate filesystem-client:filesystem [filesystem-provider]:filesystem
+
+juju deploy slurmctld --base "ubuntu@24.04" --channel "edge" --num-units 2
+juju integrate slurmctld:mount filesystem-client:mount
+:::
+
+::::
+
+::::{tab-item} Terraform
+:sync: terraform
+
+:::{code-block} terraform
+:caption: `main.tf`
+module "filesystem-client" {
+  source     = "git::https://github.com/charmed-hpc/filesystem-charms//charms/filesystem-client/terraform"
+  model_name  = juju_model.slurm.name
+}
+
+resource "juju_integration" "provider-to-filesystem" {
+  model = juju_model.slurm.name
+
+  application {
+    name     = module.[filesystem-provider].app_name
+    endpoint = module.[filesystem-provider].provides.filesystem
+  }
+
+  application {
+    name     = module.filesystem-client.app_name
+    endpoint = module.filesystem-client.requires.filesystem
+  }
+}
+
+module "slurmctld" {
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
+  model_name  = juju_model.slurm.name
+  constraints = "arch=amd64 virt-type=virtual-machine"
+  units       = 2
+}
+
+resource "juju_integration" "filesystem-to-slurmctld" {
+  model = juju_model.slurm.name
+
+  application {
+    name     = module.slurmctld.app_name
+    endpoint = module.slurmctld.provides.mount
+  }
+
+  application {
+    name     = module.filesystem-client.app_name
+    endpoint = module.filesystem-client.requires.mount
+  }
+}
+:::
+
+::::
+
+:::::
 
 (deploy-slurm-lxd)=
 ### Deploying Slurm on LXD
@@ -555,3 +631,9 @@ To verify that the entire partition is `IDLE`, run `sinfo`{l=shell} without the
 :::{code-block} shell
 juju exec -u sackd/0 -- sinfo
 :::
+
+## Related how-to guides
+
+Now that Slurm is deployed, you might want to view:
+
+- {ref}`howto-setup-deploy-shared-filesystem`

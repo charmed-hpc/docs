@@ -28,6 +28,7 @@ deployed Charmed HPC.
 
 - {ref}`howto-manage-integrate-with-cos`
 - {ref}`howto-manage-integrate-with-influxdb`
+- {ref}`howto-manage-slurm`
 
 ## Clean-up
 
