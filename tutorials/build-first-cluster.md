@@ -21,295 +21,49 @@ To successfully complete this tutorial, you will need:
   * Multipass installed 
 * A local copy of the cloud-init.yaml
 
-<!-- Warning about using public wifi and multipass launch taking a while and may need the --timeout increase -->
+<!-- Warning about using public wifi and multipass launch taking a while and may need the --timeout increase and/or the vm launching successfully even if the timeout error shows up? -->
 
 
+<!-- Quick commands to test that various cloud init pieces have been set up correctly:
 
+`juju status -m controller` should show...
+`juju clouds` should show...
+ -->
 
 ## Deploy Slurm
 
-Next, we will deploy Slurm as the resource management and job scheduling service. Here we will use the [Juju Terraform client](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/).
-<!-- Add brief explanation of what Terraform does and why it's useful here -->
+Next, we will deploy Slurm as the resource management and job scheduling service. 
 
-<!--see the
-[Manage `terraform-provider-juju`](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/howto/manage-terraform-provider-juju/) how-to guide for additional
-requirements - what additional requirements would be needed here?  -->
-
-<!-- Initial steps of creating empty terraform plan and/or getting a copy of the plan we provide? -->
-
-First, we will configure Terraform to use the Juju provider in the deployment plan:
-
-:::{code-block} terraform
-:caption: `main.tf`
-terraform {
-  required_providers {
-    juju = {
-      source  = "juju/juju"
-      version = ">= 0.16.0"
-    }
-  }
-}
-:::
-
-Now, in the same file, create the `slurm` model that will hold the deployment:
-
-:::{code-block} terraform
-:caption: `main.tf`
-resource "juju_model" "slurm" {
-  name = "slurm"
-
-  cloud {
-    name = "charmed-hpc-controller"
-  }
-}
-:::
-
-With the `slurm` `juju_model` resource defined, declare the following set of modules in the Terraform plan:
-
-:::{code-block} terraform
-:caption: `main.tf`
-module "sackd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/sackd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmctld" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmdbd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmdbd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmrestd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmrestd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "mysql" {
-  source          = "git::https://github.com/canonical/mysql-operator//terraform"
-  juju_model_name = juju_model.slurm.name
-}
-:::
-
-Now declare the following set of resources in the same deployment plan, to integrate the Slurm daemons together:
-
-:::{code-block} terraform
-:caption: `main.tf`
-resource "juju_integration" "sackd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.sackd.app_name
-    endpoint = module.sackd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.login-node
-  }
-}
-
-resource "juju_integration" "slurmd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.slurmd.app_name
-    endpoint = module.slurmd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.slurmd
-  }
-}
-
-resource "juju_integration" "slurmdbd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.slurmdbd.app_name
-    endpoint = module.slurmdbd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.slurmdbd
-  }
-}
-
-resource "juju_integration" "slurmrestd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.slurmrestd.app_name
-    endpoint = module.slurmrestd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.slurmrestd
-  }
-}
-
-resource "juju_integration" "slurmdbd-to-mysql" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.mysql.application_name
-    endpoint = module.mysql.provides.database
-  }
-
-  application {
-    name     = module.slurmdbd.app_name
-    endpoint = module.slurmdbd.requires.database
-  }
-}
-:::
-
-The full deployment plan is availble in the dropdown. Compare yours to the full plan to confirm everything was added correctly.
-
-:::{dropdown} Full Slurm deployment plan
-:::{code-block} terraform
-:caption: `main.tf`
-:linenos:
-terraform {
-  required_providers {
-    juju = {
-      source  = "juju/juju"
-      version = ">= 0.16.0"
-    }
-  }
-}
-
-resource "juju_model" "slurm" {
-  name = "slurm"
-
-  cloud {
-    name = "charmed-hpc"
-  }
-}
-
-module "sackd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/sackd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmctld" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmdbd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmdbd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmrestd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmrestd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "mysql" {
-  source          = "git::https://github.com/canonical/mysql-operator//terraform"
-  juju_model_name = juju_model.slurm.name
-}
-
-resource "juju_integration" "sackd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.sackd.app_name
-    endpoint = module.sackd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.login-node
-  }
-}
-
-resource "juju_integration" "slurmd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.slurmd.app_name
-    endpoint = module.slurmd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.slurmd
-  }
-}
-
-resource "juju_integration" "slurmdbd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.slurmdbd.app_name
-    endpoint = module.slurmdbd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.slurmdbd
-  }
-}
-
-resource "juju_integration" "slurmrestd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.slurmrestd.app_name
-    endpoint = module.slurmrestd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.slurmrestd
-  }
-}
-
-resource "juju_integration" "slurmdbd-to-mysql" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.mysql.application_name
-    endpoint = module.mysql.provides.database
-  }
-
-  application {
-    name     = module.slurmdbd.app_name
-    endpoint = module.slurmdbd.requires.database
-  }
-}
-:::
-:::
-
-After verifying that the plan is correct, run the following set of commands to deploy Slurm
-using Terraform and the Juju provider:
-
-<!-- Within a specific directory? Any other precautions or notes necessary here for someone who has never used Terraform? -->
+first create the `slurm` model that will hold the
+deployment:
 
 :::{code-block} shell
-terraform init
-terraform apply -auto-approve
+juju add-model slurm charmed-hpc
 :::
 
-<!-- What will the terminal look like after the prior command? Will there be any on-screen logging happening? -->
+deploy the Slurm
+daemons with MySQL as the storage back-end for `slurmdbd`:
+
+:::{code-block} shell
+juju deploy sackd --base "ubuntu@24.04" --channel "edge"
+juju deploy slurmctld --base "ubuntu@24.04" --channel "edge"
+juju deploy slurmd --base "ubuntu@24.04" --channel "edge"
+juju deploy slurmdbd --base "ubuntu@24.04" --channel "edge"
+juju deploy slurmrestd --base "ubuntu@24.04" --channel "edge"
+juju deploy mysql --channel "8.0/stable"
+:::
+
+and integrate them together:
+
+:::{code-block} shell
+juju integrate slurmctld sackd
+juju integrate slurmctld slurmd
+juju integrate slurmctld slurmdbd
+juju integrate slurmctld slurmrestd
+juju integrate slurmdbd mysql:database
+:::
+
+
 
 After a few minutes, the Slurm deployment will become active. The output of the
 `juju status`{l=shell} command should be similar to the following:
@@ -362,7 +116,11 @@ First, get the hostnames for the compute nodes:
 juju exec --application slurmd -- hostname -s
 :::
 
-<!-- What does the output look like here? -->
+<!-- What does the output look like here? 
+:::{code-block} shell
+juju-5e1343-1
+:::
+-->
 
 Then use `juju run`{l=shell} to run the `resume` action on the leading controller:
 <!-- leading controller? Leading node? -->
