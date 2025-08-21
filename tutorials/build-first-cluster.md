@@ -5,12 +5,15 @@
 
 <!-- Goal: Get a new potential user familiar with the various tools used for Charmed HPC, and build a basic cluster that feels recognizable by the end. Show how Charmed HPC provides a turn-key cluster smoothly and why its worth using. -->
 
-In this tutorial we will build a small Charmed HPC cluster on Azure, Microsoft's cloud platform, and deploy a job to the new batch queue. By the end of this tutorial, we will have worked with Azure virtual machines, Juju and Charms, Terraform, and Slurm.
+In this tutorial we will build a small Charmed HPC cluster, deployed a job to the new batch queue, and viewed the job and cluster status metrics. By the end of this tutorial, we will have worked with Multipass, Juju and Charms, Slurm, and the Canonical Observability Stack (COS). 
 
-This tutorial expects that you have some familiarity with classic high-performance computing concepts and programs, but does not expect any prior experience with Juju, Kubernetes, or Azure clouds.
+This tutorial expects that you have some familiarity with classic high-performance computing concepts and programs, but does not expect any prior experience with Juju, Kubernetes, COS, or prior experience launching a Slurm cluster.
 
 <!-- How long should this tutorial take to complete? -->
-<!-- Add a note that this cluster is not expected to be a main deployment, simply a learning tool? -->
+
+:::{note}
+This tutorial builds a minimal cluster deployment within a virtual machine and should not be used as the basis for a production cluster.
+:::
 
 ## Prerequisites and dependencies
 
@@ -110,26 +113,8 @@ Now that Slurm has been successfully deployed, the next step is to set up the co
 
 ### Set compute nodes to `IDLE`
 
-First, get the hostnames for the compute nodes:
-
-:::{code-block} shell
-juju exec --application slurmd -- hostname -s
-:::
-
-<!-- What does the output look like here? 
-:::{code-block} shell
-juju-5e1343-1
-:::
--->
-
-Then use `juju run`{l=shell} to run the `resume` action on the leading controller:
-<!-- leading controller? Leading node? -->
-
-<!-- Is the machine instance ID something we can set or is it assigned by azure or juju? -->
-
-:::{code-block} shell
-juju run slurmctld/leader resume nodename="<machine-instance-id/hostname>"
-:::
+Bring up the compute node 
+`juju run slurmd/0 node-configured`
 
 ### Verify compute nodes are `IDLE`
 
