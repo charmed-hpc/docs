@@ -7,6 +7,6 @@
 :maxdepth: 1
 :hidden:
 
-Set up a cluster on Azure <build-first-cluster>
+Set up a test cluster <build-first-cluster>
 
 :::
