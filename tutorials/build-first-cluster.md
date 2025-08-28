@@ -33,10 +33,11 @@ Using the `charmed-hpc-tutorial-cloud-init.yaml`, launch a Multipass VM:
 multipass launch 24.04 --name charmed-hpc-tutorial-vm --cloud-init charmed-hpc-tutorial-cloud-init.yml --memory 16G --disk 40G --cpus 8
 :::
 
+<!-- Rephrase this section -->
 Note that the virtual machine launch process may take ten minutes or longer to complete. If the instance states that it has failed to launch due to timing out, check `multipass list`{l=shell} to confirm the status of the instance as it may have actually successfully created the vm. If the State is "Running", then the vm was launched successfully and may simply be completing the cloud-init process.
 <!-- Steps if the vm does not say running? -->
 
-The cloud init process creates our lxd 'cloud': `localhost`, with the juju controller and Kubernetes instance resources Charmed HPC needs.
+The cloud init process creates and configures our lxd machine cloud `localhost` with the `charmed-hpc-controller` juju controller and our `charmed-hpc-k8s` Kubernetes control cloud.
 <!-- Add ref arch pieces -->
 
 To check the status of cloud-init, first, enter the vm:
@@ -436,6 +437,52 @@ tutorial-parition    up   infinite      2   idle juju-e16200-[1-2]
 
 ## Deploy the identity stack
 
+Now that we have a functional cluster, we'll want to be able to view cluster health metrics. For this, we will deploy the Canonical Observability Stack (COS) to our `charmed-hpc-k8s` cloud.
+
+<!-- slurmdbd and mysql? -->
+
+:::{code-block} shell
+juju add-model cos charmed-hpc-k8s
+juju deploy --model cos cos-lite --trust
+:::
+
+:::{code-block} shell
+juju deploy --model slurm grafana-agent --base "ubuntu@24.04"
+juju integrate --model slurm grafana-agent slurmctld
+:::
+
+:::{code-block} shell
+juju show-unit --model cos catalogue/0 --format json | \
+  jq '.[]."relation-info".[]."application-data".url | select (. != null)'
+:::
+
+:::{code-block} shell
+juju exec --model slurm --unit grafana-agent/0 \
+  "curl -s http://10.13.185.121/cos-prometheus-0/api/v1/status/runtimeinfo"
+:::
+
+:::{code-block} shell
+juju switch cos
+juju offer cos.grafana:grafana-dashboard grafana-dashboards
+juju offer cos.loki:logging loki-logging
+juju offer cos.prometheus:receive-remote-write prometheus-receive-remote-write
+:::
+
+:::{code-block} shell
+juju switch slurm 
+juju consume charmed-hpc-controller:cos.prometheus-receive-remote-write
+juju consume charmed-hpc-controller:cos.grafana-dashboards
+juju consume charmed-hpc-controller:cos.loki-logging
+juju integrate grafana-agent prometheus-receive-remote-write
+juju integrate grafana-agent loki-logging
+juju integrate grafana-agent grafana-dashboards
+:::
+
+:::{code-block} shell
+juju run grafana/leader --model charmed-hpc-controller:cos \
+  --wait 1m \
+  get-admin-password
+:::
 
 ## Test the cluster and submit a job
 
