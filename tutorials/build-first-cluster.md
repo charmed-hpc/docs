@@ -5,7 +5,7 @@
 
 <!-- Goal: Get a new potential user familiar with the various tools used for Charmed HPC, and build a basic cluster that feels recognizable by the end. Show how Charmed HPC provides a turn-key cluster smoothly and why its worth using. -->
 
-In this tutorial we will build a small Charmed HPC cluster, deployed a job to the new batch queue, and viewed the job and cluster status metrics. By the end of this tutorial, we will have worked with Multipass, Juju and Charms, Slurm, and the Canonical Observability Stack (COS).
+In this tutorial we will build a small Charmed HPC cluster, deployed a job to the new batch queue, and viewed the job and cluster status metrics. By the end of this tutorial, we will have worked with Multipass, Juju and Charms, Kubernetes, the Canonical Observability Stack (COS), and Slurm.
 
 This tutorial expects that you have some familiarity with classic high-performance computing concepts and programs, but does not expect any prior experience with Juju, Kubernetes, COS, or prior experience launching a Slurm cluster.
 
@@ -21,7 +21,7 @@ To successfully complete this tutorial, you will need:
 
 
 * 8 cpus, 20GB RAM, and 40GB storage available
-* Multipass installed
+* [Multipass installed](https://canonical.com/multipass/install)
 * An active wifi connection
 * A local copy of the `charmed-hpc-tutorial-cloud-init.yaml`
 
@@ -34,7 +34,7 @@ multipass launch 24.04 --name charmed-hpc-tutorial-vm --cloud-init charmed-hpc-t
 :::
 
 <!-- Rephrase this section -->
-Note that the virtual machine launch process may take ten minutes or longer to complete. If the instance states that it has failed to launch due to timing out, check `multipass list`{l=shell} to confirm the status of the instance as it may have actually successfully created the vm. If the State is "Running", then the vm was launched successfully and may simply be completing the cloud-init process.
+Note that the virtual machine launch process may take ten minutes or longer to complete. If the instance states that it has failed to launch due to timing out, check `multipass list`{l=shell} to confirm the status of the instance as it may have actually successfully created the vm. If the `State` is `Running`, then the vm was launched successfully and may simply be completing the cloud-init process.
 <!-- Steps if the vm does not say running? -->
 
 The cloud init process creates and configures our lxd machine cloud `localhost` with the `charmed-hpc-controller` juju controller and our `charmed-hpc-k8s` Kubernetes control cloud.
@@ -388,11 +388,12 @@ Machine  State    Address                                 Inst id        Base   
 5        started  10.125.192.110                          juju-e16200-5  ubuntu@22.04  charmed-hpc-tutorial-vm    Running
 :::
 
+<!-- Test the file system set up  -->
 <!-- Add summary of what the last few steps accomplished and what juju status is showing-->
 
 ## Get compute nodes ready for jobs
 
-Now that Slurm and the file system have been successfully deployed, the next step is to set up the compute nodes themselves. The compute nodes must be set to the `IDLE` state so that they can start having jobs ran on them.
+Now that Slurm and the file system have been successfully deployed, the next step is to set up the compute nodes themselves. The compute nodes must be moved from the `down` state to the `idle` state so that they can start having jobs ran on them.
 
 First, check that the compute nodes are still down:
 
@@ -415,7 +416,7 @@ juju run tutorial-partition/0 node-configured
 juju run tutorial-partition/1 node-configured
 :::
 
-And verify that the nodes are now set to `IDLE`:
+And verify that the `STATE` is now set to `idle`:
 
 :::{code-block} shell
 juju exec -u sackd/0 -- sinfo
@@ -431,16 +432,26 @@ tutorial-parition    up   infinite      2   idle juju-e16200-[1-2]
 
 <!-- Add summary of what the last few steps accomplished -->
 
+## Run a batch job
 
+First move to the login node (sackd):
 
+:::{code-block} shell
+juju ssh sackd/0
+:::
 
+<!-- Set up and run a batch job (and/or interactive?) -->
+
+## Run a container job
+
+<!-- Set up and run an Apptainer job -->
 
 ## Deploy the identity stack
 
 Now that we have a functional cluster, we'll want to be able to view cluster health metrics. For this, we will deploy the Canonical Observability Stack (COS) to our `charmed-hpc-k8s` cloud.
 
 <!-- slurmdbd and mysql? -->
-
+<!-- context on what's about to be done -->
 :::{code-block} shell
 juju add-model cos charmed-hpc-k8s
 juju deploy --model cos cos-lite --trust
@@ -451,22 +462,48 @@ juju deploy --model slurm grafana-agent --base "ubuntu@24.04"
 juju integrate --model slurm grafana-agent slurmctld
 :::
 
+The grafana-agent deployment and integration pieces take a few minutes to complete all steps and must be complete prior to the next steps. To check, run:
+
+:::{code-block} shell
+juju status --watch 2s
+:::
+
+and wait until the `Status` states `active` for all `Apps` and there are no messages stating that any app is waiting or installing. To leave the watch session, press `ctrl+c`.
+
+<!-- context on what's about to be done -->
 :::{code-block} shell
 juju show-unit --model cos catalogue/0 --format json | \
   jq '.[]."relation-info".[]."application-data".url | select (. != null)'
 :::
 
-:::{code-block} shell
-juju exec --model slurm --unit grafana-agent/0 \
-  "curl -s http://10.13.185.121/cos-prometheus-0/api/v1/status/runtimeinfo"
+which will show something similar to:
+
+:::{terminal}
+:input: juju show-unit --model cos catalogue/0 --format json | jq '.[]."relation-info".[]."application-data".url | select (. != null)'
+"http://10.9.115.212/cos-grafana"
+"http://10.9.115.212/cos-prometheus-0"
+"http://10.9.115.212/cos-alertmanager"
 :::
 
+and then use the full `cos-prometheus-0` address (here: http://10.9.115.212/cos-prometheus-0) to run:
+
+<!-- context on what's about to be done -->
+
+:::{code-block} shell
+juju exec --model slurm --unit grafana-agent/0 \
+  "curl -s <cos-prometheus-0 address>/api/v1/status/runtimeinfo"
+:::
+
+<!-- output of the curl command -->
+<!-- context on what's about to be done -->
 :::{code-block} shell
 juju switch cos
 juju offer cos.grafana:grafana-dashboard grafana-dashboards
 juju offer cos.loki:logging loki-logging
 juju offer cos.prometheus:receive-remote-write prometheus-receive-remote-write
 :::
+
+<!-- `juju status` state on cos model and on slurm model at this stage -->
 
 :::{code-block} shell
 juju switch slurm 
@@ -478,12 +515,18 @@ juju integrate grafana-agent loki-logging
 juju integrate grafana-agent grafana-dashboards
 :::
 
+and then check `juju status`{l=shell} and wait until `grafana-agent/0` is `idle`.
+
+
+<!-- is the wait necessary if juju status is checked prior to this step? -->
 :::{code-block} shell
 juju run grafana/leader --model charmed-hpc-controller:cos \
   --wait 1m \
   get-admin-password
 :::
 
-## Test the cluster and submit a job
+Open the resulting `url` in your browser and log in with username `admin` and the admin-password listed.
+
+<!-- quick walk through of what to look at once logged in -->
 
 ## Success!
