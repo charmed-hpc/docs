@@ -1,9 +1,8 @@
 ---
-relatedlinks: '[Slurm&#32;website](https://slurm.schedmd.com/overview.html), [Slurm&#32;charms&#32;repository](https://github.com/charmed-hpc/slurm-charms)'
+relatedlinks: "[Slurm&#32;website](https://slurm.schedmd.com/overview.html), [Slurm&#32;charms&#32;repository](https://github.com/charmed-hpc/slurm-charms)"
 ---
 
 (howto-setup-deploy-slurm)=
-
 # How to deploy Slurm
 
 This how-to guide shows you how to deploy the Slurm workload manager as the
@@ -24,10 +23,10 @@ Once you have verified that you have met the prerequisites above, proceed to the
 You have two options for deploying Slurm:
 
 1. Using the [Juju CLI client](https://documentation.ubuntu.com/juju/latest/user/reference/juju-cli/).
-2. Using the [Juju Terraform client](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/).
+2. Using the [Juju Terraform client](https://canonical-terraform-provider-juju.readthedocs-hosted.com/latest/).
 
 If you want to use Terraform to deploy Slurm, see the
-[Manage `terraform-provider-juju`](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/howto/manage-terraform-provider-juju/) how-to guide for additional
+[Manage `terraform-provider-juju`](https://canonical-terraform-provider-juju.readthedocs-hosted.com/latest/howto/manage-terraform-provider-juju/) how-to guide for additional
 requirements.
 
 If you are deploying Slurm on [LXD](https://canonical.com/lxd), see
@@ -119,12 +118,12 @@ to use the Juju provider in your deployment plan.
 :::{code-block} terraform
 :caption: `main.tf`
 terraform {
-required_providers {
-juju = {
-source  = "juju/juju"
-version = ">= 0.16.0"
-}
-}
+  required_providers {
+    juju = {
+      source  = "juju/juju"
+      version = ">= 0.16.0"
+    }
+  }
 }
 :::
 
@@ -136,11 +135,11 @@ resource will direct Juju to create the model `slurm`:
 :::{code-block} terraform
 :caption: `main.tf`
 resource "juju_model" "slurm" {
-name = "slurm"
+  name = "slurm"
 
-cloud {
-name = "charmed-hpc"
-}
+  cloud {
+    name = "charmed-hpc"
+  }
 }
 :::
 
@@ -151,33 +150,33 @@ MySQL as the storage back-end for `slurmdbd`:
 :::{code-block} terraform
 :caption: `main.tf`
 module "sackd" {
-source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/sackd/terraform"
-model_name  = juju_model.slurm.name
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/sackd/terraform"
+  model_name  = juju_model.slurm.name
 }
 
 module "slurmctld" {
-source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
-model_name  = juju_model.slurm.name
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
+  model_name  = juju_model.slurm.name
 }
 
 module "slurmd" {
-source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmd/terraform"
-model_name  = juju_model.slurm.name
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmd/terraform"
+  model_name  = juju_model.slurm.name
 }
 
 module "slurmdbd" {
-source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmdbd/terraform"
-model_name  = juju_model.slurm.name
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmdbd/terraform"
+  model_name  = juju_model.slurm.name
 }
 
 module "slurmrestd" {
-source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmrestd/terraform"
-model_name  = juju_model.slurm.name
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmrestd/terraform"
+  model_name  = juju_model.slurm.name
 }
 
 module "mysql" {
-source          = "git::https://github.com/canonical/mysql-operator//terraform"
-juju_model_name = juju_model.slurm.name
+  source          = "git::https://github.com/canonical/mysql-operator//terraform"
+  juju_model_name = juju_model.slurm.name
 }
 :::
 
@@ -189,73 +188,73 @@ These resources will direct Juju to integrate the Slurm daemons together:
 :::{code-block} terraform
 :caption: `main.tf`
 resource "juju_integration" "sackd-to-slurmctld" {
-model = juju_model.slurm.name
+  model = juju_model.slurm.name
 
-application {
-name     = module.sackd.app_name
-endpoint = module.sackd.provides.slurmctld
-}
+  application {
+    name     = module.sackd.app_name
+    endpoint = module.sackd.provides.slurmctld
+  }
 
-application {
-name     = module.slurmctld.app_name
-endpoint = module.slurmctld.requires.login-node
-}
+  application {
+    name     = module.slurmctld.app_name
+    endpoint = module.slurmctld.requires.login-node
+  }
 }
 
 resource "juju_integration" "slurmd-to-slurmctld" {
-model = juju_model.slurm.name
+  model = juju_model.slurm.name
 
-application {
-name     = module.slurmd.app_name
-endpoint = module.slurmd.provides.slurmctld
-}
+  application {
+    name     = module.slurmd.app_name
+    endpoint = module.slurmd.provides.slurmctld
+  }
 
-application {
-name     = module.slurmctld.app_name
-endpoint = module.slurmctld.requires.slurmd
-}
+  application {
+    name     = module.slurmctld.app_name
+    endpoint = module.slurmctld.requires.slurmd
+  }
 }
 
 resource "juju_integration" "slurmdbd-to-slurmctld" {
-model = juju_model.slurm.name
+  model = juju_model.slurm.name
 
-application {
-name     = module.slurmdbd.app_name
-endpoint = module.slurmdbd.provides.slurmctld
-}
+  application {
+    name     = module.slurmdbd.app_name
+    endpoint = module.slurmdbd.provides.slurmctld
+  }
 
-application {
-name     = module.slurmctld.app_name
-endpoint = module.slurmctld.requires.slurmdbd
-}
+  application {
+    name     = module.slurmctld.app_name
+    endpoint = module.slurmctld.requires.slurmdbd
+  }
 }
 
 resource "juju_integration" "slurmrestd-to-slurmctld" {
-model = juju_model.slurm.name
+  model = juju_model.slurm.name
 
-application {
-name     = module.slurmrestd.app_name
-endpoint = module.slurmrestd.provides.slurmctld
-}
+  application {
+    name     = module.slurmrestd.app_name
+    endpoint = module.slurmrestd.provides.slurmctld
+  }
 
-application {
-name     = module.slurmctld.app_name
-endpoint = module.slurmctld.requires.slurmrestd
-}
+  application {
+    name     = module.slurmctld.app_name
+    endpoint = module.slurmctld.requires.slurmrestd
+  }
 }
 
 resource "juju_integration" "slurmdbd-to-mysql" {
-model = juju_model.slurm.name
+  model = juju_model.slurm.name
 
-application {
-name     = module.mysql.application_name
-endpoint = module.mysql.provides.database
-}
+  application {
+    name     = module.mysql.application_name
+    endpoint = module.mysql.provides.database
+  }
 
-application {
-name     = module.slurmdbd.app_name
-endpoint = module.slurmdbd.requires.database
-}
+  application {
+    name     = module.slurmdbd.app_name
+    endpoint = module.slurmdbd.requires.database
+  }
 }
 :::
 
@@ -268,120 +267,120 @@ Expand the dropdown below to see the full deployment plan:
 :caption: `main.tf`
 :linenos:
 terraform {
-required_providers {
-juju = {
-source  = "juju/juju"
-version = ">= 0.16.0"
-}
-}
+  required_providers {
+    juju = {
+      source  = "juju/juju"
+      version = ">= 0.16.0"
+    }
+  }
 }
 
 resource "juju_model" "slurm" {
-name = "slurm"
+  name = "slurm"
 
-cloud {
-name = "charmed-hpc"
-}
+  cloud {
+    name = "charmed-hpc"
+  }
 }
 
 module "sackd" {
-source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/sackd/terraform"
-model_name  = juju_model.slurm.name
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/sackd/terraform"
+  model_name  = juju_model.slurm.name
 }
 
 module "slurmctld" {
-source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
-model_name  = juju_model.slurm.name
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
+  model_name  = juju_model.slurm.name
 }
 
 module "slurmd" {
-source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmd/terraform"
-model_name  = juju_model.slurm.name
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmd/terraform"
+  model_name  = juju_model.slurm.name
 }
 
 module "slurmdbd" {
-source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmdbd/terraform"
-model_name  = juju_model.slurm.name
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmdbd/terraform"
+  model_name  = juju_model.slurm.name
 }
 
 module "slurmrestd" {
-source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmrestd/terraform"
-model_name  = juju_model.slurm.name
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmrestd/terraform"
+  model_name  = juju_model.slurm.name
 }
 
 module "mysql" {
-source          = "git::https://github.com/canonical/mysql-operator//terraform"
-juju_model_name = juju_model.slurm.name
+  source          = "git::https://github.com/canonical/mysql-operator//terraform"
+  juju_model_name = juju_model.slurm.name
 }
 
 resource "juju_integration" "sackd-to-slurmctld" {
-model = juju_model.slurm.name
+  model = juju_model.slurm.name
 
-application {
-name     = module.sackd.app_name
-endpoint = module.sackd.provides.slurmctld
-}
+  application {
+    name     = module.sackd.app_name
+    endpoint = module.sackd.provides.slurmctld
+  }
 
-application {
-name     = module.slurmctld.app_name
-endpoint = module.slurmctld.requires.login-node
-}
+  application {
+    name     = module.slurmctld.app_name
+    endpoint = module.slurmctld.requires.login-node
+  }
 }
 
 resource "juju_integration" "slurmd-to-slurmctld" {
-model = juju_model.slurm.name
+  model = juju_model.slurm.name
 
-application {
-name     = module.slurmd.app_name
-endpoint = module.slurmd.provides.slurmctld
-}
+  application {
+    name     = module.slurmd.app_name
+    endpoint = module.slurmd.provides.slurmctld
+  }
 
-application {
-name     = module.slurmctld.app_name
-endpoint = module.slurmctld.requires.slurmd
-}
+  application {
+    name     = module.slurmctld.app_name
+    endpoint = module.slurmctld.requires.slurmd
+  }
 }
 
 resource "juju_integration" "slurmdbd-to-slurmctld" {
-model = juju_model.slurm.name
+  model = juju_model.slurm.name
 
-application {
-name     = module.slurmdbd.app_name
-endpoint = module.slurmdbd.provides.slurmctld
-}
+  application {
+    name     = module.slurmdbd.app_name
+    endpoint = module.slurmdbd.provides.slurmctld
+  }
 
-application {
-name     = module.slurmctld.app_name
-endpoint = module.slurmctld.requires.slurmdbd
-}
+  application {
+    name     = module.slurmctld.app_name
+    endpoint = module.slurmctld.requires.slurmdbd
+  }
 }
 
 resource "juju_integration" "slurmrestd-to-slurmctld" {
-model = juju_model.slurm.name
+  model = juju_model.slurm.name
 
-application {
-name     = module.slurmrestd.app_name
-endpoint = module.slurmrestd.provides.slurmctld
-}
+  application {
+    name     = module.slurmrestd.app_name
+    endpoint = module.slurmrestd.provides.slurmctld
+  }
 
-application {
-name     = module.slurmctld.app_name
-endpoint = module.slurmctld.requires.slurmrestd
-}
+  application {
+    name     = module.slurmctld.app_name
+    endpoint = module.slurmctld.requires.slurmrestd
+  }
 }
 
 resource "juju_integration" "slurmdbd-to-mysql" {
-model = juju_model.slurm.name
+  model = juju_model.slurm.name
 
-application {
-name     = module.mysql.application_name
-endpoint = module.mysql.provides.database
-}
+  application {
+    name     = module.mysql.application_name
+    endpoint = module.mysql.provides.database
+  }
 
-application {
-name     = module.slurmdbd.app_name
-endpoint = module.slurmdbd.requires.database
-}
+  application {
+    name     = module.slurmdbd.app_name
+    endpoint = module.slurmdbd.requires.database
+  }
 }
 :::
 :::
@@ -400,6 +399,7 @@ You can also run `terraform plan`{l=shell} to see the speculative execution plan
 will follow to deploy the Slurm charms, however, note that `terraform plan`{l=shell} will not
 actually execute plan.
 :::
+
 
 After a few minutes, your Slurm deployment will become active. The output of the
 `juju status`{l=shell} command should be similar to the following:
@@ -438,8 +438,8 @@ Machine  State    Address       Inst id        Base          AZ  Message
 
 :::::
 
-(deploy-slurm-lxd)=
 
+(deploy-slurm-lxd)=
 ### Deploying Slurm on LXD
 
 The Slurm charms can deploy, manage, and operate Slurm on any
@@ -473,39 +473,39 @@ juju deploy mysql --channel "8.0/stable" --constraints="virt-type=virtual-machin
 :::{code-block} terraform
 :caption: `main.tf`
 module "sackd" {
-source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/sackd/terraform"
-model_name  = juju_model.slurm.name
-constraints = "arch=amd64 virt-type=virtual-machine"
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/sackd/terraform"
+  model_name  = juju_model.slurm.name
+  constraints = "arch=amd64 virt-type=virtual-machine"
 }
 
 module "slurmctld" {
-source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
-model_name  = juju_model.slurm.name
-constraints = "arch=amd64 virt-type=virtual-machine"
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
+  model_name  = juju_model.slurm.name
+  constraints = "arch=amd64 virt-type=virtual-machine"
 }
 
 module "slurmd" {
-source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmd/terraform"
-model_name  = juju_model.slurm.name
-constraints = "arch=amd64 virt-type=virtual-machine"
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmd/terraform"
+  model_name  = juju_model.slurm.name
+  constraints = "arch=amd64 virt-type=virtual-machine"
 }
 
 module "slurmdbd" {
-source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmdbd/terraform"
-model_name  = juju_model.slurm.name
-constraints = "arch=amd64 virt-type=virtual-machine"
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmdbd/terraform"
+  model_name  = juju_model.slurm.name
+  constraints = "arch=amd64 virt-type=virtual-machine"
 }
 
 module "slurmrestd" {
-source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmrestd/terraform"
-model_name  = juju_model.slurm.name
-constraints = "arch=amd64 virt-type=virtual-machine"
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmrestd/terraform"
+  model_name  = juju_model.slurm.name
+  constraints = "arch=amd64 virt-type=virtual-machine"
 }
 
 module "mysql" {
-source          = "git::https://github.com/canonical/mysql-operator//terraform"
-juju_model_name = juju_model.slurm.name
-constraints     = "arch=amd64 virt-type=virtual-machine"
+  source          = "git::https://github.com/canonical/mysql-operator//terraform"
+  juju_model_name = juju_model.slurm.name
+  constraints     = "arch=amd64 virt-type=virtual-machine"
 }
 :::
 
@@ -525,7 +525,6 @@ juju run slurmctld/leader resume nodename="<machine-instance-id/hostname>"
 
 ::::{admonition} Tips
 :class: tip
-
 1. You can get the hostname of all your compute nodes with `juju exec`{l=shell}:
 
 :::{code-block} shell
