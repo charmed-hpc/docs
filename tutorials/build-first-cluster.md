@@ -5,7 +5,7 @@
 
 <!-- Goal: Get a new potential user familiar with the various tools used for Charmed HPC, and build a basic cluster that feels recognizable by the end. Show how Charmed HPC provides a turn-key cluster smoothly and why its worth using. -->
 
-In this tutorial we will build a small Charmed HPC cluster, deployed a job to the new batch queue, and viewed the job and cluster status metrics. By the end of this tutorial, we will have worked with Multipass, Juju and Charms, Kubernetes, the Canonical Observability Stack (COS), and Slurm.
+In this tutorial we will build a small Charmed HPC cluster, submit a job to the new batch queue, and view the job and cluster status metrics. By the end of this tutorial, we will have worked with Multipass, Juju and Charms, Kubernetes, the Canonical Observability Stack (COS), and Slurm.
 
 This tutorial expects that you have some familiarity with classic high-performance computing concepts and programs, but does not expect any prior experience with Juju, Kubernetes, COS, or prior experience launching a Slurm cluster.
 
@@ -20,9 +20,9 @@ This tutorial builds a minimal cluster deployment within a virtual machine and s
 To successfully complete this tutorial, you will need:
 
 
-* 8 cpus, 20GB RAM, and 40GB storage available
+* 8 CPU cores, 20GB RAM, and 40GB storage available
 * [Multipass installed](https://canonical.com/multipass/install)
-* An active wifi connection
+* An active internet connection
 * A local copy of the `charmed-hpc-tutorial-cloud-init.yaml`
 
 ## Create Multipass VM
@@ -46,16 +46,11 @@ To check the status of cloud-init, first, enter the vm:
 multipass shell charmed-hpc-tutorial-vm
 :::
 
-Then check `cloud init status`{l=shell} with:
-
-:::{code-block} shell
-cloud-init status --long
-:::
-
-Which will show something similar to the following when complete:
+Then check `cloud init status`{l=shell}:
 
 :::{terminal}
 :input: cloud-init status --long
+:copy:
 status: done
 extended_status: done
 boot_status_code: enabled-by-genertor
@@ -92,130 +87,15 @@ terraform {
 }
 :::
 
-Now, in the same file, create the `slurm` model that will hold the deployment:
+Then deploy the Slurm management daemon `slurmctld`, the Slurm compute node daemon with partition name 'tutorial-partition' and two nodes, the authentication and credential kiosk daemon `sackd`:
 
-:::{code-block} terraform
-:caption: `main.tf`
-resource "juju_model" "slurm" {
-  name = "slurm"
-
-  cloud {
-    name = "charmed-hpc-controller"
-  }
-}
+:::{code-block} shell
+juju deploy slurmctld --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
+juju deploy slurmd tutorial-partition --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine" -n 2
+juju deploy sackd --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
 :::
 
-With the `slurm` `juju_model` resource defined, declare the following set of modules in the Terraform plan:
-
-:::{code-block} terraform
-:caption: `main.tf`
-module "sackd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/sackd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmctld" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmdbd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmdbd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmrestd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmrestd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "mysql" {
-  source          = "git::https://github.com/canonical/mysql-operator//terraform"
-  juju_model_name = juju_model.slurm.name
-}
-:::
-
-Now declare the following set of resources in the same deployment plan, to integrate the Slurm daemons together:
-
-:::{code-block} terraform
-:caption: `main.tf`
-resource "juju_integration" "sackd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.sackd.app_name
-    endpoint = module.sackd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.login-node
-  }
-}
-
-resource "juju_integration" "slurmd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.slurmd.app_name
-    endpoint = module.slurmd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.slurmd
-  }
-}
-
-resource "juju_integration" "slurmdbd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.slurmdbd.app_name
-    endpoint = module.slurmdbd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.slurmdbd
-  }
-}
-
-resource "juju_integration" "slurmrestd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.slurmrestd.app_name
-    endpoint = module.slurmrestd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.slurmrestd
-  }
-}
-
-resource "juju_integration" "slurmdbd-to-mysql" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.mysql.application_name
-    endpoint = module.mysql.provides.database
-  }
-
-  application {
-    name     = module.slurmdbd.app_name
-    endpoint = module.slurmdbd.requires.database
-  }
-}
-:::
-
-The full deployment plan is availble in the dropdown. Compare yours to the full plan to confirm everything was added correctly.
+Next, deploy the filesystem pieces to create a MicroCeph shared filesystem:
 
 :::{dropdown} Full Slurm deployment plan
 :::{code-block} terraform
@@ -357,6 +237,7 @@ After a few minutes, the Slurm deployment will become active. The output of the
 
 :::{terminal}
 :input: juju status
+:copy:
 Model  Controller              Cloud/Region         Version    SLA          Timestamp
 slurm  charmed-hpc-controller  localhost/localhost    3.6.9    unsupported  17:16:37Z
 
@@ -395,37 +276,27 @@ Machine  State    Address                                 Inst id        Base   
 
 Now that Slurm and the file system have been successfully deployed, the next step is to set up the compute nodes themselves. The compute nodes must be moved from the `down` state to the `idle` state so that they can start having jobs ran on them.
 
-First, check that the compute nodes are still down:
-
-:::{code-block} shell
-juju exec -u sackd/0 -- sinfo
-:::
-
-which will show something similar to:
+First, check that the compute nodes are still down, which will show something similar to:
 
 :::{terminal}
 :input: juju exec -u sackd/0 -- sinfo
+:copy:
 PARTITION         AVAIL  TIMELIMIT  NODES  STATE NODELIST
 tutorial-parition    up   infinite      2   down juju-e16200-[1-2]
 :::
 
-Then, to bring up the compute nodes:
+Then, bring up the compute nodes:
 
 :::{code-block} shell
 juju run tutorial-partition/0 node-configured
 juju run tutorial-partition/1 node-configured
 :::
 
-And verify that the `STATE` is now set to `idle`:
-
-:::{code-block} shell
-juju exec -u sackd/0 -- sinfo
-:::
-
-which should now show:
+And verify that the `STATE` is now set to `idle`, which should now show:
 
 :::{terminal}
 :input: juju exec -u sackd/0 -- sinfo
+:copy:
 PARTITION         AVAIL  TIMELIMIT  NODES  STATE NODELIST
 tutorial-parition    up   infinite      2   idle juju-e16200-[1-2]
 :::
@@ -446,87 +317,5 @@ juju ssh sackd/0
 
 <!-- Set up and run an Apptainer job -->
 
-## Deploy the identity stack
-
-Now that we have a functional cluster, we'll want to be able to view cluster health metrics. For this, we will deploy the Canonical Observability Stack (COS) to our `charmed-hpc-k8s` cloud.
-
-<!-- slurmdbd and mysql? -->
-<!-- context on what's about to be done -->
-:::{code-block} shell
-juju add-model cos charmed-hpc-k8s
-juju deploy --model cos cos-lite --trust
-:::
-
-:::{code-block} shell
-juju deploy --model slurm grafana-agent --base "ubuntu@24.04"
-juju integrate --model slurm grafana-agent slurmctld
-:::
-
-The grafana-agent deployment and integration pieces take a few minutes to complete all steps and must be complete prior to the next steps. To check, run:
-
-:::{code-block} shell
-juju status --watch 2s
-:::
-
-and wait until the `Status` states `active` for all `Apps` and there are no messages stating that any app is waiting or installing. To leave the watch session, press `ctrl+c`.
-
-<!-- context on what's about to be done -->
-:::{code-block} shell
-juju show-unit --model cos catalogue/0 --format json | \
-  jq '.[]."relation-info".[]."application-data".url | select (. != null)'
-:::
-
-which will show something similar to:
-
-:::{terminal}
-:input: juju show-unit --model cos catalogue/0 --format json | jq '.[]."relation-info".[]."application-data".url | select (. != null)'
-"http://10.9.115.212/cos-grafana"
-"http://10.9.115.212/cos-prometheus-0"
-"http://10.9.115.212/cos-alertmanager"
-:::
-
-and then use the full `cos-prometheus-0` address (here: http://10.9.115.212/cos-prometheus-0) to run:
-
-<!-- context on what's about to be done -->
-
-:::{code-block} shell
-juju exec --model slurm --unit grafana-agent/0 \
-  "curl -s <cos-prometheus-0 address>/api/v1/status/runtimeinfo"
-:::
-
-<!-- output of the curl command -->
-<!-- context on what's about to be done -->
-:::{code-block} shell
-juju switch cos
-juju offer cos.grafana:grafana-dashboard grafana-dashboards
-juju offer cos.loki:logging loki-logging
-juju offer cos.prometheus:receive-remote-write prometheus-receive-remote-write
-:::
-
-<!-- `juju status` state on cos model and on slurm model at this stage -->
-
-:::{code-block} shell
-juju switch slurm 
-juju consume charmed-hpc-controller:cos.prometheus-receive-remote-write
-juju consume charmed-hpc-controller:cos.grafana-dashboards
-juju consume charmed-hpc-controller:cos.loki-logging
-juju integrate grafana-agent prometheus-receive-remote-write
-juju integrate grafana-agent loki-logging
-juju integrate grafana-agent grafana-dashboards
-:::
-
-and then check `juju status`{l=shell} and wait until `grafana-agent/0` is `idle`.
-
-
-<!-- is the wait necessary if juju status is checked prior to this step? -->
-:::{code-block} shell
-juju run grafana/leader --model charmed-hpc-controller:cos \
-  --wait 1m \
-  get-admin-password
-:::
-
-Open the resulting `url` in your browser and log in with username `admin` and the admin-password listed.
-
-<!-- quick walk through of what to look at once logged in -->
 
 ## Success!
