@@ -448,7 +448,7 @@ This functionality requires a low-latency [shared file system to be deployed](ho
 
 It is recommended that the HA file system **not be the same as the file system used for the cluster compute nodes** to avoid I/O-intensive user jobs from impacting `slurmctld` responsiveness. The suggested approach is to deploy a dedicated HA file system then subsequently provision a separate file system for the compute nodes.
 
-Once a chosen shared file system has been deployed and made available via a proxy charm, run the following, substituting `[filesystem-provider]` with the name of the proxy charm, for a `slurmctld` HA setup with two units (a primary and single backup):
+Once a chosen shared file system has been deployed and made available via a proxy or other file system provider charm, run the following, substituting `[filesystem-provider]` with the name of the provider charm, to deploy a `slurmctld` HA setup with two units (a primary and single backup):
 
 :::::{tab-set}
 

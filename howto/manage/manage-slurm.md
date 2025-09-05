@@ -10,7 +10,7 @@ To migrate a previously deployed single `slurmctld` unit to a [high availability
 * [Shared `StateSaveLocation` using `filesystem-client` charm](explanation-slurmctld-high-availability-state-save-location)
 * [Deploying `slurmctld` in high availability](deploy-slurmctld-high-availability)
 
-Once a chosen shared file system has been deployed and made available via a proxy charm, run the following, substituting `[filesystem-provider]` with the name of the proxy charm, then scale up the application:
+Once a chosen shared file system has been deployed and made available via a proxy or other file system provider charm, run the following, substituting `[filesystem-provider]` with the name of the provider charm, to deploy a `slurmctld` HA setup with two units (a primary and single backup):
 
 :::{warning}
 **This migration requires cluster downtime**.
