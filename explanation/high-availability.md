@@ -27,7 +27,7 @@ To allow for flexibility in shared file system for the `StateSaveLocation`, Char
 The Slurm developers [do not recommended NFS](https://slurm.schedmd.com/quickstart_admin.html#Config) for the shared file system due to inadequate performance.
 :::
 
-The `slurmctld` charm automatically configures the mount point for the shared file system when integrated with the `filesystem-client` on the `mount` endpoint. The shared file system is mounted on all `slurmctld` units at `/mnt/slurmctld-statefs`. The `StateSaveLocation` is then set to a sub-directory: `/mnt/slurmctld-statefs/checkpoint`.
+The `slurmctld` charm automatically configures the mount point for the shared file system when integrated with the `filesystem-client` on the `mount` endpoint. The shared file system is mounted on all `slurmctld` units at `/srv/slurmctld-statefs`. The `StateSaveLocation` is then set to a sub-directory: `/srv/slurmctld-statefs/checkpoint`.
 
 To allow for this automatic mount point configuration, the `filesystem-client` must be deployed without `--config mountpoint` set. Attempting to integrate a `filesystem-client` where `--config mountpoint` has been set will result in a charm error.
 
@@ -46,7 +46,7 @@ Be aware that attempting to scale up `slurmctld` without a `filesystem-client` w
 
 In an HA setup, all `slurmctld` instances require consistent configuration files. That is, _slurm.conf_, _gres.conf_, and other Slurm configuration files must be identical on all `slurmctld` hosts. To achieve this in Charmed HPC, the shared file system enabled by the `filesystem-client` is used.
 
-Similarly to `StateSaveLocation`, data in `/etc/slurm` is migrated to `/mnt/slurmctld-statefs/etc/slurm` on `filesystem-client` integration. The `/etc/slurm` directory is then replaced with a symbolic link to `/mnt/slurmctld-statefs/etc/slurm` on all `slurmctld` instances to ensure all access the same configuration files.
+Similarly to `StateSaveLocation`, data in `/etc/slurm` is migrated to `/srv/slurmctld-statefs/etc/slurm` on `filesystem-client` integration. The `/etc/slurm` directory is then replaced with a symbolic link to `/srv/slurmctld-statefs/etc/slurm` on all `slurmctld` instances to ensure all access the same configuration files.
 
 To avoid data loss, any existing `/etc/slurm/` is backed up to a date-stamped directory on the unit's local disk, for example `/etc/slurm_20250620_161437` for a backup performed on 2025-06-20 at 16:14:37. To prevent non-leaders from reading partially written configuration files, updates to files are made atomically via [slurmutils](https://github.com/charmed-hpc/slurmutils/).
 

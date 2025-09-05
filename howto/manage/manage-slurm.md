@@ -106,9 +106,9 @@ Unit                    Workload  Agent      Machine  Public address  Ports     
 mysql/0*                active    idle       5        10.32.18.127    3306,33060/tcp  Primary
 sackd/0*                active    idle       4        10.32.18.203
 slurmctld/0*            active    idle       0        10.32.18.15                     primary - UP
-  filesystem-client/0*  active    idle                10.32.18.15                     Mounted filesystem at `/mnt/slurmctld-statefs`
+  filesystem-client/0*  active    idle                10.32.18.15                     Mounted filesystem at `/srv/slurmctld-statefs`
 slurmctld/1             active    idle       6        10.32.18.204                    backup - UP
-  filesystem-client/1   active    idle                10.32.18.204                    Mounted filesystem at `/mnt/slurmctld-statefs`
+  filesystem-client/1   active    idle                10.32.18.204                    Mounted filesystem at `/srv/slurmctld-statefs`
 slurmd/0*               active    idle       1        10.32.18.207
 slurmdbd/0*             active    idle       2        10.32.18.102
 slurmrestd/0*           active    idle       3        10.32.18.9
