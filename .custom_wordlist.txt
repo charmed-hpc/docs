@@ -7,6 +7,7 @@ HPC
 hpc
 HPC's
 InfiniBand
+Juju's
 MPI
 OpenMPI
 PKEY
