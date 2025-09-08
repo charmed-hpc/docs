@@ -682,8 +682,8 @@ To verify that the entire partition is `IDLE`, run `sinfo`{l=shell} without the
 juju exec -u sackd/0 -- sinfo
 :::
 
-## Related how-to guides
+## Next steps
 
-Now that Slurm is deployed, you might want to view:
+Now that Slurm is deployed, you can now deploy the shared filesystem of your Charmed HPC cluster:
 
 - {ref}`howto-setup-deploy-shared-filesystem`
