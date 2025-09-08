@@ -12,9 +12,9 @@ When an HA cluster distributes incoming requests across multiple controllers sim
 (explanation-slurmctld-high-availability)=
 ## Slurmctld high availability
 
-The `slurmctld` controller service supports HA through an active-passive setup. The primary controller serves all Slurm client requests while backup controllers wait in standby. Controllers are defined by `SlurmctldHost` entries in the _slurm.conf_ configuration file, with the first entry being the primary and all others being backups, with backup fail-over order being the order defined in the file.
+Slurm's `slurmctld` controller service has built-in HA support through an active-passive setup. The primary controller serves all Slurm client requests while backup controllers wait in standby. Controllers are defined by `SlurmctldHost` entries in the _slurm.conf_ configuration file, with the first entry being the primary and all others being backups, with backup fail-over order being the order defined in the file.
 
-Charmed HPC uses this functionality to allow scaling of a deployed `slurmctld` charm.
+Charmed HPC uses Slurm's built-in HA support alongside [Juju's horizontal scaling capabilities](https://documentation.ubuntu.com/juju/latest/reference/scaling/) to allow for the `slurmctld` charm to run with multiple units in an HA configuration.
 
 (explanation-slurmctld-high-availability-state-save-location)=
 ### Shared `StateSaveLocation` using `filesystem-client` charm
