@@ -15,6 +15,12 @@ applications to extend the functionality of your cluster.
 - {ref}`howto-manage-integrate-with-cos`
 - {ref}`howto-manage-integrate-with-influxdb`
 
+## Configure the cluster
+
+These how-to guides provide instructions for configuring an existing Charmed HPC cluster.
+
+- {ref}`howto-manage-slurm`
+
 :::{toctree}
 :titlesonly:
 :maxdepth: 1
@@ -22,4 +28,5 @@ applications to extend the functionality of your cluster.
 
 Integrate with COS <integrate-with-cos>
 Integrate with InfluxDB <integrate-with-influxdb>
+Manage Slurm <manage-slurm>
 :::

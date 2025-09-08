@@ -52,6 +52,11 @@ juju add-model slurm charmed-hpc
 Now, with `slurm` model created, run the following set of commands to deploy the Slurm
 daemons with MySQL as the storage back-end for `slurmdbd`:
 
+:::{note}
+For optional `slurmctld` high availability support, do not deploy `slurmctld` as below. See
+[Deploying `slurmctld` in high availability](deploy-slurmctld-high-availability) instead.
+:::
+
 :::{code-block} shell
 juju deploy sackd --base "ubuntu@24.04" --channel "edge"
 juju deploy slurmctld --base "ubuntu@24.04" --channel "edge"
@@ -85,7 +90,7 @@ slurm  charmed-hpc  localhost/localhost  3.6.0    unsupported  17:16:37Z
 App         Version          Status  Scale  Charm       Channel      Rev  Exposed  Message
 mysql       8.0.39-0ubun...  active      1  mysql       8.0/stable   313  no
 sackd       23.11.4-1.2u...  active      1  sackd       latest/edge    4  no
-slurmctld   23.11.4-1.2u...  active      1  slurmctld   latest/edge   86  no
+slurmctld   23.11.4-1.2u...  active      1  slurmctld   latest/edge   86  no       primary - UP
 slurmd      23.11.4-1.2u...  active      1  slurmd      latest/edge  107  no
 slurmdbd    23.11.4-1.2u...  active      1  slurmdbd    latest/edge   78  no
 slurmrestd  23.11.4-1.2u...  active      1  slurmrestd  latest/edge   80  no
@@ -93,7 +98,7 @@ slurmrestd  23.11.4-1.2u...  active      1  slurmrestd  latest/edge   80  no
 Unit           Workload  Agent      Machine  Public address  Ports           Message
 mysql/0*       active    idle       5        10.32.18.127    3306,33060/tcp  Primary
 sackd/0*       active    idle       4        10.32.18.203
-slurmctld/0*   active    idle       0        10.32.18.15
+slurmctld/0*   active    idle       0        10.32.18.15                     primary - UP
 slurmd/0*      active    idle       1        10.32.18.207
 slurmdbd/0*    active    idle       2        10.32.18.102
 slurmrestd/0*  active    idle       3        10.32.18.9
@@ -146,6 +151,11 @@ resource "juju_model" "slurm" {
 With the `slurm` `juju_model` resource defined, declare the following set of modules
 in your Terraform plan. These modules will direct Juju to deploy the Slurm daemons with
 MySQL as the storage back-end for `slurmdbd`:
+
+:::{note}
+For optional `slurmctld` high availability support, do not deploy `slurmctld` as below. See
+[Deploying `slurmctld` in high availability](deploy-slurmctld-high-availability) instead.
+:::
 
 :::{code-block} terraform
 :caption: `main.tf`
@@ -412,7 +422,7 @@ slurm  charmed-hpc  localhost/localhost  3.6.0    unsupported  17:16:37Z
 App         Version          Status  Scale  Charm       Channel      Rev  Exposed  Message
 mysql       8.0.39-0ubun...  active      1  mysql       8.0/stable   313  no
 sackd       23.11.4-1.2u...  active      1  sackd       latest/edge    4  no
-slurmctld   23.11.4-1.2u...  active      1  slurmctld   latest/edge   86  no
+slurmctld   23.11.4-1.2u...  active      1  slurmctld   latest/edge   86  no       primary - UP
 slurmd      23.11.4-1.2u...  active      1  slurmd      latest/edge  107  no
 slurmdbd    23.11.4-1.2u...  active      1  slurmdbd    latest/edge   78  no
 slurmrestd  23.11.4-1.2u...  active      1  slurmrestd  latest/edge   80  no
@@ -420,7 +430,7 @@ slurmrestd  23.11.4-1.2u...  active      1  slurmrestd  latest/edge   80  no
 Unit           Workload  Agent      Machine  Public address  Ports           Message
 mysql/0*       active    idle       5        10.32.18.127    3306,33060/tcp  Primary
 sackd/0*       active    idle       4        10.32.18.203
-slurmctld/0*   active    idle       0        10.32.18.15
+slurmctld/0*   active    idle       0        10.32.18.15                     primary - UP
 slurmd/0*      active    idle       1        10.32.18.207
 slurmdbd/0*    active    idle       2        10.32.18.102
 slurmrestd/0*  active    idle       3        10.32.18.9
@@ -438,6 +448,122 @@ Machine  State    Address       Inst id        Base          AZ  Message
 
 :::::
 
+
+(deploy-slurmctld-high-availability)=
+### Deploying `slurmctld` in high availability
+
+The `slurmcltd` charm optionally supports [high availability (HA)](explanation-high-availability) through the native functionality provided by Slurm: an active-passive setup where additional controllers are backups to a single primary.
+
+This functionality requires a low-latency shared file system to be deployed and a `filesystem-client` charm to be integrated with `slurmctld`. For guidance on choosing a file system, see the [Shared `StateSaveLocation` using `filesystem-client` charm](explanation-slurmctld-high-availability-state-save-location) section. It is recommended that the HA file system **not be the same as the file system used for the cluster compute nodes** to avoid I/O-intensive user jobs from impacting `slurmctld` responsiveness. The suggested approach is to deploy a dedicated HA file system then subsequently provision a separate file system for the compute nodes.
+
+To deploy the file system, follow the instructions in the [Deploy a shared filesystem](howto-setup-deploy-shared-filesystem) section. Once a chosen shared file system has been deployed and made available via a proxy or provider charm, run the following, substituting `[filesystem-provider]` with the name of the provider charm, to deploy a `slurmctld` HA setup with two units (a primary and single backup):
+
+:::::{tab-set}
+
+::::{tab-item} CLI
+:sync: cli
+
+:::{code-block} shell
+juju deploy filesystem-client --channel latest/edge
+juju integrate filesystem-client:filesystem [filesystem-provider]:filesystem
+
+juju deploy slurmctld --base "ubuntu@24.04" --channel "edge" --num-units 2
+juju integrate slurmctld:mount filesystem-client:mount
+:::
+
+::::
+
+::::{tab-item} Terraform
+:sync: terraform
+
+:::{code-block} terraform
+:caption: `main.tf`
+module "filesystem-client" {
+  source     = "git::https://github.com/charmed-hpc/filesystem-charms//charms/filesystem-client/terraform"
+  model_name  = juju_model.slurm.name
+}
+
+resource "juju_integration" "provider-to-filesystem" {
+  model = juju_model.slurm.name
+
+  application {
+    name     = module.[filesystem-provider].app_name
+    endpoint = module.[filesystem-provider].provides.filesystem
+  }
+
+  application {
+    name     = module.filesystem-client.app_name
+    endpoint = module.filesystem-client.requires.filesystem
+  }
+}
+
+module "slurmctld" {
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
+  model_name  = juju_model.slurm.name
+  constraints = "arch=amd64 virt-type=virtual-machine"
+  units       = 2
+}
+
+resource "juju_integration" "filesystem-to-slurmctld" {
+  model = juju_model.slurm.name
+
+  application {
+    name     = module.slurmctld.app_name
+    endpoint = module.slurmctld.provides.mount
+  }
+
+  application {
+    name     = module.filesystem-client.app_name
+    endpoint = module.filesystem-client.requires.mount
+  }
+}
+:::
+
+::::
+
+:::::
+
+Once `slurmctld` is scaled up, the output of the `juju status`{l=shell} command should be similar to the following, varying by choice of shared file system - here CephFS:
+
+:::{terminal}
+:input: juju status
+Model  Controller   Cloud/Region         Version  SLA          Timestamp
+slurm  charmed-hpc  localhost/localhost  3.6.0    unsupported  17:16:37Z
+
+App                 Version          Status  Scale  Charm                Channel      Rev  Exposed  Message
+cephfs-server-proxy                  active      1  cephfs-server-proxy  latest/edge   25  no
+filesystem-client                    active      1  filesystem-client    latest/edge   20  no       Integrated with `cephfs` provider
+mysql               8.0.39-0ubun...  active      1  mysql                8.0/stable   313  no
+sackd               23.11.4-1.2u...  active      1  sackd                latest/edge    4  no
+slurmctld           23.11.4-1.2u...  active      1  slurmctld            latest/edge   86  no       primary - UP
+slurmd              23.11.4-1.2u...  active      1  slurmd               latest/edge  107  no
+slurmdbd            23.11.4-1.2u...  active      1  slurmdbd             latest/edge   78  no
+slurmrestd          23.11.4-1.2u...  active      1  slurmrestd           latest/edge   80  no
+
+Unit                    Workload  Agent      Machine  Public address  Ports           Message
+mysql/0*                active    idle       5        10.32.18.127    3306,33060/tcp  Primary
+sackd/0*                active    idle       4        10.32.18.203
+slurmctld/0*            active    idle       0        10.32.18.15                     primary - UP
+  filesystem-client/0*  active    idle                10.32.18.15                     Mounted filesystem at `/srv/slurmctld-statefs`
+slurmctld/1             active    idle       6        10.32.18.204                    backup - UP
+  filesystem-client/1   active    idle                10.32.18.204                    Mounted filesystem at `/srv/slurmctld-statefs`
+slurmd/0*               active    idle       1        10.32.18.207
+slurmdbd/0*             active    idle       2        10.32.18.102
+slurmrestd/0*           active    idle       3        10.32.18.9
+
+Machine  State    Address       Inst id        Base          AZ  Message
+0        started  10.32.18.15   juju-d566c2-0  ubuntu@24.04      Running
+1        started  10.32.18.207  juju-d566c2-1  ubuntu@24.04      Running
+2        started  10.32.18.102  juju-d566c2-2  ubuntu@24.04      Running
+3        started  10.32.18.9    juju-d566c2-3  ubuntu@24.04      Running
+4        started  10.32.18.203  juju-d566c2-4  ubuntu@24.04      Running
+5        started  10.32.18.127  juju-d566c2-5  ubuntu@22.04      Running
+6        started  10.32.18.204  juju-d566c2-6  ubuntu@24.04      Running
+:::
+
+::::
+
+:::::
 
 (deploy-slurm-lxd)=
 ### Deploying Slurm on LXD
@@ -555,3 +681,9 @@ To verify that the entire partition is `IDLE`, run `sinfo`{l=shell} without the
 :::{code-block} shell
 juju exec -u sackd/0 -- sinfo
 :::
+
+## Next steps
+
+Now that Slurm is deployed, you can now deploy the shared filesystem of your Charmed HPC cluster:
+
+- {ref}`howto-setup-deploy-shared-filesystem`
