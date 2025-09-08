@@ -454,11 +454,9 @@ Machine  State    Address       Inst id        Base          AZ  Message
 
 The `slurmcltd` charm optionally supports [high availability (HA)](explanation-high-availability) through the native functionality provided by Slurm: an active-passive setup where additional controllers are backups to a single primary.
 
-This functionality requires a low-latency [shared file system to be deployed](howto-setup-deploy-shared-filesystem) and a `filesystem-client` charm, without a user-configured mount point, to be integrated with `slurmctld` on the `mount` endpoint to allow sharing of data across all `slurmctld` units. For guidance on choosing a file system, see the [Shared `StateSaveLocation` using `filesystem-client` charm](explanation-slurmctld-high-availability-state-save-location) section.
+This functionality requires a low-latency shared file system to be deployed and a `filesystem-client` charm to be integrated with `slurmctld`. For guidance on choosing a file system, see the [Shared `StateSaveLocation` using `filesystem-client` charm](explanation-slurmctld-high-availability-state-save-location) section. It is recommended that the HA file system **not be the same as the file system used for the cluster compute nodes** to avoid I/O-intensive user jobs from impacting `slurmctld` responsiveness. The suggested approach is to deploy a dedicated HA file system then subsequently provision a separate file system for the compute nodes.
 
-It is recommended that the HA file system **not be the same as the file system used for the cluster compute nodes** to avoid I/O-intensive user jobs from impacting `slurmctld` responsiveness. The suggested approach is to deploy a dedicated HA file system then subsequently provision a separate file system for the compute nodes.
-
-Once a chosen shared file system has been deployed and made available via a proxy or other file system provider charm, run the following, substituting `[filesystem-provider]` with the name of the provider charm, to deploy a `slurmctld` HA setup with two units (a primary and single backup):
+To deploy the file system, follow the instructions in the [Deploy a shared filesystem](howto-setup-deploy-shared-filesystem) section. Once a chosen shared file system has been deployed and made available via a proxy or provider charm, run the following, substituting `[filesystem-provider]` with the name of the provider charm, to deploy a `slurmctld` HA setup with two units (a primary and single backup):
 
 :::::{tab-set}
 
