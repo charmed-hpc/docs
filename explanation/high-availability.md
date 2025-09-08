@@ -33,13 +33,13 @@ To allow for this automatic mount point configuration, the `filesystem-client` m
 
 ### Single `slurmctld` migration to high availability
 
-In a non-HA setup (a single `slurmctld`), `StateSaveLocation` data is stored on the unit local disk at `/var/lib/slurm/checkpoint`. Before `slurmctld` backup units can be added to enable high availability, the `slurmctld` charm must be integrated with a `filesystem-client` on the `mount` endpoint to provide the necessary shared storage. On integration, the `StateSaveLocation` data is automatically copied from the local disk to the shared file system provided by the `filesystem-client`.
+In a non-HA setup (a single `slurmctld` unit), `StateSaveLocation` data is stored on the unit local disk at `/var/lib/slurm/checkpoint`. Before `slurmctld` backup units can be added to enable high availability, the `slurmctld` charm must be integrated with a `filesystem-client` on the `mount` endpoint to provide the necessary shared storage. On integration, the `StateSaveLocation` data is automatically copied from the local disk to the shared file system provided by the `filesystem-client`.
 
-Once complete, `juju add-unit` can be used to add backup units. It is **not possible to remove the `filesystem-client` integration** and return to a non-HA setup once the migration has completed. To avoid data loss, the files and directories in the local  `/var/lib/slurm/checkpoint` are left untouched following migration. Specific steps can be found in the [Migrating a single `slurmctld` to high availability](howto-manage-single-slurmctld-to-high-availability) how-to section.
+Once the file system integration is complete, `juju add-unit` can be used to add backup units. It is **not possible to remove the `filesystem-client` integration** and return to a non-HA setup once the migration has completed. To avoid data loss, the files and directories in the local  `/var/lib/slurm/checkpoint` are left untouched following migration. Specific steps can be found in the [Migrating a single `slurmctld` to high availability](howto-manage-single-slurmctld-to-high-availability) how-to section.
 
 Note that **this migration requires cluster downtime**: the `slurmctld` service is stopped by the charm for the transfer duration and restarted when the `StateSaveLocation` data is in place on the shared file system. To minimize downtime, `StateSaveLocation` data is first copied to the shared file system while the `slurmctld` service is live, then the service is stopped and the difference in `StateSaveLocation` data is synchronized.
 
-Be aware that attempting to scale up `slurmctld` without a `filesystem-client` will cause new units to enter `BlockedStatus` until the `filesystem-client` is integrated.
+Be aware that attempting to add units to up `slurmctld` without a `filesystem-client` will cause the new units to enter `BlockedStatus` until the `filesystem-client` is integrated.
 
 (explanation-slurmctld-high-availability-etc-slurm)=
 ### Shared `/etc/slurm` configuration data
