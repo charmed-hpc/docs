@@ -44,7 +44,7 @@ Be aware that attempting to scale up `slurmctld` without a `filesystem-client` w
 (explanation-slurmctld-high-availability-etc-slurm)=
 ### Shared `/etc/slurm` configuration data
 
-In an HA setup, all `slurmctld` instances require consistent configuration files. That is, _slurm.conf_, _gres.conf_, and other Slurm configuration files must be identical on all `slurmctld` hosts. To achieve this in Charmed HPC, the shared file system enabled by the `filesystem-client` is used.
+In an HA setup, all `slurmctld` instances require matching configuration files. That is, _slurm.conf_, _gres.conf_, and other Slurm configuration files must be identical on all `slurmctld` hosts. To achieve this in Charmed HPC, the shared file system enabled by the `filesystem-client` is used.
 
 Similarly to `StateSaveLocation`, data in `/etc/slurm` is migrated to `/srv/slurmctld-statefs/etc/slurm` on `filesystem-client` integration. The `/etc/slurm` directory is then replaced with a symbolic link to `/srv/slurmctld-statefs/etc/slurm` on all `slurmctld` instances to ensure all access the same configuration files.
 
