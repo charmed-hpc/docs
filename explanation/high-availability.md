@@ -5,7 +5,7 @@ relatedlinks: "[Slurm&#32Workload&#32Manager&#32-&#32Quick&#32Start&#32Administr
 (explanation-high-availability)=
 # High Availability
 
-High availability (HA) refers to the ability of a system to continue functioning despite component failures. A motivation for HA being to eliminate single points of failure and minimize system downtime. HA can be provided through component redundancy, such as a computer cluster with multiple controllers that continues to function even if a controller has failed.
+High availability (HA) refers to the ability of a system to continue functioning despite component failures. The main motivation for HA is to eliminate single points of failure and minimize system downtime. HA can be provided through component redundancy, such as a computer cluster with multiple controllers that continues to function even if a controller has failed.
 
 When an HA cluster distributes incoming requests across multiple controllers simultaneously, it is referred to as an active-active setup. In contrast, an active-passive setup designates one controller as the primary, which handles all requests while the others remain on standby, ready for one to take over should the primary fail.
 
