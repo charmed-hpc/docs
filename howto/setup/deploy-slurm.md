@@ -452,7 +452,7 @@ Machine  State    Address       Inst id        Base          AZ  Message
 (deploy-slurmctld-high-availability)=
 ### Deploying `slurmctld` in high availability
 
-The `slurmcltd` charm optionally supports [high availability (HA)](explanation-high-availability) through the native functionality provided by Slurm: an active-passive setup where additional units are backups to a single primary.
+The `slurmcltd` charm optionally supports [high availability (HA)](explanation-high-availability) through the native functionality provided by Slurm: an active-passive setup where additional controllers are backups to a single primary.
 
 This functionality requires a low-latency [shared file system to be deployed](howto-setup-deploy-shared-filesystem) and a `filesystem-client` charm, without a user-configured mount point, to be integrated with `slurmctld` on the `mount` endpoint to allow sharing of data across all `slurmctld` units. For guidance on choosing a file system, see the [Shared `StateSaveLocation` using `filesystem-client` charm](explanation-slurmctld-high-availability-state-save-location) section.
 
