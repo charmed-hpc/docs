@@ -91,9 +91,11 @@ Then deploy the Slurm management daemon `slurmctld`, the Slurm compute node daem
 
 :::{code-block} shell
 juju deploy slurmctld --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
-juju deploy slurmd tutorial-partition --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine" -n 2
+juju deploy slurmd tutorial-partition -n 2 --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
 juju deploy sackd --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
 :::
+
+<!-- Note about use of --constraints="virt-type=virtual-machine" ? -->
 
 Next, deploy the filesystem pieces to create a MicroCeph shared filesystem:
 
@@ -226,8 +228,12 @@ using Terraform and the Juju provider:
 <!-- Within a specific directory? Any other precautions or notes necessary here for someone who has never used Terraform? -->
 
 :::{code-block} shell
-terraform init
-terraform apply -auto-approve
+juju integrate slurmctld sackd
+juju integrate slurmctld tutorial-partition
+juju integrate data ceph-fs
+juju integrate ceph-fs microceph
+juju integrate data:juju-info tutorial-partition:juju-info
+juju integrate sackd data
 :::
 
 <!-- What will the terminal look like after the prior command? Will there be any on-screen logging happening? -->
@@ -255,7 +261,7 @@ ceph-fs/0*                active    idle       5        10.125.192.110          
 microceph/0*              active    idle       4        fd42:4e69:6c2a:c4a9:216:3eff:fe0c:f9f5                 (workload) charm is ready
 sackd/0*                  active    idle       3        fd42:4e69:6c2a:c4a9:216:3eff:fe5b:75c6 6818/tcp
 slurmctld/0*              active    idle       0        10.125.192.7                           6817,9092/tcp
-tutorial-partition/0      active    idle       1        10.125.192.109                         6818/tcp                 
+tutorial-partition/0      active    idle       1        10.125.192.109                         6818/tcp
   data/0*                 active    idle                10.125.192.109                                          Mounted filesystem at '/data'
 tutorial-partition/1*     active    idle       2        10.125.192.132                         6818/tcp
   data/1                  active    idle                10.125.192.132                                          Mounted filesystem at '/data'
@@ -311,6 +317,20 @@ First move to the login node (sackd):
 juju ssh sackd/0
 :::
 
+Download the [mpi_hello_world.c] and [submit_hello.sh] scripts:
+
+:::{code-block}
+wget 
+:::
+::::{dropdown} [mpi_hello_world.c] - MPI Hello World Script
+:::{literalinclude} /reuse/tutorial/mpi_hello_world.c
+:caption: [mpi_hello_world.c]
+:language: bash
+:::
+::::
+
+[mpi_hello_world.c]: /reuse/tutorial/mpi_hello_world.c
+[submit_hello.sh]: /reuse/tutorial/submit_hello.sh
 <!-- Set up and run a batch job (and/or interactive?) -->
 
 ## Run a container job
