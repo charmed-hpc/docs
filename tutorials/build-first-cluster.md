@@ -311,27 +311,62 @@ tutorial-parition    up   infinite      2   idle juju-e16200-[1-2]
 
 ## Run a batch job
 
-First move to the login node (sackd):
+First ssh into the login node (sackd), move to the `/data` directory, and create and enter a `/tutorial` directory:
 
 :::{code-block} shell
 juju ssh sackd/0
+cd /data/
+mkdir tutorial
+cd tutorial/
 :::
 
-Download the [mpi_hello_world.c] and [submit_hello.sh] scripts:
+Then you'll need to download the [mpi_hello_world.c] and [submit_hello.sh] scripts:
 
-:::{code-block}
-wget 
+:::{code-block} shell
+wget https://github.com/charmed-hpc/docs/blob/tutorial/reuse/tutorial/mpi_hello_world.c
+wget https://github.com/charmed-hpc/docs/blob/tutorial/reuse/tutorial/submit_hello.sh
 :::
-::::{dropdown} [mpi_hello_world.c] - MPI Hello World Script
+
+For quick referencing, the two files are provided in dropdowns here as well. 
+
+::::{dropdown} MPI Hello World Script
 :::{literalinclude} /reuse/tutorial/mpi_hello_world.c
 :caption: [mpi_hello_world.c]
+:language: c
+:::
+::::
+
+::::{dropdown} Submit Hello World Script
+:::{literalinclude} /reuse/tutorial/submit_hello.sh
+:caption: [submit_hello.sh]
 :language: bash
 :::
 ::::
 
 [mpi_hello_world.c]: /reuse/tutorial/mpi_hello_world.c
 [submit_hello.sh]: /reuse/tutorial/submit_hello.sh
-<!-- Set up and run a batch job (and/or interactive?) -->
+
+To compile and run the c file, we'll need to install the openmpi libraries and run the `mpicc` compile command:
+
+:::{code-block} shell
+sudo apt install build-essential openmpi-bin libopenmpi-dev
+mpicc -o mpi_hello_world mpi_hello_world.c
+::: 
+
+Now that we have the mpi_hello_world executable, we can submit our job to the queue:
+
+:::{code-block} shell
+sbatch submit_hello.sh
+:::
+
+Once the job is complete, which should be within a few seconds, the output.txt file will look similar to:
+
+:::{code-block} text
+:caption: output.txt
+
+Hello world from processor juju-640476-1, rank 0 out of 2 processors
+Hello world from processor juju-640476-2, rank 1 out of 2 processors
+:::
 
 ## Run a container job
 
