@@ -17,7 +17,10 @@ UCX
 
 # Charm/application/service names
 alertmanager
+Apptainer
 catalogue
+Dockerhub
+Fortran
 glauth
 GLAuth
 GLAuth's
@@ -61,6 +64,7 @@ GCP
 GCP's
 GKE
 gcloud
+Valkey
 
 # CLI commands
 hostname
