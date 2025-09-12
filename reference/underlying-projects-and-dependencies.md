@@ -21,6 +21,7 @@ Core projects are projects that are maintained directly as part of Charmed HPC.
 slurm-charms, [Source](https://github.com/charmed-hpc/slurm-charms), [Issue tracker](https://github.com/charmed-hpc/slurm-charms/issues)
 filesystem-charms, [Source](https://github.com/charmed-hpc/filesystem-charms), [Issue tracker](https://github.com/charmed-hpc/filesystem-charms/issues)
 sssd-operator, [Source](https://github.com/canonical/sssd-operator), [Issue tracker](https://github.com/canonical/sssd-operator/issues)
+apptainer-operator, [Source](https://github.com/charmed-hpc/apptainer-operator), [Issue tracker](https://github.com/charmed-hpc/apptainer-operator/issues)
 slurmutils, [Source](https://github.com/charmed-hpc/slurmutils), [Issue tracker](https://github.com/charmed-hpc/slurmutils/issues)
 hpc-libs, [Source](https://github.com/charmed-hpc/hpc-libs), [Issue tracker](https://github.com/charmed-hpc/hpc-libs/issues)
 charmed-hpc-terraform, [Source](https://github.com/charmed-hpc/charmed-hpc-terraform), [Issue tracker](https://github.com/charmed-hpc/charmed-hpc-terraform/issues)
@@ -92,6 +93,7 @@ A charm does not have any modifiable configuration options or runnable actions i
 [nfs-server-proxy](https://charmhub.io/nfs-server-proxy), [Options](https://charmhub.io/nfs-server-proxy/configurations)
 [cephfs-server-proxy](https://charmhub.io/cephfs-server-proxy), [Options](https://charmhub.io/cephfs-server-proxy/configurations)
 [sssd](https://charmhub.io/sssd)
+[apptainer](https://charmhub.io/apptainer), , [Actions](https://charmhub.io/apptainer/actions)
 [grafana-agent](https://charmhub.io/grafana-agent), [Options](https://charmhub.io/grafana-agent/configurations)
 [mysql](https://charmhub.io/mysql), [Options](https://charmhub.io/mysql/configurations), [Actions](https://charmhub.io/mysql/actions)
 [mysql-router](https://charmhub.io/mysql-router), [Options](https://charmhub.io/mysql-router/configurations), [Actions](https://charmhub.io/mysql-router/actions)
@@ -124,11 +126,12 @@ Charmed HPC uses integrations to dictate how charmed applications communicate wi
 : integration, interface implementation
 :widths: 15, 10
 
-[sackd](https://charmhub.io/integrations/sackd), [Charm library](https://github.com/charmed-hpc/slurm-charms/blob/main/charms/slurmctld/src/interface_sackd.py)
-slurmctld, [Charm library](https://github.com/charmed-hpc/slurm-charms/blob/main/charms/slurmd/src/interface_slurmctld.py)
-[slurmd](https://charmhub.io/integrations/slurmd), [Charm library](https://github.com/charmed-hpc/slurm-charms/blob/main/charms/slurmctld/src/interface_slurmd.py)
-[slurmdbd](https://charmhub.io/integrations/slurmdbd), [Charm library](https://github.com/charmed-hpc/slurm-charms/blob/main/charms/slurmctld/src/interface_slurmdbd.py)
-[slurmrestd](https://charmhub.io/integrations/slurmrestd), [Charm library](https://github.com/charmed-hpc/slurm-charms/blob/main/charms/slurmctld/src/interface_slurmrestd.py)
+[sackd](https://charmhub.io/integrations/sackd), [Charm library](https://github.com/charmed-hpc/hpc-libs/blob/main/src/hpc_libs/interfaces/slurm/sackd.py)
+slurmctld, [Charm library](https://github.com/charmed-hpc/hpc-libs/blob/main/src/hpc_libs/interfaces/slurm/common.py)
+[slurmd](https://charmhub.io/integrations/slurmd), [Charm library](https://github.com/charmed-hpc/hpc-libs/blob/main/src/hpc_libs/interfaces/slurm/slurmd.py)
+[slurmdbd](https://charmhub.io/integrations/slurmdbd), [Charm library](https://github.com/charmed-hpc/hpc-libs/blob/main/src/hpc_libs/interfaces/slurm/slurmdbd.py)
+[slurmrestd](https://charmhub.io/integrations/slurmrestd), [Charm library](https://github.com/charmed-hpc/hpc-libs/blob/main/src/hpc_libs/interfaces/slurm/slurmrestd.py)
+[slurm-oci-runtime](https://charmhub.io/integrations/slurm-oci-runtime), [Charm library](https://github.com/charmed-hpc/hpc-libs/blob/main/src/hpc_libs/interfaces/slurm/oci_runtime.py)
 [cos_agent](https://charmhub.io/integrations/cos_agent), [Charm library](https://charmhub.io/grafana-agent/libraries/cos_agent)
 [ldap](https://charmhub.io/integrations/ldap/), [Charm library](https://charmhub.io/glauth-k8s/libraries/ldap)
 [mysql_client](https://charmhub.io/integrations/mysql_client), [Charm library](https://charmhub.io/data-platform-libs/libraries/data_interfaces)
