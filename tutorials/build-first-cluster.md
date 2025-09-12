@@ -34,7 +34,10 @@ multipass launch 24.04 --name charmed-hpc-tutorial-vm --cloud-init charmed-hpc-t
 :::
 
 <!-- Rephrase this section -->
-Note that the virtual machine launch process may take ten minutes or longer to complete. If the instance states that it has failed to launch due to timing out, check `multipass list`{l=shell} to confirm the status of the instance as it may have actually successfully created the vm. If the `State` is `Running`, then the vm was launched successfully and may simply be completing the cloud-init process.
+The virtual machine launch process should take five minutes or less to complete. 
+
+<!-- If the instance states that it has failed to launch due to timing out, check `multipass list`{l=shell} to confirm the status of the instance as it may have actually successfully created the vm. If the `State` is `Running`, then the vm was launched successfully and may simply be completing the cloud-init process. -->
+
 <!-- Steps if the vm does not say running? -->
 
 The cloud init process creates and configures our lxd machine cloud `localhost` with the `charmed-hpc-controller` juju controller and our `charmed-hpc-k8s` Kubernetes control cloud.
@@ -244,35 +247,35 @@ After a few minutes, the Slurm deployment will become active. The output of the
 :::{terminal}
 :input: juju status
 :copy:
-Model  Controller              Cloud/Region         Version    SLA          Timestamp
-slurm  charmed-hpc-controller  localhost/localhost    3.6.9    unsupported  17:16:37Z
+Model  Controller              Cloud/Region         Version  SLA          Timestamp
+slurm  charmed-hpc-controller  localhost/localhost  3.6.9    unsupported  10:53:50-04:00
 
-App                 Version               Status  Scale  Charm             Channel      Rev  Exposed  Message
-ceph-fs             19.2.1                active      1  ceph-fs           latest/edge   196 no       Unit is ready
-data                                      active      2  filesystem-client latest/edge   20  no       Integrated with `cephfs` provider
-microceph                                 active      1  microceph         latest/edge   159 no       (workload) charm is ready
-sackd               23.11.4-1.2u...       active      1  sackd             latest/edge   32  no
-slurmctld           23.11.4-1.2u...       active      1  slurmctld         latest/edge   114 no
-tutorial-partition  23.11.4-1.2u...       active      2  slurmd            latest/edge   135 no
+App                 Version          Status  Scale  Charm              Channel      Rev  Exposed  Message
+ceph-fs             19.2.1           active      1  ceph-fs            latest/edge  196  no       Unit is ready
+data                                 active      3  filesystem-client  latest/edge   20  no       Integrated with `cephfs` provider
+microceph                            active      1  microceph          latest/edge  159  no       (workload) charm is ready
+sackd               23.11.4-1.2u...  active      1  sackd              latest/edge   38  no       
+slurmctld           23.11.4-1.2u...  active      1  slurmctld          latest/edge  120  no       primary - UP
+tutorial-partition  23.11.4-1.2u...  active      2  slurmd             latest/edge  141  no       
 
+Unit                   Workload  Agent  Machine  Public address  Ports          Message
+ceph-fs/0*             active    idle   5        10.248.240.129                 Unit is ready
+microceph/0*           active    idle   4        10.248.240.102                 (workload) charm is ready
+sackd/0*               active    idle   3        10.248.240.49   6818/tcp       
+  data/0*              active    idle            10.248.240.49                  Mounted filesystem at `/data`
+slurmctld/0*           active    idle   0        10.248.240.162  6817,9092/tcp  primary - UP
+tutorial-partition/0   active    idle   1        10.248.240.218  6818/tcp       
+  data/2               active    idle            10.248.240.218                 Mounted filesystem at `/data`
+tutorial-partition/1*  active    idle   2        10.248.240.130  6818/tcp       
+  data/1               active    idle            10.248.240.130                 Mounted filesystem at `/data`
 
-Unit                      Workload  Agent      Machine  Public address                         Ports           Message
-ceph-fs/0*                active    idle       5        10.125.192.110                                         Unit is ready
-microceph/0*              active    idle       4        fd42:4e69:6c2a:c4a9:216:3eff:fe0c:f9f5                 (workload) charm is ready
-sackd/0*                  active    idle       3        fd42:4e69:6c2a:c4a9:216:3eff:fe5b:75c6 6818/tcp
-slurmctld/0*              active    idle       0        10.125.192.7                           6817,9092/tcp
-tutorial-partition/0      active    idle       1        10.125.192.109                         6818/tcp
-  data/0*                 active    idle                10.125.192.109                                          Mounted filesystem at '/data'
-tutorial-partition/1*     active    idle       2        10.125.192.132                         6818/tcp
-  data/1                  active    idle                10.125.192.132                                          Mounted filesystem at '/data'
-
-Machine  State    Address                                 Inst id        Base          AZ                         Message
-0        started  10.125.192.7                            juju-e16200-0  ubuntu@24.04  charmed-hpc-tutorial-vm    Running
-1        started  10.125.192.109                          juju-e16200-1  ubuntu@24.04  charmed-hpc-tutorial-vm    Running
-2        started  10.125.192.132                          juju-e16200-2  ubuntu@24.04  charmed-hpc-tutorial-vm    Running
-3        started  fd42:4e69:6c2a:c4a9:216:3eff:fe5b:75c6  juju-e16200-3  ubuntu@24.04  charmed-hpc-tutorial-vm    Running
-4        started  fd42:4e69:6c2a:c4a9:216:3eff:fe0c:f9f5  juju-e16200-4  ubuntu@24.04  charmed-hpc-tutorial-vm    Running
-5        started  10.125.192.110                          juju-e16200-5  ubuntu@22.04  charmed-hpc-tutorial-vm    Running
+Machine  State    Address         Inst id        Base          AZ                       Message
+0        started  10.248.240.162  juju-2586ad-0  ubuntu@24.04  charmed-hpc-tutorial-vm  Running
+1        started  10.248.240.218  juju-2586ad-1  ubuntu@24.04  charmed-hpc-tutorial-vm  Running
+2        started  10.248.240.130  juju-2586ad-2  ubuntu@24.04  charmed-hpc-tutorial-vm  Running
+3        started  10.248.240.49   juju-2586ad-3  ubuntu@24.04  charmed-hpc-tutorial-vm  Running
+4        started  10.248.240.102  juju-2586ad-4  ubuntu@24.04  charmed-hpc-tutorial-vm  Running
+5        started  10.248.240.129  juju-2586ad-5  ubuntu@24.04  charmed-hpc-tutorial-vm  Running
 :::
 
 <!-- Test the file system set up  -->
@@ -311,20 +314,20 @@ tutorial-parition    up   infinite      2   idle juju-e16200-[1-2]
 
 ## Run a batch job
 
-First ssh into the login node (sackd), move to the `/data` directory, and create and enter a `/tutorial` directory:
+First ssh into the login node (sackd), move to the `/data` directory, and create and enter your new `/tutorial` directory:
 
 :::{code-block} shell
 juju ssh sackd/0
 cd /data/
-mkdir tutorial
+sudo mkdir tutorial
 cd tutorial/
 :::
 
 Then you'll need to download the [mpi_hello_world.c] and [submit_hello.sh] scripts:
 
 :::{code-block} shell
-wget https://github.com/charmed-hpc/docs/blob/tutorial/reuse/tutorial/mpi_hello_world.c
-wget https://github.com/charmed-hpc/docs/blob/tutorial/reuse/tutorial/submit_hello.sh
+sudo wget https://raw.githubusercontent.com/charmed-hpc/docs/refs/heads/main/reuse/tutorial/mpi_hello_world.c
+sudo wget https://raw.githubusercontent.com/charmed-hpc/docs/refs/heads/main/reuse/tutorial/submit_hello.sh
 :::
 
 For quick referencing, the two files are provided in dropdowns here as well. 
@@ -350,7 +353,7 @@ To compile and run the c file, we'll need to install the openmpi libraries and r
 
 :::{code-block} shell
 sudo apt install build-essential openmpi-bin libopenmpi-dev
-mpicc -o mpi_hello_world mpi_hello_world.c
+sudo mpicc -o mpi_hello_world mpi_hello_world.c
 ::: 
 
 Now that we have the mpi_hello_world executable, we can submit our job to the queue:
@@ -370,7 +373,28 @@ Hello world from processor juju-640476-2, rank 1 out of 2 processors
 
 ## Run a container job
 
-<!-- Set up and run an Apptainer job -->
+### Build the container
 
+Before you can submit your container workload to your Charmed HPC cluster,
+you must build the container so that it can be located by the Slurm workload
+scheduler.
+
+First, you'll need to upload your workload's resources to one of your Charmed HPC cluster's
+login nodes. Our example workload has two resources that must be uploaded.
+
+The _[generate.py]_ script will generate the example data set that you are going to plot,
+and the _[workload.py]_ script with plot the example data set as a bar graph. Expand
+the dropdowns below to either download or copy scripts onto your cluster.
+
+::::{dropdown} _[generate.py]_ - Generate example data set
+:::{literalinclude} /reuse/howto/run-a-container-workload/generate.py
+:caption: [generate.py]
+:language: python
+:linenos:
+:::
+::::
+
+[workload.py]: /reuse/tutorial/run-a-container-workload/workload.py
+[generate.py]: /reuse/tutorial/run-a-container-workload/generate.py
 
 ## Success!
