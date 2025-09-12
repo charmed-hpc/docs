@@ -12,6 +12,7 @@ that are responsible for managing cluster deployments.
 These how-to guides provide instructions for integrating Charmed HPC with other
 applications to extend the functionality of your cluster.
 
+- {ref}`howto-manage-integrate-with-apptainer`
 - {ref}`howto-manage-integrate-with-cos`
 - {ref}`howto-manage-integrate-with-influxdb`
 
@@ -26,6 +27,7 @@ These how-to guides provide instructions for configuring an existing Charmed HPC
 :maxdepth: 1
 :hidden:
 
+Integrate with Apptainer <integrate-with-apptainer>
 Integrate with COS <integrate-with-cos>
 Integrate with InfluxDB <integrate-with-influxdb>
 Manage Slurm <manage-slurm>
