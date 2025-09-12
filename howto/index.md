@@ -26,6 +26,7 @@ taking you through the setup of your own Charmed HPC cluster.
 The how-to guides in this section show you how to integrate with optional services and perform common management tasks after you have
 deployed Charmed HPC.
 
+- {ref}`howto-manage-integrate-with-apptainer`
 - {ref}`howto-manage-integrate-with-cos`
 - {ref}`howto-manage-integrate-with-influxdb`
 - {ref}`howto-manage-slurm`
@@ -44,5 +45,6 @@ It is important to clean up resources that are no longer necessary, especially i
 Initialize cloud environment <initialize-cloud-environment>
 setup/index
 manage/index
+use/index
 Clean up cloud resources <cleanup-cloud-resources>
 :::
