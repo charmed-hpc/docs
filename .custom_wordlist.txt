@@ -16,6 +16,7 @@ RESource
 UCX
 
 # Charm/application/service names
+apptainer
 alertmanager
 catalogue
 glauth
@@ -87,6 +88,7 @@ ip
 JWT
 libs
 MiB
+oci
 PCIe
 proxying
 PyPI
