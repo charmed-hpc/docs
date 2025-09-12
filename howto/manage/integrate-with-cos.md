@@ -50,7 +50,8 @@ First, within your `charmed-hpc` cloud, use `juju deploy`{l=shell} to deploy Gra
 on your cluster:
 
 :::{code-block} shell
-juju deploy --model charmed-hpc-controller:slurm grafana-agent --base "ubuntu@24.04"
+juju deploy grafana-agent --model charmed-hpc-controller:slurm \
+  --base "ubuntu@24.04"
 :::
 
 ### Connect Charmed HPC to Grafana Agent
@@ -80,8 +81,8 @@ juju show-unit --model cos-controller:cos catalogue/0 --format json | \
 The piped output of the `juju show-unit`{l=shell} command should be similar to the following:
 
 :::{terminal}
-:input: juju show-unit --model cos-controller:cos catalogue/0 --format json | \
-  jq '.[]."relation-info".[]."application-data".url | select (. != null)'
+:copy:
+:input: juju show-unit --model cos-controller:cos catalogue/0 --format json | jq '.[]."relation-info".[]."application-data".url | select (. != null)'
 
 "http://10.190.89.230/cos-grafana"
 "http://10.190.89.230/cos-prometheus-0"
@@ -105,8 +106,8 @@ If the output of `juju exec`{l=shell} looks similar to the success message below
 means that your `charmed-hpc` cloud can successfully contact your COS deployment:
 
 :::{terminal}
-:input: juju exec --unit grafana-agent/0 \
-  "curl -s http://10.190.89.230/cos-prometheus-0/api/v1/status/runtimeinfo"
+:copy:
+:input: juju exec --unit grafana-agent/0 -- curl -s http://10.190.89.230/cos-prometheus-0/api/v1/status/runtimeinfo
 
 {"status":"success","data":{"startTime":"2025-02-06T19:09:05.141616388Z","CWD":"/","reloadConfigSuccess":true,"lastConfigTime":"2025-02-06T19:10:36Z","corruptionCount":0,"goroutineCount":56,"GOMAXPROCS":8,"GOMEMLIMIT":9223372036854775807,"GOGC":"","GODEBUG":"","storageRetention":"15d or 819MiB204KiB819B"}}
 :::
