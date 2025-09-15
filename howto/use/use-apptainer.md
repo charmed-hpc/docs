@@ -51,10 +51,10 @@ Apptainer can pull container images from.
 
 Apptainer can build container images using instructions from a container definition file.
 For example, to build an Ubuntu 24.04 LTS-based container image with the `gfortran` compiler
-pre-installed, create a container definition file with `cat`{l=shell}:
+pre-installed, create the container definition file _workload.def_:
 
 :::{code-block} shell
-cat << 'EOF' > workload.def
+:caption: workload.def
 bootstrap: docker
 from: ubuntu:24.04
 
@@ -65,7 +65,6 @@ from: ubuntu:24.04
 %test
     gfortran --version
     exit 0
-EOF
 :::
 
 Now use `apptainer build`{l=shell} to build the container image:
@@ -77,18 +76,17 @@ Now use `apptainer build`{l=shell} to build the container image:
 :::
 
 The built container image can now be used to compile and run Fortran workloads. For
-example, use `cat`{l=shell} to create a simple Fortran program the prints _Hello world!_
+example, create a simple Fortran program the prints "Hello world!" in the file _hello.f90_:
 
-:::{code-block} shell
-cat << 'EOF' > hello.90
+:::{code-block} fortran
+:caption: hello.f90
 PROGRAM hello_world
   IMPLICIT NONE
   PRINT *, "Hello world!"
 END PROGRAM hello_world
-EOF
 :::
 
-Now use the built container to compile and run the Fortran program:
+Now use the built container to compile and run your Fortran program:
 
 :::{terminal}
 :copy:
@@ -117,10 +115,10 @@ your workload's runtime environment.
 Declare in your batch script the partition you want your workload to run within and call the
 `apptainer`{l=shell} command from directly within your script. For example, to select `compute`
 as the partition your workload will run within, and run some Python code using a containerized
-Python 3.13 interpreter, create a batch script with `cat`{l=shell}:
+Python 3.13 interpreter, create the batch script _job.batch_:
 
 :::{code-block} shell
-cat << 'EOF' > job.batch
+:caption: job.batch
 #!/usr/bin/env bash
 #SBATCH --partition compute
 #SBATCH --output %j.out
@@ -128,10 +126,9 @@ cat << 'EOF' > job.batch
 apptainer pull python-3.13.sif docker://ubuntu/python:3.13-25.04
 apptainer --silent exec python-3.13.sif \
   python3 -c 'import sys; print(f"Hello from Python {sys.version}!")'
-EOF
 :::
 
-Now submit your created batch script to Slurm with `sbatch`{l=shell}:
+Now submit the _job.batch_ script to Slurm with `sbatch`{l=shell}:
 
 :::{terminal}
 :copy:
@@ -140,7 +137,7 @@ Now submit your created batch script to Slurm with `sbatch`{l=shell}:
 Submitted batch job 1
 :::
 
-Use `cat`{l=shell} to review the results of your batch script after it completes:
+Use `cat`{l=shell} to view the results of your workload after it completes:
 
 :::{terminal}
 :copy:
@@ -164,14 +161,12 @@ a batch script with `compute ` selected as the partition your workload will run
 within, and use a container with Python 3.13 pre-installed as the runtime environment:
 
 :::{code-block} shell
-cat << 'EOF' > my-job.batch
 #!/usr/bin/env bash
 #SBATCH --partition compute
 #SBATCH --container docker://ubuntu/python:3.13-25.04
 #SBATCH --output stdout-%j.log
 
 python3 --version
-EOF
 :::
 
 Now submit your batch script using the `sbatch`{l=shell} command:
