@@ -1,5 +1,5 @@
 (build-first-cluster)=
-# Build your first Charmed HPC cluster
+# Build and use your first Charmed HPC cluster
 
 <!-- A tutorial is a practical activity, in which the student learns by doing something meaningful, towards some achievable goal. What the student does is not necessarily what they will learn. -->
 
@@ -34,7 +34,7 @@ multipass launch 24.04 --name charmed-hpc-tutorial-vm --cloud-init charmed-hpc-t
 :::
 
 <!-- Rephrase this section -->
-The virtual machine launch process should take five minutes or less to complete. 
+The virtual machine launch process should take five minutes or less to complete.
 
 <!-- If the instance states that it has failed to launch due to timing out, check `multipass list`{l=shell} to confirm the status of the instance as it may have actually successfully created the vm. If the `State` is `Running`, then the vm was launched successfully and may simply be completing the cloud-init process. -->
 
@@ -254,19 +254,19 @@ App                 Version          Status  Scale  Charm              Channel  
 ceph-fs             19.2.1           active      1  ceph-fs            latest/edge  196  no       Unit is ready
 data                                 active      3  filesystem-client  latest/edge   20  no       Integrated with `cephfs` provider
 microceph                            active      1  microceph          latest/edge  159  no       (workload) charm is ready
-sackd               23.11.4-1.2u...  active      1  sackd              latest/edge   38  no       
+sackd               23.11.4-1.2u...  active      1  sackd              latest/edge   38  no
 slurmctld           23.11.4-1.2u...  active      1  slurmctld          latest/edge  120  no       primary - UP
-tutorial-partition  23.11.4-1.2u...  active      2  slurmd             latest/edge  141  no       
+tutorial-partition  23.11.4-1.2u...  active      2  slurmd             latest/edge  141  no
 
 Unit                   Workload  Agent  Machine  Public address  Ports          Message
 ceph-fs/0*             active    idle   5        10.248.240.129                 Unit is ready
 microceph/0*           active    idle   4        10.248.240.102                 (workload) charm is ready
-sackd/0*               active    idle   3        10.248.240.49   6818/tcp       
+sackd/0*               active    idle   3        10.248.240.49   6818/tcp
   data/0*              active    idle            10.248.240.49                  Mounted filesystem at `/data`
 slurmctld/0*           active    idle   0        10.248.240.162  6817,9092/tcp  primary - UP
-tutorial-partition/0   active    idle   1        10.248.240.218  6818/tcp       
+tutorial-partition/0   active    idle   1        10.248.240.218  6818/tcp
   data/2               active    idle            10.248.240.218                 Mounted filesystem at `/data`
-tutorial-partition/1*  active    idle   2        10.248.240.130  6818/tcp       
+tutorial-partition/1*  active    idle   2        10.248.240.130  6818/tcp
   data/1               active    idle            10.248.240.130                 Mounted filesystem at `/data`
 
 Machine  State    Address         Inst id        Base          AZ                       Message
@@ -314,6 +314,9 @@ tutorial-parition    up   infinite      2   idle juju-e16200-[1-2]
 
 ## Run a batch job
 
+In the following steps, we will pull down a small MPI script, compile it, and run it via a batch job.
+
+### Gather files and compile
 First ssh into the login node (sackd), move to the `/data` directory, and create and enter your new `/tutorial` directory:
 
 :::{code-block} shell
@@ -330,7 +333,7 @@ sudo wget https://raw.githubusercontent.com/charmed-hpc/docs/refs/heads/main/reu
 sudo wget https://raw.githubusercontent.com/charmed-hpc/docs/refs/heads/main/reuse/tutorial/submit_hello.sh
 :::
 
-For quick referencing, the two files are provided in dropdowns here as well. 
+For quick referencing, the two files are provided in dropdowns here as well.
 
 ::::{dropdown} MPI Hello World Script
 :::{literalinclude} /reuse/tutorial/mpi_hello_world.c
@@ -354,8 +357,9 @@ To compile and run the c file, we'll need to install the openmpi libraries and r
 :::{code-block} shell
 sudo apt install build-essential openmpi-bin libopenmpi-dev
 sudo mpicc -o mpi_hello_world mpi_hello_world.c
-::: 
+:::
 
+### Submit batch job
 Now that we have the mpi_hello_world executable, we can submit our job to the queue:
 
 :::{code-block} shell
@@ -373,28 +377,88 @@ Hello world from processor juju-640476-2, rank 1 out of 2 processors
 
 ## Run a container job
 
+The following steps will build a container job using `apptainer` and run the container job on the cluster.
+
 ### Build the container
 
 Before you can submit your container workload to your Charmed HPC cluster,
 you must build the container so that it can be located by the Slurm workload
 scheduler.
 
-First, you'll need to upload your workload's resources to one of your Charmed HPC cluster's
-login nodes. Our example workload has two resources that must be uploaded.
+First, you'll need to upload your workload's resources to a new `container_example` directory on the login node. Our example workload has two resources that must be uploaded: the _[generate.py]_ script will generate the example data set,
+and the _[workload.py]_ script will plot the example data set as a bar graph.
 
-The _[generate.py]_ script will generate the example data set that you are going to plot,
-and the _[workload.py]_ script with plot the example data set as a bar graph. Expand
-the dropdowns below to either download or copy scripts onto your cluster.
+:::{code-block} shell
+mkdir container_example
+cd container_example
+sudo wget https://raw.githubusercontent.com/charmed-hpc/docs/refs/heads/main/reuse/tutorial/generate.py
+sudo wget https://raw.githubusercontent.com/charmed-hpc/docs/refs/heads/main/reuse/tutorial/workload.py
+:::
 
 ::::{dropdown} _[generate.py]_ - Generate example data set
-:::{literalinclude} /reuse/howto/run-a-container-workload/generate.py
+:::{literalinclude} /reuse/tutorial/generate.py
 :caption: [generate.py]
 :language: python
 :linenos:
 :::
 ::::
 
-[workload.py]: /reuse/tutorial/run-a-container-workload/workload.py
-[generate.py]: /reuse/tutorial/run-a-container-workload/generate.py
+::::{dropdown} _[workload.py]_ - Plot example data set
+:::{literalinclude} /reuse/tutorial/workload.py
+:caption: [workload.py]
+:language: python
+:linenos:
+:::
+::::
+
+[workload.py]: /reuse/tutorial/workload.py
+[generate.py]: /reuse/tutorial/generate.py
+
+### Create the container build recipe
+
+Now, on the login node, use `nano` or your preferred command line text editor to create
+the file _workload.def_. This file is the build recipe you will use to build your container:
+
+:::{code-block} shell
+nano workload.def
+:::
+
+Next, in _workload.def_ define your build recipe:
+
+:::{literalinclude} /reuse/tutorial/workload.def
+:caption: workload.def
+:::
+
+###  Build the container image using `apptainer`
+
+Now that we have the build recipe file, we'll build the container image:
+
+:::{code-block} shell
+apptainer build workload.sif workload.def
+:::
+
+### Use the image to run jobs
+
+First, we'll submit a job to the cluster that uses the new  _workload.sif_ image with the _generate.py_ script to generate one million lines in table:
+
+:::{code-block} shell
+srun -p tutorial-partition --container /data/tutorial/workload.sif generate --rows 1000000
+:::
+
+With the resulting _favorite_lts_mascot.csv_, we can create our batch script:
+
+:::{literalinclude} /reuse/tutorial/submit_apptainer_mascot.sh
+:caption: submit_apptainer_mascot.sh
+:::
+
+and submit it:
+
+:::{code-block} shell
+sbatch submit_apptainer_mascot.sh
+:::
+
+
+<!-- Steps for downloading resulting png to local machine. -->
+
 
 ## Success!
