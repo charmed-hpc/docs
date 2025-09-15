@@ -1,0 +1,23 @@
+#cloud-config
+# Ensure VM is fully up-to-date
+# Multipass does not support reboots. See:
+# https://github.com/canonical/multipass/issues/4199
+#package_reboot_if_required: true
+package_update: true
+package_upgrade: true
+
+# Install prerequisites
+snap:
+  commands:
+    00: snap install juju --channel=3/stable
+    01: snap install lxd --channel=6/stable
+
+# Configure and initialize prerequisites
+lxd:
+  init:
+    storage_backend: dir
+
+runcmd:
+- lxc network set lxdbr0 ipv6.address none
+- su ubuntu -c 'juju bootstrap localhost charmed-hpc-controller'
+
