@@ -1,13 +1,19 @@
+---
+relatedlinks: "[Apptainer&#32;user&#32;documenation](https://apptainer.org/docs/user/latest/index.html)"
+---
+
 (howto-use-apptainer)=
 # Use Apptainer
 
 Apptainer can be used as a container runtime environment on Charmed HPC for running
-containerized workloads. This guide explains how to use different features of Apptainer
-on Charmed HPC.
+containerized workloads. This guide provides examples of using Apptainer on Charmed HPC
+to accomplish different tasks.
 
-:::{hint}
-If you're unfamiliar with using Apptainer, see the [Apptainer user quick start](https://apptainer.org/docs/user/latest/quick_start.html)
-guide for a high-level introduction to using Apptainer.
+:::{admonition} New to Apptainer?
+:class: note
+
+If you're unfamiliar with using Apptainer in your workloads, see the [Apptainer user quick start guide](https://apptainer.org/docs/user/latest/quick_start.html)
+for a high-level introduction to using Apptainer on HPC clusters.
 :::
 
 ## Prerequisites
@@ -15,6 +21,7 @@ guide for a high-level introduction to using Apptainer.
 To successfully use Apptainer on your Charmed HPC cluster, you will at least need:
 
 - A [deployed Slurm cluster](#howto-setup-deploy-slurm).
+- A [deployed shared filesystem](#howto-setup-deploy-shared-filesystem).
 - An [active Apptainer integration](#howto-manage-integrate-with-apptainer).
 
 Once you have verified that Apptainer is integrated with your Charmed HPC, refer
@@ -44,17 +51,23 @@ INFO:    instance started successfully
 PONG
 :::
 
-Use `apptainer help pull`{l=text} to see the full list of public container registries
-Apptainer can pull container images from.
-
 ### Building your own custom container image
+
+:::{admonition} Before attempting to build your own container images
+:class: warning
+
+Check with your cluster administrator before attempting to build container images
+on your Charmed HPC cluster. Each site has different policies about whether you
+can build container images directly on your cluster, and some disallow
+building container images on specific cluster resources such as login nodes.
+:::
 
 Apptainer can build container images using instructions from a container definition file.
 For example, to build an Ubuntu 24.04 LTS-based container image with the `gfortran` compiler
-pre-installed, create the container definition file _workload.def_:
+pre-installed, create the container definition file _fortran-runtime.def_:
 
 :::{code-block} shell
-:caption: workload.def
+:caption: fortran-runtime.def
 bootstrap: docker
 from: ubuntu:24.04
 
@@ -72,7 +85,7 @@ Now use `apptainer build`{l=shell} to build the container image:
 :::{terminal}
 :copy:
 :host: login
-:input: apptainer build workload.sif workload.def
+:input: apptainer build fortran-runtime.sif fortran-runtime.def
 :::
 
 The built container image can now be used to compile and run Fortran workloads. For
@@ -91,17 +104,10 @@ Now use the built container to compile and run your Fortran program:
 :::{terminal}
 :copy:
 :host: login
-:input: apptainer exec workload.sif gfortran --output hello hello.f90
+:input: apptainer exec fortran-runtime.sif gfortran --output hello hello.f90
 
-:input: apptainer exec workload.sif ./hello
+:input: apptainer exec fortran-runtime.sif ./hello
 Hello world!
-:::
-
-:::{warning}
-Check with your cluster administrator before attempting to build container images
-on your Charmed HPC cluster. Each site has different policies about whether you
-can build container images directly on your cluster, and some disallow
-building container images on specific cluster resources such as login nodes.
 :::
 
 ## Provide your workload's runtime environment
@@ -113,15 +119,15 @@ your workload's runtime environment.
 ### Using the `apptainer`{l=shell} command directly in your workload
 
 Declare in your batch script the partition you want your workload to run within and call the
-`apptainer`{l=shell} command from directly within your script. For example, to select `compute`
-as the partition your workload will run within, and run some Python code using a containerized
-Python 3.13 interpreter, create the batch script _job.batch_:
+`apptainer`{l=shell} command from directly within your batch script. For example, create the file
+_job.batch_, set `compute` as the partition your workload will run within, and run some
+Python code using a containerized Python 3.13 interpreter:
 
 :::{code-block} shell
 :caption: job.batch
 #!/usr/bin/env bash
 #SBATCH --partition compute
-#SBATCH --output %j.out
+#SBATCH --output job.out
 
 apptainer pull python-3.13.sif docker://ubuntu/python:3.13-25.04
 apptainer --silent exec python-3.13.sif \
@@ -142,13 +148,8 @@ Use `cat`{l=shell} to view the results of your workload after it completes:
 :::{terminal}
 :copy:
 :host: login
-:input: cat 1.out
+:input: cat job.out
 Hello from Python 3.13.3 (main, Aug 14 2025, 11:53:40) [GCC 14.2.0]!
-:::
-
-:::{important}
-Remember your job identification number after submitting your batch script
-with `sbatch`{l=shell}. It may be different from the example output above.
 :::
 
 [//]: # (TODO: Uncomment once https://github.com/charmed-hpc/slurm-charms/issues/143 is fixed.)
