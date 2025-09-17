@@ -5,7 +5,9 @@ GRES
 gres
 HPC
 hpc
+HPC's
 InfiniBand
+Juju's
 MPI
 OpenMPI
 PKEY
@@ -14,12 +16,14 @@ RESource
 UCX
 
 # Charm/application/service names
+apptainer
 alertmanager
 catalogue
 glauth
 GLAuth
 GLAuth's
 grafana
+IMB
 juju
 ldap
 loki
@@ -29,13 +33,17 @@ postgresql
 prometheus
 munge
 mungectl
+OSU
 Postgres
+ReFrame
 Slurm
+Slurm's
 sackd
 slurm
 slurmctld
 slurmd
 slurmdbd
+Slurmdbd
 slurmrestd
 slurmutils
 sssd
@@ -46,6 +54,14 @@ Traefik
 traefik
 InfluxDB
 influxdb
+eksctl
+commitlint
+OpenTofu
+Charmcraft
+GCP
+GCP's
+GKE
+gcloud
 
 # CLI commands
 hostname
@@ -60,11 +76,19 @@ OpenStack
 
 # Developer jargon/acronyms
 conf
+CUDA
+Gb
+gcc
 Gid
+Gflops
 GPUs
+gpu
+HDR
 ip
 JWT
 libs
+MiB
+oci
 PCIe
 proxying
 PyPI
@@ -77,6 +101,13 @@ userspace
 VMs
 yaml
 TLS
+RPC
+Uptime
+proxied
+Auth
+SSO
+GPG
+rebase
 
 # Filesystem jargon
 Ceph
@@ -91,6 +122,7 @@ userinfo
 
 # Words that are oddly not valid to the spelling checker
 autonomizing
+benchmarking
 cryptographically
 cryptographic
 filesystem
@@ -100,3 +132,8 @@ lifecycle
 Performant
 performant
 runnable
+tos
+md
+
+# Places
+Moncks

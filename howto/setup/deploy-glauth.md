@@ -35,10 +35,10 @@ such as GLAuth.
 You have two options for deploying GLAuth and SSSD:
 
 1. Using the [Juju CLI client](https://documentation.ubuntu.com/juju/latest/user/reference/juju-cli/).
-2. Using the [Juju Terraform client](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/).
+2. Using the [Juju Terraform client](https://canonical-terraform-provider-juju.readthedocs-hosted.com/latest/).
 
 If you want to use Terraform to deploy GLAuth and SSSD, see the
-[Manage `terraform-provider-juju`](https://canonical-terraform-provider-juju.readthedocs-hosted.com/en/latest/howto/manage-terraform-provider-juju/) how-to guide for additional
+[Manage `terraform-provider-juju`](https://canonical-terraform-provider-juju.readthedocs-hosted.com/latest/howto/manage-the-terraform-provider-for-juju/) how-to guide for additional
 requirements.
 
 ### Deploy GLAuth
@@ -379,7 +379,7 @@ terraform -chdir=connect-sssd-to-glauth apply -auto-approve
 ## Next steps
 
 You can now use GLAuth and SSSD as the {{ iam }} stack to manage users
-and groups on your Charmed HPC cluster. See the [Access Postgres](https://charmhub.io/postgresql-k8s/docs/t-access)
+and groups on your Charmed HPC cluster. See the [Access Postgres](https://canonical-charmed-postgresql-k8s.readthedocs-hosted.com/14/tutorial/#access-the-related-database)
 tutorial for how to access your deployed Postgres database, and
 [GLAuth's documentation](https://glauth.github.io/docs/databases.html) for how to manage users and groups on your
 cluster using SQL queries.

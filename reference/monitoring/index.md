@@ -1,25 +1,21 @@
----
-orphan: true
----
 (reference-monitoring)=
 # Monitoring
 
-Integrating COS with Charmed HPC enables monitoring of resources. This integration includes Prometheus, Grafana, and Loki. 
-
-<!-- - {ref}`reference-monitoring-prometheus` -->
-<!-- - {ref}`reference-monitoring-grafana` -->
-<!-- - {ref}`reference-monitoring-loki` -->
+Integrating COS with Charmed HPC enables monitoring of resources. This integration includes Prometheus, Grafana, and Loki.
 
 
 
-:::{filtered-toctree}
+- {ref}`Prometheus: metrics aggregation and alerts <reference-monitoring-prometheus>`
+- {ref}`Grafana: Dashboards and resource visualizations <reference-monitoring-grafana>`
+- {ref}`Loki: Logs aggregator <reference-monitoring-loki>`
+
+```{filtered-toctree}
 :titlesonly:
 :maxdepth: 1
 :hidden:
 
-:draft:Prometheus<reference-monitoring-prometheus>
-:draft:Grafana<reference-monitoring-grafana>
-:draft:Loki<reference-monitoring-loki>
+Prometheus <prometheus>
+Grafana <grafana>
+Loki <loki>
 
-
-:::
+```
