@@ -3,8 +3,15 @@
 
 Discussion and clarification for various topics related to Charmed HPC.
 
-- {ref}`cryptography`
-- {ref}`GPUs`
+## Cluster architecture
+- {ref}`explanation-high-availability`
+
+## Cryptography, authentication, and security
+- {ref}`sack`
+- {ref}`jwt`
+
+## Hardware
+- {ref}`explanation-gpus`
 - {ref}`explanation-interconnects`
 - {ref}`explanation-rebooting`
 
@@ -13,8 +20,9 @@ Discussion and clarification for various topics related to Charmed HPC.
 :maxdepth: 1
 :hidden:
 
-cryptography/index
-gpus/index
-interconnects/index
+Cryptography and Authentication <cryptography>
+GPUs <gpus>
+High Availability <high-availability>
+Interconnects <interconnects>
 Instance auto-reboots <reboot-timing.md>
 ```

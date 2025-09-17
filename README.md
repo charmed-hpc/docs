@@ -1,6 +1,6 @@
 # Charmed HPC documentation
 
-[![Documentation Status](https://readthedocs.com/projects/canonical-charmed-hpc/badge/?version=latest)](https://canonical-charmed-hpc.readthedocs-hosted.com/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.com/projects/canonical-charmed-hpc/badge/?version=latest)](https://canonical-charmed-hpc.readthedocs-hosted.com/latest/)
 [![Matrix](https://img.shields.io/matrix/ubuntu-hpc%3Amatrix.org?logo=matrix&label=ubuntu-hpc)](https://matrix.to/#/#hpc:ubuntu.com)
 
 Charmed HPC's documentation 📑🔍
