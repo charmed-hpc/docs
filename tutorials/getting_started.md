@@ -12,7 +12,7 @@ This tutorial expects that you have some familiarity with classic high-performan
 <!-- How long should this tutorial take to complete? -->
 
 :::{note}
-This tutorial builds a minimal cluster deployment within a virtual machine and should not be used as the basis for a production cluster. For more in-depth steps on how to deploy a fully operational cluster, see [Charmed HPC's How-to guides](#howtos)
+This tutorial builds a minimal cluster deployment within a virtual machine for learning purposes and should not be used as the basis for a production cluster. For more in-depth steps on how to deploy a fully operational cluster, see [Charmed HPC's How-to guides](#howtos)
 :::
 
 ## Prerequisites
@@ -39,17 +39,13 @@ Using [charmed-hpc-tutorial-cloud-init.yml], launch a Multipass VM:
 :::
 
 <!-- Rephrase this section -->
-The virtual machine launch process should take five minutes or less to complete. The cloud init process creates and configures our lxd machine cloud `localhost` with the `charmed-hpc-controller` juju controller.
+The virtual machine launch process should take five minutes or less to complete. The cloud init process creates and configures our lxd machine cloud `localhost` with the `charmed-hpc-controller` juju controller and creates workload and submit scripts for the example jobs.
 
-<!-- If the instance states that it has failed to launch due to timing out, check `multipass list`{l=shell} to confirm the status of the instance as it may have actually successfully created the vm. If the `State` is `Running`, then the vm was launched successfully and may simply be completing the cloud-init process. -->
-<!-- Steps if the vm does not say running? -->
-<!-- Add ref arch pieces -->
-
-To check the status of cloud-init, first, enter the vm:
+Upon completion of the launch process, check the status of cloud-init to confirm that all processes completed successfully. First, enter the vm:
 
 :::{terminal}
 :user: ubuntu
-:host: charmed-hpc-tutorial-vm
+:host: local
 :copy:
 :input: multipass shell charmed-hpc-tutorial-vm
 :::
@@ -72,12 +68,9 @@ recoverable_errors: {}
 
 If the status shows `done` and there are no errors, then you are ready to move on to deploying the cluster charms.
 
-<!-- Quick commands to test that various cloud init pieces have been set up correctly:
-
-
 ## Deploy Slurm and file system
 
-Next, you will deploy Slurm and the file system. The Slurm components of our deployment will be composed of:
+Next, you will deploy Slurm and the file system. The Slurm components of your deployment will be composed of:
 - The Slurm management daemon: `slurmctld`.
 - Two Slurm compute daemons: `slurmd`, grouped in a partition named `tutorial-partition`.
 - The authentication and credential kiosk daemon: `sackd` to provide the login node.
@@ -107,7 +100,7 @@ Then deploy the Slurm components:
 
 Next, deploy the filesystem pieces to create a MicroCeph shared file system:
 
-<!-- "Composed of" - like for slurm pieces -->
+<!-- "Composed of" - similar to what's shown above for the slurm pieces -->
 
 :::{terminal}
 :user: ubuntu
@@ -180,6 +173,8 @@ Machine  State    Address         Inst id        Base          AZ               
 :::
 
 <!-- Test the file system set up  -->
+
+The `juju status` command shows 
 <!-- Add summary of what the last few steps accomplished and what juju status is showing-->
 
 ## Get compute nodes ready for jobs
@@ -217,34 +212,71 @@ tutorial-parition    up   infinite      2   idle juju-e16200-[1-2]
 
 <!-- Add summary of what the last few steps accomplished -->
 
-## Run a batch job
+## Copy files onto cluster
 
-In the following steps, you will copy over small Hello World MPI script, compile it, and run it via a batch job.
-
-### Gather files and compile
-First ssh into the login node (sackd), move to the `/data` directory, and create and enter your new `/tutorial` directory with appropriate user permissions:
+The workload files that were created during the cloud initialization step now need to be copied onto the cluster file system from the vm file system:
 
 :::{terminal}
 :user: ubuntu
-:host: login
+:host: charmed-hpc-tutorial-vm
+:copy:
+:input: juju scp workload.py sackd/0:/home/ubuntu
+
+:input: juju scp workload.def sackd/0:/home/ubuntu
+:input: juju scp submit_hello.sh sackd/0:/home/ubuntu
+:input: juju scp mpi_hello_world.c sackd/0:/home/ubuntu
+:input: juju scp generate.py sackd/0:/home/ubuntu
+:input: juju scp submit_apptainer_mascot.sh sackd/0:/home/ubuntu
+:::
+
+## Run a batch job
+
+In the following steps, you will compile a small Hello World MPI script and run it via a batch job.
+
+### Gather files and compile
+First ssh into the login node (sackd): 
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial-vm
 :copy:
 :input: juju ssh sackd/0
 
-:input: cd /data/
-:input: sudo mkdir tutorial
-:input: sudo chown $USER: tutorial
-:input: cd tutorial/
 :::
 
-Then you'll need to copy the _[mpi_hello_world.c]_ and _[submit_hello.sh]_ scripts into the tutorial directory from `/ubuntu/home`, where they were placed during the vm creation process:
+This will place you in your home directory `/home/ubuntu`. Next, you will need to compile the _mpi_hello_world.c_ file, which requires first installing the Open MPI libraries and then running the `mpicc` compile command:
 
 :::{terminal}
 :user: ubuntu
 :host: login
 :copy:
-:input: cp /ubuntu/home/mpi_hello_world.c .
+:input: sudo apt install build-essential openmpi-bin libopenmpi-dev
 
-:input: cp /ubuntu/home/submit_hello.sh .
+:input: mpicc -o mpi_hello_world mpi_hello_world.c
+:::
+
+From here you will move to the `/data` directory, and create and enter your new `/mpi_example` directory with appropriate user permissions:
+
+:::{terminal}
+:user: ubuntu
+:host: login
+:copy:
+:input: cd /data/
+
+:input: sudo mkdir mpi_example
+:input: sudo chown $USER: mpi_example/
+:input: cd mpi_example/
+:::
+
+The `/data` directory is mounted on the compute nodes and will be used to read and write from during the batch job. Next, copy the newly created _mpi_hello_world_ executable and the _submit_hello.sh_ batch script to the `mpi_example/` directory:
+
+:::{terminal}
+:user: ubuntu
+:host: login
+:copy:
+:input: cp /home/ubuntu/mpi_hello_world .
+
+:input: cp /home/ubuntu/submit_hello.sh .
 :::
 
 For quick referencing, the two files are provided in dropdowns here as well.
@@ -266,19 +298,8 @@ For quick referencing, the two files are provided in dropdowns here as well.
 [mpi_hello_world.c]: /reuse/tutorial/mpi_hello_world.c
 [submit_hello.sh]: /reuse/tutorial/submit_hello.sh
 
-To compile the c file, you'll need to install the Open MPI libraries and run the `mpicc` compile command:
-
-:::{terminal}
-:user: ubuntu
-:host: login
-:copy:
-:input: apt install build-essential openmpi-bin libopenmpi-dev
-
-:input: mpicc -o mpi_hello_world mpi_hello_world.c
-:::
-
 ### Submit batch job
-Now that you have the `mpi_hello_world` executable, you can submit your job to the queue:
+You can now submit your batch job to the queue:
 
 :::{terminal}
 :user: ubuntu
@@ -295,33 +316,102 @@ Once the job is complete, which should be within a few seconds, the output.txt f
 Hello world from processor juju-640476-1, rank 0 out of 2 processors
 Hello world from processor juju-640476-2, rank 1 out of 2 processors
 :::
-[//]: # (Closing statement )
 
+The batch job successfully spread the MPI job across two nodes that were able to report back their MPI rank to a common output file.
 
 ## Run a container job
 
-Next you'll go through the steps to build a container job using `apptainer` and run the container job on the cluster.
+Next you will go through the steps to set up Apptainer, build a container job and run the job on the cluster.
 
-### Build the container
+### Set up Apptainer
+
+Apptainer must deployed and integrated with the Slurm deployment via Juju. These steps must be completed from `charmed-hpc-tutorial-vm` environment; to return to that environment from within `sackd/0`, simply type `exit`{l=shell} and return.
+
+To deploy and integrate Apptainer:
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial-vm
+:copy:
+:input: juju deploy apptainer
+
+:input: juju integrate apptainer tutorial-partition
+:input: juju integrate apptainer sackd
+:input: juju integrate apptainer slurmctld
+:::
+
+After a few minutes, `juju status` should look similar to the following:
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial-vm
+:copy:
+:input: juju status
+
+Model  Controller              Cloud/Region         Version  SLA          Timestamp
+slurm  charmed-hpc-controller  localhost/localhost  3.6.9    unsupported  17:34:46-04:00
+
+App                 Version          Status  Scale  Charm              Channel        Rev  Exposed  Message
+apptainer           1.4.2            active      3  apptainer          latest/stable    6  no       
+ceph-fs             19.2.1           active      1  ceph-fs            latest/edge    196  no       Unit is ready
+data                                 active      3  filesystem-client  latest/edge     20  no       Integrated with `cephfs` provider
+microceph                            active      1  microceph          latest/edge    161  no       (workload) charm is ready
+sackd               23.11.4-1.2u...  active      1  sackd              latest/edge     38  no       
+slurmctld           23.11.4-1.2u...  active      1  slurmctld          latest/edge    120  no       primary - UP
+tutorial-partition  23.11.4-1.2u...  active      2  slurmd             latest/edge    141  no       
+
+Unit                   Workload  Agent  Machine  Public address  Ports          Message
+ceph-fs/0*             active    idle   5        10.196.78.232                  Unit is ready
+microceph/1*           active    idle   6        10.196.78.238                  (workload) charm is ready
+sackd/0*               active    idle   3        10.196.78.117   6818/tcp       
+  apptainer/2          active    idle            10.196.78.117                  
+  data/2               active    idle            10.196.78.117                  Mounted filesystem at `/data`
+slurmctld/0*           active    idle   0        10.196.78.49    6817,9092/tcp  primary - UP
+tutorial-partition/0   active    idle   1        10.196.78.244   6818/tcp       
+  apptainer/0          active    idle            10.196.78.244                  
+  data/0*              active    idle            10.196.78.244                  Mounted filesystem at `/data`
+tutorial-partition/1*  active    idle   2        10.196.78.26    6818/tcp       
+  apptainer/1*         active    idle            10.196.78.26                   
+  data/1               active    idle            10.196.78.26                   Mounted filesystem at `/data`
+
+Machine  State    Address        Inst id        Base          AZ                       Message
+0        started  10.196.78.49   juju-808105-0  ubuntu@24.04  charmed-hpc-tutorial-vm  Running
+1        started  10.196.78.244  juju-808105-1  ubuntu@24.04  charmed-hpc-tutorial-vm  Running
+2        started  10.196.78.26   juju-808105-2  ubuntu@24.04  charmed-hpc-tutorial-vm  Running
+3        started  10.196.78.117  juju-808105-3  ubuntu@24.04  charmed-hpc-tutorial-vm  Running
+5        started  10.196.78.232  juju-808105-5  ubuntu@24.04  charmed-hpc-tutorial-vm  Running
+6        started  10.196.78.238  juju-808105-6  ubuntu@24.04  charmed-hpc-tutorial-vm  Running
+:::
+
+### Build the container image using `apptainer`
 
 Before you can submit your container workload to your Charmed HPC cluster,
-you must build the container so that it can be located by the Slurm workload
-scheduler.
-
-First, you'll need to copy the workload's resources to a new `container_example` directory on the login node. The example workload has four resources that must be copied over: the _[generate.py]_ script that will generate an example data set of best mascot votes, the _[workload.py]_ script that will plot the example data set as a bar graph, the _[workload.def]_ file that defines the container, and the _[submit_apptainer_mascot.sh]_ script that will be used to submit the job to the cluster.
+you must build the container image and move it so that it can be located by the Slurm workload scheduler. The build recipe file _workload.def_ defines what will be in the container image. To build the image:
 
 :::{terminal}
 :user: ubuntu
 :host: login
 :copy:
-:input: mkdir container_example
+:input: juju ssh sackd/0
 
-:input: cd container_example/
-:input: cp /ubuntu/home/generate.py .
-:input: cp /ubuntu/home/workload.py .
-:input: cp ubuntu/home/workload.def .
-:input: cp ubuntu/home/submit_apptainer_mascot.sh .
+:input: apptainer build workload.sif workload.def
 :::
+
+Once the image is complete, copy it and the submit to a new `apptainer_example` directory on `/data`:
+
+:::{terminal}
+:user: ubuntu
+:host: login
+:copy:
+:input: cd /data/
+
+:input: sudo mkdir apptainer_example
+:input: sudo chown $USER: apptainer_example
+:input: cd apptainer_example
+:input: cp /home/ubuntu/workload.sif .
+:input: cp /home/ubuntu/submit_apptainer_mascot.sh .
+:::
+<!-- Description of what the image will contain? -->
 
 The workload files are provided here for reference.
 
@@ -358,29 +448,20 @@ The workload files are provided here for reference.
 [workload.def]: /reuse/tutorial/workload.def
 [submit_apptainer_mascot.sh]: /reuse/tutorial/submit_apptainer_mascot.sh
 
-###  Build the container image using `apptainer`
 
-The build recipe file _workload.def_ defines what will be in the container image. To build the image:
-
-:::{terminal}
-:user: ubuntu
-:host: login
-:copy:
-:input: apptainer build workload.sif workload.def
-:::
 
 ### Use the image to run jobs
 
-Now that you have the container image, you can submit a job to the cluster that uses the new  _workload.sif_ image with the _generate.py_ script to generate one million lines in a table:
+Now that you have the container image, you can submit a job to the cluster that uses the new  _workload.sif_ image to generate one million lines in a table:
 
 :::{terminal}
 :user: ubuntu
 :host: login
 :copy:
-:input: srun -p tutorial-partition --container /data/tutorial/container_examples/workload.sif generate --rows 1000000
+:input: srun -p tutorial-partition --container /data/apptainer_example/workload.sif generate --rows 1000000
 :::
 
-With the resulting _favorite_lts_mascot.csv_, you can create submit the batch job to build the bar plot:
+With the resulting _favorite_lts_mascot.csv_, you can now submit the batch job to build the bar plot:
 
 :::{terminal}
 :user: ubuntu
@@ -394,3 +475,4 @@ With the resulting _favorite_lts_mascot.csv_, you can create submit the batch jo
 
 
 ## Success!
+

@@ -26,9 +26,9 @@ runcmd:
 # Write files to the Multipass instance
 write_files:
   # MPI workload dependencies
-  - path: /home/ubuntu/mpi-hello-world.c
+  - path: /home/ubuntu/mpi_hello_world.c
     owner: ubuntu:ubuntu
-    permissions: "0664"
+    permissions: !!str "0664"
     defer: true
     content: |
       #include <mpi.h>
@@ -60,7 +60,7 @@ write_files:
       }
   - path: /home/ubuntu/submit_hello.sh
     owner: ubuntu:ubuntu
-    permissions: "0664"
+    permissions: !!str "0664"
     defer: true
     content: |
       #!/usr/bin/env bash
@@ -74,7 +74,7 @@ write_files:
   # Container workload dependencies.
   - path: /home/ubuntu/generate.py
     owner: ubuntu:ubuntu
-    permissions: "0664"
+    permissions: !!str "0664"
     defer: true
     content: |
       #!/usr/bin/env python3
@@ -128,7 +128,7 @@ write_files:
           main(rows=args.rows)
   - path: /home/ubuntu/workload.py
     owner: ubuntu:ubuntu
-    permissions: "0664"
+    permissions: !!str "0664"
     defer: true
     content: |
       #!/usr/bin/env python3
@@ -167,7 +167,7 @@ write_files:
           main(args.dataset, args.output)
   - path: /home/ubuntu/workload.def
     owner: ubuntu:ubuntu
-    permissions: "0664"
+    permissions: !!str "0664"
     defer: true
     content: |
       bootstrap: docker
@@ -201,7 +201,7 @@ write_files:
           exec workload "$@"
   - path: /home/ubuntu/submit_apptainer_mascot.sh
     owner: ubuntu:ubuntu
-    permissions: "0664"
+    permissions: !!str "0664"
     defer: true
     content: |
       #!/usr/bin/env bash
