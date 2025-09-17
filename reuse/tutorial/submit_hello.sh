@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/usr/bin/env bash
 #SBATCH --job-name=hello_world
 #SBATCH --partition=tutorial-partition
 #SBATCH --nodes=2
