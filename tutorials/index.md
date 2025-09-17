@@ -7,6 +7,6 @@
 :maxdepth: 1
 :hidden:
 
-Set up a test cluster <build-first-cluster>
+Getting Started with Charmed HPC <getting_started>
 
 :::
