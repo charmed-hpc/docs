@@ -1,9 +1,9 @@
-#! /bin/bash
-#SBATCH --job-name=apptainer_mascot
+#!/usr/bin/env bash
+#SBATCH --job-name=favorite-lts-mascot
 #SBATCH --partition=tutorial-partition
 #SBATCH --nodes=2
-#SBATCH --error=/data/apptainer_example/mascot_error.txt
-#SBATCH --output=/data/apptainer_example/mascot_output.txt
+#SBATCH --error=mascot_error.txt
+#SBATCH --output=mascot_output.txt
 
-
-apptainer run /data/apptainer_example/workload.sif /data/apptainer_example/favorite_lts_mascot.csv --output graph.png
+apptainer exec workload.sif generate --rows 1000000
+apptainer run workload.sif favorite_lts_mascot.csv --output graph.png
