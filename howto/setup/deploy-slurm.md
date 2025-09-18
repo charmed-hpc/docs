@@ -687,3 +687,4 @@ juju exec -u sackd/0 -- sinfo
 Now that Slurm is deployed, you can now deploy the shared filesystem of your Charmed HPC cluster:
 
 - {ref}`howto-setup-deploy-shared-filesystem`
+
