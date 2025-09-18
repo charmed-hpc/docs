@@ -51,6 +51,9 @@ INFO:    instance started successfully
 PONG
 :::
 
+Use `apptainer help pull`{l=text} to see the full list of public container registries
+Apptainer can pull container images from.
+
 ### Building your own custom container image
 
 :::{admonition} Before attempting to build your own container images
@@ -110,6 +113,13 @@ Now use the built container to compile and run your Fortran program:
 Hello world!
 :::
 
+:::{warning}
+Check with your cluster administrator before attempting to build container images
+on your Charmed HPC cluster. Each site has different policies about whether you
+can build container images directly on your cluster, and some disallow
+building container images on specific cluster resources such as login nodes.
+:::
+
 ## Provide your workload's runtime environment
 
 Apptainer can provide the runtime environment for your workloads.
@@ -118,10 +128,11 @@ your workload's runtime environment.
 
 ### Using the `apptainer`{l=shell} command directly in your workload
 
-Declare in your batch script the partition you want your workload to run within and call the
-`apptainer`{l=shell} command from directly within your batch script. For example, create the file
-_job.batch_, set `compute` as the partition your workload will run within, and run some
-Python code using a containerized Python 3.13 interpreter:
+The `apptainer`{l=shell} command can be called directly in scripts to perform operations
+inside a container instance. First, declare in your batch script the partition you want your
+workload to run within and call the `apptainer`{l=shell} command from directly within your script.
+For example, to select `compute` as the partition your workload will run within, and run some
+Python code using a containerized Python 3.13 interpreter, create the batch script _job.batch_:
 
 :::{code-block} shell
 :caption: job.batch
@@ -181,10 +192,11 @@ Now submit your batch script using the `sbatch`{l=shell} command:
 
 ### Using the `--container` flag with `srun`{l=shell}
 
-Declare both the partition you want your workload to run within and the container that
-will provide the runtime environment of your workload. For example, to select `compute`
-as the partition your workload will run within, and use an Ubuntu 22.04 LTS container
-as the runtime environment:
+Jobs submitted to Slurm with `srun`{l=shell} can be run inside a container instance using Apptainer.
+First, declare both the partition you want your workload to run within and the container image
+that will be used by Apptainer to provide the runtime environment of your workload.
+For example, to select `compute` as the partition your workload will run within,
+and use an Ubuntu 22.04 LTS container image as the runtime environment:
 
 :::{terminal}
 :copy:
@@ -210,10 +222,3 @@ VERSION_ID="22.04"
 VERSION="22.04.5 LTS (Jammy Jellyfish)"
 VERSION_CODENAME=jammy
 :::
-
-
-
-
-
-
-
