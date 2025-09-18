@@ -29,7 +29,7 @@ To successfully complete this tutorial, you will need:
 
 ## Create Multipass VM
 
-Using [charmed-hpc-tutorial-cloud-init.yml], launch a Multipass VM:
+From the local directory holding your downloaded copy of [charmed-hpc-tutorial-cloud-init.yml], launch a Multipass VM:
 
 :::{terminal}
 :user: ubuntu
@@ -38,8 +38,7 @@ Using [charmed-hpc-tutorial-cloud-init.yml], launch a Multipass VM:
 :input: multipass launch 24.04 --name charmed-hpc-tutorial-vm --cloud-init charmed-hpc-tutorial-cloud-init.yml --memory 16G --disk 40G --cpus 8
 :::
 
-<!-- Rephrase this section -->
-The virtual machine launch process should take five minutes or less to complete. The cloud init process creates and configures our lxd machine cloud `localhost` with the `charmed-hpc-controller` juju controller and creates workload and submit scripts for the example jobs.
+The virtual machine launch process should take five minutes or less to complete. The cloud init process creates and configures your lxd machine cloud `localhost` with the `charmed-hpc-controller` juju controller and creates workload and submit scripts for the example jobs.
 
 Upon completion of the launch process, check the status of cloud-init to confirm that all processes completed successfully. First, enter the vm:
 
@@ -75,7 +74,7 @@ Next, you will deploy Slurm and the file system. The Slurm components of your de
 - Two Slurm compute daemons: `slurmd`, grouped in a partition named `tutorial-partition`.
 - The authentication and credential kiosk daemon: `sackd` to provide the login node.
 
-First, create the `slurm` model on our cloud `localhost`:
+First, create the `slurm` model on your cloud `localhost`:
 
 :::{terminal}
 :user: ubuntu
@@ -96,6 +95,17 @@ Then deploy the Slurm components:
 :input: juju deploy sackd --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
 :::
 
+And integrate them together:
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial-vm
+:copy:
+:input: juju integrate slurmctld sackd
+
+:input: juju integrate slurmctld tutorial-partition
+:::
+
 <!-- Note about use of --constraints="virt-type=virtual-machine" ? -->
 
 Next, deploy the filesystem pieces to create a MicroCeph shared file system:
@@ -109,26 +119,21 @@ Next, deploy the filesystem pieces to create a MicroCeph shared file system:
 :input: juju deploy microceph --channel latest/edge --constraints="virt-type=virtual-machine mem=4G root-disk=20G"
 
 :input: juju deploy ceph-fs --channel latest/edge
-:input: juju deploy filesystem-client data --channel latest/edge --config mountpoint=/data
+:input: juju deploy filesystem-client scratch --channel latest/edge --config mountpoint=/scratch
 :input: juju add-storage microceph/0 osd-standalone=loop,2G,3
 :::
 
-After verifying that the plan is correct, run the following set of commands to deploy Slurm
-using Terraform and the Juju provider:
-
-<!-- Within a specific directory? Any other precautions or notes necessary here for someone who has never used Terraform? -->
+And then integrate the filesystem components together: 
 
 :::{terminal}
 :user: ubuntu
 :host: charmed-hpc-tutorial-vm
 :copy:
-:input: juju integrate slurmctld sackd
+:input: juju integrate scratch ceph-fs
 
-:input: juju integrate slurmctld tutorial-partition
-:input: juju integrate data ceph-fs
 :input: juju integrate ceph-fs microceph
-:input: juju integrate data:juju-info tutorial-partition:juju-info
-:input: juju integrate sackd data
+:input: juju integrate scratch tutorial-partition
+:input: juju integrate sackd scratch
 :::
 
 <!-- What will the terminal look like after the prior command? Will there be any on-screen logging happening? -->
@@ -146,7 +151,7 @@ slurm  charmed-hpc-controller  localhost/localhost  3.6.9    unsupported  10:53:
 
 App                 Version          Status  Scale  Charm              Channel      Rev  Exposed  Message
 ceph-fs             19.2.1           active      1  ceph-fs            latest/edge  196  no       Unit is ready
-data                                 active      3  filesystem-client  latest/edge   20  no       Integrated with `cephfs` provider
+scratch                                 active      3  filesystem-client  latest/edge   20  no       Integrated with `cephfs` provider
 microceph                            active      1  microceph          latest/edge  159  no       (workload) charm is ready
 sackd               23.11.4-1.2u...  active      1  sackd              latest/edge   38  no
 slurmctld           23.11.4-1.2u...  active      1  slurmctld          latest/edge  120  no       primary - UP
@@ -156,12 +161,12 @@ Unit                   Workload  Agent  Machine  Public address  Ports          
 ceph-fs/0*             active    idle   5        10.248.240.129                 Unit is ready
 microceph/0*           active    idle   4        10.248.240.102                 (workload) charm is ready
 sackd/0*               active    idle   3        10.248.240.49   6818/tcp
-  data/0*              active    idle            10.248.240.49                  Mounted filesystem at `/data`
+  scratch/0*              active    idle            10.248.240.49                  Mounted filesystem at `/scratch`
 slurmctld/0*           active    idle   0        10.248.240.162  6817,9092/tcp  primary - UP
 tutorial-partition/0   active    idle   1        10.248.240.218  6818/tcp
-  data/2               active    idle            10.248.240.218                 Mounted filesystem at `/data`
+  scratch/2               active    idle            10.248.240.218                 Mounted filesystem at `/scratch`
 tutorial-partition/1*  active    idle   2        10.248.240.130  6818/tcp
-  data/1               active    idle            10.248.240.130                 Mounted filesystem at `/data`
+  scratch/1               active    idle            10.248.240.130                 Mounted filesystem at `/scratch`
 
 Machine  State    Address         Inst id        Base          AZ                       Message
 0        started  10.248.240.162  juju-2586ad-0  ubuntu@24.04  charmed-hpc-tutorial-vm  Running
@@ -174,7 +179,6 @@ Machine  State    Address         Inst id        Base          AZ               
 
 <!-- Test the file system set up  -->
 
-The `juju status` command shows 
 <!-- Add summary of what the last few steps accomplished and what juju status is showing-->
 
 ## Get compute nodes ready for jobs
@@ -214,7 +218,7 @@ tutorial-parition    up   infinite      2   idle juju-e16200-[1-2]
 
 ## Copy files onto cluster
 
-The workload files that were created during the cloud initialization step now need to be copied onto the cluster file system from the vm file system:
+The workload files that were created during the cloud initialization step now need to be copied onto the cluster file system from the VM file system:
 
 :::{terminal}
 :user: ubuntu
@@ -255,20 +259,20 @@ This will place you in your home directory `/home/ubuntu`. Next, you will need t
 :input: mpicc -o mpi_hello_world mpi_hello_world.c
 :::
 
-From here you will move to the `/data` directory, and create and enter your new `/mpi_example` directory with appropriate user permissions:
+From here you will move to the `/scratch` directory, and create and enter your new `/mpi_example` directory with appropriate user permissions:
 
 :::{terminal}
 :user: ubuntu
 :host: login
 :copy:
-:input: cd /data/
+:input: cd /scratch/
 
 :input: sudo mkdir mpi_example
 :input: sudo chown $USER: mpi_example/
 :input: cd mpi_example/
 :::
 
-The `/data` directory is mounted on the compute nodes and will be used to read and write from during the batch job. Next, copy the newly created _mpi_hello_world_ executable and the _submit_hello.sh_ batch script to the `mpi_example/` directory:
+The `/scratch` directory is mounted on the compute nodes and will be used to read and write from during the batch job. Next, copy the newly created _mpi_hello_world_ executable and the _submit_hello.sh_ batch script to the `mpi_example/` directory:
 
 :::{terminal}
 :user: ubuntu
@@ -310,14 +314,17 @@ You can now submit your batch job to the queue:
 
 Once the job is complete, which should be within a few seconds, the output.txt file will look similar to:
 
-:::{code-block} text
-:caption: output.txt
+:::{terminal}
+:user: ubuntu 
+:host: login
+:copy:
+:input: cat output.txt
 
 Hello world from processor juju-640476-1, rank 0 out of 2 processors
 Hello world from processor juju-640476-2, rank 1 out of 2 processors
 :::
 
-The batch job successfully spread the MPI job across two nodes that were able to report back their MPI rank to a common output file.
+The batch job successfully spread the MPI job across two nodes that were able to report back their MPI rank to a shared output file.
 
 ## Run a container job
 
@@ -354,7 +361,7 @@ slurm  charmed-hpc-controller  localhost/localhost  3.6.9    unsupported  17:34:
 App                 Version          Status  Scale  Charm              Channel        Rev  Exposed  Message
 apptainer           1.4.2            active      3  apptainer          latest/stable    6  no       
 ceph-fs             19.2.1           active      1  ceph-fs            latest/edge    196  no       Unit is ready
-data                                 active      3  filesystem-client  latest/edge     20  no       Integrated with `cephfs` provider
+scratch                                 active      3  filesystem-client  latest/edge     20  no       Integrated with `cephfs` provider
 microceph                            active      1  microceph          latest/edge    161  no       (workload) charm is ready
 sackd               23.11.4-1.2u...  active      1  sackd              latest/edge     38  no       
 slurmctld           23.11.4-1.2u...  active      1  slurmctld          latest/edge    120  no       primary - UP
@@ -365,14 +372,14 @@ ceph-fs/0*             active    idle   5        10.196.78.232                  
 microceph/1*           active    idle   6        10.196.78.238                  (workload) charm is ready
 sackd/0*               active    idle   3        10.196.78.117   6818/tcp       
   apptainer/2          active    idle            10.196.78.117                  
-  data/2               active    idle            10.196.78.117                  Mounted filesystem at `/data`
+  scratch/2               active    idle            10.196.78.117                  Mounted filesystem at `/scratch`
 slurmctld/0*           active    idle   0        10.196.78.49    6817,9092/tcp  primary - UP
 tutorial-partition/0   active    idle   1        10.196.78.244   6818/tcp       
   apptainer/0          active    idle            10.196.78.244                  
-  data/0*              active    idle            10.196.78.244                  Mounted filesystem at `/data`
+  scratch/0*              active    idle            10.196.78.244                  Mounted filesystem at `/scratch`
 tutorial-partition/1*  active    idle   2        10.196.78.26    6818/tcp       
   apptainer/1*         active    idle            10.196.78.26                   
-  data/1               active    idle            10.196.78.26                   Mounted filesystem at `/data`
+  scratch/1               active    idle            10.196.78.26                   Mounted filesystem at `/scratch`
 
 Machine  State    Address        Inst id        Base          AZ                       Message
 0        started  10.196.78.49   juju-808105-0  ubuntu@24.04  charmed-hpc-tutorial-vm  Running
@@ -397,13 +404,13 @@ you must build the container image and move it so that it can be located by the 
 :input: apptainer build workload.sif workload.def
 :::
 
-Once the image is complete, copy it and the submit to a new `apptainer_example` directory on `/data`:
+Once the image is complete, copy it and the submit script to a new `apptainer_example` directory on `/scratch`:
 
 :::{terminal}
 :user: ubuntu
 :host: login
 :copy:
-:input: cd /data/
+:input: cd /scratch/
 
 :input: sudo mkdir apptainer_example
 :input: sudo chown $USER: apptainer_example
@@ -452,16 +459,7 @@ The workload files are provided here for reference.
 
 ### Use the image to run jobs
 
-Now that you have the container image, you can submit a job to the cluster that uses the new  _workload.sif_ image to generate one million lines in a table:
-
-:::{terminal}
-:user: ubuntu
-:host: login
-:copy:
-:input: srun -p tutorial-partition --container /data/apptainer_example/workload.sif generate --rows 1000000
-:::
-
-With the resulting _favorite_lts_mascot.csv_, you can now submit the batch job to build the bar plot:
+Now that you have the container image, you can submit a job to the cluster that uses the new  _workload.sif_ image to generate one million lines in a table and then uses the resulting _favorite_lts_mascot.csv_ to build the bar plot:
 
 :::{terminal}
 :user: ubuntu
@@ -470,9 +468,26 @@ With the resulting _favorite_lts_mascot.csv_, you can now submit the batch job t
 :input: sbatch submit_apptainer_mascot.sh
 :::
 
+To view the status of the job while it is running, run `sqeue`.
 
-<!-- Steps for downloading resulting png to local machine. -->
+Once the job has completed, view the generated bar plot:
+
+:::{terminal}
+:user: ubuntu
+:host: login
+:copy:
+:input: cat graph.out
+
+:::
 
 
-## Success!
+## Summary
+
+Is this tutorial, you:
+
+  * Created a Multipass VM and lxd cloud
+  * Deployed and integrated Slurm and a shared file system
+  * Launched an MPI batch job and saw cross-node communicated results
+  * Build a container image with Apptainer and used it to run a batch job and generate a bar plot
+
 
