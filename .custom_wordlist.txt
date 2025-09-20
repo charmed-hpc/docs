@@ -79,6 +79,14 @@ maas
 microsoft
 OpenStack
 
+# Cloud VM instance types
+Dasv
+Dv
+HB
+HBv
+NCasT
+NVadsA
+
 # Developer jargon/acronyms
 conf
 CUDA

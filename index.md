@@ -48,7 +48,9 @@ __Technical information__
 - {ref}`reference-interconnects`
 - {ref}`reference-performance`
 - {ref}`reference-monitoring`
+- {ref}`reference-vm-compatibility`
 <!-- - {ref}`reference-glossary` -->
+
 ```
 
 ````
