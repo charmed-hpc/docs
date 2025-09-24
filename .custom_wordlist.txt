@@ -7,13 +7,16 @@ HPC
 hpc
 HPC's
 InfiniBand
+init
 Juju's
 MPI
+mpi
 OpenMPI
 PKEY
 RDMA
 RESource
 UCX
+yml
 
 # Charm/application/service names
 apptainer
@@ -32,9 +35,11 @@ juju
 ldap
 loki
 LXD
+lxd
 mysql
 postgresql
 prometheus
+Multipass
 munge
 mungectl
 OSU
@@ -92,6 +97,7 @@ HDR
 ip
 JWT
 libs
+lts
 MiB
 oci
 PCIe
@@ -130,15 +136,21 @@ autonomizing
 benchmarking
 cryptographically
 cryptographic
+csv
+dropdowns
 filesystem
 filesystems
 integrations
 lifecycle
 Performant
 performant
+py
 runnable
+sif
 tos
 md
+txt
+yml
 
 # Places
 Moncks
