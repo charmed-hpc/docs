@@ -6,4 +6,3 @@
 #SBATCH --output=output.txt
 
 mpirun ./mpi_hello_world
-

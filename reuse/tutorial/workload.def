@@ -1,29 +1,29 @@
 bootstrap: docker
-      from: ubuntu:24.04
+from: ubuntu:24.04
 
-      %files
-          generate.py /usr/bin/generate
-          workload.py /usr/bin/workload
+%files
+    generate.py /usr/bin/generate
+    workload.py /usr/bin/workload
 
-      %environment
-          export PATH=/usr/bin/venv/bin:${PATH}
-          export PYTHONPATH=/usr/bin/venv:${PYTHONPATH}
+%environment
+    export PATH=/usr/bin/venv/bin:${PATH}
+    export PYTHONPATH=/usr/bin/venv:${PYTHONPATH}
 
-      %post
-          export DEBIAN_FRONTEND=noninteractive
-          apt-get update -y
-          apt-get install -y python3-dev python3-venv
+%post
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update -y
+    apt-get install -y python3-dev python3-venv
 
-          python3 -m venv /usr/bin/venv
-          alias python3=/usr/bin/venv/bin/python3
-          alias pip=/usr/bin/venv/bin/pip
+    python3 -m venv /usr/bin/venv
+    alias python3=/usr/bin/venv/bin/python3
+    alias pip=/usr/bin/venv/bin/pip
 
-          pip install -U faker
-          pip install -U pandas
-          pip install -U plotext
+    pip install -U faker
+    pip install -U pandas
+    pip install -U plotext
 
-          chmod 755 /usr/bin/generate
-          chmod 755 /usr/bin/workload
+    chmod 755 /usr/bin/generate
+    chmod 755 /usr/bin/workload
 
-      %runscript
-          exec workload "$@"
+%runscript
+    exec workload "$@"
