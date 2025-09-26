@@ -35,7 +35,7 @@ To successfully complete this tutorial, you will need:
 
 ## Create a virtual machine with Multipass
 
-First, download a copy of the cloud initialization (cloud-init) file, [charmed-hpc-tutorial-cloud-init.yml], that defines the underlying cloud infrastructure for the virtual machine. For this tutorial, the file includes instructions for creating and configuring your LXD machine cloud `localhost` with the `charmed-hpc-controller` Juju controller and creating workload and submit scripts for the example jobs. The cloud-init step will be completed as part of the vitural machine launch and will not be something you need to set up manually. You can expand the dropdown below to view the full cloud-init file before downloading onto your local system:
+First, download a copy of the cloud initialization (cloud-init) file, [charmed-hpc-tutorial-cloud-init.yml], that defines the underlying cloud infrastructure for the virtual machine. For this tutorial, the file includes instructions for creating and configuring your LXD machine cloud `localhost` with the `charmed-hpc-controller` Juju controller and creating workload and submit scripts for the example jobs. The cloud-init step will be completed as part of the virtual machine launch and will not be something you need to set up manually. You can expand the dropdown below to view the full cloud-init file before downloading onto your local system:
 
 ::::{dropdown} charmed-hpc-tutorial-cloud-init.yml
 :::{literalinclude} /reuse/tutorial/charmed-hpc-tutorial-cloud-init.yml 
