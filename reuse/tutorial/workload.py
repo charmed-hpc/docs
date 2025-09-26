@@ -1,34 +1,43 @@
 #!/usr/bin/env python3
-
+      
 """Plot the most popular Ubuntu LTS mascot."""
-
+      
 import argparse
-from os import PathLike
-
+import os
+      
 import pandas as pd
-
-
-def main(dataset: str | PathLike, file: str | PathLike) -> None:
+import plotext as plt
+      
+def main(dataset: str | os.PathLike, file: str | os.PathLike) -> None:
     df = pd.read_csv(dataset)
     mascots = df["favorite_lts_mascot"].value_counts().sort_index()
-
-    axes = mascots.plot(
-        kind="barh",
+      
+    plt.simple_bar(
+        mascots.index,
+        mascots.values,
         title="Favorite LTS mascot",
-        ylabel="Mascot",
-        xlabel="Votes",
         color="orange",
+        width=150,
     )
-    figure = axes.get_figure()
-    figure.set_figheight(4)
-    figure.set_figwidth(12)
-    figure.savefig(file or "graph.png")
-
-
+      
+    if file:
+        plt.save_fig(
+            file if os.path.isabs(file) else f"{os.getcwd()}/{file}",
+            keep_colors=True
+        )
+    else:
+        plt.show()
+      
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("dataset", type=str, help="Path to CSV dataset to plot")
-    parser.add_argument("-o", "--output", type=str, help="Output file to save plotted graph")
+    parser.add_argument(
+        "-o",
+        "--output",
+        type=str,
+        default="",
+        help="Output file to save plotted graph",
+    )
     args = parser.parse_args()
-
+      
     main(args.dataset, args.output)

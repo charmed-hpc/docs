@@ -11,44 +11,30 @@ The platform enables organizations to focus on obtaining key insights and making
 ## In this documentation
 
 
-````{grid} 1 2 3 3
+````{grid} 1 2 2 2
 
+```{grid-item-card} [Tutorial](tutorial-getting-started-with-charmed-hpc)
+__Get started here:__ A hands-on [introduction to Charmed HPC](tutorial-getting-started-with-charmed-hpc)
 
+```
 
 ```{grid-item-card} [How-to guides](howto/index)
 
-__Step-by-step guides__ covering key operations and common tasks
-
-- {ref}`Initialize cloud environment <howto-initialize-cloud-environment>`
-- {ref}`howto-setup`
-- {ref}`howto-manage`
-- {ref}`Clean up cloud resources <howto-cleanup-cloud-resources>`
+__Step-by-step guides__ covering key operations for [setup](howto/setup/index.md), [management](howto/manage/index.md), and [usage](howto/use/index.md)
 
 ```
 
 
 ```{grid-item-card} [Explanation](explanation/index)
 
-__Discussion and clarification__ of key topics
-
- - {ref}`cryptography`
- - {ref}`explanation-gpus`
- - {ref}`explanation-high-availability`
- - {ref}`explanation-interconnects`
+__Discussion and clarification__ of key topics such as [high availability](explanation/high-availability.md), [cryptography](explanation/cryptography.md), and [gpus](explanation/gpus.md)
 
 ```
 
 
 ```{grid-item-card} [Reference](reference/index)
 
-__Technical information__
-
-- {ref}`reference-underlying-projects-and-dependencies`
-- {ref}`GPU resource scheduling <gres>`
-- {ref}`reference-interconnects`
-- {ref}`reference-performance`
-- {ref}`reference-monitoring`
-<!-- - {ref}`reference-glossary` -->
+__Technical information__ such as [underlying projects and dependencies](reference/underlying-projects-and-dependencies.md), [monitoring](reference/monitoring/index.md), and [performance metrics](reference/performance.md)
 ```
 
 ````
@@ -75,7 +61,7 @@ Here's some links to help you get started with joining the community:
 :titlesonly:
 
 self
-tutorials/index
+Getting started tutorial <getting_started>
 howto/index
 explanation/index
 reference/index

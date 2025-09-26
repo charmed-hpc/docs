@@ -205,8 +205,6 @@ linkcheck_ignore = [
     "https://jwt.io",
     "https://matrix.to/#/#hpc:ubuntu.com",
     "https://charmhub.io/integrations/*", # Integrations page is very unstable sometimes
-    "http://generate.py",
-    "http://workload.py"
 ]
 
 
