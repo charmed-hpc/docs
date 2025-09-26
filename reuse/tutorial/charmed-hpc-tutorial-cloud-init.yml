@@ -1,0 +1,224 @@
+#cloud-config
+
+# Ensure VM is fully up-to-date multipass does not support reboots.
+# See: https://github.com/canonical/multipass/issues/4199
+# Package management
+package_reboot_if_required: false
+package_update: true
+package_upgrade: true
+
+# Install prerequisites
+snap:
+  commands:
+    00: snap install juju --channel=3/stable
+    01: snap install lxd --channel=6/stable
+
+# Configure and initialize prerequisites
+lxd:
+  init:
+    storage_backend: dir
+
+# Commands to run at the end of the cloud-init process
+runcmd:
+  - lxc network set lxdbr0 ipv6.address none
+  - su ubuntu -c 'juju bootstrap localhost charmed-hpc-controller'
+
+# Write files to the Multipass instance
+write_files:
+  # MPI workload dependencies
+  - path: /home/ubuntu/mpi_hello_world.c
+    owner: ubuntu:ubuntu
+    permissions: !!str "0664"
+    defer: true
+    content: |
+      #include <mpi.h>
+      #include <stdio.h>
+      
+      int main(int argc, char** argv) {
+          // Initialize the MPI environment
+          MPI_Init(NULL, NULL);
+
+          // Get the number of nodes
+          int size;
+          MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+          // Get the rank of the process
+          int rank;
+          MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+          // Get the name of the node
+          char node_name[MPI_MAX_PROCESSOR_NAME];
+          int name_len;
+          MPI_Get_processor_name(node_name, &name_len);
+
+          // Print hello world message
+          printf("Hello world from node %s, rank %d out of %d nodes\n",
+                 node_name, rank, size);
+
+          // Finalize the MPI environment.
+          MPI_Finalize();
+      }
+  - path: /home/ubuntu/submit_hello.sh
+    owner: ubuntu:ubuntu
+    permissions: !!str "0664"
+    defer: true
+    content: |
+      #!/usr/bin/env bash
+      #SBATCH --job-name=hello_world
+      #SBATCH --partition=tutorial-partition
+      #SBATCH --nodes=2
+      #SBATCH --error=error.txt
+      #SBATCH --output=output.txt
+
+      mpirun ./mpi_hello_world
+  # Container workload dependencies.
+  - path: /home/ubuntu/generate.py
+    owner: ubuntu:ubuntu
+    permissions: !!str "0664"
+    defer: true
+    content: |
+      #!/usr/bin/env python3
+
+      """Generate example dataset for workload."""
+
+      import argparse
+
+      from faker import Faker
+      from faker.providers import DynamicProvider
+      from pandas import DataFrame
+
+
+      faker = Faker()
+      favorite_lts_mascot = DynamicProvider(
+          provider_name="favorite_lts_mascot",
+          elements=[
+              "Dapper Drake",
+              "Hardy Heron",
+              "Lucid Lynx",
+              "Precise Pangolin",
+              "Trusty Tahr",
+              "Xenial Xerus",
+              "Bionic Beaver",
+              "Focal Fossa",
+              "Jammy Jellyfish",
+              "Noble Numbat",
+          ],
+      )
+      faker.add_provider(favorite_lts_mascot)
+
+
+      def main(rows: int) -> None:
+          df = DataFrame(
+              [
+                  [faker.email(), faker.country(), faker.favorite_lts_mascot()]
+                  for _ in range(rows)
+              ],
+              columns=["email", "country", "favorite_lts_mascot"],
+          )
+          df.to_csv("favorite_lts_mascot.csv")
+
+
+      if __name__ == "__main__":
+          parser = argparse.ArgumentParser()
+          parser.add_argument(
+              "--rows", type=int, default=1, help="Rows of fake data to generate"
+          )
+          args = parser.parse_args()
+
+          main(rows=args.rows)
+  - path: /home/ubuntu/workload.py
+    owner: ubuntu:ubuntu
+    permissions: !!str "0664"
+    defer: true
+    content: |
+      #!/usr/bin/env python3
+      
+      """Plot the most popular Ubuntu LTS mascot."""
+      
+      import argparse
+      import os
+      
+      import pandas as pd
+      import plotext as plt
+      
+      def main(dataset: str | os.PathLike, file: str | os.PathLike) -> None:
+          df = pd.read_csv(dataset)
+          mascots = df["favorite_lts_mascot"].value_counts().sort_index()
+      
+          plt.simple_bar(
+              mascots.index,
+              mascots.values,
+              title="Favorite LTS mascot",
+              color="orange",
+              width=150,
+          )
+      
+          if file:
+              plt.save_fig(
+                  file if os.path.isabs(file) else f"{os.getcwd()}/{file}",
+                  keep_colors=True
+              )
+          else:
+              plt.show()
+      
+      if __name__ == "__main__":
+          parser = argparse.ArgumentParser()
+          parser.add_argument("dataset", type=str, help="Path to CSV dataset to plot")
+          parser.add_argument(
+              "-o",
+              "--output",
+              type=str,
+              default="",
+              help="Output file to save plotted graph",
+          )
+          args = parser.parse_args()
+      
+          main(args.dataset, args.output)
+  - path: /home/ubuntu/workload.def
+    owner: ubuntu:ubuntu
+    permissions: !!str "0664"
+    defer: true
+    content: |
+      bootstrap: docker
+      from: ubuntu:24.04
+
+      %files
+          generate.py /usr/bin/generate
+          workload.py /usr/bin/workload
+
+      %environment
+          export PATH=/usr/bin/venv/bin:${PATH}
+          export PYTHONPATH=/usr/bin/venv:${PYTHONPATH}
+
+      %post
+          export DEBIAN_FRONTEND=noninteractive
+          apt-get update -y
+          apt-get install -y python3-dev python3-venv
+
+          python3 -m venv /usr/bin/venv
+          alias python3=/usr/bin/venv/bin/python3
+          alias pip=/usr/bin/venv/bin/pip
+
+          pip install -U faker
+          pip install -U pandas
+          pip install -U plotext
+
+          chmod 755 /usr/bin/generate
+          chmod 755 /usr/bin/workload
+
+      %runscript
+          exec workload "$@"
+  - path: /home/ubuntu/submit_apptainer_mascot.sh
+    owner: ubuntu:ubuntu
+    permissions: !!str "0664"
+    defer: true
+    content: |
+      #!/usr/bin/env bash
+      #SBATCH --job-name=favorite-lts-mascot
+      #SBATCH --partition=tutorial-partition
+      #SBATCH --nodes=2
+      #SBATCH --error=mascot_error.txt
+      #SBATCH --output=mascot_output.txt
+
+      apptainer exec workload.sif generate --rows 1000000
+      apptainer run workload.sif favorite_lts_mascot.csv --output graph.out
