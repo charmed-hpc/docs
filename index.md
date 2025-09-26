@@ -61,7 +61,7 @@ Here's some links to help you get started with joining the community:
 :titlesonly:
 
 self
-Getting started tutorial <getting_started>
+Getting started <getting_started>
 howto/index
 explanation/index
 reference/index
