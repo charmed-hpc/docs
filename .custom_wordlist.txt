@@ -80,6 +80,7 @@ hostnames
 # Clouds
 aks
 aws
+gce
 maas
 microsoft
 OpenStack
