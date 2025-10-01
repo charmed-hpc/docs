@@ -53,7 +53,7 @@ From the local directory holding the cloud-init file, launch a virtual machine u
 :user: ubuntu
 :host: local
 :copy:
-:input: multipass launch 24.04 --name charmed-hpc-tutorial --cloud-init charmed-hpc-tutorial-cloud-init.yml --memory 16G --disk 40G --cpus 8 --tomeoue 1000
+:input: multipass launch 24.04 --name charmed-hpc-tutorial --cloud-init charmed-hpc-tutorial-cloud-init.yml --memory 16G --disk 40G --cpus 8 --timeout 1000
 :::
 
 The virtual machine launch process should take five minutes or less to complete, but may take longer due to network strength. Upon completion of the launch process, check the status of cloud-init to confirm that all processes completed successfully. 
