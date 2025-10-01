@@ -27,7 +27,7 @@ __Step-by-step guides__ covering key operations for [setup](howto/setup/index.md
 
 ```{grid-item-card} [Explanation](explanation/index)
 
-__Discussion and clarification__ of key topics such as [high availability](explanation/high-availability.md), [cryptography](explanation/cryptography.md), and [gpus](explanation/gpus.md)
+__Discussion and clarification__ of key topics such as [high availability](explanation/high-availability.md), [cryptography](explanation/cryptography.md), and [GPUs](explanation/gpus.md)
 
 ```
 
@@ -61,7 +61,7 @@ Here's some links to help you get started with joining the community:
 :titlesonly:
 
 self
-Getting started <getting_started>
+Getting started <getting-started>
 howto/index
 explanation/index
 reference/index
