@@ -11,6 +11,7 @@ Charmed HPC operates.
 - {ref}`reference-interconnects`
 - {ref}`reference-monitoring`
 - {ref}`reference-performance`
+- {ref}`reference-hardening`
 <!-- - {ref}`reference-glossary` -->
 
 
@@ -24,6 +25,7 @@ gpus
 interconnects
 monitoring/index
 Performance <performance>
+hardening
 :draft:Glossary <glossary>
 
 ```

@@ -1,4 +1,4 @@
-(howto-manage-hardening)=
+(reference-hardening)=
 # Security hardening guidelines
 
 Charmed HPC is designed for security out-of-the-box but this guide serves as a companion to help tailor security measures to your environment.

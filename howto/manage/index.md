@@ -21,7 +21,6 @@ applications to extend the functionality of your cluster.
 These how-to guides provide instructions for configuring an existing Charmed HPC cluster.
 
 - {ref}`howto-manage-slurm`
-- {ref}`howto-manage-hardening`
 
 :::{toctree}
 :titlesonly:
@@ -32,5 +31,4 @@ Integrate with Apptainer <integrate-with-apptainer>
 Integrate with COS <integrate-with-cos>
 Integrate with InfluxDB <integrate-with-influxdb>
 Manage Slurm <manage-slurm>
-Security hardening guidelines <hardening>
 :::
