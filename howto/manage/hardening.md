@@ -15,7 +15,7 @@ By default, Charmed HPC does not enable SSH access to the login nodes, other tha
 
 - Use of SSH keys for authentication
 - Enforcing use of strong, modern ciphers
-- Use of Fail2ban or equivalent tool to block brute-force attacks
+- Use of [Fail2ban](https://github.com/fail2ban/fail2ban) or equivalent tool to block brute-force attacks
 - Limiting access to particular IP ranges
 
 For REST API security guidance, see:
