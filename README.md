@@ -17,7 +17,7 @@ To provide bug reports or enhancement requests regarding _the documentation_, pl
 
 ## 🛠️ Development
 
-To start the development server locally and render a preview, follow step one from the [Pull Request] section(./CONTRIBUTING.md##pull-requests-and-contributing-process) of the [CONTRIBUTING](./CONTRIBUTING.md) file and then run the following command in your terminal:
+To start the development server locally and render a preview, follow step one from the [Pull Request](./CONTRIBUTING.md#pull-requests-and-contributing-process) section of the [CONTRIBUTING](./CONTRIBUTING.md) file and then run the following command in your terminal:
 
 ```shell
 $ make run
