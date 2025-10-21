@@ -74,7 +74,7 @@ copyright = "%s CC-BY-SA, %s" % (datetime.date.today().year, author)
 # NOTE: The Open Graph Protocol (OGP) enhances page display in a social graph
 #       and is used by social media platforms; see https://ogp.me/
 
-ogp_site_url = "https://canonical-charmed-hpc.readthedocs-hosted.com/"
+ogp_site_url = "https://documentation.ubuntu.com/charmed-hpc/latest/"
 
 
 # Preview name of the documentation website
@@ -161,7 +161,7 @@ html_context = {
 # TODO: If your documentation is hosted on https://docs.ubuntu.com/,
 #       uncomment and update as needed.
 
-# slug = ''
+slug = 'charmed-hpc'
 
 
 # Template and asset locations
