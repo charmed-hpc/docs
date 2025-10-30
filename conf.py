@@ -254,6 +254,7 @@ myst_enable_extensions = {
 extensions = [
     "canonical_sphinx",
     "sphinxcontrib.cairosvgconverter",
+    "sphinxcontrib.mermaid",
     "sphinx_last_updated_by_git",
     "sphinx_remove_toctrees",
     "sphinx.ext.intersphinx",
