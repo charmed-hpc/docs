@@ -199,7 +199,7 @@ Machine  State    Address         Inst id        Base          AZ               
 
 ## Get compute nodes ready for jobs
 
-Now that Slurm and the filesystem have been successfully deployed, the next step is to set up the compute nodes themselves. The compute nodes must be moved from the `down` state to the `idle` state so that they can start having jobs ran on them. First, check that the compute nodes are still down, which will show something similar to:
+Now that Slurm and the filesystem have been successfully deployed, the next step is to set up the compute nodes themselves. The compute nodes must be moved from the `down` state to the `idle` state so that they can start having jobs run on them. First, check that the compute nodes are still down, which will show something similar to:
 
 :::{terminal}
 :input: juju exec -u sackd/0 -- sinfo
@@ -265,7 +265,7 @@ First, SSH into the login node, `sackd/0`:
 
 :::
 
-This will place you in your home directory `/home/ubuntu`. Next, you will need to move to the `/scratch/mpi_example` directory, install the Open MPI libraries need for compiling, and then compile the _mpi_hello_world.c_ file by running the `mpicc` command:
+This will place you in your home directory `/home/ubuntu`. Next, you will need to move to the `/scratch/mpi_example` directory, install the Open MPI libraries needed for compiling, and then compile the _mpi_hello_world.c_ file by running the `mpicc` command:
 
 :::{terminal}
 :user: ubuntu
@@ -306,7 +306,7 @@ Now, submit your batch job to the queue using `sbatch`{l=shell}:
 :input: sbatch submit_hello.sh
 :::
 
-You job will complete after a few seconds. The generated _output.txt_ file will look similar to the following:
+Your job will complete after a few seconds. The generated _output.txt_ file will look similar to the following:
 
 :::{terminal}
 :user: ubuntu 
@@ -322,11 +322,11 @@ The batch job successfully spread the MPI job across two nodes that were able to
 
 ## Run a container job
 
-Next you will go through the steps to generate a random sample of Ubuntu mascot votes and plot the results. The process requires Python and few specific libraries so you will use Apptainer to build a container job and run the job on the cluster.
+Next you will go through the steps to generate a random sample of Ubuntu mascot votes and plot the results. The process requires Python and a few specific libraries so you will use Apptainer to build a container job and run the job on the cluster.
 
 ### Set up Apptainer
 
-Apptainer must be deployed and integrated with the existing Slurm deployment using Juju and these steps need to be completed from `charmed-hpc-tutorial` environment; to return to that environment from within `sackd/0`, use the `exit`{l=shell} command.
+Apptainer must be deployed and integrated with the existing Slurm deployment using Juju and these steps need to be completed from the `charmed-hpc-tutorial` environment; to return to that environment from within `sackd/0`, use the `exit`{l=shell} command.
 
 Deploy and integrate Apptainer:
 
