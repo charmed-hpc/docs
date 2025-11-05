@@ -29,7 +29,7 @@ The Charmed HPC cluster built in this tutorial is for learning purposes and shou
 
 To successfully complete this tutorial, you will need:
 
-* At least 8 CPU cores, 16GB RAM, and 40GB storage available 
+* At least 8 CPU cores, 16GB RAM, and 40GB storage available
 * [Multipass installed](https://canonical.com/multipass/install)
 * An active internet connection
 
@@ -38,7 +38,7 @@ To successfully complete this tutorial, you will need:
 First, download a copy of the cloud initialization (cloud-init) file, [charmed-hpc-tutorial-cloud-init.yml], that defines the underlying cloud infrastructure for the virtual machine. For this tutorial, the file includes instructions for creating and configuring your LXD machine cloud `localhost` with the `charmed-hpc-controller` Juju controller and creating workload and submit scripts for the example jobs. The cloud-init step will be completed as part of the virtual machine launch and will not be something you need to set up manually. You can expand the dropdown below to view the full cloud-init file before downloading onto your local system:
 
 ::::{dropdown} charmed-hpc-tutorial-cloud-init.yml
-:::{literalinclude} /reuse/tutorial/charmed-hpc-tutorial-cloud-init.yml 
+:::{literalinclude} /reuse/tutorial/charmed-hpc-tutorial-cloud-init.yml
 :caption: [charmed-hpc-tutorial-cloud-init.yml]
 :language: yaml
 :linenos:
@@ -56,7 +56,7 @@ From the local directory holding the cloud-init file, launch a virtual machine u
 :input: multipass launch 24.04 --name charmed-hpc-tutorial --cloud-init charmed-hpc-tutorial-cloud-init.yml --memory 16G --disk 40G --cpus 8 --timeout 1000
 :::
 
-The virtual machine launch process should take five minutes or less to complete, but may take longer due to network strength. Upon completion of the launch process, check the status of cloud-init to confirm that all processes completed successfully. 
+The virtual machine launch process should take five minutes or less to complete, but may take longer due to network strength. Upon completion of the launch process, check the status of cloud-init to confirm that all processes completed successfully.
 
 Enter the virtual machine:
 
@@ -112,7 +112,7 @@ Then deploy the Slurm components:
 :input: juju deploy sackd --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
 :::
 
-And integrate them together:
+Then integrate them together:
 
 :::{terminal}
 :user: ubuntu
@@ -129,7 +129,7 @@ Next, you will deploy the filesystem pieces, which are:
 
 - the distributed storage system: `microceph`
 - `ceph-fs` to expose the MicroCeph cluster as a shared filesystem using [CephFS](https://docs.ceph.com/en/reef/cephfs/)
-- `filesystem-client` to mount the filesystem, named  `scratch` 
+- `filesystem-client` to mount the filesystem, named `scratch`
 
 :::{terminal}
 :user: ubuntu
@@ -142,7 +142,7 @@ Next, you will deploy the filesystem pieces, which are:
 :input: juju add-storage microceph/0 osd-standalone=loop,2G,3
 :::
 
-And then integrate the filesystem components together: 
+Then integrate the filesystem components together:
 
 :::{terminal}
 :user: ubuntu
@@ -234,7 +234,7 @@ tutorial-partition    up   infinite      2   idle juju-e16200-[1-2]
 
 ## Copy files onto cluster
 
-The workload files that were created during the cloud initialization step now need to be copied onto the cluster filesystem from the virtual machine filesystem. First you will make the new example directories, then set appropriate permissions, and finally copy the files over:
+The workload files that were created during the cloud initialization step now need to be copied onto the cluster filesystem from the virtual machine filesystem. First, you will make the new example directories, then set appropriate permissions, and finally copy the files over:
 
 :::{terminal}
 :user: ubuntu
@@ -255,7 +255,7 @@ In the following steps, you will compile a small Hello World MPI script and run 
 
 ### Compile
 
-First, SSH into the login node, `sackd/0`: 
+First, SSH into the login node, `sackd/0`:
 
 :::{terminal}
 :user: ubuntu
@@ -309,7 +309,7 @@ Now, submit your batch job to the queue using `sbatch`{l=shell}:
 Your job will complete after a few seconds. The generated _output.txt_ file will look similar to the following:
 
 :::{terminal}
-:user: ubuntu 
+:user: ubuntu
 :host: login
 :copy:
 :input: cat output.txt
@@ -387,7 +387,7 @@ Machine  State    Address        Inst id        Base          AZ                
 ### Build the container image using `apptainer`
 
 Before you can submit your container workload to your Charmed HPC cluster,
-you must build the container image from the build recipe. The build recipe file _workload.def_ defines the environment and libraries that will be in the container image. 
+you must build the container image from the build recipe. The build recipe file _workload.def_ defines the environment and libraries that will be in the container image.
 
 To build the image, return to the cluster login node, move to the example directory, and call `apptainer build`:
 
@@ -493,4 +493,4 @@ Now that you have completed the tutorial, if you would like to completely remove
 
 ## Next steps
 
-Now that you have gotten started with Charmed HPC, check out the {ref}`explanation` section for details on important concepts and the {ref}`howtos` for how to use more of Charmed HPC's features. 
+Now that you have gotten started with Charmed HPC, check out the {ref}`explanation` section for details on important concepts and the {ref}`howtos` for how to use more of Charmed HPC's features.
