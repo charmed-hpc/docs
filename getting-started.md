@@ -76,7 +76,7 @@ Then check `cloud-init status`{l=shell}:
 :input: cloud-init status --long
 status: done
 extended_status: done
-boot_status_code: enabled-by-genertor
+boot_status_code: enabled-by-generator
 last_update: Thu, 01 Jan 1970 00:03:45 +0000
 detail: DataSourceNoCloud [seed=/dev/sr0]
 errors: []
@@ -227,7 +227,7 @@ And verify that the `STATE` is now set to `idle`, which should now show:
 :copy:
 :input: juju exec -u sackd/0 -- sinfo
 PARTITION         AVAIL  TIMELIMIT  NODES  STATE NODELIST
-tutorial-parition    up   infinite      2   idle juju-e16200-[1-2]
+tutorial-partition    up   infinite      2   idle juju-e16200-[1-2]
 :::
 
 <!-- Add summary of what the last few steps accomplished -->
@@ -475,10 +475,10 @@ Once the job has completed, view the generated bar plot that will look similar t
 
 ## Summary and clean up
 
-Is this tutorial, you:
+In this tutorial, you:
 
 * Deployed and integrated Slurm and a shared filesystem
-* Launched an MPI batch job and saw cross-node communicated results
+* Launched an MPI batch job and saw cross-node communication results
 * Built a container image with Apptainer and used it to run a batch job and generate a bar plot
 
 Now that you have completed the tutorial, if you would like to completely remove the virtual machine, return to your local terminal and `multipass delete` the virtual machine as follows:
