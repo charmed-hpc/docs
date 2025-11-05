@@ -16,26 +16,28 @@ By the end of this tutorial, you will have worked with a variety of open source 
 * Ceph
 * Slurm
 
-This tutorial assumes that you have had some exposure to high-performance computing concepts such as batch scheduling, but does not assume prior experience building HPC clusters. This tutorial also does not expect you to have any prior experience with Multipass, Juju, Apptainer, Ceph, or Slurm.
+This tutorial assumes that you have had some exposure to high-performance computing concepts such as batch scheduling, but does not assume prior experience building HPC clusters. This tutorial also does not expect you to have any prior experience with the listed projects.
 
 <!-- How long should this tutorial take to complete? -->
 
 :::{admonition} Using Charmed HPC in production
 :class: note
-The Charmed HPC cluster built in this tutorial is for learning purposes and should not be used as the basis for a production HPC cluster. For more in-depth steps on how to deploy a fully operational Charmed HPC cluster, see [Charmed HPC's How-to guides](#howtos)
+The Charmed HPC cluster built in this tutorial is for learning purposes and should not be used as the basis for a production HPC cluster. For more in-depth steps on how to deploy a fully operational Charmed HPC cluster, see [Charmed HPC's How-to guides](#howtos).
 :::
 
 ## Prerequisites
 
 To successfully complete this tutorial, you will need:
 
-* At least 8 CPU cores, 16GB RAM, and 40GB storage available 
+* At least 8 CPU cores, 16GB RAM, and 40GB storage available
 * [Multipass installed](https://canonical.com/multipass/install)
 * An active internet connection
 
 ## Create a virtual machine with Multipass
 
-First, download a copy of the cloud initialization (cloud-init) file, [charmed-hpc-tutorial-cloud-init.yml], that defines the underlying cloud infrastructure for the virtual machine. For this tutorial, the file includes instructions for creating and configuring your LXD machine cloud `localhost` with the `charmed-hpc-controller` Juju controller and creating workload and submit scripts for the example jobs. The cloud-init step will be completed as part of the virtual machine launch and will not be something you need to set up manually. You can expand the dropdown below to view the full cloud-init file before downloading onto your local system:
+First, download a copy of the cloud initialization (cloud-init) file, [charmed-hpc-tutorial-cloud-init.yml], that defines the underlying cloud infrastructure for the virtual machine. 
+
+For this tutorial, the file includes instructions for creating and configuring your LXD machine cloud `localhost` with the `charmed-hpc-controller` Juju controller and creating workload and submit scripts for the example jobs. The cloud-init step will be completed as part of the virtual machine launch and will not be something you need to set up manually. You can expand the dropdown below to view the full cloud-init file before downloading onto your local system:
 
 ::::{dropdown} charmed-hpc-tutorial-cloud-init.yml
 :::{literalinclude} /reuse/tutorial/charmed-hpc-tutorial-cloud-init.yml 
@@ -56,7 +58,7 @@ From the local directory holding the cloud-init file, launch a virtual machine u
 :input: multipass launch 24.04 --name charmed-hpc-tutorial --cloud-init charmed-hpc-tutorial-cloud-init.yml --memory 16G --disk 40G --cpus 8 --timeout 1000
 :::
 
-The virtual machine launch process should take five minutes or less to complete, but may take longer due to network strength. Upon completion of the launch process, check the status of cloud-init to confirm that all processes completed successfully. 
+The virtual machine launch process should take five minutes or less to complete, but may take longer due to network strength. Upon completion of the launch process, check the status of cloud-init to confirm that all processes completed successfully.
 
 Enter the virtual machine:
 
@@ -76,7 +78,7 @@ Then check `cloud-init status`{l=shell}:
 :input: cloud-init status --long
 status: done
 extended_status: done
-boot_status_code: enabled-by-genertor
+boot_status_code: enabled-by-generator
 last_update: Thu, 01 Jan 1970 00:03:45 +0000
 detail: DataSourceNoCloud [seed=/dev/sr0]
 errors: []
@@ -127,9 +129,9 @@ And integrate them together:
 
 Next, you will deploy the filesystem pieces, which are:
 
-- the distributed storage system: `microceph`
+- `microceph`, the distributed storage system
 - `ceph-fs` to expose the MicroCeph cluster as a shared filesystem using [CephFS](https://docs.ceph.com/en/reef/cephfs/)
-- `filesystem-client` to mount the filesystem, named  `scratch` 
+- `filesystem-client` to mount the filesystem, named `scratch` 
 
 :::{terminal}
 :user: ubuntu
@@ -227,7 +229,7 @@ And verify that the `STATE` is now set to `idle`, which should now show:
 :copy:
 :input: juju exec -u sackd/0 -- sinfo
 PARTITION         AVAIL  TIMELIMIT  NODES  STATE NODELIST
-tutorial-parition    up   infinite      2   idle juju-e16200-[1-2]
+tutorial-partition    up   infinite      2   idle juju-e16200-[1-2]
 :::
 
 <!-- Add summary of what the last few steps accomplished -->
@@ -255,7 +257,7 @@ In the following steps, you will compile a small Hello World MPI script and run 
 
 ### Compile
 
-First, SSH into the login node, `sackd/0`: 
+First, SSH into the login node, `sackd/0`:
 
 :::{terminal}
 :user: ubuntu
@@ -265,7 +267,7 @@ First, SSH into the login node, `sackd/0`:
 
 :::
 
-This will place you in your home directory `/home/ubuntu`. Next, you will need to move to the `/scratch/mpi_example` directory, install the Open MPI libraries need for compiling, and then compile the _mpi_hello_world.c_ file by running the `mpicc` command:
+This will place you in your home directory `/home/ubuntu`. Next, you will need to move to the `/scratch/mpi_example` directory, install the Open MPI libraries needed for compiling, and then compile the _mpi_hello_world.c_ file by running the `mpicc` command:
 
 :::{terminal}
 :user: ubuntu
@@ -306,10 +308,10 @@ Now, submit your batch job to the queue using `sbatch`{l=shell}:
 :input: sbatch submit_hello.sh
 :::
 
-You job will complete after a few seconds. The generated _output.txt_ file will look similar to the following:
+Your job will complete after a few seconds. The generated _output.txt_ file will look similar to the following:
 
 :::{terminal}
-:user: ubuntu 
+:user: ubuntu
 :host: login
 :copy:
 :input: cat output.txt
@@ -322,11 +324,11 @@ The batch job successfully spread the MPI job across two nodes that were able to
 
 ## Run a container job
 
-Next you will go through the steps to generate a random sample of Ubuntu mascot votes and plot the results. The process requires Python and few specific libraries so you will use Apptainer to build a container job and run the job on the cluster.
+Next you will go through the steps to generate a random sample of Ubuntu mascot votes and plot the results. The process requires Python and a few specific libraries so you will use Apptainer to build a container job and run the job on the cluster.
 
 ### Set up Apptainer
 
-Apptainer must be deployed and integrated with the existing Slurm deployment using Juju and these steps need to be completed from `charmed-hpc-tutorial` environment; to return to that environment from within `sackd/0`, use the `exit`{l=shell} command.
+Apptainer must be deployed and integrated with the existing Slurm deployment using Juju and these steps need to be completed from the `charmed-hpc-tutorial` environment; to return to that environment from within `sackd/0`, use the `exit`{l=shell} command.
 
 Deploy and integrate Apptainer:
 
@@ -475,10 +477,10 @@ Once the job has completed, view the generated bar plot that will look similar t
 
 ## Summary and clean up
 
-Is this tutorial, you:
+In this tutorial, you:
 
 * Deployed and integrated Slurm and a shared filesystem
-* Launched an MPI batch job and saw cross-node communicated results
+* Launched an MPI batch job and saw cross-node communication results
 * Built a container image with Apptainer and used it to run a batch job and generate a bar plot
 
 Now that you have completed the tutorial, if you would like to completely remove the virtual machine, return to your local terminal and `multipass delete` the virtual machine as follows:
