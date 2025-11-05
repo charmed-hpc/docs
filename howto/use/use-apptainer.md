@@ -113,13 +113,6 @@ Now use the built container to compile and run your Fortran program:
 Hello world!
 :::
 
-:::{warning}
-Check with your cluster administrator before attempting to build container images
-on your Charmed HPC cluster. Each site has different policies about whether you
-can build container images directly on your cluster, and some disallow
-building container images on specific cluster resources such as login nodes.
-:::
-
 ## Provide your workload's runtime environment
 
 Apptainer can provide the runtime environment for your workloads.
