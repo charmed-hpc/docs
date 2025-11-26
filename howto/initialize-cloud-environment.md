@@ -121,7 +121,7 @@ After a few minutes, your LXD cloud controller will become active. The output of
 command should be similar to the following:
 
 :::{terminal}
-:input: juju status -m controller
+juju status -m controller
 
 Model       Controller              Cloud/Region         Version  SLA          Timestamp
 controller  charmed-hpc-controller  charmed-hpc/default  3.6.2    unsupported  13:55:33-05:00
@@ -193,7 +193,7 @@ Credential "my-az-credential" added locally for cloud "azure".
 To allow Juju to automatically create resources in Azure, further privileges should be granted to the credentials created above. Run, substituting `my-az-credential` with the name of your credential:
 
 :::{terminal}
-:input: juju show-credentials azure my-az-credential
+juju show-credentials azure my-az-credential
 :::
 
 which will show:
@@ -234,7 +234,7 @@ juju bootstrap azure charmed-hpc-controller --constraints "instance-role=auto"
 After a few minutes, your Azure cloud controller will become active. The output of the `juju status`{l=shell} command should be similar to the following:
 
 :::{terminal}
-:input: juju status -m controller
+juju status -m controller
 
 Model       Controller              Cloud/Region  Version  SLA          Timestamp
 controller  charmed-hpc-controller  azure/eastus  3.6.3    unsupported  10:39:56Z
@@ -352,7 +352,7 @@ After a few minutes, your AWS cloud controller will become active. The output of
 be similar to the following:
 
 :::{terminal}
-:input: juju status -m controller
+juju status -m controller
 
 Model       Controller              Cloud/Region   Version  SLA          Timestamp
 controller  charmed-hpc-controller  aws/us-east-1  3.6.7    unsupported  17:33:14-06:00
@@ -476,7 +476,7 @@ After a few minutes, your GCP cloud controller will become active. The output of
 be similar to the following:
 
 :::{terminal}
-:input: juju status -m controller
+juju status -m controller
 
 Model       Controller              Cloud/Region     Version  SLA          Timestamp
 controller  charmed-hpc-controller  google/us-east1  3.6.8    unsupported  09:48:03-06:00
@@ -540,7 +540,7 @@ sudo k8s config | \
 cloud. The output of `juju clouds`{l=shell} should be similar to the following:
 
 :::{terminal}
-:input: juju clouds --controller charmed-hpc-controller
+juju clouds --controller charmed-hpc-controller
 
 Clouds available on the controller:
 Cloud            Regions  Default  Type
@@ -596,7 +596,7 @@ juju add-k8s --controller charmed-hpc-controller charmed-hpc-k8s --cluster-name=
 With the AKS cloud added, the output of `juju clouds`{l=shell} for the controller should be similar to the following:
 
 :::{terminal}
-:input: juju clouds --controller charmed-hpc-controller
+juju clouds --controller charmed-hpc-controller
 
 Clouds available on the controller:
 Cloud            Regions  Default  Type
@@ -649,7 +649,8 @@ cat ~/.kube/config | grep 'name: charmed-eks-cluster'
 
 This should display something similar to:
 :::{terminal}
-:input: cat ~/.kube/config | grep 'name: charmed-eks-cluster'
+cat ~/.kube/config | grep 'name: charmed-eks-cluster'
+
   name: charmed-eks-cluster.us-east-1.eksctl.io
 :::
 
@@ -681,7 +682,7 @@ instead of the default client (`/snap/bin/juju`).
 With the EKS cloud added, the output of `juju clouds`{l=shell} for the controller should be similar to the following:
 
 :::{terminal}
-:input: juju clouds --controller charmed-hpc-controller
+juju clouds --controller charmed-hpc-controller
 
 Clouds available on the controller:
 Cloud            Regions  Default    Type
@@ -717,7 +718,8 @@ default Service Account has the `roles/container.defaultNodeServiceAccount` role
 project ID is `my-project`, first get your project number:
 
 :::{terminal}
-:input: gcloud projects describe my-project --format="value(projectNumber)"
+gcloud projects describe my-project --format="value(projectNumber)"
+
 12345678901
 :::
 
@@ -760,7 +762,8 @@ cat ~/.kube/config | grep 'name: .*charmed-gke-cluster'
 This should display something similar to:
 
 :::{terminal}
-:input: cat ~/.kube/config | grep 'name: .*charmed-gke-cluster'
+cat ~/.kube/config | grep 'name: .*charmed-gke-cluster'
+
   name: gke_my-project_us-east1_charmed-gke-cluster
 :::
 
@@ -788,7 +791,7 @@ instead of the default client (`/snap/bin/juju`).
 With the GKE cloud added, the output of `juju clouds`{l=shell} for the controller should be similar to the following:
 
 :::{terminal}
-:input: juju clouds --controller charmed-hpc-controller
+juju clouds --controller charmed-hpc-controller
 
 Clouds available on the controller:
 Cloud            Regions  Default    Type
