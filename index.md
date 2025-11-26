@@ -20,7 +20,7 @@ __Get started here:__ A hands-on [introduction to Charmed HPC](tutorial-getting-
 
 ```{grid-item-card} [How-to guides](howto/index)
 
-__Step-by-step guides__ covering key operations for [setup](howto/setup/index.md), [management](howto/manage/index.md), and [usage](howto/use/index.md)
+__Step-by-step guides__ covering key operations for [setup](howto/setup/index.md), [integration](howto/integrate/index.md), [management](howto/manage/index.md), and [usage](howto/use/index.md)
 
 ```
 

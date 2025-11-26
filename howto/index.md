@@ -20,15 +20,22 @@ taking you through the setup of your own Charmed HPC cluster.
 - {ref}`howto-setup-deploy-shared-filesystem`
 - {ref}`How to deploy GLAuth and SSSD for Identity and Access Management (IAM) <howto-setup-deploy-glauth>`
 
-(howto-manage)=
-## Manage
+(howto-integrate)=
+## Integrate
 
-The how-to guides in this section show you how to integrate with optional services and perform common management tasks after you have
-deployed Charmed HPC.
+The how-to guides in this section show you how to integrate an existing Charmed HPC cluster
+with other applications.
 
 - {ref}`howto-manage-integrate-with-apptainer`
 - {ref}`howto-manage-integrate-with-cos`
 - {ref}`howto-manage-integrate-with-influxdb`
+
+(howto-manage)=
+## Manage
+
+The how-to guides in this section show you how to perform common cluster management
+tasks on Charmed HPC.
+
 - {ref}`howto-manage-slurm`
 
 ## Clean-up
@@ -44,6 +51,7 @@ It is important to clean up resources that are no longer necessary, especially i
 
 Initialize cloud environment <initialize-cloud-environment>
 setup/index
+integrate/index
 manage/index
 use/index
 Clean up cloud resources <cleanup-cloud-resources>
