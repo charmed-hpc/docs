@@ -80,7 +80,7 @@ This command will return `[]` if no Azure resources remain. If there are `charme
 List your Juju credentials with:
 
 :::{terminal}
-:input: juju credentials
+juju credentials
 
 Client Credentials:
 Cloud        Credentials
@@ -181,7 +181,7 @@ process exceed 15 minutes or otherwise be seemingly stuck, you can proceed to de
 List your Juju credentials with:
 
 :::{terminal}
-:input: juju credentials
+juju credentials
 
 Client Credentials:
 Cloud        Credentials
@@ -287,7 +287,7 @@ process exceed 15 minutes or otherwise be seemingly stuck, you can proceed to de
 List your Juju credentials with:
 
 :::{terminal}
-:input: juju credentials
+juju credentials
 
 Client Credentials:
 Cloud        Credentials
@@ -303,7 +303,8 @@ juju remove-credential google <your credential name>
 After deleting the credential, the interactive process may not clean up its Service Account. Check the full list of accounts with:
 
 :::{terminal}
-:input: gcloud iam service-accounts list --project="my-project"
+gcloud iam service-accounts list --project="my-project"
+
 Compute Engine default service account  12345678901-compute@developer.gserviceaccount.com  False
 Juju Service Account                    JujuService@my-project.iam.gserviceaccount.com     False
 :::

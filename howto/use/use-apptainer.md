@@ -42,12 +42,32 @@ Valkey service on your cluster:
 :::{terminal}
 :copy:
 :host: login
-:input: apptainer pull valkey.sif docker://ubuntu/valkey:7.2.10-24.04_stable
 
-:input: apptainer overlay create --size 1024 valkey.img
-:input: apptainer instance run --overlay valkey.img valkey.sif valkey
+apptainer pull valkey.sif docker://ubuntu/valkey:7.2.10-24.04_stable
+:::
+
+:::{terminal}
+:copy:
+:host: login
+
+apptainer overlay create --size 1024 valkey.img
+:::
+
+:::{terminal}
+:copy:
+:host: login
+
+apptainer instance run --overlay valkey.img valkey.sif valkey
+
 INFO:    instance started successfully
-:input: apptainer exec instance://valkey valkey-cli ping
+:::
+
+:::{terminal}
+:copy:
+:host: login
+
+apptainer exec instance://valkey valkey-cli ping
+
 PONG
 :::
 
@@ -88,7 +108,8 @@ Now use `apptainer build`{l=shell} to build the container image:
 :::{terminal}
 :copy:
 :host: login
-:input: apptainer build fortran-runtime.sif fortran-runtime.def
+
+apptainer build fortran-runtime.sif fortran-runtime.def
 :::
 
 The built container image can now be used to compile and run Fortran workloads. For
@@ -107,9 +128,16 @@ Now use the built container to compile and run your Fortran program:
 :::{terminal}
 :copy:
 :host: login
-:input: apptainer exec fortran-runtime.sif gfortran --output hello hello.f90
 
-:input: apptainer exec fortran-runtime.sif ./hello
+apptainer exec fortran-runtime.sif gfortran --output hello hello.f90
+:::
+
+:::{terminal}
+:copy:
+:host: login
+
+apptainer exec fortran-runtime.sif ./hello
+
 Hello world!
 :::
 
@@ -143,7 +171,9 @@ Now submit the _job.batch_ script to Slurm with `sbatch`{l=shell}:
 :::{terminal}
 :copy:
 :host: login
-:input: sbatch job.batch
+
+sbatch job.batch
+
 Submitted batch job 1
 :::
 
@@ -152,7 +182,9 @@ Use `cat`{l=shell} to view the results of your workload after it completes:
 :::{terminal}
 :copy:
 :host: login
-:input: cat job.out
+
+cat job.out
+
 Hello from Python 3.13.3 (main, Aug 14 2025, 11:53:40) [GCC 14.2.0]!
 :::
 
@@ -179,7 +211,8 @@ Now submit your batch script using the `sbatch`{l=shell} command:
 :::{terminal}
 :copy:
 :host: login
-:input: sbatch my-job.batch
+
+sbatch my-job.batch
 :::
 -->
 
@@ -194,9 +227,15 @@ and use an Ubuntu 22.04 LTS container image as the runtime environment:
 :::{terminal}
 :copy:
 :host: login
-:input: PARTITION=slurmd
 
-:input: CONTAINER=docker://ubuntu:22.04
+PARTITION=slurmd
+:::
+
+:::{terminal}
+:copy:
+:host: login
+
+CONTAINER=docker://ubuntu:22.04
 :::
 
 Now run your workload with `srun`{l=shell}:
@@ -204,7 +243,9 @@ Now run your workload with `srun`{l=shell}:
 :::{terminal}
 :copy:
 :host: login
-:input: srun --partition $PARTITION --container $CONTAINER cat /etc/os-release | grep ^VERSION
+
+srun --partition $PARTITION --container $CONTAINER cat /etc/os-release | grep ^VERSION
+
 INFO:    Converting OCI blobs to SIF format
 INFO:    Starting build...
 INFO:    Fetching OCI image...

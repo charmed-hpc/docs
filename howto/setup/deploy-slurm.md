@@ -83,7 +83,8 @@ After a few minutes, your Slurm deployment will become active. The output of the
 `juju status`{l=shell} command should be similar to the following:
 
 :::{terminal}
-:input: juju status
+juju status
+
 Model  Controller   Cloud/Region         Version  SLA          Timestamp
 slurm  charmed-hpc  localhost/localhost  3.6.0    unsupported  17:16:37Z
 
@@ -415,7 +416,8 @@ After a few minutes, your Slurm deployment will become active. The output of the
 `juju status`{l=shell} command should be similar to the following:
 
 :::{terminal}
-:input: juju status
+juju status
+
 Model  Controller   Cloud/Region         Version  SLA          Timestamp
 slurm  charmed-hpc  localhost/localhost  3.6.0    unsupported  17:16:37Z
 
@@ -526,7 +528,8 @@ resource "juju_integration" "filesystem-to-slurmctld" {
 Once `slurmctld` is scaled up, the output of the `juju status`{l=shell} command should be similar to the following, varying by choice of shared file system - here CephFS:
 
 :::{terminal}
-:input: juju status
+juju status
+
 Model  Controller   Cloud/Region         Version  SLA          Timestamp
 slurm  charmed-hpc  localhost/localhost  3.6.0    unsupported  17:16:37Z
 

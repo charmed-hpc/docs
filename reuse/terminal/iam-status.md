@@ -2,8 +2,10 @@ After a few minutes, your GLAuth deployment will become active. The output
 of `juju status`{l=shell} will be similar to the following:
 
 :::{terminal}
-:input: juju status
 :scroll:
+
+juju status
+
 Model  Controller              Cloud/Region             Version  SLA          Timestamp
 iam    charmed-hpc-controller  charmed-hpc-k8s/default  3.6.4    unsupported  14:24:50-04:00
 

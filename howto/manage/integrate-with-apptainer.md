@@ -26,7 +26,7 @@ First, in the same model holding your Slurm deployment, deploy Apptainer with `j
 
 :::{terminal}
 :copy:
-:input: juju deploy apptainer
+juju deploy apptainer
 :::
 
 ::::{dropdown} Tip: Determining the current Juju model
@@ -34,7 +34,8 @@ You can use `juju switch`{l=shell} to determine the current model you're operati
 
 :::{terminal}
 :copy:
-:input: juju switch
+juju switch
+
 charmed-hpc-controller:admin/slurm
 :::
 
@@ -52,10 +53,18 @@ Now integrate Apptainer with Slurm using `juju integrate`{l=shell}:
 
 :::{terminal}
 :copy:
-:input: juju integrate apptainer sackd
+juju integrate apptainer sackd
+:::
 
-:input: juju integrate apptainer slurmd
-:input: juju integrate apptainer slurmctld
+:::{terminal}
+:copy:
+
+juju integrate apptainer slurmd
+:::
+
+:::{terminal}
+:copy:
+juju integrate apptainer slurmctld
 :::
 
 Apptainer will be installed on all the `sackd` and `slurmd` units, and will share its configuration
@@ -68,7 +77,8 @@ Slurm, the output of your test job will be similar to the following:
 
 :::{terminal}
 :copy:
-:input: juju exec -u sackd/0 -- srun --partition slurmd --container=docker://ubuntu:22.04 cat /etc/os-release | grep ^VERSION
+juju exec -u sackd/0 -- srun --partition slurmd --container=docker://ubuntu:22.04 cat /etc/os-release | grep ^VERSION
+
 INFO:    Converting OCI blobs to SIF format
 INFO:    Starting build...
 INFO:    Fetching OCI image...

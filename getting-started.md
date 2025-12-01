@@ -55,7 +55,8 @@ From the local directory holding the cloud-init file, launch a virtual machine u
 :user: ubuntu
 :host: local
 :copy:
-:input: multipass launch 24.04 --name charmed-hpc-tutorial --cloud-init charmed-hpc-tutorial-cloud-init.yml --memory 16G --disk 40G --cpus 8 --timeout 1000
+
+multipass launch 24.04 --name charmed-hpc-tutorial --cloud-init charmed-hpc-tutorial-cloud-init.yml --memory 16G --disk 40G --cpus 8 --timeout 1000
 :::
 
 The virtual machine launch process should take five minutes or less to complete, but may take longer due to network strength. Upon completion of the launch process, check the status of cloud-init to confirm that all processes completed successfully.
@@ -66,7 +67,8 @@ Enter the virtual machine:
 :user: ubuntu
 :host: local
 :copy:
-:input: multipass shell charmed-hpc-tutorial
+
+multipass shell charmed-hpc-tutorial
 :::
 
 Then check `cloud-init status`{l=shell}:
@@ -75,7 +77,9 @@ Then check `cloud-init status`{l=shell}:
 :user: ubuntu
 :host: charmed-hpc-tutorial
 :copy:
-:input: cloud-init status --long
+
+cloud-init status --long
+
 status: done
 extended_status: done
 boot_status_code: enabled-by-generator
@@ -99,7 +103,8 @@ First, create the `slurm` model on your cloud `localhost`:
 :user: ubuntu
 :host: charmed-hpc-tutorial
 :copy:
-:input: juju add-model slurm localhost
+
+juju add-model slurm localhost
 :::
 
 Then deploy the Slurm components:
@@ -108,10 +113,24 @@ Then deploy the Slurm components:
 :user: ubuntu
 :host: charmed-hpc-tutorial
 :copy:
-:input: juju deploy slurmctld --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
 
-:input: juju deploy slurmd tutorial-partition -n 2 --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
-:input: juju deploy sackd --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
+juju deploy slurmctld --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial
+:copy:
+
+juju deploy slurmd tutorial-partition -n 2 --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial
+:copy:
+
+juju deploy sackd --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
 :::
 
 And integrate them together:
@@ -120,9 +139,16 @@ And integrate them together:
 :user: ubuntu
 :host: charmed-hpc-tutorial
 :copy:
-:input: juju integrate slurmctld sackd
 
-:input: juju integrate slurmctld tutorial-partition
+juju integrate slurmctld sackd
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial
+:copy:
+
+juju integrate slurmctld tutorial-partition
 :::
 
 <!-- Note about use of --constraints="virt-type=virtual-machine" ? -->
@@ -137,11 +163,32 @@ Next, you will deploy the filesystem pieces, which are:
 :user: ubuntu
 :host: charmed-hpc-tutorial
 :copy:
-:input: juju deploy microceph --channel latest/edge --constraints="virt-type=virtual-machine mem=4G root-disk=20G"
 
-:input: juju deploy ceph-fs --channel latest/edge
-:input: juju deploy filesystem-client scratch --channel latest/edge --config mountpoint=/scratch
-:input: juju add-storage microceph/0 osd-standalone=loop,2G,3
+juju deploy microceph --channel latest/edge --constraints="virt-type=virtual-machine mem=4G root-disk=20G"
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial
+:copy:
+
+juju deploy ceph-fs --channel latest/edge
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial
+:copy:
+
+juju deploy filesystem-client scratch --channel latest/edge --config mountpoint=/scratch
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial
+:copy:
+
+juju add-storage microceph/0 osd-standalone=loop,2G,3
 :::
 
 And then integrate the filesystem components together: 
@@ -150,11 +197,32 @@ And then integrate the filesystem components together:
 :user: ubuntu
 :host: charmed-hpc-tutorial
 :copy:
-:input: juju integrate scratch ceph-fs
 
-:input: juju integrate ceph-fs microceph
-:input: juju integrate scratch tutorial-partition
-:input: juju integrate sackd scratch
+juju integrate scratch ceph-fs
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial
+:copy:
+
+juju integrate ceph-fs microceph
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial
+:copy:
+
+juju integrate scratch tutorial-partition
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial
+:copy:
+
+juju integrate sackd scratch
 :::
 
 After a few minutes, the Slurm deployment will become active. The output of the
@@ -163,8 +231,10 @@ After a few minutes, the Slurm deployment will become active. The output of the
 :::{terminal}
 :user: ubuntu
 :host: charmed-hpc-tutorial
-:input: juju status
 :copy:
+
+juju status
+
 Model  Controller              Cloud/Region         Version  SLA          Timestamp
 slurm  charmed-hpc-controller  localhost/localhost  3.6.9    unsupported  10:53:50-04:00
 
@@ -204,8 +274,10 @@ Machine  State    Address         Inst id        Base          AZ               
 Now that Slurm and the filesystem have been successfully deployed, the next step is to set up the compute nodes themselves. The compute nodes must be moved from the `down` state to the `idle` state so that they can start having jobs ran on them. First, check that the compute nodes are still down, which will show something similar to:
 
 :::{terminal}
-:input: juju exec -u sackd/0 -- sinfo
 :copy:
+
+juju exec -u sackd/0 -- sinfo
+
 PARTITION         AVAIL  TIMELIMIT  NODES  STATE NODELIST
 tutorial-partition    up   infinite      2   down juju-e16200-[1-2]
 :::
@@ -216,9 +288,16 @@ Then, bring up the compute nodes:
 :user: ubuntu
 :host: charmed-hpc-tutorial
 :copy:
-:input: juju run tutorial-partition/0 node-configured
 
-:input: juju run tutorial-partition/1 node-configured
+juju run tutorial-partition/0 node-configured
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial
+:copy:
+
+juju run tutorial-partition/1 node-configured
 :::
 
 And verify that the `STATE` is now set to `idle`, which should now show:
@@ -227,7 +306,9 @@ And verify that the `STATE` is now set to `idle`, which should now show:
 :user: ubuntu
 :host: charmed-hpc-tutorial
 :copy:
-:input: juju exec -u sackd/0 -- sinfo
+
+juju exec -u sackd/0 -- sinfo
+
 PARTITION         AVAIL  TIMELIMIT  NODES  STATE NODELIST
 tutorial-partition    up   infinite      2   idle juju-e16200-[1-2]
 :::
@@ -242,11 +323,32 @@ The workload files that were created during the cloud initialization step now ne
 :user: ubuntu
 :host: charmed-hpc-tutorial
 :copy:
-:input: juju exec -u sackd/0 -- sudo mkdir /scratch/mpi_example /scratch/apptainer_example
 
-:input: juju exec -u sackd/0 -- sudo chown $USER: /scratch/*
-:input: juju scp submit_hello.sh mpi_hello_world.c sackd/0:/scratch/mpi_example
-:input: juju scp submit_apptainer_mascot.sh generate.py workload.py workload.def sackd/0:/scratch/apptainer_example
+juju exec -u sackd/0 -- sudo mkdir /scratch/mpi_example /scratch/apptainer_example
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial
+:copy:
+
+juju exec -u sackd/0 -- sudo chown $USER: /scratch/*
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial
+:copy:
+
+juju scp submit_hello.sh mpi_hello_world.c sackd/0:/scratch/mpi_example
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial
+:copy:
+
+juju scp submit_apptainer_mascot.sh generate.py workload.py workload.def sackd/0:/scratch/apptainer_example
 :::
 
 The `/scratch` directory is mounted on the compute nodes and will be used to read and write from during the batch jobs.
@@ -263,8 +365,8 @@ First, SSH into the login node, `sackd/0`:
 :user: ubuntu
 :host: charmed-hpc-tutorial
 :copy:
-:input: juju ssh sackd/0
 
+juju ssh sackd/0
 :::
 
 This will place you in your home directory `/home/ubuntu`. Next, you will need to move to the `/scratch/mpi_example` directory, install the Open MPI libraries needed for compiling, and then compile the _mpi_hello_world.c_ file by running the `mpicc` command:
@@ -273,10 +375,24 @@ This will place you in your home directory `/home/ubuntu`. Next, you will need t
 :user: ubuntu
 :host: login
 :copy:
-:input: cd /scratch/mpi_example
 
-:input: sudo apt install build-essential openmpi-bin libopenmpi-dev
-:input: mpicc -o mpi_hello_world mpi_hello_world.c
+cd /scratch/mpi_example
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: login
+:copy:
+
+sudo apt install build-essential openmpi-bin libopenmpi-dev
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: login
+:copy:
+
+mpicc -o mpi_hello_world mpi_hello_world.c
 :::
 
 For quick referencing, the two files for the MPI Hello World example are provided in dropdowns here:
@@ -305,7 +421,8 @@ Now, submit your batch job to the queue using `sbatch`{l=shell}:
 :user: ubuntu
 :host: login
 :copy:
-:input: sbatch submit_hello.sh
+
+sbatch submit_hello.sh
 :::
 
 Your job will complete after a few seconds. The generated _output.txt_ file will look similar to the following:
@@ -314,7 +431,8 @@ Your job will complete after a few seconds. The generated _output.txt_ file will
 :user: ubuntu
 :host: login
 :copy:
-:input: cat output.txt
+
+cat output.txt
 
 Hello world from processor juju-640476-1, rank 0 out of 2 processors
 Hello world from processor juju-640476-2, rank 1 out of 2 processors
@@ -336,11 +454,32 @@ Deploy and integrate Apptainer:
 :user: ubuntu
 :host: charmed-hpc-tutorial
 :copy:
-:input: juju deploy apptainer
 
-:input: juju integrate apptainer tutorial-partition
-:input: juju integrate apptainer sackd
-:input: juju integrate apptainer slurmctld
+juju deploy apptainer
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial
+:copy:
+
+juju integrate apptainer tutorial-partition
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial
+:copy:
+
+juju integrate apptainer sackd
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: charmed-hpc-tutorial
+:copy:
+
+juju integrate apptainer slurmctld
 :::
 
 After a few minutes, `juju status` should look similar to the following:
@@ -349,7 +488,8 @@ After a few minutes, `juju status` should look similar to the following:
 :user: ubuntu
 :host: charmed-hpc-tutorial
 :copy:
-:input: juju status
+
+juju status
 
 Model  Controller              Cloud/Region         Version  SLA          Timestamp
 slurm  charmed-hpc-controller  localhost/localhost  3.6.9    unsupported  17:34:46-04:00
@@ -397,10 +537,24 @@ To build the image, return to the cluster login node, move to the example direct
 :user: ubuntu
 :host: login
 :copy:
-:input: juju ssh sackd/0
 
-:input: cd /scratch/apptainer_example
-:input: apptainer build workload.sif workload.def
+juju ssh sackd/0
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: login
+:copy:
+
+cd /scratch/apptainer_example
+:::
+
+:::{terminal}
+:user: ubuntu
+:host: login
+:copy:
+
+apptainer build workload.sif workload.def
 :::
 
 The files for the Apptainer Mascot Vote example are provided here for reference.
@@ -448,7 +602,8 @@ Now that you have built the container image, you can submit a job to the cluster
 :user: ubuntu
 :host: login
 :copy:
-:input: sbatch submit_apptainer_mascot.sh
+
+sbatch submit_apptainer_mascot.sh
 :::
 
 To view the status of the job while it is running, run `squeue`.
@@ -459,7 +614,8 @@ Once the job has completed, view the generated bar plot that will look similar t
 :user: ubuntu
 :host: login
 :copy:
-:input: cat graph.out
+
+cat graph.out
 
 ────────────────────── Favorite LTS mascot ───────────────────────
 │Bionic Beaver    ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 101124.00
@@ -489,8 +645,8 @@ Now that you have completed the tutorial, if you would like to completely remove
 :user: ubuntu
 :host: local
 :copy:
-:input: multipass delete -p charmed-hpc-tutorial
 
+multipass delete -p charmed-hpc-tutorial
 :::
 
 ## Next steps

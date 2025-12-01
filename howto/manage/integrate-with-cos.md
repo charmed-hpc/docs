@@ -82,7 +82,7 @@ The piped output of the `juju show-unit`{l=shell} command should be similar to t
 
 :::{terminal}
 :copy:
-:input: juju show-unit --model cos-controller:cos catalogue/0 --format json | jq '.[]."relation-info".[]."application-data".url | select (. != null)'
+juju show-unit --model cos-controller:cos catalogue/0 --format json | jq '.[]."relation-info".[]."application-data".url | select (. != null)'
 
 "http://10.190.89.230/cos-grafana"
 "http://10.190.89.230/cos-prometheus-0"
@@ -107,7 +107,7 @@ means that your `charmed-hpc` cloud can successfully contact your COS deployment
 
 :::{terminal}
 :copy:
-:input: juju exec --unit grafana-agent/0 -- curl -s http://10.190.89.230/cos-prometheus-0/api/v1/status/runtimeinfo
+juju exec --unit grafana-agent/0 -- curl -s http://10.190.89.230/cos-prometheus-0/api/v1/status/runtimeinfo
 
 {"status":"success","data":{"startTime":"2025-02-06T19:09:05.141616388Z","CWD":"/","reloadConfigSuccess":true,"lastConfigTime":"2025-02-06T19:10:36Z","corruptionCount":0,"goroutineCount":56,"GOMAXPROCS":8,"GOMEMLIMIT":9223372036854775807,"GOGC":"","GODEBUG":"","storageRetention":"15d or 819MiB204KiB819B"}}
 :::

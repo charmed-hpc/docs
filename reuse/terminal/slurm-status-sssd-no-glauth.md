@@ -2,8 +2,10 @@ After a few minutes, your SSSD deployment will reach waiting status.
 The output of `juju status`{l=shell} will be similar to the following:
 
 :::{terminal}
-:input: juju status
 :scroll:
+
+juju status
+
 Model  Controller              Cloud/Region         Version  SLA          Timestamp
 slurm  charmed-hpc-controller  charmed-hpc/default  3.6.4    unsupported  16:17:13-04:00
 
