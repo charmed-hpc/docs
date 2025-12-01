@@ -228,10 +228,11 @@ The `mountpoint` configuration represents the path that the filesystem will be m
 
 `filesystem-client` is a [subordinate charm](https://documentation.ubuntu.com/juju/latest/reference/charm/#subordinate-charm)
 that can automatically mount any shared filesystems for the application related with it.
-In this case, we will relate it to the `slurmd` application in order to have a shared storage between
-all the compute nodes in the cluster:
+In this case, we will relate it to the `sackd` and `slurmd` applications to have shared storage
+between all the login and compute nodes in the cluster:
 
 :::{code-block} shell
+juju integrate sackd:juju-info filesystem-client:juju-info
 juju integrate slurmd:juju-info filesystem-client:juju-info
 :::
 
