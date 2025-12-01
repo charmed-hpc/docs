@@ -15,7 +15,7 @@ platforms such as the Canonical Observability Stack.
 - {ref}`howto-manage-integrate-with-cos`
 - {ref}`howto-manage-integrate-with-influxdb`
 
-## Workloads
+## User workload tools
 
 These how-to guides provide instructions for integrating Charmed HPC with tools that
 support users' workloads in cluster environments.
