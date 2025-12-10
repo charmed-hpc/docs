@@ -73,7 +73,9 @@ Several of the charms include configuration options that are useful for customiz
 charms can also include actions that are useful for running common lifecycle operations on a deployed Charmed
 HPC cluster.
 
-:::{note}
+:::{admonition} Blank cells
+:class: note
+
 A charm does not have any modifiable configuration options or runnable actions if a table cell below is blank.
 :::
 

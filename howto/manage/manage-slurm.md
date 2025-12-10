@@ -12,7 +12,9 @@ To migrate a previously deployed single `slurmctld` unit to a [high availability
 
 Once a chosen shared file system has been deployed and made available via a proxy or other file system provider charm, run the following, substituting `[filesystem-provider]` with the name of the provider charm, to deploy a `slurmctld` HA setup with two units (a primary and single backup):
 
-:::{warning}
+:::{admonition} Migration downtime
+:class: warning
+
 **This migration requires cluster downtime**.
 
 The `slurmctld` service is stopped during the copy of Slurm data from the unit local `/var/lib/slurm/checkpoint` to shared storage. Downtime varies depending on the scale of data to be transferred and transfer rate to the shared storage.

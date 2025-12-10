@@ -5,7 +5,9 @@ This guide demonstrates how to clean up {ref}`a previously initialized cloud env
 and a deployed Charmed HPC cluster. This includes clean-up of both the machine cloud and the Kubernetes (K8s) cloud. All compute plane and
 control plane applications hosted on these clouds will be destroyed.
 
-:::{warning}
+:::{admonition} Data loss warning
+:class: warning
+
 Clean-up may result in **permanent data loss**. Ensure all data you wish to preserve has been migrated to a safe location before proceeding.
 
 Always clean up public cloud resources that are no longer necessary! Abandoned resources are tricky to detect and can become expensive over time.

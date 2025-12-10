@@ -23,7 +23,9 @@ For `slurmctld` HA to function, all `slurmctld` controllers require mounting of 
 
 To allow for flexibility in choosing a shared file system for the `StateSaveLocation`, Charmed HPC implements support for the [`filesystem-client` charm](https://github.com/charmed-hpc/filesystem-charms) within the `slurmctld` charm. This enables users to integrate with the file system of their choice, such as their own CephFS deployment, a cloud-specific managed file system, or another that meets latency requirements.
 
-:::{warning}
+:::{admonition} Appropriate file system
+:class: warning
+
 The Slurm developers [do not recommended NFS](https://slurm.schedmd.com/quickstart_admin.html#Config) for the shared file system due to inadequate performance.
 :::
 

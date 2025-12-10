@@ -52,7 +52,9 @@ juju add-model slurm charmed-hpc
 Now, with `slurm` model created, run the following set of commands to deploy the Slurm
 daemons with MySQL as the storage back-end for `slurmdbd`:
 
-:::{note}
+:::{admonition} `slurmctld` high availability
+:class: note
+
 For optional `slurmctld` high availability support, do not deploy `slurmctld` as below. See
 [Deploying `slurmctld` in high availability](deploy-slurmctld-high-availability) instead.
 :::
@@ -153,7 +155,9 @@ With the `slurm` `juju_model` resource defined, declare the following set of mod
 in your Terraform plan. These modules will direct Juju to deploy the Slurm daemons with
 MySQL as the storage back-end for `slurmdbd`:
 
-:::{note}
+:::{admonition} `slurmctld` high availability
+:class: note
+
 For optional `slurmctld` high availability support, do not deploy `slurmctld` as below. See
 [Deploying `slurmctld` in high availability](deploy-slurmctld-high-availability) instead.
 :::
@@ -404,7 +408,9 @@ terraform init
 terraform apply -auto-approve
 :::
 
-:::{tip}
+:::{admonition} Validate Terraform plans
+:class: note
+
 You can run `terraform validate`{l=shell} to validate your Slurm deployment plan before applying it.
 You can also run `terraform plan`{l=shell} to see the speculative execution plan that Terraform
 will follow to deploy the Slurm charms, however, note that `terraform plan`{l=shell} will not

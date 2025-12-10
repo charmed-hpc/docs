@@ -2,7 +2,9 @@
 
 See the how-to guides in this section for managing Charmed HPC after deployment.
 
-:::{note}
+:::{admonition} Intended audience
+:class: note
+
 The how-to guides in this section are for system administrators and HPC engineers
 that are responsible for managing cluster deployments.
 :::

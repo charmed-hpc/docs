@@ -5,7 +5,9 @@ Charmed-HPC allows automatic integration with shared filesystems using the
 [filesystem-client](https://charmhub.io/filesystem-client) charm. This how-to guide shows you how to
 deploy `filesystem-client` to integrate with externally managed shared filesystems.
 
-:::{note}
+:::{admonition} Terraform available
+:class: note
+
 If you plan on using Terraform to handle your deployment, we also provide Terraform modules to setup a
 cloud managed NFS server on the [`charmed-hpc-terraform`][hpc-tf] repository, with
 [examples][nfs-tf-examples] on how to deploy the modules.
@@ -86,7 +88,9 @@ exportfs -a
 systemctl restart nfs-kernel-server
 :::
 
-:::{note}
+:::{admonition} Verification
+:class: note
+
 You can verify if the NFS server is exporting the desired directories
 by using the command `showmount -e localhost`{l=shell} while inside the LXD virtual machine.
 :::
@@ -174,7 +178,9 @@ clients, and expose the whole directory tree (`/`) in read-write mode (`rw`).
 microceph.ceph fs authorize cephfs client.fs-client / rw
 :::
 
-:::{note}
+:::{admonition} Verification
+:class: note
+
 You can verify if the CephFS server is working correctly by using the command
 `microceph.ceph fs status cephfs` while inside the LXD virtual machine.
 :::

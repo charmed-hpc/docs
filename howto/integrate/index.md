@@ -2,7 +2,9 @@
 
 See the how-to guides in this section for integrating Charmed HPC with other applications.
 
-:::{note}
+:::{admonition} Intended audience
+:class: note
+
 The how-to guides in this section are for system administrators and HPC engineers
 that are responsible for connecting clusters to other applications.
 :::

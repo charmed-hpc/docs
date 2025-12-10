@@ -7,7 +7,9 @@ as [Prometheus](https://prometheus.io/) or [Loki](https://grafana.com/oss/loki/)
 [Grafana dashboards](https://grafana.com/docs/grafana/latest/dashboards/) for more general information on dashboards,
 and {ref}`reference-monitoring-prometheus` for more information about the metrics displayed on the dashboards.
 
-:::{note}
+:::{admonition} Panel query
+:class: note
+
 Any panel can be inspected using the [panel inspect view](https://grafana.com/docs/grafana/latest/panels-visualizations/panel-inspector/)
 to see the exact query used to provide the panel with data.
 :::
