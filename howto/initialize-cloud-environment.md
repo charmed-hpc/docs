@@ -15,7 +15,9 @@ It is __strongly recommended__ that you pair your machine cloud with a complimen
 to simplify the deployment and management of both clouds. For example, LXD should be paired
 with Canonical Kubernetes, Azure paired with AKS, AWS paired with EKS, and so on.
 
-:::{note}
+:::{admonition} Cloud definition
+:class: note
+
 To Charmed HPC, a __cloud__ (or ___backing cloud___) is any entity that has an API that can
 provide compute, networking, and optionally storage resources to applications deployed on them.
 This includes public clouds such as Amazon Web Services, Google Compute Engine, Microsoft Azure
@@ -52,7 +54,9 @@ To use LXD as the machine cloud for your Charmed HPC cluster, you will need to h
 * [Exposed LXD to the network](https://documentation.ubuntu.com/lxd/en/stable-5.21/howto/server_expose/)
 * [Configured a server trust password](https://documentation.ubuntu.com/lxd/en/stable-5.21/server/#server-core:core.trust_password)
 
-:::{hint}
+:::{admonition} New to LXD?
+:class: note
+
 If you're unfamiliar with operating an LXD server, see the [First steps with LXD](https://documentation.ubuntu.com/lxd/en/latest/tutorial/first_steps/)
 tutorial for a high-level introduction to LXD.
 :::
@@ -104,7 +108,9 @@ Now use `juju add-credential`{l=shell} to add the credentials for contacting you
 juju add-credential charmed-hpc --file ./charmed-hpc-cloud-credentials.yaml
 :::
 
-:::{note}
+:::{admonition} Certificates
+:class: note
+
 Juju will use your LXD server's configured trust password to automatically retrieve your server's TLS certificates.
 :::
 
@@ -150,7 +156,9 @@ To use Microsoft Azure as the machine cloud for your Charmed HPC cluster, you wi
 
 To decide on suitable VMs, it may be useful to refer to [Sizes for virtual machines in Azure](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview). A typical Charmed HPC deployment will use a mix of high-performance and GPU-accelerated compute VMs for cluster compute nodes, and general purpose VMs for other node types.
 
-:::{note}
+:::{admonition} Resource provider registration
+:class: note
+
 If the Azure Portal page for adjusting VM quota appears blank or contains the message "The selected provider is not registered for some of the selected subscriptions", confirm that [the *Microsoft.Compute* resource provider is registered](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types) for your subscription.
 :::
 
@@ -284,7 +292,9 @@ aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonEC2FullAc
 aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/IAMFullAccess --group-name JujuGroup
 :::
 
-:::{note}
+:::{admonition} Juju permissions
+:class: note
+
 For simplicity's sake, these instructions configure the `Juju` user with full administrator access
 to the EC2 and IAM resources. If you want to further restrict the permissions of the `Juju` user,
 refer to [Define custom IAM permissions with customer managed policies][define-iam-policy].
@@ -320,7 +330,9 @@ This will start a set of prompts where you will be asked:
 * `access-key` — The access key ID generated in the previous section, typically a 20-character alphanumeric string.
 * `secret-key` — The secret access key generated in the previous section, typically an alphanumeric string with format `xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxx`.
 
-:::{warning}
+:::{admonition} Characters not displayed
+:class: warning
+
 For security reasons, characters will NOT be displayed when entering the `secret-key` field. However, any input
 (like the paste action) will still be captured by the script, even if it doesn't look like it.
 :::
@@ -374,7 +386,9 @@ Machine  State    Address      Inst id              Base          AZ          Me
 ::::{tab-item} Google Cloud Platform (GCP)
 :sync: gcp
 
-:::{warning}
+:::{admonition} Juju isolation
+:class: warning
+
 Currently, Juju does not support any kind of isolation between Juju models and other resources created within
 the same GCP project. This may make some processes more complex if you have special security requirements.
 :::
@@ -420,8 +434,10 @@ user using the following command:
 gcloud iam service-accounts keys create ~/.local/share/juju/juju-sa-creds.json
 :::
 
-:::{note}
-It is very important that the key file is located in the directory path `~/.local/share/juju` for the
+:::{admonition} Key file directory
+:class: note
+
+It is important that the key file is located in the directory path `~/.local/share/juju` for the
 user that will manage the Juju CLI, since the tool does not have permissions to read files in other
 directories.
 :::
@@ -459,7 +475,9 @@ to US East 1 (Moncks Corner, South Carolina):
 juju default-region google us-east1
 :::
 
-:::{note}
+:::{admonition} Zones and Regions
+:class: note
+
 Do not confuse Zones with Regions; Juju only requires a region and will pick a zone from that
 region to deploy the machines on. Trying to provide a specific zone as the default region will
 result in an error.
@@ -519,7 +537,9 @@ you will need to have:
 * [Installed and bootstrapped Canonical Kubernetes](https://documentation.ubuntu.com/canonical-kubernetes/latest/snap/howto/install/snap/)
 * [Enabled the default load balancer](https://documentation.ubuntu.com/canonical-kubernetes/latest/snap/howto/networking/default-loadbalancer/)
 
-:::{hint}
+:::{admonition} New to Canonical Kubernetes?
+:class: note
+
 If you're unfamiliar with operating a Canonical Kubernetes cluster, see the
 [Canonical Kubernetes tutorials](https://documentation.ubuntu.com/canonical-kubernetes/latest/snap/tutorial/)
 for a high-level introduction to Canonical Kubernetes.
@@ -631,9 +651,11 @@ the path to a local key or [create an AWS-managed key][aws-ssh-key], then provid
 For further information on creating and sizing an EKS cluster, see [Get started with Amazon EKS – eksctl][eks-guide]
 and [Creating and managing clusters][eksctl].
 
-:::{note}
+:::{admonition} SSO session name
+:class: note
+
 If you are getting the error `Error: failed to find SSO session section, Session name` when trying to create the
-cluster, it could be caused by a small incompatibility between `eksctl` and the AWS CLI v2; if the SSO session name
+cluster, it could be caused by an incompatibility between `eksctl` and the AWS CLI v2; if the SSO session name
 contains spaces, the AWS CLI will surround the name with apostrophes (') in the `sso-session` header, which the
 `eksctl` CLI will fail to parse correctly. To fix this, you can either run `aws configure sso` and choose an SSO session
 name that does not contain spaces, or manually edit the SSO session name in the `~/.aws/config` file.
@@ -673,7 +695,9 @@ just added to the `~/.kube/config` file (here `charmed-hpc-controller`, `charmed
   --cluster-name=charmed-eks-cluster.us-east-1.eksctl.io
 :::
 
-:::{warning}
+:::{admonition} Juju client use
+:class: warning
+
 As mentioned in [Add a Kubernetes cloud](https://documentation.ubuntu.com/juju/3.6/howto/manage-clouds/#add-a-kubernetes-cloud),
 for this step it is required that you use the 'raw' Juju client located in the snap directory (`/snap/juju/current/bin/juju`)
 instead of the default client (`/snap/bin/juju`).
@@ -705,7 +729,9 @@ To use GKE as the Kubernetes cloud for your Charmed HPC cluster, you will need t
 
 ### Set up default Service Account
 
-:::{note}
+:::{admonition} Account permissions
+:class: note
+
 For simplicity's sake, these instructions use the default Service Account to deploy and
 manage the GKE cluster, but it is recommended that you
 [use a least privileged account](https://cloud.google.com/kubernetes-engine/docs/how-to/hardening-your-cluster#use_least_privilege_sa)
@@ -782,7 +808,9 @@ just added to the `~/.kube/config` file (here `charmed-hpc-controller`, `charmed
   --cluster-name=gke_my-project_us-east1_charmed-gke-cluster
 :::
 
-:::{warning}
+:::{admonition} Juju client use
+:class: warning
+
 As mentioned in [Add a Kubernetes cloud](https://documentation.ubuntu.com/juju/3.6/howto/manage-clouds/#add-a-kubernetes-cloud),
 for this step it is required that you use the 'raw' Juju client located in the snap directory (`/snap/juju/current/bin/juju`)
 instead of the default client (`/snap/bin/juju`).
@@ -811,7 +839,9 @@ for how to deploy Slurm as the workload manager of your Charmed HPC cluster.
 
 ## Clean up
 
-:::{warning}
+:::{admonition} Unused cloud resources
+:class: warning
+
 Always clean cloud resources that are no longer necessary! Abandoned resources are tricky to detect and can become expensive over time.
 :::
 

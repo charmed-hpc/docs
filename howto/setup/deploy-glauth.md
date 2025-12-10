@@ -16,7 +16,9 @@ and SSSD as the service for enrolling your cluster's machines with GLAuth.
 The deployment, management, operations of both GLAuth and SSSD are controlled by
 the GLAuth and SSSD charms, respectively.
 
-:::{hint}
+:::{admonition} New to GLAuth?
+:class: note
+
 If you're unfamiliar with operating GLAuth, see the [GLAuth quick start](https://glauth.github.io/docs/quickstart.html)
 guide for a high-level introduction to GLAuth. If you're unfamiliar with
 integrating SSSD with an LDAP server, see the [SSSD with LDAP](https://documentation.ubuntu.com/server/how-to/sssd/with-ldap/)

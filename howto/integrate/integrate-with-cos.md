@@ -10,7 +10,9 @@ Canonical Observability Stack (COS). This integration enables you to monitor you
 deployed Charmed HPC cluster by forwarding collected logs and metrics from
 your cluster's services to COS for interactive analysis.
 
-:::{hint}
+:::{admonition} New to COS?
+:class: note
+
 If you're unfamiliar with operating COS, see the [COS tutorials](https://charmhub.io/topics/canonical-observability-stack/tutorials)
 for a high-level introduction to the Canonical Observability Stack.
 :::
@@ -24,13 +26,17 @@ To integrate Charmed HPC with COS, you will need:
 * The [Juju CLI client](https://documentation.ubuntu.com/juju/latest/user/howto/manage-juju/) installed on your machine
 * The [`jq` CLI command](https://jqlang.org/download/) installed on your machine
 
-:::{important}
+:::{admonition} Ingress enabled
+:class: warning
+
 Your COS deployment __must__ have ingress enabled. If your COS deployment does not have
 ingress enabled, Charmed HPC will be unable to forward collected logs and metrics as COS
 will be unreachable over the network.
 :::
 
-:::{note}
+:::{admonition} Before you begin
+:class: note
+
 The instructions below assume that Charmed HPC and COS have their own, individual controllers,
 and that they are connected together with cross-model integration endpoints.
 
@@ -171,7 +177,9 @@ juju run grafana/leader --model cos-controller:cos \
   get-admin-password
 :::
 
-:::{important}
+:::{admonition} About the admin password
+:class: note
+
 The `get-admin-password` action returns the initial admin password that is
 generated when COS is first deployed. The action will return a notice if the
 initial admin password has been changed by the COS administrator. If this is the
