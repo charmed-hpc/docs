@@ -26,7 +26,7 @@ To integrate Charmed HPC with COS, you will need:
 * The [Juju CLI client](https://documentation.ubuntu.com/juju/latest/user/howto/manage-juju/) installed on your machine
 * The [`jq` CLI command](https://jqlang.org/download/) installed on your machine
 
-:::{admonition} Ingress required
+:::{admonition} Ingress enabled
 :class: warning
 
 Your COS deployment __must__ have ingress enabled. If your COS deployment does not have
