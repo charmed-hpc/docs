@@ -12,7 +12,7 @@ Charmed HPC operates.
 - {ref}`reference-monitoring`
 - {ref}`reference-performance`
 - {ref}`reference-hardening`
-<!-- - {ref}`reference-glossary` -->
+- {ref}`reference-glossary`
 
 
 ```{filtered-toctree}
@@ -26,6 +26,6 @@ interconnects
 monitoring/index
 Performance <performance>
 hardening
-:draft:Glossary <glossary>
+glossary
 
 ```
