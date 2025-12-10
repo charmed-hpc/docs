@@ -29,6 +29,7 @@ sphinx-sitemap
 watchfiles
 GitPython
 linkify-it-py
+sphinxcontrib-mermaid
 
 # Vale dependencies
 rst2html
