@@ -31,7 +31,7 @@ to Charmed HPC's documentation.
 ## 🤝 Project and community
 
 Charmed HPC's documentation is a project of the
-[Ubuntu High-Performance Computing](https://ubuntu.com/community/governance/teams/hpc) community. Interested in contributing new documentation, improving existing pages, or reviewing tutorials and howtos? Great! Here's
+[Ubuntu High-Performance Computing](https://ubuntu.com/community/governance/teams/hpc) community. Interested in contributing new documentation, improving existing pages, or reviewing tutorials and how-tos? Great! Here's
 some links to help you get started:
 
 * [Ubuntu Code of Conduct](https://ubuntu.com/community/ethos/code-of-conduct)

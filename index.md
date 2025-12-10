@@ -60,7 +60,6 @@ Here's some links to help you get started with joining the community:
 :hidden:
 :titlesonly:
 
-self
 Getting started <getting-started>
 howto/index
 explanation/index
