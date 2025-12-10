@@ -5,7 +5,7 @@ Charmed-HPC allows automatic integration with shared filesystems using the
 [filesystem-client](https://charmhub.io/filesystem-client) charm. This how-to guide shows you how to
 deploy `filesystem-client` to integrate with externally managed shared filesystems.
 
-:::{admonition} Terraform available
+:::{admonition} Terraform modules available
 :class: note
 
 If you plan on using Terraform to handle your deployment, we also provide Terraform modules to setup a
