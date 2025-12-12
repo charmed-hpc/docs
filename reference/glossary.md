@@ -19,10 +19,15 @@ Canonical Observability Stack (COS)
     Resources: 🌐[Canonical observability documentation](https://documentation.ubuntu.com/observability)
 
 Ceph
-    Distributed storage system that provides object, block, and file storage.
+    Distributed storage system that provides object, block, and file storage. Can be deployed and
+    managed using [MicroCeph](#term-MicroCeph).
+
+    Resources: 🌐[Ceph website](https://ceph.io)
 
 CephFS
     POSIX-compliant file system interface that runs on top of a Ceph storage cluster.
+
+    Resources: 🌐[Ceph file system](https://docs.ceph.com/en/latest/cephfs/), 🌐[ceph-fs charm](https://charmhub.io/ceph-fs)
 
 Charm
     Python software for automating the lifecycle of applications. Also known as a charmed operator.
@@ -31,6 +36,8 @@ Charm
     1. **Machine charms:** charms made to deploy on a bare-metal server, virtual machine, or system
     container
     2. **Kubernetes charms:** charms built to deploy on Kubernetes.
+
+    Resources: 🌐[Juju charm definition](https://documentation.ubuntu.com/juju/latest/reference/charm/)
 
 Cluster
     A collection of distinct computers, known as nodes, networked together to act as a single, more
@@ -75,7 +82,7 @@ MicroCeph
     A tool that simplifies deployment and management of Ceph storage both standalone and in a
     charmed environment using Juju.
 
-    Resources: 🌐[MicroCeph documentation](https://canonical-microceph.readthedocs-hosted.com/stable/)
+    Resources: 🌐[MicroCeph documentation](https://canonical-microceph.readthedocs-hosted.com/stable/), 🌐[microceph charm](https://charmhub.io/microceph)
 
 Microsoft Azure
     A cloud platform provided by Microsoft.
