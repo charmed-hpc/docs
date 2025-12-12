@@ -1,5 +1,5 @@
 (howto-cleanup-slurm)=
-# How to clean up Slurm
+# How to clean up Slurm deployments
 
 This how-to guide shows you how to remove a [previously deployed Slurm workload manager](#howto-setup-deploy-slurm)
 in a Charmed HPC cluster.
