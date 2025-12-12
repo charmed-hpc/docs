@@ -6,23 +6,17 @@
 Amazon Web Services (AWS)
     A cloud platform provided by Amazon that can be used to host Charmed HPC.
 
-    Resources:
-    - [AWS website](https://aws.amazon.com/)
+    Resources: 🌐[AWS website](https://aws.amazon.com/)
 
 Apptainer
     HPC-focused container runtime. Formerly Singularity.
 
-    Refers to both the software and the corresponding charm.
-
-    Resources:
-    - [Apptainer - Portable, Reproducible Containers](https://apptainer.org/)
-    - [Charmhub | apptainer](https://charmhub.io/apptainer)
+    Resources: 🌐[Apptainer - Portable, Reproducible Containers](https://apptainer.org/), 🌐[apptainer charm](https://charmhub.io/apptainer)
 
 Canonical Observability Stack (COS)
     Suite of charms providing open-source monitoring and logging tools.
 
-    Resources:
-    - [Canonical observability documentation](https://documentation.ubuntu.com/observability)
+    Resources: 🌐[Canonical observability documentation](https://documentation.ubuntu.com/observability)
 
 Ceph
     Distributed storage system that provides object, block, and file storage.
@@ -45,8 +39,7 @@ Cluster
 `filesystem-client`
     A charm that requests and mounts exported filesystems on virtual machines.
 
-    Resources:
-    - [Charmhub | filesystem-client](https://charmhub.io/filesystem-client)
+    Resources: 🌐[filesystem-client charm](https://charmhub.io/filesystem-client)
 
 Graphics Processing Unit (GPU)
     A specialized processor that is designed to accelerate image processing and graphics rendering
@@ -59,18 +52,13 @@ High-Performance Computing (HPC)
 InfluxDB
     An open-source, distributed, time series database.
 
-    Refers to both the software and the corresponding charm.
-
-    Resources:
-    - [InfluxData site](https://www.influxdata.com/)
-    - [Charmhub | influxdb](https://charmhub.io/influxdb)
+    Resources: 🌐[InfluxData site](https://www.influxdata.com/), 🌐[influxdb charm](https://charmhub.io/influxdb)
 
 Integration
     An exchange of data between two charms that allows for interoperability. Formerly known as a
     relation.
 
-    Resources:
-    - [Juju integrations explained](https://canonical.com/juju/integrations)
+    Resources: 🌐[Juju integrations explained](https://canonical.com/juju/integrations)
 
 Job
     A user-submitted workload managed by the cluster workload manager. Consists of a script
@@ -81,20 +69,18 @@ Juju
     A charmed operator tool that helps deploy, integrate and manage applications across multiple
     environments.
 
-    Resources:
-    - [Juju Documentation](https://documentation.ubuntu.com/juju/latest/)
+    Resources: 🌐[Juju documentation](https://documentation.ubuntu.com/juju/latest/)
 
 MicroCeph
     A tool that simplifies deployment and management of Ceph storage both standalone and in a
     charmed environment using Juju.
 
-    Resources: [MicroCeph documentation](https://canonical-microceph.readthedocs-hosted.com/stable/)
+    Resources: 🌐[MicroCeph documentation](https://canonical-microceph.readthedocs-hosted.com/stable/)
 
 Microsoft Azure
     A cloud platform provided by Microsoft that can be used to host Charmed HPC.
 
-    Resources:
-    - [Microsoft Azure website](https://azure.microsoft.com/)
+    Resources: 🌐[Microsoft Azure website](https://azure.microsoft.com/)
 
 Proxy charm
     An intermediary charm that enables charms to integrate with non-charmed applications. Also known
@@ -103,61 +89,39 @@ Proxy charm
 `sackd`
     Slurm Auth and Credential Kiosk daemon. Typically used to provide cluster login nodes.
 
-    Refers to both the software component of Slurm and the corresponding charm.
-
-    Resources:
-    - [Slurm Workload Manager - sackd](https://slurm.schedmd.com/sackd.html)
-    - [Charmhub | sackd](https://charmhub.io/sackd)
+    Resources: 🌐[Slurm Workload Manager - sackd](https://slurm.schedmd.com/sackd.html), 🌐[sackd charm](https://charmhub.io/sackd)
 
 Slurm
     A free and open source workload manager consisting of multiple co-operating software components,
     each responsible for a piece of cluster functionality.
 
-    Resources:
-      - [Slurm Workload Manager - Documentation](https://slurm.schedmd.com/documentation.html)
+    Resources: 🌐[Slurm Workload Manager - Documentation](https://slurm.schedmd.com/documentation.html)
 
 `slurmctld`
     Slurm central management/controller daemon. Schedules jobs and monitors other components.
 
-    Refers to both the software component of Slurm and the corresponding charm.
-
-    Resources:
-    - [Slurm Workload Manager - slurmctld](https://slurm.schedmd.com/slurmctld.html)
-    - [Charmhub | slurmctld](https://charmhub.io/slurmctld)
+    Resources: 🌐[Slurm Workload Manager - slurmctld](https://slurm.schedmd.com/slurmctld.html), 🌐[slurmctld charm](https://charmhub.io/slurmctld)
 
 `slurmd`
     Slurm compute node daemon. Executes jobs scheduled by the controller.
 
-    Refers to both the software component of Slurm and the corresponding charm.
-
-    Resources:
-    - [Slurm Workload Manager - slurmd](https://slurm.schedmd.com/slurmd.html)
-    - [Charmhub | slurmd](https://charmhub.io/slurmd)
+    Resources: 🌐[Slurm Workload Manager - slurmd](https://slurm.schedmd.com/slurmd.html), 🌐[slurmd charm](https://charmhub.io/slurmd)
 
 `slurmdbd`
     Slurm accounting database daemon. Provides an interface between Slurm and a database for holding
     historic job statistics.
 
-    Refers to both the software component of Slurm and the corresponding charm.
-
-    Resources:
-    - [Slurm Workload Manager - slurmdbd](https://slurm.schedmd.com/slurmdbd.html)
-    - [Charmhub | slurmdbd](https://charmhub.io/slurmdbd)
+    Resources: 🌐[Slurm Workload Manager - slurmdbd](https://slurm.schedmd.com/slurmdbd.html), 🌐[slurmdbd charm](https://charmhub.io/slurmdbd)
 
 `slurmrestd`
     REST API interface for Slurm.
 
-    Refers to both the software component of Slurm and the corresponding charm.
-
-    Resources:
-    - [Slurm Workload Manager - slurmrestd](https://slurm.schedmd.com/slurmrestd.html)
-    - [Charmhub | slurmrestd](https://charmhub.io/slurmrestd)
+    Resources: 🌐[Slurm Workload Manager - slurmrestd](https://slurm.schedmd.com/slurmrestd.html), 🌐[slurmrestd charm](https://charmhub.io/slurmrestd)
 
 `slurmutils`
     Python library for facilitating edits to Slurm configuration files.
 
-    Resources:
-    - [slurmutils GitHub](https://github.com/charmed-hpc/slurmutils)
+    Resources: 🌐[slurmutils GitHub](https://github.com/charmed-hpc/slurmutils)
 
 System Security Services Daemon (`sssd`)
     A daemon that manages the retrieval and caching of user credentials and attributes from remote
@@ -165,9 +129,7 @@ System Security Services Daemon (`sssd`)
 
     Refers to both the software and the corresponding charm.
 
-    Resources:
-    - [SSSD - System Security Services Daemon - sssd.io](https://sssd.io)
-    - [Charmhub | sssd](https://charmhub.io/sssd)
+    Resources: 🌐[SSSD - System Security Services Daemon - sssd.io](https://sssd.io), 🌐[sssd charm](https://charmhub.io/sssd)
 
 Walltime
     The maximum duration of a job declared in the job script. Serves as a limit after which the
