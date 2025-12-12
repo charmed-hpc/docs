@@ -78,7 +78,7 @@ Job
     required for that application, such as CPU core count and walltime.
 
 Juju
-    A charmed operator tool that helps you deploy, integrate and manage applications across multiple
+    A charmed operator tool that helps deploy, integrate and manage applications across multiple
     environments.
 
     Resources:
