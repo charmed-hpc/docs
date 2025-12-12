@@ -20,7 +20,7 @@ Canonical Observability Stack (COS)
 
 Ceph
     Distributed storage system that provides object, block, and file storage. Can be deployed and
-    managed using [MicroCeph](#term-MicroCeph).
+    managed using {term}`MicroCeph`.
 
     Resources: 🌐[Ceph website](https://ceph.io)
 
