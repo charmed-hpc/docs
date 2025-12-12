@@ -4,10 +4,9 @@
 :::{admonition} Removing all Charmed HPC resources?
 :class: note
 
-You do not need to follow this guide if planning to tear down the entire Charmed HPC environment.
-
-Follow {ref}`howto-cleanup-cloud-resources` instead to remove all resources, including Slurm, in a
-single step.
+If you are planning to tear down the entire Charmed HPC environment - all models, storage and
+controllers - you can jump to {ref}`howto-cleanup-cloud-resources` instead to remove all resources,
+including Slurm, in a single step.
 :::
 
 This how-to guide shows you how to remove a [previously deployed Slurm workload manager](#howto-setup-deploy-slurm)
