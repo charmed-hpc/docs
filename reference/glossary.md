@@ -84,6 +84,12 @@ Juju
     Resources:
     - [Juju Documentation](https://documentation.ubuntu.com/juju/latest/)
 
+MicroCeph
+    A tool that simplifies deployment and management of Ceph storage both standalone and in a
+    charmed environment using Juju.
+
+    Resources: [MicroCeph documentation](https://canonical-microceph.readthedocs-hosted.com/stable/)
+
 Microsoft Azure
     A cloud platform provided by Microsoft that can be used to host Charmed HPC.
 
