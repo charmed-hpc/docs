@@ -4,7 +4,7 @@
 ```{glossary}
 
 Amazon Web Services (AWS)
-    A cloud platform provided by Amazon that can be used to host Charmed HPC.
+    A cloud platform provided by Amazon.
 
     Resources: 🌐[AWS website](https://aws.amazon.com/)
 
@@ -78,7 +78,7 @@ MicroCeph
     Resources: 🌐[MicroCeph documentation](https://canonical-microceph.readthedocs-hosted.com/stable/)
 
 Microsoft Azure
-    A cloud platform provided by Microsoft that can be used to host Charmed HPC.
+    A cloud platform provided by Microsoft.
 
     Resources: 🌐[Microsoft Azure website](https://azure.microsoft.com/)
 
