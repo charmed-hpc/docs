@@ -54,5 +54,5 @@ setup/index
 integrate/index
 manage/index
 use/index
-Clean up cloud resources <cleanup-cloud-resources>
+cleanup/index
 :::
