@@ -1,7 +1,7 @@
 (howto-setup-deploy-shared-filesystem)=
 # How to deploy a shared filesystem
 
-Charmed-HPC allows automatic integration with shared filesystems using the
+Charmed HPC allows automatic integration with shared filesystems using the
 [filesystem-client](https://charmhub.io/filesystem-client) charm. This how-to guide shows you how to
 deploy `filesystem-client` to integrate with externally managed shared filesystems.
 
