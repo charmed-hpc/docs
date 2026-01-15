@@ -1,4 +1,4 @@
-After a few minutes, your SSSD deployment will reach waiting status.
+Your SSSD application will reach waiting status within a few minutes.
 The output of `juju status`{l=shell} will be similar to the following:
 
 :::{terminal}
@@ -7,7 +7,7 @@ The output of `juju status`{l=shell} will be similar to the following:
 juju status
 
 Model  Controller              Cloud/Region         Version  SLA          Timestamp
-slurm  charmed-hpc-controller  charmed-hpc/default  3.6.4    unsupported  16:17:13-04:00
+slurm  charmed-hpc-controller  charmed-hpc/default  3.6.12   unsupported  16:17:13-04:00
 
 App         Version          Status   Scale  Charm       Channel      Rev  Exposed  Message
 mysql       8.0.39-0ubun...  active       1  mysql       8.0/stable   313  no
@@ -36,6 +36,3 @@ Machine  State    Address        Inst id        Base          AZ  Message
 4        started  10.175.90.100  juju-0f356d-4  ubuntu@24.04      Running
 5        started  10.175.90.107  juju-0f356d-5  ubuntu@24.04      Running
 :::
-
-For SSSD to reach active status, you'll now need to integrate SSSD with
-GLAuth in your `iam` model so that SSSD can enroll your machines with GLAuth.
