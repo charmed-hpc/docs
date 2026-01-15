@@ -2,32 +2,33 @@ terraform {
   required_providers {
     juju = {
       source  = "juju/juju"
-      version = ">= 0.17.0"
+      version = "~> 1.0"
     }
   }
 }
 
 data "juju_model" "slurm" {
-  name = "slurm"
+  name  = "slurm"
+  owner = "admin"
 }
 
 data "juju_application" "sackd" {
-  model = data.juju_model.slurm.name
-  name  = "sackd"
+  model_uuid = data.juju_model.slurm.uuid
+  name       = "sackd"
 }
 
 data "juju_application" "slurmd" {
-  model = data.juju_model.slurm.name
-  name  = "slurmd"
+  model_uuid = data.juju_model.slurm.uuid
+  name       = "slurmd"
 }
 
 module "sssd" {
   source     = "git::https://github.com/canonical/sssd-operator//terraform"
-  model_name = data.juju_model.slurm.name
+  model_uuid = data.juju_model.slurm.uuid
 }
 
 resource "juju_integration" "sssd-to-sackd" {
-  model = data.juju_model.slurm.name
+  model_uuid = data.juju_model.slurm.uuid
 
   application {
     name = module.sssd.app_name
@@ -39,7 +40,7 @@ resource "juju_integration" "sssd-to-sackd" {
 }
 
 resource "juju_integration" "sssd-to-slurmd" {
-  model = data.juju_model.slurm.name
+  model_uuid = data.juju_model.slurm.uuid
 
   application {
     name = module.sssd.app_name

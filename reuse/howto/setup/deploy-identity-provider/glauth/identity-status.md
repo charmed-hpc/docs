@@ -6,8 +6,8 @@ of `juju status`{l=shell} will be similar to the following:
 
 juju status
 
-Model  Controller              Cloud/Region             Version  SLA          Timestamp
-iam    charmed-hpc-controller  charmed-hpc-k8s/default  3.6.4    unsupported  14:24:50-04:00
+Model     Controller              Cloud/Region             Version  SLA          Timestamp
+identity  charmed-hpc-controller  charmed-hpc-k8s/default  3.6.4    unsupported  14:24:50-04:00
 
 App                       Version  Status  Scale  Charm                     Channel        Rev  Address         Exposed  Message
 glauth-k8s                         active      1  glauth-k8s                latest/edge     52  10.152.183.159  no
@@ -22,5 +22,4 @@ self-signed-certificates/0*  active    idle   10.1.0.128
 traefik-k8s/0*               active    idle   10.1.0.73          Serving at 10.175.90.230
 :::
 
-With GLAuth successfully deployed, you'll now need to deploy SSSD in your `slurm`
-model to enroll your cluster's machines with GLAuth.
+You now need to deploy SSSD in your slurm model to enroll your cluster’s machines with the GLAuth server.
