@@ -1,14 +1,3 @@
----
-myst:
-  substitutions:
-    connect_sssd_to_glauth_plan_name: "connect-sssd-to-glauth/main.tf"
-    connect_sssd_to_ldap_integrator_plan_name: "connect-sssd-to-ldap-integrator/main.tf"
-    glauth_plan_name: "glauth/main.tf"
-    ldap_integrator_plan_name: "ldap-integrator/main.tf"
-    manual_tls_certificates_plan_name: "manual-tls-certificates/main.tf"
-    sssd_plan_name: "sssd/main.tf"
----
-
 (howto-setup-deploy-identity-provider)=
 # How to deploy an identity provider
 
@@ -623,7 +612,7 @@ Now connect GLAuth to Postgres, Traefik, and self-signed-certificates:
 :::{literalinclude} /reuse/howto/setup/deploy-identity-provider/glauth/glauth.tf
 :caption: {{ glauth_plan_name }}
 :language: terraform
-:lines: 45-81
+:lines: 45-80
 :::
 
 Now use the `terraform`{l=shell} command to apply your configuration. You can expand the

@@ -1,1 +1,6 @@
-iam: "{abbr}`IAM (Identity and Access Management)`"
+connect_sssd_to_glauth_plan_name: "connect-sssd-to-glauth/main.tf"
+connect_sssd_to_ldap_integrator_plan_name: "connect-sssd-to-ldap-integrator/main.tf"
+glauth_plan_name: "glauth/main.tf"
+ldap_integrator_plan_name: "ldap-integrator/main.tf"
+manual_tls_certificates_plan_name: "manual-tls-certificates/main.tf"
+sssd_plan_name: "sssd/main.tf"
