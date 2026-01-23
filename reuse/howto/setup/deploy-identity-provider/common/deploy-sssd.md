@@ -1,3 +1,89 @@
+#### Deploy SSSD
+
+:::::{tab-set}
+
+::::{tab-item} CLI
+:sync: cli
+
+First, use `juju deploy`{l=shell} to deploy SSSD in your `slurm` model:
+
+:::{code-block} shell
+juju deploy sssd --base "ubuntu@24.04" --channel "edge"
+:::
+
+Now use `juju integrate`{l=shell} to integrate SSSD with the Slurm services
+`sackd` and `slurmd`:
+
+:::{code-block} shell
+juju integrate sssd sackd
+juju integrate sssd slurmd
+:::
+
+::::
+
+::::{tab-item} Terraform
+:sync: terraform
+
+First, create the Terraform configuration file _{{ sssd_tf_file }}_
+using `mkdir`{l=shell} and `touch`{l=shell}:
+
+:::{code-block} shell
+mkdir sssd
+touch sssd/main.tf
+:::
+
+Now open _{{ sssd_tf_file }}_ in a text editor and add the Juju Terraform provider
+to your configuration:
+
+:::{literalinclude} /reuse/howto/setup/deploy-identity-provider/common/sssd.tf
+:caption: {{ sssd_tf_file }}
+:language: terraform
+:lines: 1-8
+:::
+
+Now declare data sources for the `slurm` model, and your sackd and slurmd applications:
+
+:::{literalinclude} /reuse/howto/setup/deploy-identity-provider/common/sssd.tf
+:caption: {{ sssd_tf_file }}
+:language: terraform
+:lines: 10-23
+:::
+
+Now deploy SSSD:
+
+:::{literalinclude} /reuse/howto/setup/deploy-identity-provider/common/sssd.tf
+:caption: {{ sssd_tf_file }}
+:language: terraform
+:lines: 24-28
+:::
+
+Now connect SSSD to the sackd and slurmd applications in your `slurm` model:
+
+:::{literalinclude} /reuse/howto/setup/deploy-identity-provider/common/sssd.tf
+:caption: {{ sssd_tf_file }}
+:language: terraform
+:lines: 29-52
+:::
+
+You can expand the dropdown below to see the full _{{ sssd_tf_file }}_ Terraform configuration file. Now use the `terraform`{l=shell} command to apply your configuration.
+
+:::{code-block} shell
+terraform -chdir=sssd init
+terraform -chdir=sssd apply -auto-approve
+:::
+
+:::{dropdown} Full _{{ sssd_tf_file }}_ Terraform configuration file
+:::{literalinclude} /reuse/howto/setup/deploy-identity-provider/common/sssd.tf
+:caption: {{ sssd_tf_file }}
+:language: terraform
+:linenos:
+:::
+:::
+
+::::
+
+:::::
+
 Your SSSD application will reach waiting status within a few minutes.
 The output of `juju status`{l=shell} will be similar to the following:
 
