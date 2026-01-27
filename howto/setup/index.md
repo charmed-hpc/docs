@@ -5,7 +5,7 @@ the Slurm workload manager or a shared filesystem.
 
 - {ref}`howto-setup-deploy-slurm`
 - {ref}`howto-setup-deploy-shared-filesystem`
-- {ref}`How to deploy GLAuth and SSSD for Identity and Access Management (IAM) <howto-setup-deploy-glauth>`
+- {ref}`howto-setup-deploy-identity-provider`
 
 :::{toctree}
 :titlesonly:
@@ -14,5 +14,5 @@ the Slurm workload manager or a shared filesystem.
 
 Deploy Slurm <deploy-slurm>
 Deploy a shared filesystem <deploy-shared-filesystem>
-Deploy GLAuth and SSSD <deploy-glauth>
+Deploy identity provider <deploy-identity-provider>
 :::
