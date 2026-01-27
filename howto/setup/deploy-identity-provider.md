@@ -203,6 +203,8 @@ Machine  State    Address         Inst id        Base          AZ   Message
 You now need to deploy SSSD in your `slurm` model to enroll your cluster's
 machines with the external LDAP server.
 
+#### Deploy SSSD
+
 :::{include} /reuse/howto/setup/deploy-identity-provider/common/deploy-sssd.md
 :::
 
@@ -672,6 +674,8 @@ traefik-k8s/0*               active    idle   10.1.0.73          Serving at 10.1
 :::
 
 You now need to deploy SSSD in your slurm model to enroll your cluster’s machines with the GLAuth server.
+
+#### Deploy SSSD
 
 :::{include} /reuse/howto/setup/deploy-identity-provider/common/deploy-sssd.md
 :::

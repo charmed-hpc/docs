@@ -1,5 +1,3 @@
-#### Deploy SSSD
-
 :::::{tab-set}
 
 ::::{tab-item} CLI
