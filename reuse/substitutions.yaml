@@ -1,1 +1,2 @@
 iam: "{abbr}`IAM (Identity and Access Management)`"
+slurm_tf_file: "slurm/main.tf"

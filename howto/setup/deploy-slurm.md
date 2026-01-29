@@ -29,34 +29,25 @@ If you want to use Terraform to deploy Slurm, see the
 [Manage `terraform-provider-juju`](https://canonical-terraform-provider-juju.readthedocs-hosted.com/latest/howto/manage-terraform-provider-juju/) how-to guide for additional
 requirements.
 
-If you are deploying Slurm on [LXD](https://canonical.com/lxd), see
-[Deploying Slurm on LXD](#deploy-slurm-lxd) for more information on additional constraints
-that must be passed to Juju.
-
 :::::{tab-set}
 
 ::::{tab-item} CLI
 :sync: cli
 
-To deploy Slurm using the Juju CLI client, first create the `slurm` model that will hold the
-deployment. The `slurm` model is the abstraction that will hold the resources &mdash;
-machines, integrations, network spaces, storage, etc. &mdash; that are provisioned as
-part of your Slurm deployment.
-
-Run the following command to create the `slurm` model in your `charmed-hpc` machine cloud:
+First, use `juju add-model`{l=shell} to create the `slurm` model on your `charmed-hpc`
+machine cloud:
 
 :::{code-block} shell
 juju add-model slurm charmed-hpc
 :::
 
-Now, with `slurm` model created, run the following set of commands to deploy the Slurm
-daemons with MySQL as the storage back-end for `slurmdbd`:
+Now use `juju deploy`{l=shell} to deploy Slurm's services with MySQL as
+the storage database for slurmdbd:
 
-:::{admonition} `slurmctld` high availability
-:class: note
+:::{include} /reuse/howto/setup/deploy-slurm/slurmctld-ha-note.md
+:::
 
-For optional `slurmctld` high availability support, do not deploy `slurmctld` as below. See
-[Deploying `slurmctld` in high availability](deploy-slurmctld-high-availability) instead.
+:::{include} /reuse/howto/setup/deploy-slurm/slurm-lxd-warning.md
 :::
 
 :::{code-block} shell
@@ -68,10 +59,8 @@ juju deploy slurmrestd --base "ubuntu@24.04" --channel "edge"
 juju deploy mysql --channel "8.0/stable"
 :::
 
-`juju deploy`{l=shell} only deploys the Slurm charms. `juju integrate`{l=shell} integrates
-the charms together which will trigger the necessary events for the
-Slurm daemons to reach active status. Run the following set of commands
-to integrate the Slurm daemons together:
+After that, use `juju integrate`{l=shell} to integrate all of Slurm's services together,
+and integrate slurmdbd with MySQL:
 
 :::{code-block} shell
 juju integrate slurmctld sackd
@@ -81,390 +70,137 @@ juju integrate slurmctld slurmrestd
 juju integrate slurmdbd mysql:database
 :::
 
-After a few minutes, your Slurm deployment will become active. The output of the
-`juju status`{l=shell} command should be similar to the following:
-
-:::{terminal}
-juju status
-
-Model  Controller   Cloud/Region         Version  SLA          Timestamp
-slurm  charmed-hpc  localhost/localhost  3.6.0    unsupported  17:16:37Z
-
-App         Version          Status  Scale  Charm       Channel      Rev  Exposed  Message
-mysql       8.0.39-0ubun...  active      1  mysql       8.0/stable   313  no
-sackd       23.11.4-1.2u...  active      1  sackd       latest/edge    4  no
-slurmctld   23.11.4-1.2u...  active      1  slurmctld   latest/edge   86  no       primary - UP
-slurmd      23.11.4-1.2u...  active      1  slurmd      latest/edge  107  no
-slurmdbd    23.11.4-1.2u...  active      1  slurmdbd    latest/edge   78  no
-slurmrestd  23.11.4-1.2u...  active      1  slurmrestd  latest/edge   80  no
-
-Unit           Workload  Agent      Machine  Public address  Ports           Message
-mysql/0*       active    idle       5        10.32.18.127    3306,33060/tcp  Primary
-sackd/0*       active    idle       4        10.32.18.203
-slurmctld/0*   active    idle       0        10.32.18.15                     primary - UP
-slurmd/0*      active    idle       1        10.32.18.207
-slurmdbd/0*    active    idle       2        10.32.18.102
-slurmrestd/0*  active    idle       3        10.32.18.9
-
-Machine  State    Address       Inst id        Base          AZ  Message
-0        started  10.32.18.15   juju-d566c2-0  ubuntu@24.04      Running
-1        started  10.32.18.207  juju-d566c2-1  ubuntu@24.04      Running
-2        started  10.32.18.102  juju-d566c2-2  ubuntu@24.04      Running
-3        started  10.32.18.9    juju-d566c2-3  ubuntu@24.04      Running
-4        started  10.32.18.203  juju-d566c2-4  ubuntu@24.04      Running
-5        started  10.32.18.127  juju-d566c2-5  ubuntu@22.04      Running
-:::
-
 ::::
 
 ::::{tab-item} Terraform
 :sync: terraform
 
-To deploy Slurm using the Juju Terraform client, first configure Terraform
-to use the Juju provider in your deployment plan.
-
-:::{code-block} terraform
-:caption: `main.tf`
-terraform {
-  required_providers {
-    juju = {
-      source  = "juju/juju"
-      version = ">= 0.16.0"
-    }
-  }
-}
-:::
-
-Now create the `slurm` model that will hold the deployment. The `slurm` model is the
-abstraction that will hold the resources &mdash; machines, integrations, network spaces,
-storage, etc. &mdash; that are provisioned as part of your Slurm deployment. This
-resource will direct Juju to create the model `slurm`:
-
-:::{code-block} terraform
-:caption: `main.tf`
-resource "juju_model" "slurm" {
-  name = "slurm"
-
-  cloud {
-    name = "charmed-hpc"
-  }
-}
-:::
-
-With the `slurm` `juju_model` resource defined, declare the following set of modules
-in your Terraform plan. These modules will direct Juju to deploy the Slurm daemons with
-MySQL as the storage back-end for `slurmdbd`:
-
-:::{admonition} `slurmctld` high availability
-:class: note
-
-For optional `slurmctld` high availability support, do not deploy `slurmctld` as below. See
-[Deploying `slurmctld` in high availability](deploy-slurmctld-high-availability) instead.
-:::
-
-:::{code-block} terraform
-:caption: `main.tf`
-module "sackd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/sackd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmctld" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmdbd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmdbd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmrestd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmrestd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "mysql" {
-  source          = "git::https://github.com/canonical/mysql-operator//terraform"
-  juju_model_name = juju_model.slurm.name
-}
-:::
-
-Declaring the modules only deploys the Slurm charms. Integrations are still required
-to trigger the necessary events for the Slurm daemons to reach active status.
-Declare the following set of resources in your deployment plan.
-These resources will direct Juju to integrate the Slurm daemons together:
-
-:::{code-block} terraform
-:caption: `main.tf`
-resource "juju_integration" "sackd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.sackd.app_name
-    endpoint = module.sackd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.login-node
-  }
-}
-
-resource "juju_integration" "slurmd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.slurmd.app_name
-    endpoint = module.slurmd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.slurmd
-  }
-}
-
-resource "juju_integration" "slurmdbd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.slurmdbd.app_name
-    endpoint = module.slurmdbd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.slurmdbd
-  }
-}
-
-resource "juju_integration" "slurmrestd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.slurmrestd.app_name
-    endpoint = module.slurmrestd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.slurmrestd
-  }
-}
-
-resource "juju_integration" "slurmdbd-to-mysql" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.mysql.application_name
-    endpoint = module.mysql.provides.database
-  }
-
-  application {
-    name     = module.slurmdbd.app_name
-    endpoint = module.slurmdbd.requires.database
-  }
-}
-:::
-
-With all the charm modules, `juju_model`, and `juju_integration` resources
-declared in your deployment plan, you are now ready time to deploy Slurm.
-Expand the dropdown below to see the full deployment plan:
-
-:::{dropdown} Full Slurm deployment plan
-:::{code-block} terraform
-:caption: `main.tf`
-:linenos:
-terraform {
-  required_providers {
-    juju = {
-      source  = "juju/juju"
-      version = ">= 0.16.0"
-    }
-  }
-}
-
-resource "juju_model" "slurm" {
-  name = "slurm"
-
-  cloud {
-    name = "charmed-hpc"
-  }
-}
-
-module "sackd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/sackd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmctld" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmdbd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmdbd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "slurmrestd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmrestd/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-module "mysql" {
-  source          = "git::https://github.com/canonical/mysql-operator//terraform"
-  juju_model_name = juju_model.slurm.name
-}
-
-resource "juju_integration" "sackd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.sackd.app_name
-    endpoint = module.sackd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.login-node
-  }
-}
-
-resource "juju_integration" "slurmd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.slurmd.app_name
-    endpoint = module.slurmd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.slurmd
-  }
-}
-
-resource "juju_integration" "slurmdbd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.slurmdbd.app_name
-    endpoint = module.slurmdbd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.slurmdbd
-  }
-}
-
-resource "juju_integration" "slurmrestd-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.slurmrestd.app_name
-    endpoint = module.slurmrestd.provides.slurmctld
-  }
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.slurmrestd
-  }
-}
-
-resource "juju_integration" "slurmdbd-to-mysql" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.mysql.application_name
-    endpoint = module.mysql.provides.database
-  }
-
-  application {
-    name     = module.slurmdbd.app_name
-    endpoint = module.slurmdbd.requires.database
-  }
-}
-:::
-:::
-
-After verifying that your plan is correct, run the following set of commands to deploy Slurm
-using Terraform and the Juju provider:
+First, create the Terraform configuration file _{{ slurm_tf_file }}_ using
+`mkdir`{l=shell} and `touch`{l=shell}:
 
 :::{code-block} shell
-terraform init
-terraform apply -auto-approve
+mkdir slurm
+touch slurm/main.tf
 :::
 
-:::{admonition} Validate Terraform plans
-:class: note
+Now open _{{ slurm_tf_file }}_ in a text editor and add the Juju Terraform provider
+to your configuration:
 
-You can run `terraform validate`{l=shell} to validate your Slurm deployment plan before applying it.
-You can also run `terraform plan`{l=shell} to see the speculative execution plan that Terraform
-will follow to deploy the Slurm charms, however, note that `terraform plan`{l=shell} will not
-actually execute plan.
+:::{literalinclude} /reuse/howto/setup/deploy-slurm/slurm.tf
+:caption: {{ slurm_tf_file }}
+:language: terraform
+:lines: 1-8
 :::
 
+Next, create the `slurm` model on your `charmed-hpc` machine cloud:
 
-After a few minutes, your Slurm deployment will become active. The output of the
-`juju status`{l=shell} command should be similar to the following:
+:::{literalinclude} /reuse/howto/setup/deploy-slurm/slurm.tf
+:caption: {{ slurm_tf_file }}
+:language: terraform
+:lines: 10-15
+:::
 
-:::{terminal}
-juju status
+Now deploy Slurm's services with MySQL as the storage database for slurmdbd:
 
-Model  Controller   Cloud/Region         Version  SLA          Timestamp
-slurm  charmed-hpc  localhost/localhost  3.6.0    unsupported  17:16:37Z
+:::{include} /reuse/howto/setup/deploy-slurm/slurmctld-ha-note.md
+:::
 
-App         Version          Status  Scale  Charm       Channel      Rev  Exposed  Message
-mysql       8.0.39-0ubun...  active      1  mysql       8.0/stable   313  no
-sackd       23.11.4-1.2u...  active      1  sackd       latest/edge    4  no
-slurmctld   23.11.4-1.2u...  active      1  slurmctld   latest/edge   86  no       primary - UP
-slurmd      23.11.4-1.2u...  active      1  slurmd      latest/edge  107  no
-slurmdbd    23.11.4-1.2u...  active      1  slurmdbd    latest/edge   78  no
-slurmrestd  23.11.4-1.2u...  active      1  slurmrestd  latest/edge   80  no
+:::{include} /reuse/howto/setup/deploy-slurm/slurm-lxd-warning.md
+:::
 
-Unit           Workload  Agent      Machine  Public address  Ports           Message
-mysql/0*       active    idle       5        10.32.18.127    3306,33060/tcp  Primary
-sackd/0*       active    idle       4        10.32.18.203
-slurmctld/0*   active    idle       0        10.32.18.15                     primary - UP
-slurmd/0*      active    idle       1        10.32.18.207
-slurmdbd/0*    active    idle       2        10.32.18.102
-slurmrestd/0*  active    idle       3        10.32.18.9
+:::{literalinclude} /reuse/howto/setup/deploy-slurm/slurm.tf
+:caption: {{ slurm_tf_file }}
+:language: terraform
+:lines: 17-45
+:::
 
-Machine  State    Address       Inst id        Base          AZ  Message
-0        started  10.32.18.15   juju-d566c2-0  ubuntu@24.04      Running
-1        started  10.32.18.207  juju-d566c2-1  ubuntu@24.04      Running
-2        started  10.32.18.102  juju-d566c2-2  ubuntu@24.04      Running
-3        started  10.32.18.9    juju-d566c2-3  ubuntu@24.04      Running
-4        started  10.32.18.203  juju-d566c2-4  ubuntu@24.04      Running
-5        started  10.32.18.127  juju-d566c2-5  ubuntu@22.04      Running
+After that, integrate all of Slurm's services together, and integrate slurmdbd with MySQL:
+
+:::{literalinclude} /reuse/howto/setup/deploy-slurm/slurm.tf
+:caption: {{ slurm_tf_file }}
+:language: terraform
+:lines: 47-115
+:::
+
+You can expand the dropdown below to view the full _{{ slurm_tf_file }}_ Terraform
+configuration before applying it. Now use the `terraform`{l=shell} command to apply
+your configuration:
+
+:::{code-block} shell
+terraform -chdir=slurm init
+terraform -chdir=slurm apply -auto-approve
+:::
+
+:::{dropdown} Full _{{ slurm_tf_file }}_ Terraform configuration file
+:::{literalinclude} /reuse/howto/setup/deploy-slurm/slurm.tf
+:caption: {{ slurm_tf_file }}
+:language: terraform
+:::
 :::
 
 ::::
 
 :::::
 
+Your Slurm deployment will become active within a few minutes. The output of the
+`juju status`{l=shell} will be similar to the following:
+
+:::{terminal}
+juju status
+
+Model  Controller   Cloud/Region         Version  SLA          Timestamp
+slurm  charmed-hpc  charmed-hpc/default  3.6.0    unsupported  17:16:37Z
+
+App         Version          Status  Scale  Charm       Channel      Rev  Exposed  Message
+mysql       8.0.39-0ubun...  active      1  mysql       8.0/stable   313  no
+sackd       23.11.4-1.2u...  active      1  sackd       latest/edge    4  no
+slurmctld   23.11.4-1.2u...  active      1  slurmctld   latest/edge   86  no       primary - UP
+slurmd      23.11.4-1.2u...  active      1  slurmd      latest/edge  107  no
+slurmdbd    23.11.4-1.2u...  active      1  slurmdbd    latest/edge   78  no
+slurmrestd  23.11.4-1.2u...  active      1  slurmrestd  latest/edge   80  no
+
+Unit           Workload  Agent      Machine  Public address  Ports           Message
+mysql/0*       active    idle       5        10.32.18.127    3306,33060/tcp  Primary
+sackd/0*       active    idle       4        10.32.18.203
+slurmctld/0*   active    idle       0        10.32.18.15                     primary - UP
+slurmd/0*      active    idle       1        10.32.18.207
+slurmdbd/0*    active    idle       2        10.32.18.102
+slurmrestd/0*  active    idle       3        10.32.18.9
+
+Machine  State    Address       Inst id        Base          AZ  Message
+0        started  10.32.18.15   juju-d566c2-0  ubuntu@24.04      Running
+1        started  10.32.18.207  juju-d566c2-1  ubuntu@24.04      Running
+2        started  10.32.18.102  juju-d566c2-2  ubuntu@24.04      Running
+3        started  10.32.18.9    juju-d566c2-3  ubuntu@24.04      Running
+4        started  10.32.18.203  juju-d566c2-4  ubuntu@24.04      Running
+5        started  10.32.18.127  juju-d566c2-5  ubuntu@22.04      Running
+:::
 
 (deploy-slurmctld-high-availability)=
 ### Deploying `slurmctld` in high availability
 
-The `slurmcltd` charm optionally supports [high availability (HA)](explanation-high-availability) through the native functionality provided by Slurm: an active-passive setup where additional controllers are backups to a single primary.
+The `slurmctld` charm optionally supports [high availability (HA)](explanation-high-availability)
+through the native functionality provided by Slurm. This functionality requires a
+low-latency shared filesystem; follow the instructions in the
+[Deploy a shared filesystem](howto-setup-deploy-shared-filesystem) section to deploy a shared filesystem.
 
-This functionality requires a low-latency shared file system to be deployed and a `filesystem-client` charm to be integrated with `slurmctld`. For guidance on choosing a file system, see the [Shared `StateSaveLocation` using `filesystem-client` charm](explanation-slurmctld-high-availability-state-save-location) section. It is recommended that the HA file system **not be the same as the file system used for the cluster compute nodes** to avoid I/O-intensive user jobs from impacting `slurmctld` responsiveness. The suggested approach is to deploy a dedicated HA file system then subsequently provision a separate file system for the compute nodes.
+:::{admonition} Choosing a shared filesystem
+:class: warning
 
-To deploy the file system, follow the instructions in the [Deploy a shared filesystem](howto-setup-deploy-shared-filesystem) section. Once a chosen shared file system has been deployed and made available via a proxy or provider charm, run the following, substituting `[filesystem-provider]` with the name of the provider charm, to deploy a `slurmctld` HA setup with two units (a primary and single backup):
+See the [Shared `StateSaveLocation` using `filesystem-client` charm](explanation-slurmctld-high-availability-state-save-location)
+section for guidance on choosing a shared filesystem. It is recommended that the
+HA file system **not be the same as the filesystem used for the cluster compute nodes**
+to avoid I/O-intensive user jobs from impacting slurmctld's responsiveness.
+The suggested approach is to deploy a dedicated HA file system then subsequently
+provision a separate file system for the compute nodes.
+:::
+
+Once a chosen shared filesystem has been deployed and made available through a proxy or provider charm,
+use the following instructions, substituting `[filesystem-provider]` with the name of the provider charm
+to deploy slurmctld with HA enabled.
+
+In this example, two slurmctld units are deployed. One slurmctld unit
+acts as the primary Slurm controller, and the other unit serves as the backup controller:
 
 :::::{tab-set}
 
@@ -484,60 +220,24 @@ juju integrate slurmctld:mount filesystem-client:mount
 ::::{tab-item} Terraform
 :sync: terraform
 
-:::{code-block} terraform
-:caption: `main.tf`
-module "filesystem-client" {
-  source     = "git::https://github.com/charmed-hpc/filesystem-charms//charms/filesystem-client/terraform"
-  model_name  = juju_model.slurm.name
-}
-
-resource "juju_integration" "provider-to-filesystem" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.[filesystem-provider].app_name
-    endpoint = module.[filesystem-provider].provides.filesystem
-  }
-
-  application {
-    name     = module.filesystem-client.app_name
-    endpoint = module.filesystem-client.requires.filesystem
-  }
-}
-
-module "slurmctld" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
-  model_name  = juju_model.slurm.name
-  constraints = "arch=amd64 virt-type=virtual-machine"
-  units       = 2
-}
-
-resource "juju_integration" "filesystem-to-slurmctld" {
-  model = juju_model.slurm.name
-
-  application {
-    name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.provides.mount
-  }
-
-  application {
-    name     = module.filesystem-client.app_name
-    endpoint = module.filesystem-client.requires.mount
-  }
-}
+:::{literalinclude} /reuse/howto/setup/deploy-slurm/slurm-ha.tf
+:caption: {{ slurm_tf_file }}
+:language: terraform
 :::
 
 ::::
 
 :::::
 
-Once `slurmctld` is scaled up, the output of the `juju status`{l=shell} command should be similar to the following, varying by choice of shared file system - here CephFS:
+Once `slurmctld` is scaled up, the output of `juju status`{l=shell} will be similar
+to the following. The output can be different depending on the shared filesystem you chose.
+CephFS is used in this example to provide the HA filesystem:
 
 :::{terminal}
 juju status
 
 Model  Controller   Cloud/Region         Version  SLA          Timestamp
-slurm  charmed-hpc  localhost/localhost  3.6.0    unsupported  17:16:37Z
+slurm  charmed-hpc  charmed-hpc/default  3.6.0    unsupported  17:16:37Z
 
 App                 Version          Status  Scale  Charm                Channel      Rev  Exposed  Message
 cephfs-server-proxy                  active      1  cephfs-server-proxy  latest/edge   25  no
@@ -577,14 +277,8 @@ Machine  State    Address       Inst id        Base          AZ  Message
 (deploy-slurm-lxd)=
 ### Deploying Slurm on LXD
 
-The Slurm charms can deploy, manage, and operate Slurm on any
-[supported machine cloud](https://documentation.ubuntu.com/juju/latest/user/reference/cloud/list-of-supported-clouds/), however, each
-cloud has their own permutations. On LXD, if you deploy the charms to system containers rather
-than virtual machines, Slurm cannot use the recommended process tracking plugin `proctrack/cgroup`,
-and additional modifications must be made to the default LXD profile.
-
-To deploy the Slurm charms to virtual machines rather than system containers, pass the constraint
-`"virt-type=virtual-machine"`{l=shell} to Juju when deploying the charms:
+Pass the constraint `"virt-type=virtual-machine"`{l=shell} to Juju to deploy
+Slurm on virtual machines instead of system containers:
 
 :::::{tab-set}
 
@@ -592,12 +286,34 @@ To deploy the Slurm charms to virtual machines rather than system containers, pa
 :sync: cli
 
 :::{code-block} shell
-juju deploy sackd --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
-juju deploy slurmctld --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
-juju deploy slurmd --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
-juju deploy slurmdbd --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
-juju deploy slurmrestd --base "ubuntu@24.04" --channel "edge" --constraints="virt-type=virtual-machine"
-juju deploy mysql --channel "8.0/stable" --constraints="virt-type=virtual-machine"
+juju deploy sackd \
+  --base "ubuntu@24.04" \
+  --channel "edge" \
+  --constraints="virt-type=virtual-machine"
+
+juju deploy slurmctld \
+  --base "ubuntu@24.04" \
+  --channel "edge" \
+  --constraints="virt-type=virtual-machine"
+
+juju deploy slurmd \
+  --base "ubuntu@24.04" \
+  --channel "edge" \
+  --constraints="virt-type=virtual-machine"
+
+juju deploy slurmdbd \
+  --base "ubuntu@24.04" \
+  --channel "edge" \
+  --constraints="virt-type=virtual-machine"
+
+juju deploy slurmrestd \
+  --base "ubuntu@24.04" \
+  --channel "edge" \
+  --constraints="virt-type=virtual-machine"
+
+juju deploy mysql \
+  --channel "8.0/stable" \
+  --constraints="virt-type=virtual-machine"
 :::
 
 ::::
@@ -605,94 +321,90 @@ juju deploy mysql --channel "8.0/stable" --constraints="virt-type=virtual-machin
 ::::{tab-item} Terraform
 :sync: terraform
 
-:::{code-block} terraform
-:caption: `main.tf`
-module "sackd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/sackd/terraform"
-  model_name  = juju_model.slurm.name
-  constraints = "arch=amd64 virt-type=virtual-machine"
-}
-
-module "slurmctld" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
-  model_name  = juju_model.slurm.name
-  constraints = "arch=amd64 virt-type=virtual-machine"
-}
-
-module "slurmd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmd/terraform"
-  model_name  = juju_model.slurm.name
-  constraints = "arch=amd64 virt-type=virtual-machine"
-}
-
-module "slurmdbd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmdbd/terraform"
-  model_name  = juju_model.slurm.name
-  constraints = "arch=amd64 virt-type=virtual-machine"
-}
-
-module "slurmrestd" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmrestd/terraform"
-  model_name  = juju_model.slurm.name
-  constraints = "arch=amd64 virt-type=virtual-machine"
-}
-
-module "mysql" {
-  source          = "git::https://github.com/canonical/mysql-operator//terraform"
-  juju_model_name = juju_model.slurm.name
-  constraints     = "arch=amd64 virt-type=virtual-machine"
-}
+:::{literalinclude} /reuse/howto/setup/deploy-slurm/slurm-lxd.tf
+:caption: {{ slurm_tf_file }}
+:language: terraform
 :::
 
 ::::
 
 :::::
 
-## Set compute nodes to `IDLE`
+## Set compute nodes to `idle`
 
-Compute nodes are initially enlisted with their state set to `DOWN` after your Slurm deployment
-becomes active. To set the compute nodes' state to `IDLE` so that they can start having jobs
-scheduled on them, use `juju run`{l=shell} to run the `resume` action on the leading controller:
+Compute nodes are initially registered with their state set to `down` after your
+Slurm deployment becomes active. You can use the `set-node-state` action to set the
+compute nodes' state to `idle` to make them available for scheduled jobs.
+For example, to set the state of compute node `slurmd-0` to `idle`, run:
 
 :::{code-block} shell
-juju run slurmctld/leader resume nodename="<machine-instance-id/hostname>"
+juju run slurmctld/leader set-node-state nodes="slurmd-0" state=idle
 :::
 
 ::::{admonition} Tips
-:class: tip
-1. You can get the hostname of all your compute nodes with `juju exec`{l=shell}:
+:class: note
+1. You can get the node name of a compute node by substituting the forward slash `/` character in the
+   unit's name with the dash `-` character. For example, the unit `slurmd/0` in Juju would be named
+   `slurmd-0` in Slurm.
 
-:::{code-block} shell
-juju exec --application slurmd -- hostname -s
+   `juju status`{l=shell} can be used to find unit names. For example, to list all the units that
+   belong to the slurmd application, run:
+
+:::{terminal}
+juju status slurmd
+
+Model  Controller   Cloud/Region         Version  SLA          Timestamp
+slurm  charmed-hpc  charmed-hpc/default  3.6.0    unsupported  17:16:37Z
+
+App         Version          Status  Scale  Charm       Channel      Rev  Exposed  Message
+slurmd      23.11.4-1.2u...  active      1  slurmd      latest/edge  107  no
+
+Unit           Workload  Agent      Machine  Public address  Ports           Message
+slurmd/0*      active    idle       1        10.32.18.207
+
+Machine  State    Address       Inst id        Base          AZ  Message
+1        started  10.32.18.207  juju-d566c2-1  ubuntu@24.04      Running
 :::
 
-2. The `nodename` parameter of the `resume` action also accepts node ranges for setting the state
-   of compute nodes to `IDLE` in bulk:
+2. The `nodes` parameter of the `set-node-state` action accepts node name ranges for updating
+   the state of multiple nodes at once. For example, to set the state of compute nodes `slurmd-0` to
+   to `slurmd-9` to `idle`, the node name range `slurmd-[0-9]` can be used:
 
 :::{code-block}
-juju run slurmctld/leader resume nodename="<machine-instance-id/hostname>[range]"
+juju run slurmctld/leader set-node-state nodes="slurmd-[0-9]" state=idle
 :::
 
 ::::
 
-## Verify compute nodes are `IDLE`
+## Verify compute nodes are `idle`
 
-The sackd charm installs the Slurm client commands. To use `sinfo`{l=shell} to verify that a compute
-node's state is `IDLE`, run the following command with `juju exec`{l=shell} in your sackd unit:
+You can use `sinfo`{l=shell} with `juju exec`{l=shell} to verify that a
+compute node's state is `idle`. For example, to check if node `slurmd-0` is idle:
 
-:::{code-block} shell
-juju exec -u sackd/0 -- sinfo --nodes $(juju exec -u slurmd/0 -- hostname)
+:::{terminal}
+juju exec --unit sackd/0 -- sinfo --nodes slurmd-0
+
+PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
+slurmd       up   infinite      1   idle slurmd-0
 :::
 
-To verify that the entire partition is `IDLE`, run `sinfo`{l=shell} without the
+To verify that all the nodes in a partition are `idle`, run `sinfo`{l=shell} without the
 `--nodes`{l=shell} flag:
 
-:::{code-block} shell
-juju exec -u sackd/0 -- sinfo
+:::{terminal}
+juju exec --unit sackd/0 -- sinfo
+
+PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
+slurmd       up   infinite     10   idle slurmd-[0-9]
 :::
+
 
 ## Next steps
 
-Now that Slurm is deployed, you can now deploy the shared filesystem of your Charmed HPC cluster:
+Now that Slurm is deployed, you can deploy the shared filesystem of your Charmed HPC cluster:
 
 - {ref}`howto-setup-deploy-shared-filesystem`
+
+You can also explore the {ref}`reference-glossary` for further information on {term}`sackd`,
+{term}`slurmctld`, {term}`slurmd`, {term}`slurmdbd`, {term}`slurmrestd`, and {term}`MySQL`
+and how they are managed by their respective charms.

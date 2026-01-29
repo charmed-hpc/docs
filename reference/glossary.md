@@ -89,6 +89,12 @@ Microsoft Azure
 
     Resources: [Microsoft Azure website {octicon}`link-external`](https://azure.microsoft.com/)
 
+MySQL
+    An open source relational database management system (RDBMS) that uses Structured Query Language
+    (SQL) for defining, manipulating, and querying data.
+
+    Resources: [MySQL website {octicon}`link-external`](https://www.mysql.com), [MySQL charm {octicon}`link-external`](https://charmhub.io/mysql)
+
 Proxy charm
     An intermediary charm that enables charms to integrate with non-charmed applications. Also known
     as an integrator charm.
@@ -148,4 +154,3 @@ Workload manager
     of a cluster by matching job requirements (CPU core count, walltime) to available hardware
     while enforcing site-specific usage policies. Slurm is a workload manager.
 ```
-
