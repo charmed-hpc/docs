@@ -1,4 +1,4 @@
-After a few minutes, SSSD will become active. The output of `juju status`{l=shell}
+The SSSD application will become active within a few minutes. The output of `juju status`{l=shell}
 will be similar to the following:
 
 :::{terminal}
@@ -7,11 +7,10 @@ will be similar to the following:
 juju status
 
 Model  Controller              Cloud/Region         Version  SLA          Timestamp
-slurm  charmed-hpc-controller  charmed-hpc/default  3.6.4    unsupported  16:17:13-04:00
+slurm  charmed-hpc-controller  charmed-hpc/default  3.6.12   unsupported  16:17:13-04:00
 
 SAAS        Status  Store  URL
-ldap        active  local  admin/iam.ldap
-ldap-certs  active  local  admin/iam.ldap-certs
+ldap        active  local  admin/identity.ldap
 
 App         Version          Status  Scale  Charm       Channel      Rev  Exposed  Message
 mysql       8.0.39-0ubun...  active      1  mysql       8.0/stable   313  no
@@ -40,6 +39,3 @@ Machine  State    Address        Inst id        Base          AZ  Message
 4        started  10.175.90.100  juju-0f356d-4  ubuntu@24.04      Running
 5        started  10.175.90.107  juju-0f356d-5  ubuntu@24.04      Running
 :::
-
-You have successfully deployed and integrated an {{ iam }} stack for
-your Charmed HPC cluster!
