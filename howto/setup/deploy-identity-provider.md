@@ -487,9 +487,8 @@ SSSD will reactivate within a few minutes. You will see that the offer
 
 You can now use your external LDAP server as the identity provider for your Charmed HPC cluster.
 
-You can also start exploring the [Integrate](howto-integrate) section if you have also
-completed the {ref}`howto-setup-deploy-slurm` and {ref}`howto-setup-deploy-shared-filesystem` how-tos.
-
+You can also start exploring the [Integrate](howto-integrate) section if you have
+completed the {ref}`howto-setup-deploy-shared-filesystem` how-to.
 
 (identity-glauth-with-sssd)=
 ## GLAuth with SSSD
@@ -792,5 +791,5 @@ You can now use GLAuth as the identity provider for your Charmed HPC cluster.
 Explore [GLAuth's Database documentation](https://glauth.github.io/docs/databases.html) for more information
 on how to use SQL queries to manage your cluster's users and groups in your Postgres database.
 
-You can also start exploring the [Integrate](howto-integrate) section if you have also
-completed the {ref}`howto-setup-deploy-slurm` and {ref}`howto-setup-deploy-shared-filesystem` how-tos.
+You can also start exploring the [Integrate](howto-integrate) section if you have
+completed the {ref}`howto-setup-deploy-shared-filesystem` how-to.
