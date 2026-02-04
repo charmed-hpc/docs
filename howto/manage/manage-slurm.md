@@ -43,12 +43,12 @@ juju add-unit -n 1 slurmctld
 :::{code-block} terraform
 :caption: `main.tf`
 module "filesystem-client" {
-  source     = "git::https://github.com/charmed-hpc/filesystem-charms//charms/filesystem-client/terraform"
-  model_name  = juju_model.slurm.name
+  source      = "git::https://github.com/charmed-hpc/filesystem-charms//charms/filesystem-client/terraform"
+  model_uuid  = juju_model.slurm.uuid
 }
 
-resource "juju_integration" "provider-to-filesystem" {
-  model = juju_model.slurm.name
+resource "juju_integration" "provider_to_filesystem" {
+  model_uuid = juju_model.slurm.uuid
 
   application {
     name     = module.[filesystem-provider].app_name
@@ -63,13 +63,13 @@ resource "juju_integration" "provider-to-filesystem" {
 
 module "slurmctld" {
   source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
-  model_name  = juju_model.slurm.name
+  model_uuid  = juju_model.slurm.uuid
   constraints = "arch=amd64 virt-type=virtual-machine"
   units       = 2
 }
 
 resource "juju_integration" "filesystem-to-slurmctld" {
-  model = juju_model.slurm.name
+  model_uuid = juju_model.slurm.uuid
 
   application {
     name     = module.slurmctld.app_name
