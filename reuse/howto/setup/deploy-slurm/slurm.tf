@@ -40,7 +40,7 @@ module "slurmrestd" {
 }
 
 module "mysql" {
-  source          = "git::https://github.com/canonical/mysql-operator//terraform"
+  source          = "git::https://github.com/canonical/mysql-operators//machines/terraform"
   model = juju_model.slurm.uuid
 }
 

@@ -38,7 +38,7 @@ are not maintained directly as part of Charmed HPC.
 :widths: 15, 10, 10
 
 juju, [Source](https://github.com/juju/juju), [Issue tracker](https://github.com/juju/juju/issues)
-mysql, [Source](https://github.com/canonical/mysql-operator), [Issue tracker](https://github.com/canonical/mysql-operator/issues)
+mysql, [Source](https://github.com/canonical/mysql-operators), [Issue tracker](https://github.com/canonical/mysql-operators/issues)
 mysql-router, [Source](https://github.com/canonical/mysql-router-operator), [Issue tracker](https://github.com/canonical/mysql-router-operator/issues)
 traefik-k8s, [Source](https://github.com/canonical/traefik-k8s-operator), [Issue tracker](https://github.com/canonical/traefik-k8s-operator/issues)
 glauth-k8s, [Source](https://github.com/canonical/glauth-k8s-operator), [Issue tracker](https://github.com/canonical/glauth-k8s-operator/issues)
