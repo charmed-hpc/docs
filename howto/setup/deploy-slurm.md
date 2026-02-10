@@ -44,10 +44,10 @@ juju add-model slurm charmed-hpc
 Now use `juju deploy`{l=shell} to deploy Slurm's services with MySQL as
 the storage database for slurmdbd:
 
-:::{include} /reuse/howto/setup/deploy-slurm/slurmctld-ha-note.md
+:::{include} /reuse/howto/setup/deploy-slurm/slurmctld-ha-note.txt
 :::
 
-:::{include} /reuse/howto/setup/deploy-slurm/slurm-lxd-warning.md
+:::{include} /reuse/howto/setup/deploy-slurm/slurm-lxd-warning.txt
 :::
 
 :::{code-block} shell
@@ -102,10 +102,10 @@ Next, create the `slurm` model on your `charmed-hpc` machine cloud:
 
 Now deploy Slurm's services with MySQL as the storage database for slurmdbd:
 
-:::{include} /reuse/howto/setup/deploy-slurm/slurmctld-ha-note.md
+:::{include} /reuse/howto/setup/deploy-slurm/slurmctld-ha-note.txt
 :::
 
-:::{include} /reuse/howto/setup/deploy-slurm/slurm-lxd-warning.md
+:::{include} /reuse/howto/setup/deploy-slurm/slurm-lxd-warning.txt
 :::
 
 :::{literalinclude} /reuse/howto/setup/deploy-slurm/slurm.tf

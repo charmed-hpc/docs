@@ -205,7 +205,7 @@ machines with the external LDAP server.
 
 #### Deploy SSSD
 
-:::{include} /reuse/howto/setup/deploy-identity-provider/common/deploy-sssd.md
+:::{include} /reuse/howto/setup/deploy-identity-provider/common/deploy-sssd.txt
 :::
 
 You now need to integrate SSSD with the ldap-integrator application in your `identity` model so that
@@ -305,7 +305,7 @@ terraform -chdir=integrate-sssd-with-ldap-integrator apply -auto-approve
 
 :::::
 
-:::{include} /reuse/howto/setup/deploy-identity-provider/common/sssd-with-ldap-status.md
+:::{include} /reuse/howto/setup/deploy-identity-provider/common/sssd-with-ldap-status.txt
 :::
 
 #### Optional: Enable TLS encryption between SSSD and the external LDAP server
@@ -335,7 +335,7 @@ juju deploy manual-tls-certificates \
   --config trusted-certificate-bundle="$(cat bundle.pem)"
 :::
 
-:::{include} /reuse/howto/setup/deploy-identity-provider/ldap-integrator/bundle-pem-tip.md
+:::{include} /reuse/howto/setup/deploy-identity-provider/ldap-integrator/bundle-pem-tip.txt
 :::
 
 Next, create an offer from the manual-tls-certificates application in your `identity`
@@ -428,7 +428,7 @@ example, the LDAP server's TLS certificate is stored in the file _bundle.pem_:
 :lines: 25-32
 :::
 
-:::{include} /reuse/howto/setup/deploy-identity-provider/ldap-integrator/bundle-pem-tip.md
+:::{include} /reuse/howto/setup/deploy-identity-provider/ldap-integrator/bundle-pem-tip.txt
 :::
 
 Now create an offer from the manual-tls-certificates application in your `identity` model:
@@ -479,7 +479,7 @@ terraform -chdir=manual-tls-certificates apply -auto-approve
 SSSD will reactivate within a few minutes. You will see that the offer
 `send-ldap-certs` is now active in the output of `juju status`{l=shell}:
 
-:::{include} /reuse/howto/setup/deploy-identity-provider/common/sssd-with-ldap-tls-status.md
+:::{include} /reuse/howto/setup/deploy-identity-provider/common/sssd-with-ldap-tls-status.txt
 :start-line: 3
 :::
 
@@ -562,7 +562,7 @@ juju deploy self-signed-certificates
 juju deploy traefik-k8s --trust
 :::
 
-:::{include} /reuse/howto/setup/deploy-identity-provider/glauth/anonymous-dse-note.md
+:::{include} /reuse/howto/setup/deploy-identity-provider/glauth/anonymous-dse-note.txt
 :::
 
 Next, use `juju integrate` to integrate GLAuth with Postgres, Traefik, and
@@ -616,7 +616,7 @@ Now deploy GLAuth with:
 :lines: 18-43
 :::
 
-:::{include} /reuse/howto/setup/deploy-identity-provider/glauth/anonymous-dse-note.md
+:::{include} /reuse/howto/setup/deploy-identity-provider/glauth/anonymous-dse-note.txt
 :::
 
 Next, integrate GLAuth with Postgres, Traefik, and self-signed-certificates:
@@ -676,7 +676,7 @@ You now need to deploy SSSD in your slurm model to enroll your cluster’s machi
 
 #### Deploy SSSD
 
-:::{include} /reuse/howto/setup/deploy-identity-provider/common/deploy-sssd.md
+:::{include} /reuse/howto/setup/deploy-identity-provider/common/deploy-sssd.txt
 :::
 
 You now need to integrate SSSD with the GLAuth application in your `identity` model so that
@@ -711,7 +711,7 @@ juju integrate sssd ldap
 juju integrate sssd send-ldap-certs
 :::
 
-:::{include} /reuse/howto/setup/deploy-identity-provider/common/sssd-with-ldap-tls-status.md
+:::{include} /reuse/howto/setup/deploy-identity-provider/common/sssd-with-ldap-tls-status.txt
 :::
 
 ::::
@@ -777,7 +777,7 @@ terraform -chdir=integrate-sssd-with-glauth apply -auto-approve
 :::
 :::
 
-:::{include} /reuse/howto/setup/deploy-identity-provider/common/sssd-with-ldap-tls-status.md
+:::{include} /reuse/howto/setup/deploy-identity-provider/common/sssd-with-ldap-tls-status.txt
 :::
 
 ::::
