@@ -11,10 +11,10 @@ tutorial from the Grafana documentation for instructions on where and how to que
 : charm, query
 
 <!-- TODO: track https://github.com/canonical/grafana-agent-operator/issues/46 to use juju labels instead of filenames -->
-slurmctld, `{juju_charm="grafana-agent"} | filename =~ ".*/var/log/slurm/slurmctld.*"`{l=shell}
-slurmd, `{juju_charm="grafana-agent"} | filename =~ ".*/var/log/slurm/slurmd.*"`{l=shell}
-slurmdbd, `{juju_charm="grafana-agent"} | filename =~ ".*/var/log/slurm/slurmdbd.*"`{l=shell}
-mysql, `{juju_charm="grafana-agent"} | filename =~ ".*/var/log/mysql/.*"`{l=shell}
+slurmctld, `{juju_charm="opentelemetry-collector"} | filename =~ ".*/var/log/slurm/slurmctld.*"`{l=shell}
+slurmd, `{juju_charm="opentelemetry-collector"} | filename =~ ".*/var/log/slurm/slurmd.*"`{l=shell}
+slurmdbd, `{juju_charm="opentelemetry-collector"} | filename =~ ".*/var/log/slurm/slurmdbd.*"`{l=shell}
+mysql, `{juju_charm="opentelemetry-collector"} | filename =~ ".*/var/log/mysql/.*"`{l=shell}
 postgresql-k8s, `{juju_charm="postgresql-k8s"}`{l=shell}
 
 <!-- TODO: enable when traefik exposes logs to Loki (https://github.com/canonical/traefik-k8s-operator/pull/363) -->
@@ -26,11 +26,11 @@ glauth-k8s, `{charm="glauth-k8s"}`{l=shell}
 
 ## Ignoring log files
 
-By default, every instance of the `grafana-agent` charm will log all the files in the `/var/log` directory.
+By default, every instance of the `opentelemtry-collector` charm will log all the files in the `/var/log` directory.
 This is sometimes not ideal, since it increases the amount of logs stored by Loki which are unrelated
 to the running application. A solution for this is to set the `path_exclude` configuration for
-`grafana-agent`, which will allow it to ignore such log files:
+`opentelemetry-collector`, which will allow it to ignore such log files:
 
 :::{code-block} shell
-juju config grafana-agent path_exclude="/var/log/{unattended-upgrades,apt,}/*.log"
+juju config opentelemetry-collector path_exclude="/var/log/{unattended-upgrades,apt,}/*.log"
 :::

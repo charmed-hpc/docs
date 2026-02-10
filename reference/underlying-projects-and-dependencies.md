@@ -56,7 +56,7 @@ are not maintained directly as part of Charmed HPC.
 : project, source code, bug report
 :widths: 15, 10, 10
 
-grafana-agent, [Source](https://github.com/canonical/grafana-agent), [Issue tracker](https://github.com/canonical/grafana-agent/issues)
+opentelemetry-collector, [Source](https://github.com/canonical/opentelemetry-collector-operator), [Issue tracker](https://github.com/canonical/opentelemetry-collector-operator/issues)
 grafana-k8s, [Source](https://github.com/canonical/grafana-k8s-operator), [Issue tracker](https://github.com/canonical/grafana-k8s-operator/issues)
 prometheus-k8s, [Source](https://github.com/canonical/prometheus-k8s-operator), [Issue tracker](https://github.com/canonical/prometheus-k8s-operator/issues)
 alertmanager-k8s, [Source](https://github.com/canonical/alertmanager-k8s-operator), [Issue tracker](https://github.com/canonical/alertmanager-k8s-operator/issues)
@@ -96,7 +96,7 @@ A charm does not have any modifiable configuration options or runnable actions i
 [cephfs-server-proxy](https://charmhub.io/cephfs-server-proxy), [Options](https://charmhub.io/cephfs-server-proxy/configurations)
 [sssd](https://charmhub.io/sssd)
 [apptainer](https://charmhub.io/apptainer), , [Actions](https://charmhub.io/apptainer/actions)
-[grafana-agent](https://charmhub.io/grafana-agent), [Options](https://charmhub.io/grafana-agent/configurations)
+[opentelemetry-collector](https://charmhub.io/opentelemetry-collector), [Options](https://charmhub.io/opentelemetry-collector/configurations), [Actions](https://charmhub.io/opentelemetry-collector/actions)
 [mysql](https://charmhub.io/mysql), [Options](https://charmhub.io/mysql/configurations), [Actions](https://charmhub.io/mysql/actions)
 [mysql-router](https://charmhub.io/mysql-router), [Options](https://charmhub.io/mysql-router/configurations), [Actions](https://charmhub.io/mysql-router/actions)
 [influxdb](https://charmhub.io/influxdb), [Options](https://charmhub.io/influxdb/configurations), [Actions](https://charmhub.io/influxdb/actions)
