@@ -111,11 +111,23 @@ Proxy charm
 
     Resources: [Slurm Workload Manager - sackd {octicon}`link-external`](https://slurm.schedmd.com/sackd.html), [sackd charm {octicon}`link-external`](https://charmhub.io/sackd)
 
+`scontrol`
+    Slurm administrative command-line tool for viewing and modifying cluster configuration and state.
+    Used to manage jobs, nodes, partitions, reservations, and other cluster resources. Provides
+    real-time control and monitoring capabilities for Slurm administrators.
+
+    Resources: [Slurm Workload Manager - scontrol {octicon}`link-external`](https://slurm.schedmd.com/scontrol.html)
+
 Slurm
     A free and open source workload manager consisting of multiple co-operating software components,
     each responsible for a piece of cluster functionality.
 
     Resources: [Slurm Workload Manager - Documentation {octicon}`link-external`](https://slurm.schedmd.com/documentation.html)
+
+Slurm charms
+    A set of {term}`charmed operators <Charm>` that deploy and manage {term}`Slurm`.
+
+    Resources: [Slurm charms repository {octicon}`link-external`](https://github.com/charmed-hpc/slurm-charms)
 
 `slurmctld`
     Slurm central management/controller daemon. Schedules jobs and monitors other components.
@@ -137,6 +149,7 @@ Slurm
     REST API interface for Slurm.
 
     Resources: [Slurm Workload Manager - slurmrestd {octicon}`link-external`](https://slurm.schedmd.com/slurmrestd.html), [slurmrestd charm {octicon}`link-external`](https://charmhub.io/slurmrestd)
+
 
 `slurmutils`
     Python library for facilitating edits to Slurm configuration files.
