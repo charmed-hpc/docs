@@ -95,6 +95,13 @@ MySQL
 
     Resources: [MySQL website {octicon}`link-external`](https://www.mysql.com), [MySQL charm {octicon}`link-external`](https://charmhub.io/mysql)
 
+OpenTelemetry Collector
+    A vendor-agnostic implementation for receiving, processing, and exporting telemetry data. Removes
+    the need to run, operate, and maintain multiple agents/collectors to support open-source telemetry
+    data formats (e.g. Jaeger, Prometheus) to multiple open-source or commercial back-ends.
+
+    Resources: [OpenTelemetry Collector documentation {octicon}`link-external`](https://opentelemetry.io/docs/collector/), [OpenTelemetry Collector GitHub {octicon}`link-external`](https://github.com/open-telemetry/opentelemetry-collector), [opentelemetry-collector charm {octicon}`link-external`](https://charmhub.io/opentelemetry-collector)
+
 Proxy charm
     An intermediary charm that enables charms to integrate with non-charmed applications. Also known
     as an integrator charm.

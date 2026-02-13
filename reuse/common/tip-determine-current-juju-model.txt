@@ -1,0 +1,32 @@
+::::{dropdown} Tip: Switching between Juju models
+`juju switch`{l=shell} can be used to determine the current model you're operating on:
+
+:::{terminal}
+:copy:
+juju switch
+
+charmed-hpc-controller:admin/slurm
+:::
+
+<!--
+  This raw `<br>` element is here because :terminal: directive does not add padding to the
+  bottom of the rendered block that the text is too close
+-->
+<br>
+
+The output above shows that you're operating on the `slurm` model as the `admin` user
+through the Juju controller `charmed-hpc-controller`.
+
+`juju switch <model>`{l=shell} can also be used to switch between models:
+
+:::{terminal}
+juju switch identity
+
+charmed-hpc-controller:admin/slurm -> charmed-hpc-controller:admin/identity
+:::
+
+<br>
+
+The output above shows that you've switched from operating on your `slurm` model
+to your `identity` model.
+::::

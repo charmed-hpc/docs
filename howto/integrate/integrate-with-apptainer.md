@@ -29,25 +29,8 @@ First, in the same model holding your Slurm deployment, deploy Apptainer with `j
 juju deploy apptainer
 :::
 
-::::{dropdown} Tip: Determining the current Juju model
-You can use `juju switch`{l=shell} to determine the current model you're operating on:
-
-:::{terminal}
-:copy:
-juju switch
-
-charmed-hpc-controller:admin/slurm
+:::{include} /reuse/common/tip-determine-current-juju-model.txt
 :::
-
-<!--
-  This raw `<br>` element is here because :terminal: directive does not add padding to the
-  bottom of the rendered block that the text is too close
--->
-<br>
-
-The output above shows that we're operating on the `slurm` model as the `admin` user
-through the Juju controller `charmed-hpc-controller`.
-::::
 
 Now integrate Apptainer with Slurm using `juju integrate`{l=shell}:
 
