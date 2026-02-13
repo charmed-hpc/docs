@@ -111,7 +111,7 @@ juju exec --unit opentelemetry-collector/0 -- \
 :::
 
 If the output of `juju exec`{l=shell} looks similar to the success message below, this
-means that your Charmed HPC cluster can communicate with contact with COS:
+means that your Charmed HPC cluster can communicate with COS:
 
 :::{terminal}
 :copy:
@@ -139,9 +139,10 @@ juju exec --unit opentelemetry-collector/0 -- \
 
 ## Integrate OpenTelemetry Collector with COS
 
-Next, use `juju offer`{l=shell} create offers for COS in your `cos` model:
+Next, use `juju offer`{l=shell} create offers for COS from your `cos` model:
 
 :::{code-block} shell
+juju switch cos-controller:cos
 juju offer cos.grafana:grafana-dashboard grafana-dashboards
 juju offer cos.loki:logging loki-logging
 juju offer cos.prometheus:receive-remote-write prometheus-receive-remote-write
@@ -150,6 +151,7 @@ juju offer cos.prometheus:receive-remote-write prometheus-receive-remote-write
 After that, use `juju consume`{l=shell} to consume the offers in your `slurm` model:
 
 :::{code-block} shell
+juju switch charmed-hpc-controller:slurm
 juju consume cos-controller:cos.prometheus-receive-remote-write
 juju consume cos-controller:cos.grafana-dashboards
 juju consume cos-controller:cos.loki-logging
@@ -171,8 +173,6 @@ from your Charmed HPC cluster.
 (howto-manage-integrate-with-cos-access-monitoring-resources)=
 ## Access monitoring resources
 
-### Access Grafana dashboards
-
 First, use the `get-admin-password` action to retrieve the Grafana admin password:
 
 :::{code-block} shell
@@ -188,8 +188,8 @@ juju run grafana/leader \
 The `get-admin-password` action returns the initial admin password that is
 generated when COS is first deployed. The action will return a notice if the
 initial admin password has been changed by your COS deployment's administrator.
-You will need to either create a Grafana account in COS or get the admin password
-from your COS deployment's administrator.
+If the password has been changed, you will need to either create a Grafana account
+in COS or get the admin password from your COS deployment's administrator.
 :::
 
 Next, open your browser and navigate to the Grafana dashboard URL you saved after
