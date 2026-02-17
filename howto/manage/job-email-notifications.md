@@ -78,7 +78,7 @@ To customize the name that appears in the signature of email notifications sent 
 :sync: cli
 
 :::{code-block} shell
-juju config slurmctld email-from-name="The My Cluster Name Admin Team"
+juju config slurmctld email-from-name="The my-cluster-name Admin Team"
 :::
 
 ::::
