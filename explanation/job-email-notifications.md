@@ -6,9 +6,8 @@ be useful for alerting users that their job has started, ended, failed, or reach
 [supported job states](https://slurm.schedmd.com/sbatch.html#OPT_mail-type).
 
 Charmed HPC facilitates the setup of email notifications by supporting the `smtp` interface in the
-`slurmctld` charm. This allows for integration with the
-[`smtp-integrator`](https://charmhub.io/smtp-integrator) charm to enable access to an SMTP server to
-be used for sending the email notifications. Specific steps can be found in the
+`slurmctld` charm. The
+[`smtp-integrator`](https://charmhub.io/smtp-integrator) charm can be integrated to enable access to an SMTP server which will then be used for sending the email notifications. Specific steps can be found in the
 [Enable job email notifications](howto-job-email-notifications) how-to section.
 
 The [Slurm-Mail](https://github.com/neilmunday/slurm-mail) add-on is used in Charmed HPC. This
