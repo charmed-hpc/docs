@@ -1,4 +1,5 @@
 # Charmed HPC-specific jargon
+Canonical's
 ConnectX
 EFA
 GRES
@@ -91,6 +92,7 @@ CUDA
 Gb
 gcc
 Gid
+Git's
 Gflops
 GPUs
 gpu
