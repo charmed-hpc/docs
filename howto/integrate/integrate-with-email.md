@@ -1,8 +1,8 @@
-(howto-job-email-notifications)=
-# Enable job email notifications
+(howto-integrate-email-notifications)=
+# Integrate with mail server for job notifications
 
-This how-to guide demonstrates the steps necessary to enable email notifications of user job status
-changes on a Charmed HPC cluster.
+This how-to guide demonstrates the steps necessary to integrate with an external mail server to
+enable email notifications of user job status changes on a Charmed HPC cluster.
 
 ## Prerequisites
 
@@ -66,37 +66,3 @@ for all configuration options for connecting to an SMTP server.
 Once integrated, users can include the [`--mail-type`](https://slurm.schedmd.com/sbatch.html#OPT_mail-type)
 and [`--mail-user`](https://slurm.schedmd.com/sbatch.html#OPT_mail-user) SBATCH directives in their
 job submissions and receive email notifications.
-
-## Customize signature name
-
-To customize the name that appears in the signature of email notifications sent by Slurm, set the
-`slurmctld` configuration value `email-from-name`:
-
-:::::{tab-set}
-
-::::{tab-item} CLI
-:sync: cli
-
-:::{code-block} shell
-juju config slurmctld email-from-name="The my-cluster-name Admin Team"
-:::
-
-::::
-
-::::{tab-item} Terraform
-:sync: terraform
-
-:::{code-block} terraform
-:caption: `main.tf`
-module "slurmctld" {
-  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
-  model_uuid  = juju_model.slurm.uuid
-  config = {
-    email-from-name = "The My Cluster Name Admin Team"
-  }
-}
-:::
-
-::::
-
-:::::

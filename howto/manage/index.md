@@ -14,7 +14,6 @@ that are responsible for managing cluster deployments.
 These how-to guides provide instructions for configuring an existing Charmed HPC cluster.
 
 - {ref}`howto-manage-slurm`
-- {ref}`howto-job-email-notifications`
 
 :::{toctree}
 :titlesonly:
@@ -22,5 +21,4 @@ These how-to guides provide instructions for configuring an existing Charmed HPC
 :hidden:
 
 Manage Slurm <manage-slurm>
-Enable job email notifications <job-email-notifications>
 :::

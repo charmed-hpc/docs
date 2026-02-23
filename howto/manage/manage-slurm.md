@@ -11,6 +11,43 @@ the different components and services of your Slurm deployment.
 
 ## Managing the Slurm controller
 
+### Customize job notification sender name
+
+This section requires that the Slurm Cluster has been
+[integrated with a mail server](howto-setup-deploy-slurm) to enable job notifications.
+
+To customize the name that appears in the sign-off of email notifications sent by Slurm, set the
+`slurmctld` configuration value `email-from-name`:
+
+:::::{tab-set}
+
+::::{tab-item} CLI
+:sync: cli
+
+:::{code-block} shell
+juju config slurmctld email-from-name="The my-cluster-name Admin Team"
+:::
+
+::::
+
+::::{tab-item} Terraform
+:sync: terraform
+
+:::{code-block} terraform
+:caption: `main.tf`
+module "slurmctld" {
+  source      = "git::https://github.com/charmed-hpc/slurm-charms//charms/slurmctld/terraform"
+  model_uuid  = juju_model.slurm.uuid
+  config = {
+    email-from-name = "The my-cluster-name Admin Team"
+  }
+}
+:::
+
+::::
+
+:::::
+
 (howto-manage-single-slurmctld-to-high-availability)=
 ### Migrate a single slurmctld unit to high availability
 
