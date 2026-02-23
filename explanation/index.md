@@ -3,8 +3,9 @@
 
 Discussion and clarification for various topics related to Charmed HPC.
 
-## Cluster architecture
+## Cluster architecture and workloads
 - {ref}`explanation-high-availability`
+- {ref}`explanation-job-email-notifications`
 
 ## Cryptography, authentication, and security
 - {ref}`sack`
