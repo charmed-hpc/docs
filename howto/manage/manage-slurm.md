@@ -11,6 +11,7 @@ the different components and services of your Slurm deployment.
 
 ## Managing the Slurm controller
 
+(howto-manage-customize-job-email-name)=
 ### Customize job notification sender name
 
 This section requires that the Slurm Cluster has been

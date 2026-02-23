@@ -66,3 +66,13 @@ for all configuration options for connecting to an SMTP server.
 Once integrated, users can include the [`--mail-type`](https://slurm.schedmd.com/sbatch.html#OPT_mail-type)
 and [`--mail-user`](https://slurm.schedmd.com/sbatch.html#OPT_mail-user) SBATCH directives in their
 job submissions and receive email notifications.
+
+## Related topics
+
+How-to guides:
+
+* {ref}`howto-manage-customize-job-email-name`
+
+Explanation:
+
+* {ref}`explanation-job-email-notifications`
