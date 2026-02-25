@@ -56,7 +56,7 @@ Now use `juju add-secret`{l=shell} to create a secret for your external LDAP ser
 In this example, the external LDAP server's bind password is `"test"`:
 
 :::{code-block} shell
-secret_uri=$(juju add-secret external_ldap_password password="test")
+secret_id=$(juju add-secret external_ldap_password password="test")
 :::
 
 Next, use `juju deploy`{l=shell} with the `--config`{l=shell} flag to deploy
