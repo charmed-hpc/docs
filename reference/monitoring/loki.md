@@ -1,8 +1,8 @@
 (reference-monitoring-loki)=
 # Loki logs
 
-The following table lists all the charms used as part of Charmed HPC that expose logs to Loki, and the
-corresponding query to see the exported logs in the Grafana UI.
+The following table lists all the charms used as part of Charmed HPC that expose logs to {term}`Loki`, and the
+corresponding query to see the exported logs in {term}`Grafana`.
 Follow the [Visualize log data](https://grafana.com/docs/loki/latest/visualize/grafana/#grafana-explore)
 tutorial from the Grafana documentation for instructions on where and how to query for Loki logs.
 

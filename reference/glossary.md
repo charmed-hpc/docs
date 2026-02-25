@@ -52,6 +52,12 @@ Graphics Processing Unit (GPU)
     A specialized processor that is designed to accelerate image processing and graphics rendering
     for output to a display device.
 
+Grafana
+    An open-source platform for data visualization, monitoring, and observability. Used to create
+    dashboards and graphs from time series data stored in various data sources.
+
+    Resources: [Grafana website {octicon}`link-external`](https://grafana.com/), [Grafana documentation {octicon}`link-external`](https://grafana.com/docs/), [Grafana charm {octicon}`link-external`](https://charmhub.io/grafana-k8s)
+
 High-Performance Computing (HPC)
     The practice of aggregating computing power using clusters and parallel processing to complete
     tasks faster than standard computing.
@@ -77,6 +83,12 @@ Juju
     environments.
 
     Resources: [Juju documentation {octicon}`link-external`](https://documentation.ubuntu.com/juju/latest/)
+
+Loki
+    An open-source log aggregation system designed to store and query logs from applications and
+    infrastructure. Designed to be cost-effective and easy to operate.
+
+    Resources: [Grafana Loki website {octicon}`link-external`](https://grafana.com/oss/loki/), [Loki documentation {octicon}`link-external`](https://grafana.com/docs/loki/latest/), [Loki charm {octicon}`link-external`](https://charmhub.io/loki-k8s)
 
 MicroCeph
     A tool that simplifies deployment and management of Ceph storage both standalone and in a
@@ -105,6 +117,12 @@ OpenTelemetry Collector
 Proxy charm
     An intermediary charm that enables charms to integrate with non-charmed applications. Also known
     as an integrator charm.
+
+Prometheus
+    An open-source monitoring and alerting system that collects and stores metrics as time series
+    data. Features a flexible query language (PromQL) and built-in alerting capabilities.
+
+    Resources: [Prometheus website {octicon}`link-external`](https://prometheus.io/), [Prometheus documentation {octicon}`link-external`](https://prometheus.io/docs/), [Prometheus charm {octicon}`link-external`](https://charmhub.io/prometheus-k8s)
 
 `sackd`
     Slurm Auth and Credential Kiosk daemon. Typically used to provide cluster login nodes.

@@ -2,8 +2,8 @@
 # Grafana dashboards
 
 This is an overview of all the charms used in Charmed HPC that provide dashboards for
-[Grafana](https://grafana.com/), which acts as a web interface to visualize data from aggregators such
-as [Prometheus](https://prometheus.io/) or [Loki](https://grafana.com/oss/loki/). See
+{term}`Grafana`, which acts as a web interface to visualize data from aggregators such
+as {term}`Prometheus` or {term}`Loki`. See
 [Grafana dashboards](https://grafana.com/docs/grafana/latest/dashboards/) for more general information on dashboards,
 and {ref}`reference-monitoring-prometheus` for more information about the metrics displayed on the dashboards.
 
@@ -16,16 +16,39 @@ to see the exact query used to provide the panel with data.
 
 ## Slurmctld
 
-The dashboard from the `slurmctld` charm displays an overall view of the cluster, including the following information:
+The dashboards from the {term}`slurmctld` charm provide a display of information from the
+entire cluster, each partition, and each charm.
 
-- CPU and memory usage per partition.
-- Node state count.
-- CPU and memory usage per account.
-- Statistics on Slurmctld RPC messages.
+### Cluster Overview
 
-![Slurm partition dashboard](../../imgs/slurm_partition_grafana.png)
-![Slurm account dashboard](../../imgs/slurm_account_grafana.png)
-![Slurm rpc dashboard](../../imgs/slurm_rpc_grafana.png)
+The "Cluster Overview" dashboard provides a display of cluster-level metrics such as:
+
+- Total resource utilization.
+- Job status distribution.
+- Node state distribution.
+- Scheduler metrics
+
+![Grafana Cluster Overview dashboard showing total resource utilization, job state distribution, node state distribution, and scheduler metrics for the Charmed HPC cluster](/reuse/reference/monitoring/cluster-overview.png)
+
+### Partition Overview
+
+The "Partition Overview" dashboard provides a display of partition-level metrics such as:
+
+- Total nodes and jobs in the partition.
+- Total resource utilization for the partition.
+- Job status distributing for jobs in the partition.
+- Node state distribution for all nodes in the partition.
+
+![Grafana Partition Overview dashboard showing total nodes and jobs, resource utilization, job status distribution, and node state distribution for a specific partition](/reuse/reference/monitoring/partition-overview.png)
+
+### Node Overview
+
+The "Node Overview" dashboard provides a display of node-level metrics such as:
+
+- Available resources that are allocatable for jobs.
+- Total resource utilization on the node.
+
+![Grafana Node Overview dashboard showing node state, resource utilization, running jobs, and hardware configuration for a specific compute node](/reuse/reference/monitoring/node-overview.png)
 
 ## MySQL
 
@@ -38,7 +61,7 @@ The dashboard from the `mysql` charm displays metrics for the storage database o
 - Thread resource usage.
 - Network traffic statistics.
 
-![MySQL dashboard](../../imgs/mysql_grafana.png)
+![MySQL dashboard](/reuse/reference/monitoring/mysql_grafana.png)
 
 ## Traefik K8s
 
@@ -51,4 +74,4 @@ between the compute plane cluster and the monitoring/identity k8s clusters. This
 - Open connections statistics.
 - Raw logs for every proxied endpoint.
 
-![Traefik dashboard](../../imgs/traefik_grafana.png)
+![Traefik dashboard](/reuse/reference/monitoring/traefik_grafana.png)
