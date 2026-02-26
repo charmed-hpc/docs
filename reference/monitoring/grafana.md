@@ -65,7 +65,7 @@ The dashboard from the `mysql` charm displays metrics for the storage database o
 - Thread resource usage
 - Network traffic statistics
 
-![MySQL dashboard](/reuse/reference/monitoring/mysql_grafana.png)
+![Grafana MySQL dashboard showing database metrics including uptime, queries per second, cache size, concurrent connections, and thread count](/reuse/reference/monitoring/mysql-exporter.png)
 
 ## Traefik K8s
 
@@ -75,7 +75,7 @@ between the compute plane cluster and the monitoring/identity k8s clusters. This
 - Uptime
 - Response times
 - HTTP response code statistics
-- Open connection statistics.
+- Open connection statistics
 - Raw logs for every proxied endpoint
 
-![Traefik dashboard](/reuse/reference/monitoring/traefik_grafana.png)
+![Grafana Traefik dashboard showing reverse proxy metrics including uptime, response times, HTTP response code statistics, and open connection statistics](/reuse/reference/monitoring/traefik.png)
