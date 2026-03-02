@@ -20,43 +20,45 @@ for a high-level introduction to administering Apptainer.
 
 - A [deployed Slurm cluster](#howto-setup-deploy-slurm).
 
-## Deploy and integrate Apptainer
+## Deploy Apptainer
 
-First, in the same model holding your Slurm deployment, deploy Apptainer with `juju deploy`{l=shell}:
+First, use `juju deploy`{l=shell} to deploy {term}`Apptainer` in the `slurm` model on
+your `charmed-hpc` machine cloud:
 
-:::{terminal}
-:copy:
+:::{code-block} shell
 juju deploy apptainer
 :::
 
 :::{include} /reuse/common/tip-determine-current-juju-model.txt
 :::
 
-Now integrate Apptainer with Slurm using `juju integrate`{l=shell}:
+## Integrate Apptainer with Slurm
 
-:::{terminal}
-:copy:
+Next, use `juju integrate`{l=shell} to integrate Apptainer with Slurm:
+
+:::{code-block} shell
 juju integrate apptainer sackd
-:::
-
-:::{terminal}
-:copy:
-
 juju integrate apptainer slurmd
-:::
-
-:::{terminal}
-:copy:
 juju integrate apptainer slurmctld
 :::
 
-Apptainer will be installed on all the `sackd` and `slurmd` units, and will share its configuration
-with the Slurm controller, `slurmctld`.
+Apptainer will install itself on all the `sackd` and `slurmd` units, and will
+share its configuration with the Slurm controller service, `slurmctld`.
 
-## Test that Apptainer is integrated with Slurm
+## Verify that Apptainer is integrated with Slurm
 
-Submit a test job with `juju exec`{l=text}. If Apptainer has been successfully integrated with
-Slurm, the output of your test job will be similar to the following:
+Use `juju exec`{l=text} to submit a test job.
+
+For example, to submit a test job where the runtime environment is Ubuntu 22.04, run:
+
+:::{code-block} shell
+juju exec -u sackd/0 -- \
+  srun --partition slurmd --container=docker://ubuntu:22.04 \
+  cat /etc/os-release | grep ^VERSION
+:::
+
+If Apptainer has been successfully integrated with Slurm, the output of the test job
+will be similar to the following:
 
 :::{terminal}
 :copy:
