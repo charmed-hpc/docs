@@ -6,13 +6,13 @@ relatedlinks: "[Apptainer&#32;user&#32;documenation](https://apptainer.org/docs/
 # Use Apptainer
 
 Apptainer can be used as a container runtime environment on Charmed HPC for running
-containerized workloads. This guide provides examples of using Apptainer on Charmed HPC
+containerized jobs. This guide provides examples of using Apptainer on Charmed HPC
 to accomplish different tasks.
 
 :::{admonition} New to Apptainer?
 :class: note
 
-If you're unfamiliar with using Apptainer in your workloads, see the [Apptainer user quick start guide](https://apptainer.org/docs/user/latest/quick_start.html)
+If you're unfamiliar with using Apptainer in your jobs, see the [Apptainer user quick start guide](https://apptainer.org/docs/user/latest/quick_start.html)
 for a high-level introduction to using Apptainer on HPC clusters.
 :::
 
@@ -29,38 +29,27 @@ to the sections below for the different ways that you can use Apptainer on Charm
 
 ## Create a container image
 
-Apptainer can create container images on your cluster that can then be used within
-your workloads. The sections below demonstrate the different ways Apptainer can create
-container images on your Charmed HPC cluster.
-
-### Using a pre-existing container image from a public container registry
+### Use an image from a public container registry
 
 Apptainer can pull pre-existing container images from public container registries.
+
 For example, to pull a Valkey container image from Dockerhub and start a local
-Valkey service on your cluster:
+Valkey service on your cluster, run:
 
-:::{terminal}
-:copy:
-:host: login
-
+:::{code-block} shell
 apptainer pull valkey.sif docker://ubuntu/valkey:7.2.10-24.04_stable
-:::
-
-:::{terminal}
-:copy:
-:host: login
-
 apptainer overlay create --size 1024 valkey.img
-:::
-
-:::{terminal}
-:copy:
-:host: login
-
 apptainer instance run --overlay valkey.img valkey.sif valkey
-
-INFO:    instance started successfully
 :::
+
+Next, use `apptainer exec`{l=text} to test your connection to the Valkey service:
+
+:::{code-block} shell
+apptainer exec instance://valkey valkey-cli ping
+:::
+
+If the Valkey service is active, the output of `apptainer exec`{l=text} will be similar
+to the following:
 
 :::{terminal}
 :copy:
@@ -71,10 +60,14 @@ apptainer exec instance://valkey valkey-cli ping
 PONG
 :::
 
-Use `apptainer help pull`{l=text} to see the full list of public container registries
-Apptainer can pull container images from.
+:::{admonition} Using images from other container registries
+:class: note
 
-### Building your own custom container image
+You can use `apptainer help pull`{l=text} to view the full list of public
+container registries Apptainer can pull images from.
+:::
+
+### Build your own image
 
 :::{admonition} Before attempting to build your own container images
 :class: warning
@@ -86,6 +79,7 @@ building container images on specific cluster resources such as login nodes.
 :::
 
 Apptainer can build container images using instructions from a container definition file.
+
 For example, to build an Ubuntu 24.04 LTS-based container image with the `gfortran` compiler
 pre-installed, create the container definition file _fortran-runtime.def_:
 
@@ -103,17 +97,13 @@ from: ubuntu:24.04
     exit 0
 :::
 
-Now use `apptainer build`{l=shell} to build the container image:
+Then, use `apptainer build`{l=shell} to build your container image:
 
-:::{terminal}
-:copy:
-:host: login
-
+:::{code-block} shell
 apptainer build fortran-runtime.sif fortran-runtime.def
 :::
 
-The built container image can now be used to compile and run Fortran workloads. For
-example, create a simple Fortran program the prints "Hello world!" in the file _hello.f90_:
+Next, create a simple Fortran program the prints "Hello world!" in the file _hello.f90_:
 
 :::{code-block} fortran
 :caption: hello.f90
@@ -123,14 +113,14 @@ PROGRAM hello_world
 END PROGRAM hello_world
 :::
 
-Now use the built container to compile and run your Fortran program:
+Now use your container with `apptainer exec`{l=text} to compile and run your Fortran program:
 
-:::{terminal}
-:copy:
-:host: login
-
+:::{code-block} shell
 apptainer exec fortran-runtime.sif gfortran --output hello hello.f90
+apptainer exec fortran-runtime.sif ./hello
 :::
+
+The output of `apptainer exec`{l=text} will be similar to the following:
 
 :::{terminal}
 :copy:
@@ -141,19 +131,16 @@ apptainer exec fortran-runtime.sif ./hello
 Hello world!
 :::
 
-## Provide your workload's runtime environment
+## Provide your job's runtime environment
 
-Apptainer can provide the runtime environment for your workloads.
-The sections below demonstrate the different ways Apptainer can provide
-your workload's runtime environment.
+### Use the `apptainer`{l=shell} command
 
-### Using the `apptainer`{l=shell} command directly in your workload
+The `apptainer`{l=shell} command can be called directly in scripts to run job steps
+in a container instance.
 
-The `apptainer`{l=shell} command can be called directly in scripts to perform operations
-inside a container instance. First, declare in your batch script the partition you want your
-workload to run within and call the `apptainer`{l=shell} command from directly within your script.
-For example, to select `compute` as the partition your workload will run within, and run some
-Python code using a containerized Python 3.13 interpreter, create the batch script _job.batch_:
+For example, to run some Python code using a containerized Python 3.13 interpreter, create
+the job script _job.batch_. In this job script, you will call the `apptainer`{l=shell}
+command directly, and you will submit the job to the partition `compute`:
 
 :::{code-block} shell
 :caption: job.batch
@@ -166,18 +153,19 @@ apptainer --silent exec python-3.13.sif \
   python3 -c 'import sys; print(f"Hello from Python {sys.version}!")'
 :::
 
-Now submit the _job.batch_ script to Slurm with `sbatch`{l=shell}:
+Now use `sbatch`{l=shell} to submit your job script to Slurm:
 
-:::{terminal}
-:copy:
-:host: login
-
+:::{code-block} shell
 sbatch job.batch
-
-Submitted batch job 1
 :::
 
-Use `cat`{l=shell} to view the results of your workload after it completes:
+Then, use `cat`{l=shell} to view the results of your job after it completes:
+
+:::{code-block} shell
+cat job.out
+:::
+
+The output of `cat job.out`{l=shell} will be similar to the following:
 
 :::{terminal}
 :copy:
@@ -216,35 +204,26 @@ sbatch my-job.batch
 :::
 -->
 
-### Using the `--container` flag with `srun`{l=shell}
+### Use the `--container` flag with `srun`{l=shell}
 
 Jobs submitted to Slurm with `srun`{l=shell} can be run inside a container instance using Apptainer.
-First, declare both the partition you want your workload to run within and the container image
-that will be used by Apptainer to provide the runtime environment of your workload.
-For example, to select `compute` as the partition your workload will run within,
-and use an Ubuntu 22.04 LTS container image as the runtime environment:
 
-:::{terminal}
-:copy:
-:host: login
+For example, to submit a job to the partition `compute` that will use an Ubuntu 22.04 LTS container
+image as the runtime environment, run:
 
-PARTITION=slurmd
+:::{code-block} shell
+srun --partition compute --container docker://ubuntu:22.04 \
+  cat /etc/os-release | grep ^VERSION
 :::
 
-:::{terminal}
-:copy:
-:host: login
-
-CONTAINER=docker://ubuntu:22.04
-:::
-
-Now run your workload with `srun`{l=shell}:
+The output of `srun`{l=shell} will be similar to the following:
 
 :::{terminal}
 :copy:
 :host: login
 
-srun --partition $PARTITION --container $CONTAINER cat /etc/os-release | grep ^VERSION
+srun --partition compute --container docker://ubuntu:22.04 \
+  cat /etc/os-release | grep ^VERSION
 
 INFO:    Converting OCI blobs to SIF format
 INFO:    Starting build...
