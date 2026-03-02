@@ -1,0 +1,18 @@
+::::{dropdown} Tip: List available Juju models
+
+`juju models`{l=shell} can be used to determine the models you have access to:
+
+:::{terminal}
+:copy:
+juju models
+
+Controller: charmed-hpc-controller
+
+Model       Cloud/Region             Type        Status     Machines  Cores  Units  Access  Last connection
+controller  charmed-hpc/default      lxd         available         1      -  1      admin   just now
+identity    charmed-hpc/default      lxd         available         0      -  -      admin   2026-02-13
+slurm*      charmed-hpc/default      lxd         available         7      4  8      admin   2026-02-26
+storage     charmed-hpc/default      lxd         available         0      -  -      admin   2026-02-09
+:::
+
+::::
