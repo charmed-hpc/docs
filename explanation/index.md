@@ -3,7 +3,7 @@
 
 Discussion and clarification for various topics related to Charmed HPC.
 
-## Cluster architecture and workloads
+## Cluster architecture and jobs
 - {ref}`explanation-high-availability`
 - {ref}`explanation-job-email-notifications`
 
