@@ -1,19 +1,27 @@
 (howto-integrate-email-notifications)=
-# Integrate with mail server for job notifications
+# Integrate with a mail server for job notifications
 
-This how-to guide demonstrates the steps necessary to integrate with an external mail server to
-enable email notifications of user job status changes on a Charmed HPC cluster.
+This how-to guide demonstrates the steps necessary to integrate with an external Simple Mail
+Transport Protocol (SMTP) server, also referred to as a mail server, to enable email notifications
+of user job status changes on a Charmed HPC cluster.
 
 ## Prerequisites
 
-* A [Slurm Cluster](howto-setup-deploy-slurm) deployed with a `slurmdbd` accounting database.
+* A [deployed Slurm cluster](howto-setup-deploy-slurm).
 * A pre-configured SMTP server.
+
+:::{admonition} `slurmdbd` must be deployed
+:class: warning
+
+Your Slurm cluster __must__ have been deployed with a `slurmdbd` accounting database. If `slurmdbd`
+is not available, attempts to integrate with an SMTP server anyway will result in `slurmctld`
+entering `Waiting` status until `slurmdbd` is integrated.
+:::
 
 ## Deployment
 
 Deploy the [`smtp-integrator` charm](https://charmhub.io/smtp-integrator) configured against the
-SMTP server, then integrate with the cluster `slurmctld` controller on the `smtp`
-interface:
+SMTP server, then integrate with the cluster `slurmctld` controller on the `smtp` interface:
 
 :::::{tab-set}
 
