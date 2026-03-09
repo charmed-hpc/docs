@@ -33,5 +33,5 @@ support users' workloads in cluster environments.
 Integrate with Apptainer <integrate-with-apptainer>
 Integrate with COS <integrate-with-cos>
 Integrate with InfluxDB <integrate-with-influxdb>
-Integrate with mail server for job notifications <integrate-with-email>
+Integrate with a mail server <integrate-with-email>
 :::
