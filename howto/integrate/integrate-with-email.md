@@ -14,7 +14,7 @@ of user job status changes on a Charmed HPC cluster.
 :class: warning
 
 Your Slurm cluster __must__ have been deployed with a `slurmdbd` accounting database. If `slurmdbd`
-is not available, attempts to integrate with an SMTP server anyway will result in `slurmctld`
+is not available, attempts to integrate with an SMTP server will result in `slurmctld`
 entering `Waiting` status until `slurmdbd` is integrated.
 :::
 
