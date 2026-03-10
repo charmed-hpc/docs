@@ -3,8 +3,9 @@
 
 Discussion and clarification for various topics related to Charmed HPC.
 
-## Cluster architecture
+## Cluster architecture and jobs
 - {ref}`explanation-high-availability`
+- {ref}`explanation-job-email-notifications`
 
 ## Cryptography, authentication, and security
 - {ref}`sack`
@@ -21,6 +22,7 @@ Discussion and clarification for various topics related to Charmed HPC.
 :hidden:
 
 Cryptography and Authentication <cryptography>
+Email notifications for jobs <job-email-notifications>
 GPUs <gpus>
 High Availability <high-availability>
 Interconnects <interconnects>

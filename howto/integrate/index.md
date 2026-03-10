@@ -23,6 +23,7 @@ These how-to guides provide instructions for integrating Charmed HPC with tools 
 support users' workloads in cluster environments.
 
 - {ref}`howto-manage-integrate-with-apptainer`
+- {ref}`howto-integrate-email-notifications`
 
 :::{toctree}
 :titlesonly:
@@ -32,4 +33,5 @@ support users' workloads in cluster environments.
 Integrate with Apptainer <integrate-with-apptainer>
 Integrate with COS <integrate-with-cos>
 Integrate with InfluxDB <integrate-with-influxdb>
+Integrate with a mail server <integrate-with-email>
 :::
