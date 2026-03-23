@@ -10,6 +10,13 @@ The platform enables organizations to focus on obtaining key insights and making
 
 ## In this documentation
 
+- Learn more about Charmed HPC: [Getting Started tutorial](tutorial-getting-started-with-charmed-hpc), [underlying projects](reference/underlying-projects-and-dependencies.md)
+- Security: [Hardening guidelines](reference/hardening.md), [Cryptography](explanation/cryptography.md)
+- Performance: [HA](explanation/high-availability.md), [benchmarks](reference/performance.md)
+- Workload management: [Deploy Slurm](howto/setup/deploy-slurm.md), [manage Slurm](howto/manage/manage-slurm.md), [clean up Slurm](howto/cleanup/cleanup-slurm.md), [dashboards](reference/monitoring/grafana.md)
+- Storage: [Deploy shared filesystem](howto/setup/deploy-shared-filesystem.md)
+- Resources: [GPUs explanation](explanation/gpus.md), [GRES](reference/gpus.md), [Interconnects explanation](explanation/interconnects.md)
+- Identity: [Deploy provider](howto/setup/deploy-identity-provider.md)
 
 ````{grid} 1 2 2 2
 
