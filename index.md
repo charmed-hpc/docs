@@ -10,13 +10,11 @@ The platform enables organizations to focus on obtaining key insights and making
 
 ## In this documentation
 
-- Learn more about Charmed HPC: [Getting Started tutorial](tutorial-getting-started-with-charmed-hpc), [underlying projects](reference/underlying-projects-and-dependencies.md)
-- Security: [Hardening guidelines](reference/hardening.md), [Cryptography](explanation/cryptography.md)
-- Performance: [HA](explanation/high-availability.md), [benchmarks](reference/performance.md)
-- Workload management: [Deploy Slurm](howto/setup/deploy-slurm.md), [manage Slurm](howto/manage/manage-slurm.md), [clean up Slurm](howto/cleanup/cleanup-slurm.md), [dashboards](reference/monitoring/grafana.md)
-- Storage: [Deploy shared filesystem](howto/setup/deploy-shared-filesystem.md)
-- Resources: [GPUs explanation](explanation/gpus.md), [GRES](reference/gpus.md), [Interconnects explanation](explanation/interconnects.md)
-- Identity: [Deploy provider](howto/setup/deploy-identity-provider.md)
+- Learn more about Charmed HPC: [Getting Started tutorial](tutorial-getting-started-with-charmed-hpc), [Underlying projects](reference/underlying-projects-and-dependencies.md)
+- Security & Identity: [Hardening guidelines](reference/hardening.md), [Cryptography](explanation/cryptography.md), [Deploy identity provider](howto/setup/deploy-identity-provider.md)
+- Performance: [High availability](explanation/high-availability.md), [Benchmarks](reference/performance.md)
+- Workload management: [Deploy Slurm](howto/setup/deploy-slurm.md), [Manage Slurm](howto/manage/manage-slurm.md), [Clean up Slurm](howto/cleanup/cleanup-slurm.md), [Grafana Dashboards](reference/monitoring/grafana.md) 
+- Storage & Resources: [Deploy shared filesystem](howto/setup/deploy-shared-filesystem.md), [GPUs](explanation/gpus.md), [GRES](reference/gpus.md), [Interconnects](explanation/interconnects.md)
 
 ````{grid} 1 2 2 2
 
