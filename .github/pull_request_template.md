@@ -2,6 +2,7 @@
 
  * [ ] I read and followed the [CONTRIBUTING guidelines](../CONTRIBUTING.md).
  * [ ] I have ensured that the documentation tests complete successfully.
+ * [ ] I have added a metadata description at the top of any new page.
 
 ## Summary of Changes
 
