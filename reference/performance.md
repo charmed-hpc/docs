@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    description: Performance benchmarks for Charmed HPC on Microsoft Azure, covering GPU flops and InfiniBand interconnect latency and bandwidth.
+---
+
 (reference-performance)=
 # Performance
 

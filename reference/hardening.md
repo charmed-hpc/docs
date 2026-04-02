@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    description: Security hardening guidelines for Charmed HPC, covering Slurm, cloud providers, Juju orchestration, monitoring, and Ubuntu OS security.
+---
+
 (reference-hardening)=
 # Security hardening guidelines
 
