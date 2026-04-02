@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    description: Description of how Charmed HPC supports Slurm job email notifications using Slurm-Mail and the smtp-integrator charm to alert users of job status changes.
+---
+
 (explanation-job-email-notifications)=
 # Email notifications for jobs
 
