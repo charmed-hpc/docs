@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    description: Tutorial to get started with Charmed HPC by building a cluster, submitting batch jobs, and using container images with Juju, Slurm, Ceph, and Apptainer.
+---
+
 (tutorial-getting-started-with-charmed-hpc)=
 # Getting started with Charmed HPC
 
