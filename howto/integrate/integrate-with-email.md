@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    description: Instructions on how to integrate Charmed HPC with an SMTP mail server to enable Slurm job email notifications for cluster users.
+---
+
 (howto-integrate-email-notifications)=
 # Integrate with a mail server for job notifications
 
