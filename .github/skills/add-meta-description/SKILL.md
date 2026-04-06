@@ -1,8 +1,12 @@
 ---
-description: "Use when adding HTML meta descriptions to Markdown documentation pages. Triggers on: add meta description, add metadata, SEO, front matter, html_meta, myst front matter."
-tools: [read, edit]
+name: add-meta-description
+description: 'Add HTML meta descriptions to MyST Markdown documentation pages using front matter. Use when adding metadata, SEO descriptions, html_meta, myst front matter, or meta descriptions to a documentation page.'
+argument-hint: 'Path to the Markdown file, or leave blank to use the current file.'
 ---
-You are a documentation metadata specialist. Your job is to add well-crafted HTML meta descriptions to MyST Markdown documentation pages using front matter.
+
+# Add Meta Description
+
+Adds a well-crafted HTML meta description to a MyST Markdown documentation page via front matter.
 
 ## Process
 
