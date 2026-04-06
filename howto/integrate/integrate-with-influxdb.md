@@ -1,5 +1,8 @@
 ---
 relatedlinks: "[InfluxDB&#32;website](https://www.influxdata.com), [InfluxDB&#32;(Charmhub)](https://charmhub.io/influxdb), [InfluxDB&#32;charm&#32;repository](https://code.launchpad.net/influxdb-charm)"
+myst:
+  html_meta:
+    description: Process showing how to integrate Charmed HPC with InfluxDB to enable Slurm job profiling by deploying and configuring the InfluxDB charm.
 ---
 
 (howto-manage-integrate-with-influxdb)=
