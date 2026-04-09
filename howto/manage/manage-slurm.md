@@ -1,5 +1,8 @@
 ---
 relatedlinks: "[Slurm&#32;documentation](https://slurm.schedmd.com/documentation.html)"
+myst:
+  html_meta:
+    description: Learn how to manage Slurm in Charmed HPC clusters. Discover controller configuration, compute node management, partition scaling, and security practices.
 ---
 
 (howto-manage-slurm)=
@@ -177,6 +180,41 @@ Machine  State    Address       Inst id        Base          AZ  Message
 ::::
 
 :::::
+
+(howto-manage-rotate-auth-key)=
+### Rotate the Slurm authentication key
+
+:::{admonition} Rotation downtime
+:class: warning
+
+**Key rotation requires cluster downtime**.
+
+Authentication key rotation is a significant cluster-wide change and may cause interruption to the controller, compute nodes, accounting database and REST API.
+
+Downtime varies depending on the node count of the cluster.
+:::
+
+The `rotate-auth-key` action can be run on the slurmctld leader unit to start the asynchronous
+process of rotating the authentication key for Slurm remote procedure calls:
+
+:::{code-block} shell
+juju run slurmctld/leader rotate-auth-key"
+:::
+
+After the command returns, progress of the rotation can be monitored by viewing the status of the
+`slurmctld` leader unit:
+
+:::{terminal}
+juju status
+
+[...]
+Unit             Workload  Agent      Machine  Public address  Ports           Message
+slurmctld/0*     waiting   executing  2        10.200.245.185  6817,9092/tcp   (rotate-auth-key) Authentication key rotation in progress. Waiting for rotation to complete.
+[...]
+:::
+
+Once the unit returns to `active` status, the key rotation has completed. A new key is in place and
+the previous key has been deleted.
 
 ## Managing compute nodes and partitions
 
