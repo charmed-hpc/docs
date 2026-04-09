@@ -15,6 +15,7 @@ import yaml
 # to keep all documentation based on it consistent and on brand:
 # https://github.com/canonical/canonical-sphinx
 
+html_theme = "ulwazi"
 
 #######################
 # Project information #
@@ -60,7 +61,7 @@ html_title = project + " documentation"
 #         -H 'Accept: application/vnd.github.v3.raw' \
 #         https://api.github.com/repos/canonical/<REPO> | jq '.created_at'
 
-copyright = "%s CC-BY-SA, %s" % (datetime.date.today().year, author)
+copyright = f"{datetime.date.today().year}"
 
 
 # Documentation website URL
@@ -97,6 +98,21 @@ ogp_image = "https://assets.ubuntu.com/v1/cc828679-docs_illustration.svg"
 # Dictionary of values to pass into the Sphinx context for all pages:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_context
 
+# TODO: Adjust to point to the repository where your documentation source files
+# are stored.
+
+github_repo = "https://github.com/charmed-hpc/docs"
+
+# TODO: Select the default syntax for docs source files.
+# This is for a fallback view/edit source code buttons.
+
+default_source_extension = ".md"
+
+# TODO: Change to your product website URL,
+#       dropping the 'https://' prefix, e.g. 'ubuntu.com/lxd'.
+
+product_page = '/'
+
 html_context = {
     # Product page URL; can be different from product docs URL
     #
@@ -106,7 +122,9 @@ html_context = {
     # TODO: If there's no such website,
     #       remove the {{ product_page }} link from the page header template
     #       (usually .sphinx/_templates/header.html; also, see README.rst).
-    "product_page": "ubuntu.com/hpc",
+    "product_page": product_page,
+    "project": project,
+    "author": author,
     # Product tag image; the orange part of your logo, shown in the page header
     #
     # TODO: To add a tag image, uncomment and update as needed.
@@ -132,7 +150,7 @@ html_context = {
     #
     # NOTE: If set, links for viewing the documentation source files
     #       and creating GitHub issues are added at the bottom of each page.
-    "github_url": "https://github.com/charmed-hpc/docs",
+    "github_url": github_repo,
     # Docs branch in the repo; used in links for viewing the source files
     #
     # TODO: To customise the branch, uncomment and update as needed.
@@ -140,7 +158,11 @@ html_context = {
     # Docs location in the repo; used in links for viewing the source files
     #
 
-
+    "feedback": True,
+    "github_issues": "enabled",
+    "default_source_extension": default_source_extension,
+    "default_edit_url": github_repo + "/edit/main/docs/index" + default_source_extension,
+    "default_view_url": github_repo + "/blob/main/docs/index" + default_source_extension,
     # TODO: To customise the directory, uncomment and update as needed.
     "repo_folder": "/",
     # TODO: To enable or disable the Previous / Next buttons at the bottom of pages
@@ -151,7 +173,40 @@ html_context = {
 
     # Required for feedback button    
     'github_issues': 'enabled',
+
+    "license": {
+        "name": "CC-BY-SA",
+        "url": github_repo + "/blob/main/LICENSE"
+    },
+    # Horizontal Nav Menu
+    "company": "Canonical",
+    # "link1_URL": "https://example.com/",
+    # "link1_name": "First optional link",
+    # "link2_URL": "https://example.com/",
+    # "link2_name": "Second optional link",
+
+    # Canonical Product menu
+    # Uncomment if you need a product menu added on the top of every page
+    # "add_product_menu": True,
+    "logo_link_URL": "https://documentation.ubuntu.com",
+    "logo_img_URL": "https://assets.ubuntu.com/v1/82818827-CoF_white.svg",
+    "logo_title": "Canonical",
+
+    # TODO: Customize the footer.
+    "footer": {
+        # Whether to add the product name as the first entry.
+        "product": True,
+        # Whether to add the license as the second entry.
+        "license": True,
+        # List your footer entries. Accepts HTML tags.
+        "entries": [
+            '<a class="js-revoke-cookie-manager" href="#tracker-settings">Manage your tracker settings</a>',
+        ]
+    }
 }
+
+highlight_language = "none"  # default
+pygments_style = "autumn"    # see https://pygments.org/styles for more
 
 html_extra_path = []
 
@@ -167,9 +222,7 @@ if os.getenv("OPENAPI", ""):
 # - https://launchpad.net/example
 # - https://git.launchpad.net/example
 #
-html_theme_options = {
- 'source_edit_link': 'https://github.com/charmed-hpc/docs',
-}
+
 
 # Project slug; see https://meta.discourse.org/t/what-is-category-slug/87897
 #
@@ -258,7 +311,7 @@ linkcheck_retries = 3
 
 ########################
 # Configuration extras #
-########################
+########################html
 
 # Custom MyST syntax extensions; see
 # https://myst-parser.readthedocs.io/en/latest/syntax/optional.html
@@ -278,7 +331,6 @@ myst_enable_extensions = {
 # NOTE: The canonical_sphinx extension is required for the starter pack.
 
 extensions = [
-    "canonical_sphinx",
     "notfound.extension",
     "sphinx_design",
     "sphinx_reredirects",
@@ -297,6 +349,10 @@ extensions = [
     "sphinx_last_updated_by_git",
     "sphinx.ext.intersphinx",
     "sphinx_sitemap",
+    "ulwazi",
+    "canonical_sphinx_config",
+    "myst_parser",
+    "sphinxcontrib.jquery",
 ]
 
 # Excludes files or directories from processing
@@ -348,6 +404,7 @@ rst_epilog = """
 # manpages_url = 'https://manpages.ubuntu.com/manpages/{codename}/en/' + \
 #     'man{section}/{page}.{section}.html'
 
+set_modern_pdf_config = True
 
 # Specifies a reST snippet to be prepended to each .rst file
 # This defines a :center: role that centers table cell content.
