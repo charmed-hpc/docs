@@ -198,7 +198,7 @@ The `rotate-auth-key` action can be run on the slurmctld leader unit to start th
 process of rotating the authentication key for Slurm remote procedure calls:
 
 :::{code-block} shell
-juju run slurmctld/leader rotate-auth-key"
+juju run slurmctld/leader rotate-auth-key
 :::
 
 After the command returns, progress of the rotation can be monitored by viewing the status of the
