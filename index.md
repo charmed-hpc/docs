@@ -16,33 +16,16 @@ The platform enables organizations to focus on obtaining key insights and making
 - __Security and Identity:__ [Deploy identity provider](howto/setup/deploy-identity-provider.md), [Hardening guidelines](reference/hardening.md), [Cryptography](explanation/cryptography.md)
 - __Performance:__ [High availability](explanation/high-availability.md), [Benchmarks](reference/performance.md)
 
-````{grid} 1 2 2 2
+## How this documentation is organised
 
-```{grid-item-card} [Tutorial](tutorial-getting-started-with-charmed-hpc)
-__Get started here:__ A hands-on [introduction to Charmed HPC](tutorial-getting-started-with-charmed-hpc)
+This documentation uses the [Diátaxis](https://diataxis.fr/) documentation structure.
 
-```
+* The [Tutorial](tutorial-getting-started-with-charmed-hpc) takes you step-by-step through building a small Charmed HPC cluster, submitting batch jobs, and using container images.
 
-```{grid-item-card} [How-to guides](howto/index)
+* [How-to guides](howto/index) assume you have basic familiarity with Charmed HPC. They cover key operations for [setup](howto/setup/index.md), [integration](howto/integrate/index.md), [management](howto/manage/index.md), and [usage](howto/use/index.md).
 
-__Step-by-step guides__ covering key operations for [setup](howto/setup/index.md), [integration](howto/integrate/index.md), [management](howto/manage/index.md), and [usage](howto/use/index.md)
+* [Reference](reference/index) provides technical information such as [underlying projects and dependencies](reference/underlying-projects-and-dependencies.md), [monitoring](reference/monitoring/index.md), and [performance benchmarks](reference/performance.md).
 
-```
-
-
-```{grid-item-card} [Explanation](explanation/index)
-
-__Discussion and clarification__ of key topics such as [high availability](explanation/high-availability.md), [cryptography](explanation/cryptography.md), and [GPUs](explanation/gpus.md)
-
-```
-
-
-```{grid-item-card} [Reference](reference/index)
-
-__Technical information__ such as [underlying projects and dependencies](reference/underlying-projects-and-dependencies.md), [monitoring](reference/monitoring/index.md), and [performance metrics](reference/performance.md)
-```
-
-````
 
 ---
 
