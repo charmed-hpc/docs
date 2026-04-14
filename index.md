@@ -1,10 +1,11 @@
 # Charmed HPC
 
-Charmed HPC is a versatile high-performance computing platform that facilitates the set up and maintenance of HPC clusters. This is done by autonomizing the deployment, integration, and life-cycle management of essential cluster software that enables users to run modern workloads at scale.
+Charmed HPC is platform for managing high-performance computing clusters. It automates the lifecycle of essential cluster software and processes, such as workload management, shared storage, GPU access, and high-bandwidth networking. This allows operations teams and systems administrators to focus on running workloads rather than maintaining infrastructure. 
+<!-- Charmed HPC is a versatile high-performance computing platform that facilitates the set up and maintenance of HPC clusters. This is done by autonomizing the deployment, integration, and life-cycle management of essential cluster software that enables users to run modern workloads at scale.
 
 Charmed HPC spins up turnkey clusters on a variety of cloud platforms to support write-once, run-anywhere user workloads. It also provides the necessary integrations for GPUs, high bandwidth networking, and shared storage.
 
-The platform enables organizations to focus on obtaining key insights and making data-driven decisions by providing an HPC platform that solves the complexity of deploying and operating an HPC cluster at scale. It is directly beneficial to operations teams and system administrators looking to take full advantage of their HPC hardware, available storage configurations, and high bandwidth networking while minimizing cluster downtime for routine maintenance.
+The platform enables organizations to focus on obtaining key insights and making data-driven decisions by providing an HPC platform that solves the complexity of deploying and operating an HPC cluster at scale. It is directly beneficial to operations teams and system administrators looking to take full advantage of their HPC hardware, available storage configurations, and high bandwidth networking while minimizing cluster downtime for routine maintenance. -->
 
 ---
 
@@ -16,7 +17,7 @@ The platform enables organizations to focus on obtaining key insights and making
 - __Security and Identity:__ [Deploy identity provider](howto/setup/deploy-identity-provider.md), [Hardening guidelines](reference/hardening.md), [Cryptography](explanation/cryptography.md)
 - __Performance:__ [High availability](explanation/high-availability.md), [Benchmarks](reference/performance.md)
 
-## How this documentation is organised
+## How this documentation is organized
 
 This documentation uses the [Diátaxis](https://diataxis.fr/) documentation structure.
 
@@ -26,7 +27,7 @@ This documentation uses the [Diátaxis](https://diataxis.fr/) documentation stru
 
 * [Reference](reference/index) provides technical information such as [underlying projects and dependencies](reference/underlying-projects-and-dependencies.md), [monitoring](reference/monitoring/index.md), and [performance benchmarks](reference/performance.md).
 
-
+* [Explanation](explanation/index) includes topic overviews, background and context, and detailed discussions of key concepts.
 ---
 
 ## Project and community
