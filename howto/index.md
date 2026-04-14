@@ -1,20 +1,19 @@
 (howtos)=
 # How-to guides
 
-The guides in this section provide detailed steps for key operations and common tasks for Charmed HPC.
+The guides in this section provide detailed steps for key operations and common tasks.
 
 
 ## First steps
 
-It is **strongly recommended** that you go through the {ref}`Initialize cloud environment <howto-initialize-cloud-environment>` guide first before going through the {ref}`Setup <howto-setup>` section. This guide will show you how to set up access to the compute, storage, and networking resources your Charmed HPC cluster will need.
+Prepare your cloud environment before deploying a cluster.
 
 - {ref}`howto-initialize-cloud-environment`
 
 (howto-setup)=
 ## Setup
 
-These how-to guides will get you started with Charmed HPC by
-taking you through the setup of your own Charmed HPC cluster.
+Deploy and configure the core components of your cluster.
 
 - {ref}`howto-setup-deploy-slurm`
 - {ref}`howto-setup-deploy-shared-filesystem`
@@ -23,25 +22,31 @@ taking you through the setup of your own Charmed HPC cluster.
 (howto-integrate)=
 ## Integrate
 
-The how-to guides in this section show you how to integrate an existing Charmed HPC cluster
-with other applications.
+Connect your cluster with additional applications and services.
 
 - {ref}`howto-manage-integrate-with-apptainer`
 - {ref}`howto-manage-integrate-with-cos`
 - {ref}`howto-manage-integrate-with-influxdb`
+- {ref}`howto-integrate-email-notifications`
 
 (howto-manage)=
 ## Manage
 
-The how-to guides in this section show you how to perform common cluster management
-tasks on Charmed HPC.
+Perform common cluster management tasks.
 
 - {ref}`howto-manage-slurm`
 
+## Use
+
+Run workloads on your cluster.
+
+- {ref}`howto-use-apptainer`
+
 ## Clean-up
 
-It is important to clean up resources that are no longer necessary, especially in the case of public clouds where abandoned resources can incur significant costs. This guide demonstrates how to clean up and delete unneeded Charmed HPC resources.
+Remove resources that are no longer needed.
 
+- {ref}`howto-cleanup-slurm`
 - {ref}`howto-cleanup-cloud-resources`
 
 :::{toctree}
