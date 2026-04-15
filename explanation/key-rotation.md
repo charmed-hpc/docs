@@ -35,8 +35,7 @@ configuration across the cluster. At this point, both the new and old keys are v
 for authentication.
 * The `slurmctld` leader updates the Juju secret authentication key to a new revision with the new
 key.
-* The revision update results in all units of related Slurm charms (the secret observers)
-receiving a `SecretChangedEvent`.
+* The revision update triggers a `SecretChangedEvent` in each unit of the related Slurm charms (the secret observers).
 * In the `SecretChangedEvent`, units read the new revision of the Juju secret then replace their
 local key file with the new key and reload their service configuration. This ensures the new key is
 in use and the old key is no longer valid on that unit.
