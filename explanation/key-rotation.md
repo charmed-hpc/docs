@@ -24,7 +24,7 @@ incidents to ensure malicious users cannot use a leaked key to exert control ove
 The [Rotate the Slurm authentication key how-to](howto-manage-rotate-auth-key] provides the steps to initiate the key rotation process, using the `rotate-auth-key` action. The action triggers a cluster-wide rotation of the authentication key. Once the process is complete, a new key is in
 place and the previous key can no longer be used to authenticate Slurm communication.
 
-The rotation process is as follows:
+The full rotation process is as follows:
 
 * A Charmed HPC cluster administrator runs `juju run slurmctld/leader rotate-auth-key`
 * The `slurmctld` leader generates a new cryptographically secure key and adds it to its [`slurm.jwks` file](https://slurm.schedmd.com/authentication.html#multiple_key_setup) alongside the old key. To ensure this key
