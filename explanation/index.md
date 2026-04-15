@@ -10,6 +10,7 @@ Discussion and clarification for various topics related to Charmed HPC.
 ## Cryptography, authentication, and security
 - {ref}`sack`
 - {ref}`jwt`
+- {ref}`explanation-key-rotation`
 
 ## Hardware
 - {ref}`explanation-gpus`
@@ -27,4 +28,5 @@ GPUs <gpus>
 High Availability <high-availability>
 Interconnects <interconnects>
 Instance auto-reboots <reboot-timing.md>
+Key rotation <key-rotation>
 ```
