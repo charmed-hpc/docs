@@ -194,6 +194,9 @@ Authentication key rotation is a significant cluster-wide change and may cause i
 Downtime varies depending on the node count of the cluster.
 :::
 
+Before beginning the rotation process, administrators should ensure the cluster in an appropriate
+state for maintenance. Refer to the Slurm FAQ: ["How can I dry up the workload for a maintenance period?"](https://slurm.schedmd.com/faq.html#maint_time)
+
 The `rotate-auth-key` action can be run on the slurmctld leader unit to start the asynchronous
 process of rotating the authentication key for Slurm remote procedure calls:
 
@@ -214,7 +217,7 @@ slurmctld/0*     waiting   executing  2        10.200.245.185  6817,9092/tcp   (
 :::
 
 Once the unit returns to `active` status, the key rotation has completed. A new key is in place and
-the previous key has been deleted.
+the previous key has been deleted. The cluster can now be restored to full service.
 
 ## Managing compute nodes and partitions
 
