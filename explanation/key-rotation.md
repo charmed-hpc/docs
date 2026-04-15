@@ -21,8 +21,7 @@ incidents to ensure malicious users cannot use a leaked key to exert control ove
 
 ## Key rotation process
 
-The `slurmctld` charm has a [`rotate-auth-key` action](howto-manage-rotate-auth-key) that initiates
-a cluster-wide rotation of the authentication key. Once the process is complete, a new key is in
+The [Rotate the Slurm authentication key how-to](howto-manage-rotate-auth-key] provides the steps to initiate the key rotation process, using the `rotate-auth-key` action. The action triggers a cluster-wide rotation of the authentication key. Once the process is complete, a new key is in
 place and the previous key can no longer be used to authenticate Slurm communication.
 
 The rotation process is as follows:
