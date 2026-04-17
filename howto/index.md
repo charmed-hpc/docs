@@ -1,12 +1,12 @@
 (howtos)=
 # How-to guides
 
-The guides in this section provide detailed steps for key operations and common tasks.
+These guides provide detailed steps for key operations and common tasks.
 
 
 ## First steps
 
-Prepare your cloud environment before deploying a cluster.
+Environment setup prior to initial deployment varies by backing cloud. See instructions for local and public cloud initialization, as well as Kubernetes cloud set up.  
 
 - {ref}`howto-initialize-cloud-environment`
 
@@ -22,7 +22,7 @@ Deploy and configure the core components of your cluster.
 (howto-integrate)=
 ## Integrate
 
-Connect your cluster with additional applications and services.
+Connect your cluster with additional observability or workload management tools.
 
 - {ref}`howto-manage-integrate-with-apptainer`
 - {ref}`howto-manage-integrate-with-cos`
@@ -32,13 +32,13 @@ Connect your cluster with additional applications and services.
 (howto-manage)=
 ## Manage
 
-Perform common cluster management tasks.
+Perform common cluster management tasks, such as migrating to high availability or modifying the default node state. 
 
 - {ref}`howto-manage-slurm`
 
 ## Use
 
-Run workloads on your cluster.
+Custom processes for running workloads on your cluster.
 
 - {ref}`howto-use-apptainer`
 

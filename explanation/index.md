@@ -3,7 +3,7 @@
 
 Background context and design discussion for key topics.
 
-## Cluster architecture and jobs
+## Cluster architecture
 
 The design decisions behind the architecture, including high availability and email notifications for job status.
 
