@@ -32,18 +32,25 @@ This documentation uses the [Diátaxis](https://diataxis.fr/) documentation stru
 
 ## Project and community
 
-Charmed HPC is an open source project of the [Ubuntu High-Performance Computing
-community](https://ubuntu.com/community/governance/teams/hpc).
-Interested in contributing bug fixes, patches, documentation, or feedback?
-Want to join the Ubuntu HPC community? You've come to the right place!
+Charmed HPC is a member of the Ubuntu family. It's an open source project that warmly welcomes community contributions, suggestions, fixes, and constructive feedback.
 
-Here's some links to help you get started with joining the community:
+**Get involved**
 
-* [Read and follow the Ubuntu Code of Conduct](https://ubuntu.com/community/ethos/code-of-conduct)
-* [Join the Ubuntu HPC community on Matrix](https://matrix.to/#/#hpc:ubuntu.com)
-* [Get the latest news on Discourse](https://discourse.ubuntu.com/c/hpc/151)
-* [Visit the Charmed HPC GitHub Organization](https://github.com/charmed-hpc)
-* [Ask and answer support questions on GitHub](https://github.com/orgs/charmed-hpc/discussions/categories/support)
+* [Support](https://github.com/orgs/charmed-hpc/discussions/categories/support)
+* [Online chat](https://matrix.to/#/#hpc:ubuntu.com)
+* [Contribute](contributing/index)
+
+<!-- **Releases**
+
+* [Release notes](https://discourse.ubuntu.com/c/hpc/151)
+* [Roadmap](https://github.com/orgs/charmed-hpc/projects) -->
+
+**Governance and policies**
+
+* [Code of conduct](https://ubuntu.com/community/ethos/code-of-conduct)
+<!-- * [Commercial support](https://ubuntu.com/pro) -->
+
+Thinking about using Charmed HPC for your next project? [Get in touch!](https://matrix.to/#/#hpc:ubuntu.com)
 
 ```{filtered-toctree}
 :hidden:
