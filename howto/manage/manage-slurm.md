@@ -219,6 +219,48 @@ slurmctld/0*     waiting   executing  2        10.200.245.185  6817,9092/tcp   (
 Once the unit returns to `active` status, the key rotation has completed. A new key is in place and
 the previous key has been deleted. The cluster can now be restored to full service.
 
+(howto-manage-rotate-jwt-key)=
+### Rotate the JWT authentication key
+
+:::{admonition} Rotation downtime
+:class: warning
+
+**Key rotation requires accounting database API downtime**.
+
+JWT key rotation will result in the accounting database being inaccessible via the Slurm REST API
+until the rotation process completes.
+
+The duration of the downtime depends on the time taken for the `slurmdbd` unit to process the
+rotation event.
+:::
+
+Before beginning the rotation process, ensure the cluster is in an appropriate state where database API
+downtime can be tolerated.
+
+The `rotate-auth-key` action can be run on the slurmctld leader unit to start the asynchronous
+process of rotating the JWT key for API authentication:
+
+:::{code-block} shell
+juju run slurmctld/leader rotate-jwt-key
+:::
+
+After the command returns, progress of the rotation can be monitored by viewing the `slurmdbd` unit
+status log:
+
+:::{terminal}
+juju show-status-log slurmdbd/0
+
+[...]
+20 Apr 2026 12:55:00+01:00  juju-unit  executing  running secret-changed hook for secret:aapaln45l33kcv0so3i0
+20 Apr 2026 12:55:01+01:00  juju-unit  idle
+20 Apr 2026 12:58:02+01:00  workload   active
+[...]
+:::
+
+Once the unit has been observed running the `secret-changed` hook and then returning to `active` status,
+the key rotation has completed. A new key is in place and the previous key has been deleted. The
+cluster is now restored to full service.
+
 ## Managing compute nodes and partitions
 
 ### Apply custom configuration to specific compute nodes
