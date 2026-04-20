@@ -234,7 +234,7 @@ The duration of the downtime depends on the time taken for the `slurmdbd` unit t
 rotation event.
 :::
 
-Before beginning the rotation process, ensure the cluster in an appropriate state where database API
+Before beginning the rotation process, ensure the cluster is in an appropriate state where database API
 downtime can be tolerated.
 
 The `rotate-auth-key` action can be run on the slurmctld leader unit to start the asynchronous
@@ -257,7 +257,7 @@ juju show-status-log slurmdbd/0
 [...]
 :::
 
-Once the unit has been observed running the `secret-changed` hook and returning to `active` status,
+Once the unit has been observed running the `secret-changed` hook and then returning to `active` status,
 the key rotation has completed. A new key is in place and the previous key has been deleted. The
 cluster is now restored to full service.
 

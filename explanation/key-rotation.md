@@ -1,7 +1,7 @@
 ---
 myst:
   html_meta:
-    description: Discover how Charmed HPC rotates Slurm keys for enhanced cluster security. Learn about the automated key rotation process and security best practices.
+    description: Discover how Charmed HPC rotates Slurm authentication and JWT keys for enhanced cluster security. Learn about the automated key rotation process and security best practices.
 ---
 
 (explanation-key-rotation)=
@@ -48,7 +48,7 @@ cluster and only the new key is trusted for future authentication.
 
 ## JWT key rotation process
 
-The [Rotate the JWT authentication key key how-to](howto-manage-rotate-jwt-key) provides the steps
+The [Rotate the JWT authentication key how-to](howto-manage-rotate-jwt-key) provides the steps
 to initiate the key rotation process, using the `rotate-jwt-key` action. The action triggers a
 rotation of the JWT key on both the `slurmctld` controller and `slurmdbd` database units. Once the
 process is complete, a new key is in place and the previous key can no longer be used to generate
