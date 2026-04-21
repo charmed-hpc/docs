@@ -4,15 +4,39 @@
 The reference material in this section provides technical descriptions of how
 Charmed HPC operates.
 
-## General information
+## Cluster components and architecture
+
+The building blocks and structure of a Charmed HPC cluster.
 
 - {ref}`reference-underlying-projects-and-dependencies`
+- {ref}`reference-glossary`
+
+## Hardware and networking
+
+Available hardware resources and network infrastructure.
+
 - {ref}`GPU resource scheduling in Slurm <gres>`
 - {ref}`reference-interconnects`
-- {ref}`reference-monitoring`
-- {ref}`reference-performance`
+
+## Security
+
+Security considerations for your cluster.
+
 - {ref}`reference-hardening`
-- {ref}`reference-glossary`
+
+## Monitoring
+
+Observability and monitoring reference information.
+
+- {ref}`reference-monitoring-grafana`
+- {ref}`reference-monitoring-prometheus`
+- {ref}`reference-monitoring-loki`
+
+## Performance
+
+Performance benchmarks and methodology.
+
+- {ref}`reference-performance`
 
 
 ```{filtered-toctree}

@@ -1,10 +1,11 @@
 # Charmed HPC
 
-Charmed HPC is a versatile high-performance computing platform that facilitates the set up and maintenance of HPC clusters. This is done by autonomizing the deployment, integration, and life-cycle management of essential cluster software that enables users to run modern workloads at scale.
+Charmed HPC is a platform for managing high-performance computing clusters. It automates the lifecycle of essential cluster software and processes, such as workload management, shared storage, GPU access, and high-bandwidth networking. This allows operations teams and systems administrators to focus on running workloads rather than maintaining infrastructure. 
+<!-- Charmed HPC is a versatile high-performance computing platform that facilitates the set up and maintenance of HPC clusters. This is done by autonomizing the deployment, integration, and life-cycle management of essential cluster software that enables users to run modern workloads at scale.
 
 Charmed HPC spins up turnkey clusters on a variety of cloud platforms to support write-once, run-anywhere user workloads. It also provides the necessary integrations for GPUs, high bandwidth networking, and shared storage.
 
-The platform enables organizations to focus on obtaining key insights and making data-driven decisions by providing an HPC platform that solves the complexity of deploying and operating an HPC cluster at scale. It is directly beneficial to operations teams and system administrators looking to take full advantage of their HPC hardware, available storage configurations, and high bandwidth networking while minimizing cluster downtime for routine maintenance.
+The platform enables organizations to focus on obtaining key insights and making data-driven decisions by providing an HPC platform that solves the complexity of deploying and operating an HPC cluster at scale. It is directly beneficial to operations teams and system administrators looking to take full advantage of their HPC hardware, available storage configurations, and high bandwidth networking while minimizing cluster downtime for routine maintenance. -->
 
 ---
 
@@ -16,50 +17,40 @@ The platform enables organizations to focus on obtaining key insights and making
 - __Security and Identity:__ [Deploy identity provider](howto/setup/deploy-identity-provider.md), [Hardening guidelines](reference/hardening.md), [Cryptography](explanation/cryptography.md)
 - __Performance:__ [High availability](explanation/high-availability.md), [Benchmarks](reference/performance.md)
 
-````{grid} 1 2 2 2
+## How this documentation is organized
 
-```{grid-item-card} [Tutorial](tutorial-getting-started-with-charmed-hpc)
-__Get started here:__ A hands-on [introduction to Charmed HPC](tutorial-getting-started-with-charmed-hpc)
+This documentation uses the [Diátaxis](https://diataxis.fr/) documentation structure.
 
-```
+* The [Tutorial](tutorial-getting-started-with-charmed-hpc) takes you step-by-step through building a small Charmed HPC cluster, submitting batch jobs, and using container images.
 
-```{grid-item-card} [How-to guides](howto/index)
+* [How-to guides](howto/index) assume you have basic familiarity with Charmed HPC. They cover key operations for [setup](howto/setup/index.md), [integration](howto/integrate/index.md), [management](howto/manage/index.md), and [usage](howto/use/index.md).
 
-__Step-by-step guides__ covering key operations for [setup](howto/setup/index.md), [integration](howto/integrate/index.md), [management](howto/manage/index.md), and [usage](howto/use/index.md)
+* [Reference](reference/index) provides technical information such as [underlying projects and dependencies](reference/underlying-projects-and-dependencies.md), [monitoring](reference/monitoring/index.md), and [performance benchmarks](reference/performance.md).
 
-```
-
-
-```{grid-item-card} [Explanation](explanation/index)
-
-__Discussion and clarification__ of key topics such as [high availability](explanation/high-availability.md), [cryptography](explanation/cryptography.md), and [GPUs](explanation/gpus.md)
-
-```
-
-
-```{grid-item-card} [Reference](reference/index)
-
-__Technical information__ such as [underlying projects and dependencies](reference/underlying-projects-and-dependencies.md), [monitoring](reference/monitoring/index.md), and [performance metrics](reference/performance.md)
-```
-
-````
-
+* [Explanation](explanation/index) includes topic overviews, background and context, and detailed discussions of key concepts.
 ---
 
 ## Project and community
 
-Charmed HPC is an open source project of the [Ubuntu High-Performance Computing
-community](https://ubuntu.com/community/governance/teams/hpc).
-Interested in contributing bug fixes, patches, documentation, or feedback?
-Want to join the Ubuntu HPC community? You've come to the right place!
+Charmed HPC is an Ubuntu community project. It's an open source project that warmly welcomes community contributions, suggestions, fixes, and constructive feedback.
 
-Here's some links to help you get started with joining the community:
+**Get involved**
 
-* [Read and follow the Ubuntu Code of Conduct](https://ubuntu.com/community/ethos/code-of-conduct)
-* [Join the Ubuntu HPC community on Matrix](https://matrix.to/#/#hpc:ubuntu.com)
-* [Get the latest news on Discourse](https://discourse.ubuntu.com/c/hpc/151)
-* [Visit the Charmed HPC GitHub Organization](https://github.com/charmed-hpc)
-* [Ask and answer support questions on GitHub](https://github.com/orgs/charmed-hpc/discussions/categories/support)
+* [Support](https://github.com/orgs/charmed-hpc/discussions/categories/support)
+* [Online chat](https://matrix.to/#/#hpc:ubuntu.com)
+* [Contribute](contributing/index)
+
+<!-- **Releases**
+
+* [Release notes](https://discourse.ubuntu.com/c/hpc/151)
+* [Roadmap](https://github.com/orgs/charmed-hpc/projects) -->
+
+**Governance and policies**
+
+* [Code of Conduct](https://ubuntu.com/community/ethos/code-of-conduct)
+<!-- * [Commercial support](https://ubuntu.com/pro) -->
+
+Thinking about using Charmed HPC for your next project? [Get in touch!](https://matrix.to/#/#hpc:ubuntu.com)
 
 ```{filtered-toctree}
 :hidden:

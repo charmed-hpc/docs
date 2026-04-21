@@ -3,6 +3,11 @@
 
 Contributions to Charmed HPC's documentation are welcomed and encouraged. Please read through the following guidelines to best prepare yourself for contributing. If you have questions, feel free to ask them in the [Ubuntu High-Performance Computing Matrix chat](https://matrix.to/#/#hpc:ubuntu.com) or in [Charmed HPC's GitHub Discussions](https://github.com/orgs/charmed-hpc/discussions).
 
+(doc-structure)=
+## Documentation structure
+
+The documentation is written in the [MyST](https://mystmd.org/) flavor of the Markdown mark-up language and uses the [Diátaxis](https://diataxis.fr/) framework for content organization. The raw document files all hosted in the [Charmed HPC docs repository](https://github.com/charmed-hpc/docs) on GitHub and use the [Sphinx-based starter pack](https://canonical-starter-pack.readthedocs-hosted.com/stable/) for theming, extensions, and rendering on [ReadtheDocs](https://about.readthedocs.com/). See Canonical's [MyST syntax guide](https://canonical-starter-pack.readthedocs-hosted.com/latest/reference/myst-syntax-reference/) for formatting and preferred usage guidance.
+
 ## Prerequisites
 
 There are a couple prerequisites to contributing to Charmed HPC's documentation:
@@ -68,8 +73,3 @@ If running the tests locally is not ideal, you may run them within GitHub. To do
 3. Select `Run workflow` within the workflows panel.
 4. Select the relevant branch from the drop-down menu.
 5. Select `Run workflow` within the drop-down.
-
-(doc-structure)=
-## Documentation structure
-
-The documentation is written in the [MyST](https://mystmd.org/) flavor of the Markdown mark-up language. The sections are organized using the [Diátaxis](https://diataxis.fr/) framework. See Canonical's [MyST syntax Guide](https://canonical-starter-pack.readthedocs-hosted.com/latest/reference/myst-syntax-reference/) for formatting and preferred usage guidance.

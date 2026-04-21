@@ -18,7 +18,7 @@ the different components and services of your Slurm deployment.
 ### Customize job notification sender name
 
 This section requires that the Slurm cluster has been
-[integrated with a mail server](howto-setup-deploy-slurm) to enable job notifications.
+[integrated with a mail server](howto-integrate-email-notifications) to enable job notifications.
 
 To customize the name that appears in the sign-off of email notifications sent by Slurm, set the
 `slurmctld` configuration value `email-from-name`:
