@@ -6,7 +6,7 @@ These guides provide detailed steps for key operations and common tasks.
 
 ## First steps
 
-Environment setup prior to initial deployment varies by backing cloud. See instructions for local and public cloud initialization, as well as Kubernetes cloud set up.  
+Install dependencies and initialize the backing cloud of your Charmed HPC cluster. 
 
 - {ref}`howto-initialize-cloud-environment`
 
@@ -44,7 +44,7 @@ Run workloads on your cluster.
 
 ## Cleanup
 
-Remove resources that are no longer needed.
+Remove resources that are no longer required.
 
 - {ref}`howto-cleanup-slurm`
 - {ref}`howto-cleanup-cloud-resources`

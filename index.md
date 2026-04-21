@@ -47,7 +47,7 @@ Charmed HPC is an Ubuntu community project. It's an open source project that war
 
 **Governance and policies**
 
-* [Code of conduct](https://ubuntu.com/community/ethos/code-of-conduct)
+* [Code of Conduct](https://ubuntu.com/community/ethos/code-of-conduct)
 <!-- * [Commercial support](https://ubuntu.com/pro) -->
 
 Thinking about using Charmed HPC for your next project? [Get in touch!](https://matrix.to/#/#hpc:ubuntu.com)
