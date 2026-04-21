@@ -15,8 +15,8 @@ The building blocks and structure of a Charmed HPC cluster.
 
 Available hardware resources and network infrastructure.
 
-- GPU scheduling: {ref}`GPU resource scheduling in Slurm <gres>`
-- Interconnects: {ref}`reference-interconnects`
+- {ref}`GPU resource scheduling in Slurm <gres>`
+- {ref}`reference-interconnects`
 
 ## Security
 
@@ -28,9 +28,9 @@ Security considerations for your cluster.
 
 Observability and monitoring reference information.
 
-- Dashboards: {ref}`reference-monitoring-grafana`
-- Metrics and alerts: {ref}`reference-monitoring-prometheus`
-- Logs: {ref}`reference-monitoring-loki`
+- {ref}`reference-monitoring-grafana`
+- {ref}`reference-monitoring-prometheus`
+- {ref}`reference-monitoring-loki`
 
 ## Performance
 

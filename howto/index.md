@@ -38,11 +38,11 @@ Perform common cluster management tasks, such as migrating to high availability 
 
 ## Use
 
-Custom processes for running workloads on your cluster.
+Run workloads on your cluster.
 
 - {ref}`howto-use-apptainer`
 
-## Clean-up
+## Cleanup
 
 Remove resources that are no longer needed.
 

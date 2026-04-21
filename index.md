@@ -1,6 +1,6 @@
 # Charmed HPC
 
-Charmed HPC is platform for managing high-performance computing clusters. It automates the lifecycle of essential cluster software and processes, such as workload management, shared storage, GPU access, and high-bandwidth networking. This allows operations teams and systems administrators to focus on running workloads rather than maintaining infrastructure. 
+Charmed HPC is a platform for managing high-performance computing clusters. It automates the lifecycle of essential cluster software and processes, such as workload management, shared storage, GPU access, and high-bandwidth networking. This allows operations teams and systems administrators to focus on running workloads rather than maintaining infrastructure. 
 <!-- Charmed HPC is a versatile high-performance computing platform that facilitates the set up and maintenance of HPC clusters. This is done by autonomizing the deployment, integration, and life-cycle management of essential cluster software that enables users to run modern workloads at scale.
 
 Charmed HPC spins up turnkey clusters on a variety of cloud platforms to support write-once, run-anywhere user workloads. It also provides the necessary integrations for GPUs, high bandwidth networking, and shared storage.
@@ -32,7 +32,7 @@ This documentation uses the [Diátaxis](https://diataxis.fr/) documentation stru
 
 ## Project and community
 
-Charmed HPC is a member of the Ubuntu family. It's an open source project that warmly welcomes community contributions, suggestions, fixes, and constructive feedback.
+Charmed HPC is an Ubuntu community project. It's an open source project that warmly welcomes community contributions, suggestions, fixes, and constructive feedback.
 
 **Get involved**
 
