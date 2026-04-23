@@ -1,5 +1,8 @@
 ---
 relatedlinks: "[Get&#32;started&#32;with&#32;COS](https://documentation.ubuntu.com/observability/track-2/tutorial/installation/), [COS&#32;best&#32;practices](https://documentation.ubuntu.com/observability/track-2/reference/best-practices/), [Slurm&#32;metrics&#32;guide](https://slurm.schedmd.com/metrics.html)"
+myst:
+  html_meta:
+    description: Learn how to integrate Charmed HPC with the Canonical Observability Stack (COS) to monitor your cluster by forwarding logs and metrics for interactive analysis.
 ---
 
 (howto-manage-integrate-with-cos)=
