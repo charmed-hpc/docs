@@ -1,11 +1,10 @@
-# Setup
+# Set up and deploy
 
-See the how-to guides in this section for the steps to set up and deploy various components of Charmed HPC, such as
-the Slurm workload manager or a shared filesystem.
+Deploy and configure the core components of a Charmed HPC cluster, with support for high availability, NFS and CephFS filesystem serves, LXD-based deployments, and LDAP-backed identity management.
 
-- {ref}`howto-setup-deploy-slurm`
-- {ref}`howto-setup-deploy-shared-filesystem`
-- {ref}`howto-setup-deploy-identity-provider`
+- {ref}`Deploy Slurm <howto-setup-deploy-slurm>`
+- {ref}`Deploy a shared filesystem <howto-setup-deploy-shared-filesystem>`
+- {ref}`Deploy an identity provider <howto-setup-deploy-identity-provider>`
 
 :::{toctree}
 :titlesonly:

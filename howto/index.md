@@ -1,28 +1,27 @@
 (howtos)=
 # How-to guides
 
-These guides provide detailed steps for key operations and common tasks.
+Detailed steps for key operations and common tasks when working with Charmed HPC.
 
+## Initialize your environment
 
-## First steps
+Install dependencies and initialize the backing cloud for your cluster.
 
-Install dependencies and initialize the backing cloud of your Charmed HPC cluster. 
-
-- {ref}`howto-initialize-cloud-environment`
+- {ref}`Initialize cloud environment <howto-initialize-cloud-environment>`
 
 (howto-setup)=
-## Setup
+## Set up and deploy
 
 Deploy and configure the core components of your cluster.
 
-- {ref}`howto-setup-deploy-slurm`
-- {ref}`howto-setup-deploy-shared-filesystem`
-- {ref}`howto-setup-deploy-identity-provider`
+- {ref}`Deploy Slurm <howto-setup-deploy-slurm>`
+- {ref}`Deploy a shared filesystem <howto-setup-deploy-shared-filesystem>`
+- {ref}`Deploy an identity provider <howto-setup-deploy-identity-provider>`
 
 (howto-integrate)=
-## Integrate
+## Integrate with other tools
 
-Connect your cluster with additional observability or workload management tools.
+Connect your cluster to observability platforms and workload tools.
 
 - {ref}`howto-manage-integrate-with-apptainer`
 - {ref}`howto-manage-integrate-with-cos`
@@ -30,24 +29,29 @@ Connect your cluster with additional observability or workload management tools.
 - {ref}`howto-integrate-email-notifications`
 
 (howto-manage)=
-## Manage
+## Manage your cluster
 
-Perform common cluster management tasks, such as migrating to high availability or modifying the default node state. 
+- {ref}`howto-manage-customize-job-email-name`
+- {ref}`howto-manage-single-slurmctld-to-high-availability`
+- {ref}`howto-manage-rotate-auth-key`
+- {ref}`howto-manage-rotate-jwt-key`
+- {ref}`howto-manage-custom-node-config`
+- {ref}`howto-manage-default-node-state`
+- {ref}`howto-manage-node-state`
+- {ref}`howto-manage-scale-partitions`
 
-- {ref}`howto-manage-slurm`
+## Run workloads
 
-## Use
-
-Run workloads on your cluster.
+Submit jobs and run containerized workloads on your cluster.
 
 - {ref}`howto-use-apptainer`
 
-## Cleanup
+## Clean up resources
 
-Remove resources that are no longer required.
+Remove previously deployed components and free cloud resources when they are no longer needed.
 
-- {ref}`howto-cleanup-slurm`
-- {ref}`howto-cleanup-cloud-resources`
+- {ref}`Clean up Slurm <howto-cleanup-slurm>`
+- {ref}`Clean up cloud resources <howto-cleanup-cloud-resources>`
 
 :::{toctree}
 :titlesonly:
@@ -55,9 +59,9 @@ Remove resources that are no longer required.
 :hidden:
 
 Initialize cloud environment <initialize-cloud-environment>
-setup/index
-integrate/index
-manage/index
-use/index
-cleanup/index
+Set up and deploy <setup/index>
+Integrate with other tools <integrate/index>
+Manage your cluster <manage/index>
+Run workloads <use/index>
+Clean up resources <cleanup/index>
 :::

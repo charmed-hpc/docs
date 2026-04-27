@@ -1,18 +1,18 @@
 (explanation)=
 # Explanation
 
-Background context and design discussion for key topics.
+Conceptual background on the design, security, and hardware considerations of Charmed HPC.
 
 ## Cluster architecture
 
-The design decisions behind the architecture, including high availability and email notifications for job status.
+Design decisions behind how a Charmed HPC cluster is structured and operated.
 
 - {ref}`explanation-high-availability`
 - {ref}`explanation-job-email-notifications`
 
 ## Cryptography, authentication, and security
 
-The mechanisms used to secure communication between cluster components and authenticate users and services.
+Security protocols and authentication mechanisms that protect communication between cluster components.
 
 - {ref}`sack`
 - {ref}`jwt`
@@ -20,7 +20,7 @@ The mechanisms used to secure communication between cluster components and authe
 
 ## Hardware
 
-The role of specialised hardware in a cluster, including GPU acceleration, high-speed interconnects, and the provisioning steps that happen at deployment time.
+How specialised hardware is supported and managed in a Charmed HPC cluster.
 
 - {ref}`explanation-gpus`
 - {ref}`explanation-interconnects`

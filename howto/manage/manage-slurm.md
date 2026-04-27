@@ -263,6 +263,7 @@ cluster is now restored to full service.
 
 ## Managing compute nodes and partitions
 
+(howto-manage-custom-node-config)=
 ### Apply custom configuration to specific compute nodes
 
 :::{admonition} Do you need a custom node configuration?
@@ -343,6 +344,7 @@ for further information on the parameters that can be passed to the `set-node-co
    ["Node configuration" section of Slurm's documentation {octicon}`link-external`](https://slurm.schedmd.com/slurm.conf.html#SECTION_NODE-CONFIGURATION).
 ::::
 
+(howto-manage-default-node-state)=
 ### Modify the default state and reason of new compute nodes
 
 Compute nodes start in the `down` state by default. The `default-node-state` option
@@ -374,6 +376,7 @@ See the [slurmd charm's configuration options on Charmhub {octicon}`link-externa
 for further information about the`default-node-state` and `default-node-reason`
 configuration options.
 
+(howto-manage-node-state)=
 ### Modify the state of compute nodes
 
 The `set-node-state` action can be run on any slurmctld unit to update the state
@@ -405,6 +408,7 @@ The following compute node states can be set using `set-node-state`:
 See the [slurmctld charm's actions on Charmhub {octicon}`link-external`](https://charmhub.io/slurmctld/actions)
 for further information on the parameters that can be passed to the `set-node-state` action.
 
+(howto-manage-scale-partitions)=
 ### Scale partitions
 
 Partitions in Charmed HPC are elastic. The number of compute nodes in a partition can
