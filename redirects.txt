@@ -15,10 +15,10 @@
 # path/old-name/ new-path/new-name/    # To move and rename a file
 
 
-/howto/setup/index/ /howto/deploy/index/
-/howto/setup/deploy-slurm/ /howto/deploy/deploy-slurm/
-/howto/setup/deploy-shared-filesystem/ /howto/deploy/deploy-shared-filesystem/
-/howto/setup/deploy-identity-provider/ /howto/deploy/deploy-identity-provider/
+howto/setup/index/ howto/deploy/index/
+howto/setup/deploy-slurm/ howto/deploy/deploy-slurm/
+howto/setup/deploy-shared-filesystem/ howto/deploy/deploy-shared-filesystem/
+howto/setup/deploy-identity-provider/ howto/deploy/deploy-identity-provider/
 
-/howto/use/index/ /howto/run-workloads/index/
-/howto/use/use-apptainer/ /howto/run-workloads/use-apptainer/
+howto/use/index/ howto/run-workloads/index/
+howto/use/use-apptainer/ howto/run-workloads/use-apptainer/
