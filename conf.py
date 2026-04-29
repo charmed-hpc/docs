@@ -227,7 +227,7 @@ templates_path = [".sphinx/_templates"]
 #       the sphinx_reredirects extension will be disabled.
 
 redirects = {}
-
+rediraffe_redirects = "redirects.txt"
 
 ###########################
 # Link checker exceptions #
@@ -297,6 +297,7 @@ extensions = [
     "sphinx_last_updated_by_git",
     "sphinx.ext.intersphinx",
     "sphinx_sitemap",
+    "sphinxext.rediraffe",
 ]
 
 # Excludes files or directories from processing

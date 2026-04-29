@@ -57,7 +57,7 @@ module "slurmctld" {
 
 To migrate a previously deployed single {term}`slurmctld` unit to a [high availability (HA)](explanation-high-availability) setup, a low-latency shared file system must be integrated to enable sharing of controller data across all `slurmctld` units. For guidance on choosing and deploying a shared file system, see the following sections:
 
-* [How to deploy a shared filesystem](howto-setup-deploy-shared-filesystem)
+* [How to deploy a shared filesystem](howto-deploy-deploy-shared-filesystem)
 * [Shared `StateSaveLocation` using `filesystem-client` charm](explanation-slurmctld-high-availability-state-save-location)
 * [Deploying `slurmctld` in high availability](deploy-slurmctld-high-availability)
 

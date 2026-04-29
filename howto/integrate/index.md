@@ -4,12 +4,12 @@ Extend a Charmed HPC cluster by connecting it to external services for observabi
 
 ## Monitor and observe your cluster
 
-Collect metrics, visualize dashboards, and aggregate logs using the Canonical Observability Stack or InfluxDB.
+Collect metrics, visualize dashboards, and aggregate logs using the Canonical Observability Stack or gather job performance data with InfluxDB.
 
 - {ref}`howto-manage-integrate-with-cos`
 - {ref}`howto-manage-integrate-with-influxdb`
 
-## Enable workload tools
+## Enable user workload tools
 
 Add container runtime and email notification support to your cluster.
 

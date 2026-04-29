@@ -14,7 +14,7 @@ controllers - you can jump to {ref}`howto-cleanup-cloud-resources` instead to re
 including Slurm, in a single step.
 :::
 
-This how-to guide shows you how to remove a [previously deployed Slurm workload manager](#howto-setup-deploy-slurm)
+This how-to guide shows you how to remove a [previously deployed Slurm workload manager](#howto-deploy-deploy-slurm)
 in a Charmed HPC cluster.
 
 ## Destroy Slurm
@@ -62,4 +62,4 @@ Now that you have destroyed your Slurm deployment, you can also clean up your cl
 
 - {ref}`howto-cleanup-cloud-resources`
 
-You can also revisit {ref}`howto-setup-deploy-slurm` if you want to create a new Slurm deployment.
+You can also revisit {ref}`howto-deploy-deploy-slurm` if you want to create a new Slurm deployment.

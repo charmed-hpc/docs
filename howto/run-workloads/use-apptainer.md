@@ -20,8 +20,8 @@ for a high-level introduction to using Apptainer on HPC clusters.
 
 To successfully use Apptainer on your Charmed HPC cluster, you will at least need:
 
-- A [deployed Slurm cluster](#howto-setup-deploy-slurm).
-- A [deployed shared filesystem](#howto-setup-deploy-shared-filesystem).
+- A [deployed Slurm cluster](#howto-deploy-deploy-slurm).
+- A [deployed shared filesystem](#howto-deploy-deploy-shared-filesystem).
 - An [active Apptainer integration](#howto-manage-integrate-with-apptainer).
 
 Once you have verified that Apptainer is integrated with your Charmed HPC, refer

@@ -9,14 +9,14 @@ Install dependencies and initialize the backing cloud for your cluster.
 
 - {ref}`Initialize cloud environment <howto-initialize-cloud-environment>`
 
-(howto-setup)=
-## Set up and deploy
+(howto-deploy)=
+## Deploy
 
 Deploy and configure the core components of your cluster.
 
-- {ref}`Deploy Slurm <howto-setup-deploy-slurm>`
-- {ref}`Deploy a shared filesystem <howto-setup-deploy-shared-filesystem>`
-- {ref}`Deploy an identity provider <howto-setup-deploy-identity-provider>`
+- {ref}`Deploy Slurm <howto-deploy-deploy-slurm>`
+- {ref}`Deploy a shared filesystem <howto-deploy-deploy-shared-filesystem>`
+- {ref}`Deploy an identity provider <howto-deploy-deploy-identity-provider>`
 
 (howto-integrate)=
 ## Integrate with other tools
@@ -59,9 +59,9 @@ Remove previously deployed components and free cloud resources when they are no 
 :hidden:
 
 Initialize cloud environment <initialize-cloud-environment>
-Set up and deploy <setup/index>
+Deploy <deploy/index>
 Integrate with other tools <integrate/index>
 Manage your cluster <manage/index>
-Run workloads <use/index>
+Run workloads <run-workloads/index>
 Clean up resources <cleanup/index>
 :::

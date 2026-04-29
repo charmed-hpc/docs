@@ -22,7 +22,7 @@ for a high-level introduction to the Canonical Observability Stack.
 To integrate Charmed HPC with COS, you will need:
 
 * An [isolated](https://charmhub.io/topics/canonical-observability-stack/reference/best-practices#deploy-in-isolation) [COS deployment](https://charmhub.io/topics/canonical-observability-stack/tutorials/install-microk8s) with [ingress](https://charmhub.io/topics/canonical-observability-stack/explanation/ingress) enabled
-* An active [Slurm deployment](#howto-setup-deploy-slurm) in your [`charmed-hpc` machine cloud](#howto-initialize-machine-cloud)
+* An active [Slurm deployment](#howto-deploy-deploy-slurm) in your [`charmed-hpc` machine cloud](#howto-initialize-machine-cloud)
 * The [Juju CLI client](https://documentation.ubuntu.com/juju/latest/user/howto/manage-juju/) installed on your machine
 * The [`jq` CLI command](https://jqlang.org/download/) installed on your machine
 

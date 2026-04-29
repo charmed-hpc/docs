@@ -76,7 +76,7 @@ If a landing page has only one logical category (e.g. `reference/monitoring/inde
 
 ### Sub-landing page descriptions
 
-- Sub-landing pages (e.g. `howto/setup/index.md`) should have a **more detailed** description than the corresponding category blurb on the parent landing page.
+- Sub-landing pages (e.g. `howto/deploy/index.md`) should have a **more detailed** description than the corresponding category blurb on the parent landing page.
 - Avoid duplicating the exact same description on both the parent and sub-landing page.
 - Provide broader context about what the pages collectively cover, without listing each individual page.
 
@@ -88,7 +88,7 @@ If a landing page has only one logical category (e.g. `reference/monitoring/inde
 
 ## `{ref}` link rules
 
-- If a content page title includes "How to" (e.g. `# How to deploy Slurm`), use a custom label on the landing page that omits "How to": `{ref}`Deploy Slurm <howto-setup-deploy-slurm>``
+- If a content page title includes "How to" (e.g. `# How to deploy Slurm`), use a custom label on the landing page that omits "How to": `{ref}`Deploy Slurm <howto-deploy-deploy-slurm>``
 - **Do not** remove "How to" from the actual page title — only from the landing page reference.
 - If a content page title does not include "How to", a bare `{ref}` (without custom label) is acceptable.
 - If a page title is not descriptive enough in the landing page context (e.g. a title like "Performance" gives little information about the content), use a custom label that summarises the page's actual scope: `{ref}`Benchmark results on Microsoft Azure <reference-performance>``

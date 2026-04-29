@@ -20,7 +20,7 @@ Security protocols and authentication mechanisms that protect communication betw
 
 ## Hardware
 
-How specialised hardware is supported and managed in a Charmed HPC cluster.
+How specialized hardware is supported and managed in a Charmed HPC cluster.
 
 - {ref}`explanation-gpus`
 - {ref}`explanation-interconnects`

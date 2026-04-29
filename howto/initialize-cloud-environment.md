@@ -834,7 +834,7 @@ charmed-hpc-k8s  1        us-east-1  k8s
 ## Next steps
 
 Now that both the `charmed-hpc` machine cloud and `charmed-hpc-k8s` Kubernetes cloud are initialized,
-you can start deploying applications with Juju. Go to the {ref}`howto-setup-deploy-slurm` guide
+you can start deploying applications with Juju. Go to the {ref}`howto-deploy-deploy-slurm` guide
 for how to deploy Slurm as the workload manager of your Charmed HPC cluster.
 
 ## Clean up

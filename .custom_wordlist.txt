@@ -122,6 +122,8 @@ Auth
 SSO
 GPG
 rebase
+runtime
+runtimes
 
 # Filesystem jargon
 Ceph

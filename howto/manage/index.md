@@ -1,6 +1,6 @@
 # Manage your cluster
 
-Perform day-to-day administration of a Charmed HPC cluster after initial deployment. These tasks cover both controller-level configuration and compute node operations.
+Administer a Charmed HPC cluster after initial deployment. These tasks cover both controller-level configuration and compute node operations.
 
 ## Manage the Slurm controller
 

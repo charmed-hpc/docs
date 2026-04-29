@@ -1,0 +1,24 @@
+# Client-side page redirects
+# ---------------------------
+# Comments start with a single hash (#)
+# Each redirect appears on its own line in the format:
+#
+# redirect/from/ redirect/to/
+#
+# Paths are relative to the root of the `docs` directory
+# The "from" path must be a file that *does not* exist
+# The "to" path must be a file that *does* exist
+# The separator between "from" and "to" paths is a single space (not a tab)
+
+# path/old-name/ path/new-name/        # To rename a file
+# path/file-name/ new-path/file-name/  # To move a file
+# path/old-name/ new-path/new-name/    # To move and rename a file
+
+
+/howto/setup/index/ /howto/deploy/index/
+/howto/setup/deploy-slurm/ /howto/deploy/deploy-slurm/
+/howto/setup/deploy-shared-filesystem/ /howto/deploy/deploy-shared-filesystem/
+/howto/setup/deploy-identity-provider/ /howto/deploy/deploy-identity-provider/
+
+/howto/use/index/ /howto/run-workloads/index/
+/howto/use/use-apptainer/ /howto/run-workloads/use-apptainer/

@@ -14,7 +14,7 @@ This guide explains how to enable job profiling by deploying and integrating Inf
 
 ## Prerequisites
 
-- A [deployed Slurm cluster](#howto-setup-deploy-slurm).
+- A [deployed Slurm cluster](#howto-deploy-deploy-slurm).
 
 ## Deploy and integrate InfluxDB
 

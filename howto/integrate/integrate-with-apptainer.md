@@ -18,7 +18,7 @@ for a high-level introduction to administering Apptainer.
 
 ## Prerequisites
 
-- A [deployed Slurm cluster](#howto-setup-deploy-slurm).
+- A [deployed Slurm cluster](#howto-deploy-deploy-slurm).
 
 ## Deploy Apptainer
 

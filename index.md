@@ -12,9 +12,9 @@ The platform enables organizations to focus on obtaining key insights and making
 ## In this documentation
 
 - __Learn more about Charmed HPC:__ [Getting Started tutorial](tutorial-getting-started-with-charmed-hpc), [Underlying projects](reference/underlying-projects-and-dependencies.md)
-- __Workload management:__ [Deploy Slurm](howto/setup/deploy-slurm.md), [Manage Slurm](howto/manage/manage-slurm.md), [Clean up Slurm](howto/cleanup/cleanup-slurm.md), [Grafana Dashboards](reference/monitoring/grafana.md) 
-- __Storage and Resources:__ [Deploy shared filesystem](howto/setup/deploy-shared-filesystem.md), [GPUs](explanation/gpus.md), [GRES](reference/gpus.md), [Interconnects](explanation/interconnects.md)
-- __Security and Identity:__ [Deploy identity provider](howto/setup/deploy-identity-provider.md), [Hardening guidelines](reference/hardening.md), [Cryptography](explanation/cryptography.md)
+- __Workload management:__ [Deploy Slurm](howto/deploy/deploy-slurm.md), [Manage Slurm](howto/manage/manage-slurm.md), [Clean up Slurm](howto/cleanup/cleanup-slurm.md), [Grafana Dashboards](reference/monitoring/grafana.md) 
+- __Storage and Resources:__ [Deploy shared filesystem](howto/deploy/deploy-shared-filesystem.md), [GPUs](explanation/gpus.md), [GRES](reference/gpus.md), [Interconnects](explanation/interconnects.md)
+- __Security and Identity:__ [Deploy identity provider](howto/deploy/deploy-identity-provider.md), [Hardening guidelines](reference/hardening.md), [Cryptography](explanation/cryptography.md)
 - __Performance:__ [High availability](explanation/high-availability.md), [Benchmarks](reference/performance.md)
 
 ## How this documentation is organized
@@ -23,7 +23,7 @@ This documentation uses the [Diátaxis](https://diataxis.fr/) documentation stru
 
 * The [Tutorial](tutorial-getting-started-with-charmed-hpc) takes you step-by-step through building a small Charmed HPC cluster, submitting batch jobs, and using container images.
 
-* [How-to guides](howto/index) assume you have basic familiarity with Charmed HPC. They cover key operations for [setup](howto/setup/index.md), [integration](howto/integrate/index.md), [management](howto/manage/index.md), and [usage](howto/use/index.md).
+* [How-to guides](howto/index) assume you have basic familiarity with Charmed HPC. They cover key operations for [deploy](howto/deploy/index.md), [integration](howto/integrate/index.md), [management](howto/manage/index.md), and [usage](howto/run-workloads/index.md).
 
 * [Reference](reference/index) provides technical information such as [underlying projects and dependencies](reference/underlying-projects-and-dependencies.md), [monitoring](reference/monitoring/index.md), and [performance benchmarks](reference/performance.md).
 

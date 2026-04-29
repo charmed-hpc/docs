@@ -1,4 +1,4 @@
-(howto-setup-deploy-shared-filesystem)=
+(howto-deploy-deploy-shared-filesystem)=
 # How to deploy a shared filesystem
 
 Charmed HPC allows automatic integration with shared filesystems using the
@@ -18,7 +18,7 @@ cloud managed NFS server on the [`charmed-hpc-terraform`][hpc-tf] repository, wi
 
 ## Prerequisites
 
-- A [Slurm cluster](#howto-setup-deploy-slurm).
+- A [Slurm cluster](#howto-deploy-deploy-slurm).
 
 ## Deploy an external filesystem server
 

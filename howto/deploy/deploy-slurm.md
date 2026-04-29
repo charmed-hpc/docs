@@ -2,7 +2,7 @@
 relatedlinks: "[Slurm&#32;website](https://slurm.schedmd.com/overview.html), [Slurm&#32;charms&#32;repository](https://github.com/charmed-hpc/slurm-charms)"
 ---
 
-(howto-setup-deploy-slurm)=
+(howto-deploy-deploy-slurm)=
 # How to deploy Slurm
 
 This how-to guide shows you how to deploy the Slurm workload manager as the
@@ -182,7 +182,7 @@ Machine  State    Address       Inst id        Base          AZ  Message
 The `slurmctld` charm optionally supports [high availability (HA)](explanation-high-availability)
 through the native functionality provided by Slurm. This functionality requires a
 low-latency shared filesystem; follow the instructions in the
-[Deploy a shared filesystem](howto-setup-deploy-shared-filesystem) section to deploy a shared filesystem.
+[Deploy a shared filesystem](howto-deploy-deploy-shared-filesystem) section to deploy a shared filesystem.
 
 :::{admonition} Choosing a shared filesystem
 :class: warning
@@ -403,7 +403,7 @@ slurmd       up   infinite     10   idle slurmd-[0-9]
 
 Now that Slurm is deployed, you can deploy the shared filesystem of your Charmed HPC cluster:
 
-- {ref}`howto-setup-deploy-shared-filesystem`
+- {ref}`howto-deploy-deploy-shared-filesystem`
 
 You can also explore the {ref}`reference-glossary` for further information on {term}`sackd`,
 {term}`slurmctld`, {term}`slurmd`, {term}`slurmdbd`, {term}`slurmrestd`, and {term}`MySQL`
