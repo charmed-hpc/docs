@@ -6,11 +6,11 @@ argument-hint: 'Path to the landing page, or leave blank to update all landing p
 
 # Update Landing Pages
 
-Updates folder-level `index.md` landing pages to follow a consistent structure and style.
+Updates directory-level `index.md` landing pages to follow a consistent structure and style.
 
 ## Process
 
-1. **Read the landing page and its sibling content** — Understand the current structure of the `index.md` and read all content pages in the same folder (and subfolders).
+1. **Read the landing page and its sibling content** — Understand the current structure of the `index.md` and read all content pages in the same directory (and subdirectorys).
 2. **Assess whether changes are needed** — If the existing categories are functional and cover all relevant pages, do not restructure them. Only update descriptions, phrasing, or links as needed. Proceed to step 5.
 3. **Assess content pages for break-up** — Before determining categories, decide which pages should be broken into individual section links on the landing page (see break-up rules below). The resulting individual section links are treated as distinct items for the purposes of categorisation.
 4. **Determine categories** — Only if restructuring is necessary: group all items — whole pages and individual broken-out sections alike — by topic, technical domain, or function. Section links from a single page may be distributed across different categories if they belong to different logical groupings. For how-to pages, use action/verb titles (e.g. "Set up and deploy" not "Setup"). Avoid single-page categories unless the grouping is the best logical organisation. If a new page is being added, first check whether it fits an existing category before proposing restructuring. **Name categories to accommodate likely future content**, not just the current pages — choose titles that would still make sense if related pages were added later (e.g. "System architecture" rather than "Cluster components and architecture" to allow for architecture diagrams and descriptions). **Do not use a page's own title as its category heading** — if a category would contain only a glossary page, use a distinct label like "Terminology" instead of "Glossary".
@@ -21,7 +21,7 @@ Updates folder-level `index.md` landing pages to follow a consistent structure a
 
 ## Landing page structure
 
-Every folder-level landing page follows this structure:
+Every directory-level landing page follows this structure:
 
 ```
 # Page title
