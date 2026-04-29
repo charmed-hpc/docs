@@ -5,6 +5,7 @@ Charmed HPC is a modular composition of underlying projects and dependencies. Th
 projects, charms, integrations, libraries, packages, and deployment plans that drive and manage the
 operations of a Charmed HPC cluster.
 
+(reference-projects)=
 ## Projects
 
 The underlying projects that compose Charmed HPC can be divided into three categories.
@@ -65,6 +66,7 @@ catalogue-k8s, [Source](https://github.com/canonical/catalogue-k8s-operator), [I
 influxdb, [Source](https://code.launchpad.net/influxdb-charm), [Issue tracker](https://bugs.launchpad.net/influxdb-charm)
 :::
 
+(reference-charms)=
 ## Charms
 
 Charmed HPC is composed of both Machine and Kubernetes charms.

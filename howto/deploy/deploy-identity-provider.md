@@ -1,4 +1,4 @@
-(howto-setup-deploy-identity-provider)=
+(howto-deploy-deploy-identity-provider)=
 # How to deploy an identity provider
 
 An identity provider must be deployed and integrated with Charmed HPC to supply your cluster with
@@ -24,7 +24,7 @@ external LDAP server's configuration information to other charmed applications.
 
 ### Prerequisites
 
-- An active [Slurm deployment](#howto-setup-deploy-slurm) in your [`charmed-hpc` machine cloud](#howto-initialize-machine-cloud).
+- An active [Slurm deployment](#howto-deploy-deploy-slurm) in your [`charmed-hpc` machine cloud](#howto-initialize-machine-cloud).
 - The [Juju CLI client](https://documentation.ubuntu.com/juju/latest/user/howto/manage-juju/) installed on your machine.
 
 ### Deploy ldap-integrator and SSSD
@@ -488,7 +488,7 @@ SSSD will reactivate within a few minutes. You will see that the offer
 You can now use your external LDAP server as the identity provider for your Charmed HPC cluster.
 
 You can also start exploring the [Integrate](howto-integrate) section if you have
-completed the {ref}`howto-setup-deploy-shared-filesystem` how-to.
+completed the {ref}`howto-deploy-deploy-shared-filesystem` how-to.
 
 (identity-glauth-with-sssd)=
 ## GLAuth with SSSD
@@ -518,7 +518,7 @@ looking to deploy a production-grade Charmed HPC cluster instead.
 
 ### Prerequisites
 
-- An active [Slurm deployment](#howto-setup-deploy-slurm) in your [`charmed-hpc` machine cloud](#howto-initialize-machine-cloud).
+- An active [Slurm deployment](#howto-deploy-deploy-slurm) in your [`charmed-hpc` machine cloud](#howto-initialize-machine-cloud).
 - An initialized [`charmed-hpc-k8s` Kubernetes cloud](#howto-initialize-kubernetes-cloud).
 - The [Juju CLI client](https://documentation.ubuntu.com/juju/latest/user/howto/manage-juju/) installed on your machine.
 
@@ -792,4 +792,4 @@ Explore [GLAuth's Database documentation](https://glauth.github.io/docs/database
 on how to use SQL queries to manage your cluster's users and groups in your Postgres database.
 
 You can also start exploring the [Integrate](howto-integrate) section if you have
-completed the {ref}`howto-setup-deploy-shared-filesystem` how-to.
+completed the {ref}`howto-deploy-deploy-shared-filesystem` how-to.

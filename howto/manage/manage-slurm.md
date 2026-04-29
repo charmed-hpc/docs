@@ -57,7 +57,7 @@ module "slurmctld" {
 
 To migrate a previously deployed single {term}`slurmctld` unit to a [high availability (HA)](explanation-high-availability) setup, a low-latency shared file system must be integrated to enable sharing of controller data across all `slurmctld` units. For guidance on choosing and deploying a shared file system, see the following sections:
 
-* [How to deploy a shared filesystem](howto-setup-deploy-shared-filesystem)
+* [How to deploy a shared filesystem](howto-deploy-deploy-shared-filesystem)
 * [Shared `StateSaveLocation` using `filesystem-client` charm](explanation-slurmctld-high-availability-state-save-location)
 * [Deploying `slurmctld` in high availability](deploy-slurmctld-high-availability)
 
@@ -263,6 +263,7 @@ cluster is now restored to full service.
 
 ## Managing compute nodes and partitions
 
+(howto-manage-custom-node-config)=
 ### Apply custom configuration to specific compute nodes
 
 :::{admonition} Do you need a custom node configuration?
@@ -343,6 +344,7 @@ for further information on the parameters that can be passed to the `set-node-co
    ["Node configuration" section of Slurm's documentation {octicon}`link-external`](https://slurm.schedmd.com/slurm.conf.html#SECTION_NODE-CONFIGURATION).
 ::::
 
+(howto-manage-default-node-state)=
 ### Modify the default state and reason of new compute nodes
 
 Compute nodes start in the `down` state by default. The `default-node-state` option
@@ -374,6 +376,7 @@ See the [slurmd charm's configuration options on Charmhub {octicon}`link-externa
 for further information about the`default-node-state` and `default-node-reason`
 configuration options.
 
+(howto-manage-node-state)=
 ### Modify the state of compute nodes
 
 The `set-node-state` action can be run on any slurmctld unit to update the state
@@ -405,6 +408,7 @@ The following compute node states can be set using `set-node-state`:
 See the [slurmctld charm's actions on Charmhub {octicon}`link-external`](https://charmhub.io/slurmctld/actions)
 for further information on the parameters that can be passed to the `set-node-state` action.
 
+(howto-manage-scale-partitions)=
 ### Scale partitions
 
 Partitions in Charmed HPC are elastic. The number of compute nodes in a partition can

@@ -1,26 +1,17 @@
-# Integrate
+# Integrate with other tools
 
-See the how-to guides in this section for integrating Charmed HPC with other applications.
+Extend a Charmed HPC cluster by connecting it to external services for observability, container runtimes, and notifications.
 
-:::{admonition} Intended audience
-:class: note
+## Monitor and observe your cluster
 
-The how-to guides in this section are for system administrators and HPC engineers
-that are responsible for connecting clusters to other applications.
-:::
-
-## Observability
-
-These how-to guides provide instructions for integrating Charmed HPC with observability
-platforms such as the Canonical Observability Stack.
+Collect metrics, visualize dashboards, and aggregate logs using the Canonical Observability Stack or gather job performance data with InfluxDB.
 
 - {ref}`howto-manage-integrate-with-cos`
 - {ref}`howto-manage-integrate-with-influxdb`
 
-## User workload tools
+## Enable user workload tools
 
-These how-to guides provide instructions for integrating Charmed HPC with tools that
-support users' workloads in cluster environments.
+Add container runtime and email notification support to your cluster.
 
 - {ref}`howto-manage-integrate-with-apptainer`
 - {ref}`howto-integrate-email-notifications`

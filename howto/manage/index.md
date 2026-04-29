@@ -1,19 +1,20 @@
-# Manage
+# Manage your cluster
 
-See the how-to guides in this section for managing Charmed HPC after deployment.
+Administer a Charmed HPC cluster after initial deployment. These tasks cover both controller-level configuration and compute node operations.
 
-:::{admonition} Intended audience
-:class: note
+## Manage the Slurm controller
 
-The how-to guides in this section are for system administrators and HPC engineers
-that are responsible for managing cluster deployments.
-:::
+- {ref}`howto-manage-customize-job-email-name`
+- {ref}`howto-manage-single-slurmctld-to-high-availability`
+- {ref}`howto-manage-rotate-auth-key`
+- {ref}`howto-manage-rotate-jwt-key`
 
-## Configure the cluster
+## Manage compute nodes and partitions
 
-These how-to guides provide instructions for configuring an existing Charmed HPC cluster.
-
-- {ref}`howto-manage-slurm`
+- {ref}`howto-manage-custom-node-config`
+- {ref}`howto-manage-default-node-state`
+- {ref}`howto-manage-node-state`
+- {ref}`howto-manage-scale-partitions`
 
 :::{toctree}
 :titlesonly:

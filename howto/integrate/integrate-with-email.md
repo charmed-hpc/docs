@@ -13,7 +13,7 @@ of user job status changes on a Charmed HPC cluster.
 
 ## Prerequisites
 
-* A [deployed Slurm cluster](howto-setup-deploy-slurm).
+* A [deployed Slurm cluster](howto-deploy-deploy-slurm).
 * A pre-configured SMTP server.
 
 :::{admonition} `slurmdbd` must be deployed

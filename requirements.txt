@@ -30,6 +30,7 @@ watchfiles
 GitPython
 linkify-it-py
 sphinxcontrib-mermaid
+sphinxext-rediraffe
 
 # Vale dependencies
 rst2html

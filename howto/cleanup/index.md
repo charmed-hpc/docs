@@ -1,10 +1,9 @@
-# Cleanup
+# Clean up resources
 
-See the how-to guides in this section for the steps to remove previously deployed components of
-Charmed HPC, such as the Slurm workload manager and public cloud resources.
+Tear down a Charmed HPC deployment when it is no longer required.
 
-- {ref}`howto-cleanup-slurm`
-- {ref}`howto-cleanup-cloud-resources`
+- {ref}`Clean up Slurm <howto-cleanup-slurm>`
+- {ref}`Clean up cloud resources <howto-cleanup-cloud-resources>`
 
 :::{toctree}
 :titlesonly:
