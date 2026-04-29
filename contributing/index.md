@@ -4,13 +4,13 @@ Charmed HPC is an open source project of the [Ubuntu High-Performance Computing 
 
 ## Contributing to Charmed HPC's documentation
 
-For information on the prerequisites, submission processes, and contribution expectations for Charmed HPC's documentation:
+The prerequisites, submission processes, and contribution expectations for Charmed HPC's documentation.
 
 * {ref}`Contributing to documentation <contributing-to-docs>`
 
 ## Contributing to Charmed HPC's code
 
-For information on the contribution process, expectations, and various resources for Charmed HPC's code:
+The contribution process, expectations, and various resources for Charmed HPC's code.
 
 * {ref}`Contributing to code <contributing-to-code>`
 
