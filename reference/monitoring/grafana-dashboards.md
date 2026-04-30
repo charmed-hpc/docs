@@ -1,5 +1,8 @@
 ---
 relatedlinks: "[Grafana&#32;dashboards&#32;documentation](https://grafana.com/docs/grafana/latest/dashboards/)"
+myst:
+  html_meta:
+    description: Grafana dashboards provided by Charmed HPC, covering cluster, partition, node, MySQL, and Traefik metrics visualizations.
 ---
 
 (reference-monitoring-grafana-dashboards)=

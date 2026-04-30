@@ -1,3 +1,8 @@
+---
+myst:
+  html_meta:
+    description: Reference for Charmed HPC charms that expose Prometheus metrics, with upstream documentation links and queries for Prometheus and Grafana.
+---
 (reference-monitoring-prometheus-metrics)=
 # Prometheus metrics
 

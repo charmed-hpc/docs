@@ -1,3 +1,8 @@
+---
+myst:
+  html_meta:
+    description: Reference page for the Loki log queries for Charmed HPC charms, including slurmctld, slurmd, slurmdbd, MySQL, and GLAuth, and how to exclude unwanted log files.
+---
 (reference-monitoring-loki-logs)=
 # Loki logs
 
