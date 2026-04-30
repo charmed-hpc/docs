@@ -1,4 +1,4 @@
-(reference-monitoring-loki)=
+(reference-monitoring-loki-logs)=
 # Loki logs
 
 The following table lists all the charms used as part of Charmed HPC that expose logs to {term}`Loki`, and the
