@@ -1,3 +1,8 @@
+---
+myst:
+  html_meta:
+    description: Reference list of Prometheus alert rules provided by Charmed HPC charms, grouped by charm, with severity levels and trigger descriptions.
+---
 (reference-monitoring-prometheus-alerts)=
 # Prometheus alerts
 
@@ -55,7 +60,7 @@ The tables below provide the following information:
   - A partition has allocated more than 90% of its available CPU capacity.
   - warning
 * - `SlurmTooManyFailedDbdMessages`
-  - The Slurm controller's pending message queue to the Slurm database exceeded 5000 in the past minute.
+  - The amount of pending messages from the Slurm controller to the Slurm database exceeded 5000 in the past minute.
   - critical
 * - `SlurmNodesDrainingTooLong`
   - One or more compute nodes have been draining for more than 3 hours.
