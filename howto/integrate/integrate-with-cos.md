@@ -208,7 +208,7 @@ You can see the available dashboards by opening the sidebar menu and clicking on
 
 You can now use COS to monitor your Charmed HPC cluster.
 
-You can also start exploring the {ref}`reference-monitoring-grafana`,
-{ref}`reference-monitoring-loki`, and {ref}`reference-monitoring-prometheus`
+You can also start exploring the {ref}`reference-monitoring-grafana-dashboards`,
+{ref}`reference-monitoring-loki-logs`, and {ref}`reference-monitoring-prometheus-metrics`
 sections in the {ref}`reference-monitoring` section for an overview of all
 the metrics, logs, and dashboards that are provided by your Charmed HPC cluster.

@@ -1,7 +1,7 @@
-(reference-monitoring-prometheus)=
-# Prometheus metrics and alerts
+(reference-monitoring-prometheus-metrics)=
+# Prometheus metrics
 
-This is an overview of all the charms used in Charmed HPC that provide monitoring metrics and alerts
+This is an overview of all the charms used in Charmed HPC that provide monitoring metrics
 for {term}`Prometheus`, a metrics aggregator and alerts manager for applications.
 
 All metrics and alerts can be viewed from Prometheus or from the {term}`Grafana` web interface.

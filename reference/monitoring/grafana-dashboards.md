@@ -2,7 +2,7 @@
 relatedlinks: "[Grafana&#32;dashboards&#32;documentation](https://grafana.com/docs/grafana/latest/dashboards/)"
 ---
 
-(reference-monitoring-grafana)=
+(reference-monitoring-grafana-dashboards)=
 # Grafana dashboards
 
 This is an overview of all the charms used in Charmed HPC that provide dashboards for
