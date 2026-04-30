@@ -26,9 +26,10 @@ Security configurations, recommendations, and reference data for the components 
 
 Dashboards, metrics, and log queries available when COS is integrated with a Charmed HPC cluster.
 
-- {ref}`reference-monitoring-grafana`
-- {ref}`reference-monitoring-prometheus`
-- {ref}`reference-monitoring-loki`
+- {ref}`reference-monitoring-grafana-dashboards`
+- {ref}`reference-monitoring-loki-logs`
+- {ref}`reference-monitoring-prometheus-alerts`
+- {ref}`reference-monitoring-prometheus-metrics`
 
 ## Performance
 
