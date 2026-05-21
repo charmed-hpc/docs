@@ -1,4 +1,7 @@
 ---
+myst:
+  html_meta:
+    description: Instructions on how to deploy Slurm in a standalone or high-availability configuration with Juju.
 relatedlinks: "[Slurm&#32;website](https://slurm.schedmd.com/overview.html), [Slurm&#32;charms&#32;repository](https://github.com/charmed-hpc/slurm-charms)"
 ---
 
