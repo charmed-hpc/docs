@@ -54,7 +54,7 @@ resource "juju_integration" "sackd_to_slurmctld" {
 
   application {
     name     = module.slurmctld.app_name
-    endpoint = module.slurmctld.requires.login-node
+    endpoint = module.slurmctld.requires.sackd
   }
 }
 
