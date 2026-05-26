@@ -143,7 +143,7 @@ juju deploy slurmd tutorial-partition \
   --num-units 2 \
   --base "ubuntu@24.04" \
   --channel "edge" \
-  --config default-node-state=idle
+  --config default-node-state=idle \
   --constraints="virt-type=virtual-machine"
 
 juju deploy sackd \
