@@ -1,3 +1,9 @@
+---
+myst:
+  html_meta:
+    description: Instructions on how to use Juju to deploy and integrate an LDAP-based identity provider with SSSD to provide remote users to a Charmed HPC cluster.
+---
+
 (howto-deploy-deploy-identity-provider)=
 # How to deploy an identity provider
 
