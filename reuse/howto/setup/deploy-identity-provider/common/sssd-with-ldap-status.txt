@@ -19,13 +19,14 @@ slurmctld   23.11.4-1.2u...  active      1  slurmctld   latest/edge   95  no
 slurmd      23.11.4-1.2u...  active      1  slurmd      latest/edge  116  no
 slurmdbd    23.11.4-1.2u...  active      1  slurmdbd    latest/edge   87  no
 slurmrestd  23.11.4-1.2u...  active      1  slurmrestd  latest/edge   89  no
-sssd        2.9.4-1.1ubu...  active      2  sssd        latest/edge    6  no
+sssd        2.9.4-1.1ubu...  active      3  sssd        latest/edge    6  no
 
 Unit           Workload  Agent  Machine  Public address  Ports           Message
 mysql/0*       active    idle   3        10.175.90.111   3306,33060/tcp  Primary
 sackd/0*       active    idle   0        10.175.90.64
   sssd/1       active    idle            10.175.90.64
 slurmctld/0*   active    idle   4        10.175.90.100
+  sssd/2       active    idle            10.175.90.100
 slurmd/0*      active    idle   5        10.175.90.107
   sssd/0*      active    idle            10.175.90.107
 slurmdbd/0*    active    idle   2        10.175.90.105
