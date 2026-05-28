@@ -70,6 +70,8 @@ copyright = "%s CC-BY-SA, %s" % (datetime.date.today().year, author)
 # NOTE: The Open Graph Protocol (OGP) enhances page display in a social graph
 #       and is used by social media platforms; see https://ogp.me/
 
+version = f"{os.environ.get('READTHEDOCS_VERSION', 'local')}"
+
 ogp_site_url = f"https://ubuntu.com/hpc/docs/{version}/"
 
 
@@ -185,8 +187,6 @@ slug = 'hpc/docs'
 #######################
 
 # Use RTD canonical URL to ensure duplicate pages have a specific canonical URL
-
-version = f"{os.environ.get('READTHEDOCS_VERSION', 'local')}"
 
 html_baseurl = f"https://ubuntu.com/hpc/docs/{version}/"
 
