@@ -28,7 +28,7 @@ data "juju_application" "slurmd" {
 }
 
 module "sssd" {
-  source     = "git::https://github.com/canonical/sssd-operator//terraform"
+  source     = "git::https://github.com/charmed-hpc/sssd-operator//terraform"
   model_uuid = data.juju_model.slurm.uuid
 }
 
@@ -36,7 +36,7 @@ resource "juju_integration" "sssd_to_sackd" {
   model_uuid = data.juju_model.slurm.uuid
 
   application {
-    name = module.sssd.app_name
+    name = module.sssd.application.name
   }
 
   application {
@@ -48,7 +48,7 @@ resource "juju_integration" "sssd_to_slurmctld" {
   model_uuid = data.juju_model.slurm.uuid
 
   application {
-    name = module.sssd.app_name
+    name = module.sssd.application.name
   }
 
   application {
@@ -60,7 +60,7 @@ resource "juju_integration" "sssd_to_slurmd" {
   model_uuid = data.juju_model.slurm.uuid
 
   application {
-    name = module.sssd.app_name
+    name = module.sssd.application.name
   }
 
   application {

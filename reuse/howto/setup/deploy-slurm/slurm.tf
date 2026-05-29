@@ -48,12 +48,12 @@ resource "juju_integration" "sackd_to_slurmctld" {
   model_uuid = juju_model.slurm.uuid
 
   application {
-    name     = module.sackd.app_name
+    name     = module.sackd.application.name
     endpoint = module.sackd.provides.slurmctld
   }
 
   application {
-    name     = module.slurmctld.app_name
+    name     = module.slurmctld.application.name
     endpoint = module.slurmctld.requires.sackd
   }
 }
@@ -62,12 +62,12 @@ resource "juju_integration" "slurmd_to_slurmctld" {
   model_uuid = juju_model.slurm.uuid
 
   application {
-    name     = module.slurmd.app_name
+    name     = module.slurmd.application.name
     endpoint = module.slurmd.provides.slurmctld
   }
 
   application {
-    name     = module.slurmctld.app_name
+    name     = module.slurmctld.application.name
     endpoint = module.slurmctld.requires.slurmd
   }
 }
@@ -76,12 +76,12 @@ resource "juju_integration" "slurmdbd_to_slurmctld" {
   model_uuid = juju_model.slurm.uuid
 
   application {
-    name     = module.slurmdbd.app_name
+    name     = module.slurmdbd.application.name
     endpoint = module.slurmdbd.provides.slurmctld
   }
 
   application {
-    name     = module.slurmctld.app_name
+    name     = module.slurmctld.application.name
     endpoint = module.slurmctld.requires.slurmdbd
   }
 }
@@ -90,12 +90,12 @@ resource "juju_integration" "slurmrestd_to_slurmctld" {
   model_uuid = juju_model.slurm.uuid
 
   application {
-    name     = module.slurmrestd.app_name
+    name     = module.slurmrestd.application.name
     endpoint = module.slurmrestd.provides.slurmctld
   }
 
   application {
-    name     = module.slurmctld.app_name
+    name     = module.slurmctld.application.name
     endpoint = module.slurmctld.requires.slurmrestd
   }
 }
@@ -109,7 +109,7 @@ resource "juju_integration" "slurmdbd_to_mysql" {
   }
 
   application {
-    name     = module.slurmdbd.app_name
+    name     = module.slurmdbd.application.name
     endpoint = module.slurmdbd.requires.database
   }
 }
