@@ -7,12 +7,12 @@ resource "juju_integration" "provider_to_filesystem" {
   model_uuid = juju_model.slurm.uuid
 
   application {
-    name     = module.[filesystem-provider].app_name
+    name     = module.[filesystem-provider].application.name
     endpoint = module.[filesystem-provider].provides.filesystem
   }
 
   application {
-    name     = module.filesystem-client.app_name
+    name     = module.filesystem-client.application.name
     endpoint = module.filesystem-client.requires.filesystem
   }
 }
@@ -27,12 +27,12 @@ resource "juju_integration" "filesystem-to-slurmctld" {
   model_uuid = juju_model.slurm.uuid
 
   application {
-    name     = module.slurmctld.app_name
+    name     = module.slurmctld.application.name
     endpoint = module.slurmctld.provides.mount
   }
 
   application {
-    name     = module.filesystem-client.app_name
+    name     = module.filesystem-client.application.name
     endpoint = module.filesystem-client.requires.mount
   }
 }

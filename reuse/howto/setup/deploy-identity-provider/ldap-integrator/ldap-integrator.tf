@@ -34,11 +34,11 @@ module "ldap_integrator" {
     urls          = "ldap://10.214.237.229"
   }
 
-  channel = "latest/edge"
+  channel = "latest/stable"
 }
 
 resource "juju_access_secret" "grant_external_ldap_password_secret" {
-  applications = [module.ldap_integrator.app_name]
+  applications = [module.ldap_integrator.application.name]
   model_uuid   = juju_model.identity.uuid
   secret_id    = juju_secret.external_ldap_password.secret_id
 }
