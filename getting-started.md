@@ -169,11 +169,11 @@ Next, use `juju deploy`{l=shell} to deploy the filesystem pieces, which are:
 
 :::{code-block} shell
 juju deploy microceph \
-  --channel latest/edge \
+  --channel squid/stable \
   --constraints="virt-type=virtual-machine mem=4G root-disk=20G"
 
 juju deploy ceph-fs \
-  --channel latest/edge
+  --channel squid/stable
 
 juju deploy filesystem-client scratch \
   --channel latest/edge \
@@ -209,13 +209,13 @@ juju status
 Model  Controller              Cloud/Region         Version  SLA          Timestamp
 slurm  charmed-hpc-controller  localhost/localhost  3.6.9    unsupported  10:53:50-04:00
 
-App                 Version          Status  Scale  Charm              Channel      Rev  Exposed  Message
-ceph-fs             19.2.1           active      1  ceph-fs            latest/edge  196  no       Unit is ready
-scratch                              active      3  filesystem-client  latest/edge   20  no       Integrated with `cephfs` provider
-microceph                            active      1  microceph          latest/edge  159  no       (workload) charm is ready
-sackd               23.11.4-1.2u...  active      1  sackd              latest/edge   38  no
-slurmctld           23.11.4-1.2u...  active      1  slurmctld          latest/edge  120  no       primary - UP
-tutorial-partition  23.11.4-1.2u...  active      2  slurmd             latest/edge  141  no
+App                 Version          Status  Scale  Charm              Channel        Rev  Exposed  Message
+ceph-fs             19.2.1           active      1  ceph-fs            squid/stable   300  no       Unit is ready
+scratch                              active      3  filesystem-client  latest/edge     20  no       Integrated with `cephfs` provider
+microceph                            active      1  microceph          squid/stable   242  no       (workload) charm is ready
+sackd               23.11.4-1.2u...  active      1  sackd              latest/edge     38  no
+slurmctld           23.11.4-1.2u...  active      1  slurmctld          latest/edge    120  no       primary - UP
+tutorial-partition  23.11.4-1.2u...  active      2  slurmd             latest/edge    141  no
 
 Unit                   Workload  Agent  Machine  Public address  Ports          Message
 ceph-fs/0*             active    idle   5        10.248.240.129                 Unit is ready
@@ -372,9 +372,9 @@ slurm  charmed-hpc-controller  localhost/localhost  3.6.9    unsupported  17:34:
 
 App                 Version          Status  Scale  Charm              Channel        Rev  Exposed  Message
 apptainer           1.4.2            active      3  apptainer          latest/stable    6  no
-ceph-fs             19.2.1           active      1  ceph-fs            latest/edge    196  no       Unit is ready
+ceph-fs             19.2.1           active      1  ceph-fs            squid/stable   300  no       Unit is ready
 scratch                              active      3  filesystem-client  latest/edge     20  no       Integrated with `cephfs` provider
-microceph                            active      1  microceph          latest/edge    161  no       (workload) charm is ready
+microceph                            active      1  microceph          squid/stable   242  no       (workload) charm is ready
 sackd               23.11.4-1.2u...  active      1  sackd              latest/edge     38  no
 slurmctld           23.11.4-1.2u...  active      1  slurmctld          latest/edge    120  no       primary - UP
 tutorial-partition  23.11.4-1.2u...  active      2  slurmd             latest/edge    141  no
