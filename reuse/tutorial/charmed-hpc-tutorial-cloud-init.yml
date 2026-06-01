@@ -11,7 +11,7 @@ package_upgrade: true
 snap:
   commands:
     00: snap install juju --channel=3/stable
-    01: snap install lxd --channel=6/stable
+    01: snap install lxd --channel=5.21/stable
 
 # Configure and initialize prerequisites
 lxd:
