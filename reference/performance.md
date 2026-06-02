@@ -34,7 +34,7 @@ Collective performance is measured with the OSU `osu_alltoall` and `osu_allreduc
 All performance tests run under the following base software:
 
 * Juju 3.6.3
-* Ubuntu 24.04
+* Ubuntu 24.04 LTS
 * ReFrame 4.7.4
 
 on a Charmed HPC cluster deployed on Microsoft Azure, with the following specifications:
