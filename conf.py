@@ -70,7 +70,9 @@ copyright = "%s CC-BY-SA, %s" % (datetime.date.today().year, author)
 # NOTE: The Open Graph Protocol (OGP) enhances page display in a social graph
 #       and is used by social media platforms; see https://ogp.me/
 
-ogp_site_url = "https://documentation.ubuntu.com/charmed-hpc/latest/"
+version = f"{os.environ.get('READTHEDOCS_VERSION', 'local')}"
+
+ogp_site_url = f"https://ubuntu.com/hpc/docs/{version}/"
 
 
 # Preview name of the documentation website
@@ -176,7 +178,9 @@ html_theme_options = {
 # TODO: If your documentation is hosted on https://docs.ubuntu.com/,
 #       uncomment and update as needed.
 
-slug = 'charmed-hpc'
+
+
+slug = 'hpc/docs'
 
 #######################
 # Sitemap configuration: https://sphinx-sitemap.readthedocs.io/
@@ -184,7 +188,9 @@ slug = 'charmed-hpc'
 
 # Use RTD canonical URL to ensure duplicate pages have a specific canonical URL
 
-html_baseurl = os.environ.get("READTHEDOCS_CANONICAL_URL", "/")
+html_baseurl = f"https://ubuntu.com/hpc/docs/{version}/"
+
+
 
 # sphinx-sitemap uses html_baseurl to generate the full URL for each page:
 
@@ -209,7 +215,7 @@ sitemap_excludes = [
 # Template and asset locations
 #######################
 
-html_static_path = [".sphinx/_static"]
+html_static_path = ["_static"]
 templates_path = [".sphinx/_templates"]
 
 
@@ -318,9 +324,10 @@ html_css_files = [
     "cookie-banner.css",
 ]
 
-# Add JavaScript files (located in .sphinx/_static/)
+# Add JavaScript files (located in _static/)
 html_js_files = [
-    "bundle.js",
+    "js/bundle.js",
+    "js/overwrite_links.js"
 ]
 
 
