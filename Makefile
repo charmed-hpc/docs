@@ -70,7 +70,7 @@ pa11y-install:
 	@command -v $(PA11Y) >/dev/null || { \
 			echo "Installing \"pa11y\" from npm..."; echo; \
 			mkdir -p $(SPHINXDIR)/node_modules/ ; \
-			npm install --prefix $(SPHINXDIR) pa11y; \
+			npm install --prefix $(SPHINXDIR) pa11y proxy-agent; \
 		}
 
 pymarkdownlnt-install: install

@@ -313,6 +313,8 @@ exclude_patterns = [
     "CONTRIBUTING.md",
     "README.md",
     ".github/*",
+    "node_modules/**",
+    ".sphinx/node_modules/**",
 ]
 
 # Exclude filters
